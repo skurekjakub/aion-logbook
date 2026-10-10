@@ -38,6 +38,11 @@ export interface RoadmapItem {
 export interface AccountRoadmap {
   /** The snapshot it is ranked against, or `null` when none is loaded. */
   snapshotId: string | null;
+  /**
+   * The snapshot the curated items were ranked against: `snapshotId` itself,
+   * an older one, or `null` when no snapshot up to it has curated items.
+   */
+  curatedFrom: string | null;
   /** Its items, by rank: the derived ones, then the curated ones. */
   items: RoadmapItem[];
 }
@@ -104,9 +109,13 @@ function skillItems(
 }
 
 /**
- * Lists the build's stigma slots open at the snapshot's level that are
- * empty or hold another stigma, all due now. A slot the snapshot didn't
- * read is skipped.
+ * Compares the stigmas the build wants in the slots open at the snapshot's
+ * level with the stigmas slotted, as sets, since a slot's position isn't
+ * readable: each wanted stigma not slotted is paired, in slot order, with
+ * a slotted one the build doesn't want (`Swap Y for X`), or slotted into
+ * a free slot when none is left over (`Slot X`); a wanted stigma the
+ * snapshot's skills don't hold is acquired first. All are due now; a
+ * snapshot that read no slot gives none.
  *
  * @param snapshot - the snapshot
  * @param build - the build it follows
@@ -118,19 +127,28 @@ function stigmaItems(
   build: BuildView,
   refs: RoadmapItem["refs"],
 ): Unranked[] {
-  return [...build.stigmas]
+  if (snapshot.stigmas.length === 0) return [];
+  const wanted = [...build.stigmas]
     .sort((a, b) => a.slotLevel - b.slotLevel)
-    .filter((want) => want.slotLevel <= snapshot.level)
-    .flatMap((want): Unranked[] => {
-      const slot = snapshot.stigmas.find((s) => s.slotLevel === want.slotLevel);
-      if (!slot || slot.skillId === want.skill.id) return [];
-      const where = `(slot ${want.slotLevel})`;
-      const action =
-        slot.name === null
-          ? `Slot ${want.skill.name} ${where}`
-          : `Swap ${slot.name} for ${want.skill.name} ${where}`;
-      return [{ priority: "now", area: "stigmas", action, why: want.why, refs, derived: true }];
-    });
+    .filter((want) => want.slotLevel <= snapshot.level);
+  const slotted = [...snapshot.stigmas]
+    .sort((a, b) => a.slotLevel - b.slotLevel)
+    .filter((slot) => slot.name !== null);
+  const missing = wanted.filter((want) => !slotted.some((s) => s.skillId === want.skill.id));
+  const spare = slotted.filter((slot) => !wanted.some((w) => w.skill.id === slot.skillId));
+  return missing.map((want, i): Unranked => {
+    const out = spare[i]?.name;
+    const owned = snapshot.skills.some((s) => s.skillId === want.skill.id);
+    const name = want.skill.name;
+    const action = owned
+      ? out
+        ? `Swap ${out} for ${name}`
+        : `Slot ${name}`
+      : out
+        ? `Acquire ${name}, then swap it for ${out}`
+        : `Acquire ${name}`;
+    return { priority: "now", area: "stigmas", action, why: want.why, refs, derived: true };
+  });
 }
 
 /**
@@ -195,8 +213,12 @@ export function deriveRoadmap(
 
 /**
  * Builds a {@link RoadmapService}. The curated items come from the latest
- * snapshot, up to the one ranked against, that has any; one whose action
- * a derived item already names is dropped.
+ * snapshot, up to the one ranked against, that has any. When they were
+ * ranked against that very snapshot, they win every area they cover and
+ * the derived items fill only the areas they leave; when they come from
+ * an older snapshot, every derived item stays and a curated item whose
+ * action a derived item already names is dropped. Curated items follow
+ * the derived ones.
  *
  * @param store - the store to read curated items through
  * @param account - the account service, for the snapshot
@@ -212,14 +234,21 @@ export function createRoadmapService(
     /** @inheritdoc */
     roadmap: (choice = {}) => {
       const { snapshot, snapshots } = account.overview(choice);
-      if (!snapshot) return { snapshotId: null, items: [] };
-      const derived = deriveRoadmap(snapshot, builds.list({ class: snapshot.class }));
-      const named = new Set(derived.map((item) => item.action));
+      if (!snapshot) return { snapshotId: null, curatedFrom: null, items: [] };
       let curated: AccountRoadmapItemRow[] = [];
+      let curatedFrom: string | null = null;
       for (const entry of snapshots.filter((e) => e.id <= snapshot.id).reverse()) {
         curated = store.repos.account.roadmap(entry.id);
-        if (curated.length > 0) break;
+        if (curated.length > 0) {
+          curatedFrom = entry.id;
+          break;
+        }
       }
+      const covered = new Set(curatedFrom === snapshot.id ? curated.map((row) => row.area) : []);
+      const derived = deriveRoadmap(snapshot, builds.list({ class: snapshot.class }))
+        .filter((item) => !covered.has(item.area))
+        .map((item, i) => ({ ...item, rank: i + 1 }));
+      const named = new Set(derived.map((item) => item.action));
       const items = [
         ...derived,
         ...curated
@@ -234,7 +263,7 @@ export function createRoadmapService(
             derived: false,
           })),
       ];
-      return { snapshotId: snapshot.id, items };
+      return { snapshotId: snapshot.id, curatedFrom, items };
     },
   };
 }

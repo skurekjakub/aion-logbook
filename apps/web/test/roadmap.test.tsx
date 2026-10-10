@@ -51,6 +51,7 @@ describe("the derived roadmap", () => {
     // Arrange
     const older = {
       snapshotId: "2026-10-01",
+      curatedFrom: null,
       items: [{ ...ROADMAP.items[0], action: "Ruinous Blow 5 → 10" }],
     };
     const api = {
@@ -65,9 +66,28 @@ describe("the derived roadmap", () => {
     expect(await screen.findByText("Ruinous Blow 5 → 10")).toBeInTheDocument();
   });
 
+  it("marks curated items stale when they were ranked against an older snapshot", async () => {
+    // Arrange
+    const api = {
+      "/api/account/roadmap": { body: { ...ROADMAP, snapshotId: "2026-10-09" } },
+    };
+
+    // Act
+    await renderRoute("/account", api);
+
+    // Assert
+    const curated = await row("Slot a stigma at 27");
+    expect(within(curated).getByText("stale")).toHaveClass("pill");
+    expect(
+      within(curated).getByTitle("Curated against the 2026-10-07 snapshot"),
+    ).toBeInTheDocument();
+    expect(within(await row("Ruinous Blow 8 → 10")).getByText("auto")).toBeInTheDocument();
+  });
+
   it("says so when the roadmap has no items", async () => {
     // Arrange
-    const api = { "/api/account/roadmap": { body: { snapshotId: "2026-10-07", items: [] } } };
+    const empty = { snapshotId: "2026-10-07", curatedFrom: null, items: [] };
+    const api = { "/api/account/roadmap": { body: empty } };
 
     // Act
     await renderRoute("/account", api);

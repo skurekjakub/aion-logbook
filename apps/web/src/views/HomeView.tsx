@@ -72,9 +72,9 @@ function HomeNext() {
         </Link>
       </div>
       <QueryResult query={roadmap} resource="roadmap">
-        {({ items }) =>
-          items.some((item) => DUE.includes(item.priority)) ? (
-            <AccountRoadmap items={items} priorities={DUE} />
+        {(data) =>
+          data.items.some((item) => DUE.includes(item.priority)) ? (
+            <AccountRoadmap roadmap={data} priorities={DUE} />
           ) : (
             <EmptyState>Nothing due now or next.</EmptyState>
           )

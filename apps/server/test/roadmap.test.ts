@@ -46,6 +46,15 @@ const GUARD = skill("light-of-protection", "Light of Protection");
 const PUNISH = skill("earth-punishment", "Earth Punishment");
 const AURA = skill("noble-aura", "Noble Aura");
 const PRAYER = skill("prayer-of-amplification", "Prayer of Amplification");
+const DOOM = skill("voice-of-doom", "Voice of Doom");
+
+/** The leveling build's stigma per slot, as record 001 has it. */
+const BUILD_STIGMAS = [
+  { slotLevel: 22, why: "Guard why.", skill: GUARD },
+  { slotLevel: 27, why: "Punish why.", skill: PUNISH },
+  { slotLevel: 32, why: "Aura why.", skill: AURA },
+  { slotLevel: 37, why: "Prayer why.", skill: PRAYER },
+];
 
 /**
  * Builds a macro chain of a build.
@@ -189,15 +198,32 @@ describe("deriveRoadmap", () => {
     expect(items).toEqual([]);
   });
 
-  it("flags an open stigma slot that is empty or holds another stigma, now", () => {
+  it("compares stigmas as sets, whatever slot each sits in: one swap per stigma out of place", () => {
     // Arrange
-    const stigmas = [
-      { slotLevel: 22, why: "Guard why.", skill: GUARD },
-      { slotLevel: 27, why: "Punish why.", skill: PUNISH },
-      { slotLevel: 32, why: "Aura why.", skill: AURA },
-      { slotLevel: 37, why: "Prayer why.", skill: PRAYER },
-    ];
     const current = snapshot({
+      level: 38,
+      skills: [read(GUARD, 1), read(PRAYER, 3), read(PUNISH, 4), read(DOOM, 0), read(AURA, 6)],
+      stigmas: [
+        { slotLevel: 22, name: PRAYER.name, skillId: PRAYER.id },
+        { slotLevel: 27, name: PUNISH.name, skillId: PUNISH.id },
+        { slotLevel: 32, name: AURA.name, skillId: AURA.id },
+        { slotLevel: 37, name: DOOM.name, skillId: DOOM.id },
+      ],
+    });
+
+    // Act
+    const items = deriveRoadmap(current, [build({ stigmas: BUILD_STIGMAS })]);
+
+    // Assert
+    expect(items.map((i) => [i.priority, i.area, i.action, i.why])).toEqual([
+      ["now", "stigmas", "Swap Voice of Doom for Light of Protection", "Guard why."],
+    ]);
+  });
+
+  it("slots a wanted stigma into an empty open slot, and asks to acquire one not owned", () => {
+    // Arrange
+    const current = snapshot({
+      skills: [read(PRAYER, 3), read(PUNISH, 4), read(AURA, 6)],
       stigmas: [
         { slotLevel: 22, name: PRAYER.name, skillId: PRAYER.id },
         { slotLevel: 27, name: PUNISH.name, skillId: PUNISH.id },
@@ -207,18 +233,24 @@ describe("deriveRoadmap", () => {
     });
 
     // Act
-    const items = deriveRoadmap(current, [build({ stigmas })]);
+    const items = deriveRoadmap(current, [build({ stigmas: BUILD_STIGMAS })]);
 
     // Assert
-    expect(items.map((i) => [i.priority, i.area, i.action, i.why])).toEqual([
-      [
-        "now",
-        "stigmas",
-        "Swap Prayer of Amplification for Light of Protection (slot 22)",
-        "Guard why.",
-      ],
-      ["now", "stigmas", "Slot Noble Aura (slot 32)", "Aura why."],
+    expect(items.map((i) => i.action)).toEqual([
+      "Acquire Light of Protection, then swap it for Prayer of Amplification",
+      "Slot Noble Aura",
     ]);
+  });
+
+  it("skips stigmas when the snapshot read no slot", () => {
+    // Arrange
+    const current = snapshot({ skills: [read(PRAYER, 3)] });
+
+    // Act
+    const items = deriveRoadmap(current, [build({ stigmas: BUILD_STIGMAS })]);
+
+    // Assert
+    expect(items).toEqual([]);
   });
 
   it("lists a missing or differing macro chain next, and an unbound matching one", () => {
@@ -289,10 +321,10 @@ describe("GET /api/account/roadmap", () => {
     const res = await app.request("/api/account/roadmap");
 
     // Assert
-    expect(await res.json()).toEqual({ snapshotId: null, items: [] });
+    expect(await res.json()).toEqual({ snapshotId: null, curatedFrom: null, items: [] });
   });
 
-  it("derives items from the latest snapshot and the build, then merges the curated ones", async () => {
+  it("lets a curated file ranked against the snapshot win each area it covers, derived filling the rest", async () => {
     // Arrange
     const store = storeWithSkills();
     importAccount(store, ACCOUNT, { all: true });
@@ -304,18 +336,10 @@ describe("GET /api/account/roadmap", () => {
     // Assert
     expect(got).toEqual({
       snapshotId: "2026-10-07",
+      curatedFrom: "2026-10-07",
       items: [
         {
           rank: 1,
-          priority: "now",
-          area: "skills",
-          action: "Ruinous Blow 8 → 10",
-          why: "Opener.",
-          refs: [{ record: "900-fixture", id: "gladiator-leveling" }],
-          derived: true,
-        },
-        {
-          rank: 2,
           priority: "next",
           area: "macro",
           action: "Rebuild Opener as Main",
@@ -324,7 +348,7 @@ describe("GET /api/account/roadmap", () => {
           derived: true,
         },
         {
-          rank: 3,
+          rank: 2,
           priority: "now",
           area: "skills",
           action: "Level Ruinous Blow to 10",
@@ -333,7 +357,7 @@ describe("GET /api/account/roadmap", () => {
           derived: false,
         },
         {
-          rank: 4,
+          rank: 3,
           priority: "later",
           area: "stigmas",
           action: "Slot a stigma at 27",
@@ -345,7 +369,7 @@ describe("GET /api/account/roadmap", () => {
     });
   });
 
-  it("keeps the curated items of the latest snapshot that has some, dropping a derived duplicate", async () => {
+  it("merges an older snapshot's curated items after every derived one, dropping a duplicate", async () => {
     // Arrange
     const store = storeWithSkills();
     importAccount(store, ACCOUNT, { all: true });
@@ -379,6 +403,7 @@ describe("GET /api/account/roadmap", () => {
 
     // Assert
     expect(got.snapshotId).toBe("2026-10-09");
+    expect(got.curatedFrom).toBe("2026-10-07");
     expect(got.items.map((i) => [i.action, i.derived])).toEqual([
       ["Ruinous Blow 8 → 10", true],
       ["Build the Main macro", true],
@@ -402,6 +427,7 @@ describe("GET /api/account/roadmap", () => {
     // Assert
     expect(older).toEqual({
       snapshotId: "2026-10-01",
+      curatedFrom: null,
       items: [
         expect.objectContaining({ action: "Ruinous Blow 5 → 10", derived: true }),
         expect.objectContaining({ action: "Build the Main macro", derived: true }),

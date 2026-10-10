@@ -163,6 +163,7 @@ export const NO_ACCOUNT = { snapshots: [], snapshot: null } satisfies AccountOve
  */
 export const ROADMAP = {
   snapshotId: "2026-10-07",
+  curatedFrom: "2026-10-07",
   items: [
     {
       rank: 1,

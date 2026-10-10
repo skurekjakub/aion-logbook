@@ -220,8 +220,12 @@ function RoadmapSection({ snapshot }: { snapshot: string | undefined }) {
     <section className="acct-section" aria-labelledby="acct-roadmap">
       <h3 id="acct-roadmap">Roadmap</h3>
       <QueryResult query={roadmap} resource="roadmap">
-        {({ items }) =>
-          items.length ? <AccountRoadmap items={items} /> : <EmptyState>No roadmap yet.</EmptyState>
+        {(data) =>
+          data.items.length ? (
+            <AccountRoadmap roadmap={data} />
+          ) : (
+            <EmptyState>No roadmap yet.</EmptyState>
+          )
         }
       </QueryResult>
     </section>
