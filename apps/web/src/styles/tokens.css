@@ -1,47 +1,60 @@
-/* Design tokens. Components read only these; each theme block redefines them. */
+/* Design tokens. Components read only these; each theme block redefines them.
+   docs/design/2026-10-10-aion-look.md gives each colour's meaning and the client screenshot it was
+   sampled from: --accent (aether cyan) selects, --gold levels, --glow marks the active tab. */
 :root{
-  --bg:#eef4f2; --surface:#fbfdfc; --surface-2:#e2ecea; --line:#c9d9d6;
-  --ink:#10302f; --ink-2:#3d5957; --ink-3:#6a8482;
-  --accent:#0e7a7e; --accent-ink:#ffffff; --accent-soft:#d3ebea;
-  --candy:#f07a1a; --candy-soft:#fde6d2; --candy-ink:#8a3d00;
-  --good:#1f7a3a; --warn:#9a6400; --bad:#b3261e;
+  /* light: parchment of Atreia */
+  --bg:#eceae3; --surface:#f8f7f2; --surface-2:#e2e0d7; --line:#cdc9bd;
+  --ink:#1d2029; --ink-2:#474c58; --ink-3:#5c606a;
+  --accent:#086a7e; --accent-ink:#ffffff; --accent-soft:#d3e8eb;
+  --gold:#7d5800; --gold-soft:#f1e1b3; --gold-ink:#5e4200;
+  /* on vellum light can't glow, so the core is the deepest point */
+  --glow:#5a7fe0; --glow-hi:#1f3fa8;
+  --good:#276d17; --warn:#a14f00; --bad:#b3232b;
   /* verdict tints: a badge's or a row's background behind --good/--warn/--bad text */
-  --good-soft:#dcf0e2; --warn-soft:#f7ecd4; --bad-soft:#f8dfdc;
+  --good-soft:#dcecd3; --warn-soft:#f4e2cc; --bad-soft:#f5d9d8;
   /* skill kinds, for the skill chip's badge */
-  --k-active:#2a78d6; --k-passive:#3b9147; --k-stigma:#6c4fb0;
+  --k-active:#4467c9; --k-passive:#1a7a34; --k-stigma:#94377f;
   /* categorical series, fixed order (validated: dataviz validate_palette.js, light + dark) */
   --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4; --s0:#7f8f8d;
-  --radius:10px; --radius-s:6px;
+  --radius:6px; --radius-s:3px;
   /* type scale (px, on a 14px body) and spacing steps */
-  --fs-2xs:11px; --fs-xs:12px; --fs-s:13px; --fs-base:14px; --fs-m:15px; --fs-l:18px; --fs-xl:21px; --fs-2xl:26px;
+  --fs-2xs:11px; --fs-xs:12px; --fs-s:13px; --fs-base:14px; --fs-m:16px; --fs-l:18px; --fs-xl:24px; --fs-2xl:36px;
   --sp-1:4px; --sp-2:6px; --sp-3:10px; --sp-4:16px; --sp-5:24px; --sp-6:32px;
   /* shell: the sidebar's width and the phone top bar's height */
-  --nav-w:208px; --bar-h:48px;
-  --display:"IBM Plex Sans",system-ui,sans-serif;
-  --body:"IBM Plex Sans",system-ui,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --nav-w:216px; --bar-h:52px;
+  /* the tab glow, built from --glow and --glow-hi so every theme gets its own: the crescent along a
+     tab's foot (x) or a tree line (y), the bloom around it, the wash it throws on its label */
+  --glow-line-x:linear-gradient(90deg,transparent,var(--glow) 22%,var(--glow-hi) 50%,var(--glow) 78%,transparent);
+  --glow-line-y:linear-gradient(180deg,transparent,var(--glow) 22%,var(--glow-hi) 50%,var(--glow) 78%,transparent);
+  --glow-bloom:0 0 10px 1px color-mix(in srgb,var(--glow) 55%,transparent);
+  --glow-wash:linear-gradient(90deg,color-mix(in srgb,var(--glow) 16%,transparent),transparent 85%);
+  --display:"Marcellus","Optima","Candara",serif;
+  --body:"Fira Sans","Segoe UI",system-ui,sans-serif;
+  --mono:ui-monospace,"Cascadia Mono",Consolas,monospace;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     color-scheme:dark;
-    --bg:#0c1a1b; --surface:#132628; --surface-2:#1a3234; --line:#2a4648;
-    --ink:#e4f1ef; --ink-2:#a9c2bf; --ink-3:#7b9794;
-    --accent:#4fb8bb; --accent-ink:#06201f; --accent-soft:#173f41;
-    --candy:#ff9a45; --candy-soft:#3a2614; --candy-ink:#ffc48f;
-    --good:#5cc27a; --warn:#e0a53a; --bad:#ff7a6e;
-    --good-soft:#163524; --warn-soft:#352a12; --bad-soft:#3d1d1b;
-    --k-active:#4a90e8; --k-passive:#55ad62; --k-stigma:#8f74d6;
+    --bg:#12151a; --surface:#1d2029; --surface-2:#262b37; --line:#343a47;
+    --ink:#e9ecf1; --ink-2:#b0b7c4; --ink-3:#8a92a1;
+    --accent:#3fd8ea; --accent-ink:#0b1a1f; --accent-soft:#163640;
+    --gold:#f2c230; --gold-soft:#3a3117; --gold-ink:#ffd968;
+    --glow:#8ba7ee; --glow-hi:#d6e6ff;
+    --good:#6bd04a; --warn:#ffa23a; --bad:#ff6b6f;
+    --good-soft:#1c3318; --warn-soft:#3a2a14; --bad-soft:#3d1c20;
+    --k-active:#8ba7ee; --k-passive:#2fbf55; --k-stigma:#c866b4;
     --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s0:#8aa09d;
   }
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --bg:#0c1a1b; --surface:#132628; --surface-2:#1a3234; --line:#2a4648;
-  --ink:#e4f1ef; --ink-2:#a9c2bf; --ink-3:#7b9794;
-  --accent:#4fb8bb; --accent-ink:#06201f; --accent-soft:#173f41;
-  --candy:#ff9a45; --candy-soft:#3a2614; --candy-ink:#ffc48f;
-  --good:#5cc27a; --warn:#e0a53a; --bad:#ff7a6e;
-  --good-soft:#163524; --warn-soft:#352a12; --bad-soft:#3d1d1b;
-  --k-active:#4a90e8; --k-passive:#55ad62; --k-stigma:#8f74d6;
+  --bg:#12151a; --surface:#1d2029; --surface-2:#262b37; --line:#343a47;
+  --ink:#e9ecf1; --ink-2:#b0b7c4; --ink-3:#8a92a1;
+  --accent:#3fd8ea; --accent-ink:#0b1a1f; --accent-soft:#163640;
+  --gold:#f2c230; --gold-soft:#3a3117; --gold-ink:#ffd968;
+  --glow:#8ba7ee; --glow-hi:#d6e6ff;
+  --good:#6bd04a; --warn:#ffa23a; --bad:#ff6b6f;
+  --good-soft:#1c3318; --warn-soft:#3a2a14; --bad-soft:#3d1c20;
+  --k-active:#8ba7ee; --k-passive:#2fbf55; --k-stigma:#c866b4;
   --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s0:#8aa09d;
 }

@@ -1,10 +1,10 @@
 /* The character: the home page's card, the profile tiles, the roadmap's priority groups and rows,
-   and the snapshot's sections. Priority colours: now candy, next accent, later quiet. */
+   and the snapshot's sections. Priority colours: now gold (the client's Level Up), next accent, later quiet. */
 
 /* The character card on the home page: name and level badge, then class, gear score and server. */
 .char-card {
   gap: var(--sp-3);
-  border-left: 3px solid var(--candy);
+  border-left: 3px solid var(--gold);
 }
 .char-top {
   display: flex;
@@ -12,13 +12,13 @@
   gap: var(--sp-3);
 }
 .char-top h3 {
-  font-size: var(--fs-xl);
+  font: 400 var(--fs-xl) / 1.15 var(--display);
 }
 .char-level {
   padding: 2px 10px;
-  border-radius: 999px;
-  background: var(--candy-soft);
-  color: var(--candy-ink);
+  border-radius: var(--radius-s);
+  background: var(--gold-soft);
+  color: var(--gold-ink);
   font-weight: 700;
 }
 .char-facts {
@@ -123,8 +123,8 @@ ul.unread .chip {
   gap: var(--sp-2);
 }
 .road-group.prio-now {
-  --prio: var(--candy);
-  --prio-soft: var(--candy-soft);
+  --prio: var(--gold);
+  --prio-soft: var(--gold-soft);
 }
 .road-group.prio-next {
   --prio: var(--accent);
@@ -138,9 +138,7 @@ ul.unread .chip {
   border-radius: 999px;
   background: var(--prio-soft);
   color: var(--prio);
-  font: 700 var(--fs-xs) / 1.2 var(--body);
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+  font: 700 var(--fs-s) / 1.2 var(--body);
 }
 .prio::before {
   content: "";
@@ -150,7 +148,7 @@ ul.unread .chip {
   background: var(--prio);
 }
 .road-group.prio-now .prio {
-  color: var(--candy-ink);
+  color: var(--gold-ink);
 }
 .road-group ol {
   list-style: none;

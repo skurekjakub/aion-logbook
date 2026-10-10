@@ -3,6 +3,20 @@
    and the theme toggle. Loaded after components.css, whose older rules for the same classes these
    refine. Colours come from tokens.css only. */
 
+/* The tab glow's entrance: the crescent widens from its centre when a tab or page is picked. */
+@keyframes glow-in-x {
+  from {
+    opacity: 0;
+    transform: scaleX(0.2);
+  }
+}
+@keyframes glow-in-y {
+  from {
+    opacity: 0;
+    transform: scaleY(0.2);
+  }
+}
+
 /* A name over its alternative (the glossary's client name over a guide's name). */
 .name-stack {
   display: inline-flex;
@@ -111,11 +125,11 @@ ul.points li::before {
   content: "";
   position: absolute;
   left: 3px;
-  top: 0.62em;
-  width: 6px;
-  height: 6px;
-  border-radius: 2px;
-  background: var(--candy);
+  top: 0.6em;
+  width: 5px;
+  height: 5px;
+  background: var(--ink-3);
+  transform: rotate(45deg);
 }
 
 /* Callout: a cited mechanic under a view's heading, verdict first, sources last. */
@@ -125,7 +139,7 @@ ul.points li::before {
   gap: var(--sp-2) var(--sp-3);
   padding: var(--sp-2) var(--sp-3);
   border: 1px solid var(--line);
-  border-left: 3px solid var(--candy);
+  border-left: 3px solid var(--accent);
   border-radius: var(--radius-s);
   background: var(--surface);
   font-size: var(--fs-s);
@@ -148,10 +162,10 @@ ul.points li::before {
   }
 }
 
-/* Notes elsewhere: quiet blocks with a candy edge, not loud fills. */
+/* Notes elsewhere: quiet blocks with an aether edge, not loud fills. */
 .note {
   border: 1px solid var(--line);
-  border-left: 3px solid var(--candy);
+  border-left: 3px solid var(--accent);
   border-radius: var(--radius-s);
   background: var(--surface);
   color: var(--ink);

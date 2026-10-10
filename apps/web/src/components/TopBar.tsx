@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { WingMark } from "./WingMark";
 
 /** Props for {@link TopBar}. */
 export interface TopBarProps {
@@ -9,8 +10,8 @@ export interface TopBarProps {
 }
 
 /**
- * The phone's sticky top bar: one button that names where the reader is
- * and opens the navigation drawer (the popover whose id is `navId`). The
+ * The phone's sticky top bar: the logbook's mark, then one button that
+ * names where the reader is and opens the navigation drawer (the popover whose id is `navId`). The
  * stylesheet hides it on wide screens, where the navigation is a sidebar.
  *
  * @param props - the navigation popover's id and the reader's location trail
@@ -19,6 +20,7 @@ export interface TopBarProps {
 export function TopBar({ navId, trail }: TopBarProps) {
   return (
     <div className="topbar">
+      <WingMark className="topbar-mark" />
       <button
         type="button"
         className="menu-btn"

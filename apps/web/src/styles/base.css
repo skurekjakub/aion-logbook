@@ -1,27 +1,32 @@
 /* Page frame, typography and layout primitives. */
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font:var(--fs-base)/1.5 var(--body);margin:0;overflow-wrap:break-word}
+body{background:var(--bg);color:var(--ink);font:var(--fs-base)/1.5 var(--body);margin:0;overflow-wrap:break-word;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1440px;margin:0 auto;padding-inline:16px;padding-block:0 32px;display:grid;grid-template-columns:var(--nav-w) minmax(0,1fr);column-gap:var(--sp-6);align-items:start}
 .page{min-width:0;padding-top:var(--sp-5)}
 @media (max-width:959px){.wrap{display:block} .page{padding-top:var(--sp-4)}}
 html{scroll-padding-top:var(--sp-4)}
-@media (max-width:959px){html{scroll-padding-top:calc(var(--bar-h) + var(--sp-3))}}a{color:var(--accent)}
-a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--candy);outline-offset:2px}
+@media (max-width:959px){html{scroll-padding-top:calc(var(--bar-h) + var(--sp-3))}}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 h1,h2,h3,h4{text-wrap:balance;margin:0}
-h1{font:700 var(--fs-2xl)/1.1 var(--display);letter-spacing:-.01em}
-h2{font:700 var(--fs-xl)/1.15 var(--display);letter-spacing:-.01em}
+h1{font:400 var(--fs-2xl)/1.1 var(--display);letter-spacing:.005em}
+h2{font:400 var(--fs-xl)/1.15 var(--display);letter-spacing:.005em}
 h3{font:700 var(--fs-m)/1.3 var(--body)}
 h4{font:700 var(--fs-base)/1.3 var(--body)}
+@media (max-width:640px){h1{font-size:28px}}
 .kr{font-family:var(--body);color:var(--ink-3);font-weight:500}
-.lede{color:var(--ink-2);max-width:78ch;margin:2px 0 0}
+.lede{color:var(--ink-2);max-width:72ch;margin:2px 0 0}
 .muted{color:var(--ink-3)}
-.mono,.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
-.label{font:600 var(--fs-xs)/1.3 var(--body);color:var(--ink-3)}
+/* .mono marks figures and code alike: figures line up in the text face; code (paths, commands,
+   capture tools) takes the code face */
+.mono,.num{font-variant-numeric:tabular-nums}
+:is(footer,.empty,nav.crumbs,.capture,.capture-stamp,td.capture-tool) .mono,.capture-dir,.capture-name{font-family:var(--mono);font-size:.92em}
+.label{font:500 var(--fs-xs)/1.3 var(--body);color:var(--ink-3)}
 
 header.top{display:flex;flex-wrap:wrap;gap:8px 28px;align-items:flex-end;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid var(--line)}
 .stamp{display:flex;gap:4px 16px;flex-wrap:wrap}
 .stamp div{display:flex;gap:6px;align-items:baseline}
-.stamp b{font:600 var(--fs-s)/1.2 var(--mono);font-variant-numeric:tabular-nums}
+.stamp b{font:700 var(--fs-s)/1.2 var(--body);font-variant-numeric:tabular-nums}
 
 section.panel{display:flex;flex-direction:column;gap:var(--sp-4);padding-top:var(--sp-2)}
 .grid{display:grid;gap:var(--sp-3)}
@@ -31,3 +36,4 @@ ul.clean{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:var(-
 .empty{padding:var(--sp-3) var(--sp-4);border:1px dashed var(--line);border-radius:var(--radius);color:var(--ink-3);text-align:center}
 .error{padding:var(--sp-3) var(--sp-4);border:1px solid var(--bad);color:var(--bad);border-radius:var(--radius);background:var(--surface)}
 footer{margin-top:var(--sp-6);color:var(--ink-3);font-size:var(--fs-xs);border-top:1px solid var(--line);padding-top:var(--sp-3)}
+@media (prefers-reduced-motion:reduce){*,::before,::after{animation-duration:0s!important;transition-duration:0s!important}}

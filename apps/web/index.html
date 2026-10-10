@@ -8,11 +8,22 @@
       name="description"
       content="Aion 2 build logbook: which skills to level, which stigmas to slot and which macro chains to run per class, traced to their sources."
     />
+    <script>
+      // Applies the remembered theme (ThemeToggle's "aion-theme") before first paint, so a forced
+      // theme never flashes the system one while the app loads.
+      try {
+        var theme = localStorage.getItem("aion-theme");
+        if (theme === "light" || theme === "dark") {
+          document.documentElement.setAttribute("data-theme", theme);
+        }
+      } catch (e) {}
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&family=Marcellus&display=swap"
     />
   </head>
   <body>

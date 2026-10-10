@@ -31,13 +31,13 @@
   gap: 6px;
   margin: 0;
 }
-/* A class as a pill: on record cards and the character card, linking to its builds when it has them. */
+/* A class as a chip: on record cards and the character card, linking to its builds when it has them. */
 .class-chip {
   display: inline-flex;
   align-items: baseline;
   gap: 6px;
   padding: 5px 12px;
-  border-radius: 999px;
+  border-radius: var(--radius-s);
   background: var(--accent-soft);
   color: var(--ink);
   font: 700 var(--fs-m) / 1.2 var(--body);
@@ -210,7 +210,7 @@ td.gloss-short .chips {
 .kind {
   display: inline-block;
   padding: 2px 7px;
-  border-radius: 999px;
+  border-radius: var(--radius-s);
   border: 1px solid var(--line);
   font: 500 var(--fs-2xs) / 1.2 var(--body);
   color: var(--ink-3);
@@ -218,8 +218,8 @@ td.gloss-short .chips {
 }
 .kind.k-class {
   border-color: transparent;
-  background: var(--candy-soft);
-  color: var(--candy-ink);
+  background: var(--surface-2);
+  color: var(--ink);
 }
 .kind.k-skill {
   border-color: transparent;
