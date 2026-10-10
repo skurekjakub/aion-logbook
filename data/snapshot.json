@@ -107,6 +107,19 @@
     "recordSlug": "001-cleric-build"
    },
    {
+    "id": "web:aion2hub-2026-08-26",
+    "site": "web",
+    "url": "https://aion2hub.com/updates/aion-2-update-2026-08-26",
+    "title": "AION 2 Patch Notes — August 26, 2026",
+    "titleEn": null,
+    "date": "2026-08-26",
+    "relevance": 1,
+    "note": "Korean service: support party synergy softened; Earth Punishment's party share cut to 5%, Prayer of Amplification and Earth's Grace raised.",
+    "summaryEn": "KR class patch moving the Cleric's party buffs into its own damage.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/01-guides/aion2hub-com-updates-aion-2-update-2026-08-26.md",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
     "id": "web:aion2hub-2026-09-04",
     "site": "web",
     "url": "https://aion2hub.com/updates/aion-2-update-2026-09-04",
@@ -159,6 +172,19 @@
     "recordSlug": "001-cleric-build"
    },
    {
+    "id": "web:expcarry-cleric-guide",
+    "site": "web",
+    "url": "https://expcarry.com/aion-2-cleric-guide",
+    "title": "AION 2 Cleric Guide: Best Build & Skills",
+    "titleEn": null,
+    "date": "2026-10-06",
+    "relevance": 3,
+    "note": "Global guide from a boost service: 'Standard Boss Healer' hybrid with skill targets, stigma upgrade order and macro templates that repeat Condemnation.",
+    "summaryEn": "Hybrid boss healer: Condemnation engine first, heals kept reliable; Light of Protection, Earth Punishment, Noble Aura, Prayer of Amplification; heals stay manual.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/01-guides/expcarry-com-aion-2-cleric-guide.md",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
     "id": "web:game-client-skill-window",
     "site": "web",
     "url": "https://github.com/skurekjakub/aion-logbook/blob/main/research/001-cleric-build/evidence/03-game/game-client-skill-window-2026-10-10.md",
@@ -170,6 +196,32 @@
     "summaryEn": "One skill per macro entry with its own 10 ms delay, entries numbered from the top, Add Macro appends Earth's Retribution; hotbar keys hold rows 0–3.",
     "capturePath": "research/001-cleric-build/evidence/03-game/game-client-skill-window-2026-10-10.md",
     "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "web:gameoverdrive-builds",
+    "site": "web",
+    "url": "https://gameoverdrive.com.br/aion-2-builds-cleric-ranger-assassin/",
+    "title": "Aion 2: guia de builds de Cleric, Ranger e Assassin para PvE e PvP",
+    "titleEn": "Aion 2: Cleric, Ranger and Assassin build guide for PvE and PvP",
+    "date": "2026-10-05",
+    "relevance": 2,
+    "note": "Portuguese, global version, built on Aion 2 Maps' Cleric plan: stigma levels 10/5/5/5 (30 points at 45) and an opener.",
+    "summaryEn": "Healing with offensive participation: Light of Protection 10, Earth Punishment, Noble Aura, Prayer of Amplification 5; the six damage skills to 10.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/01-guides/gameoverdrive-com-br-aion-2-builds-cleric-ranger-assassin.md",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": "web:gamerblurb-cleric-build",
+    "site": "web",
+    "url": "https://gamerblurb.com/guides/aion-2-cleric-build-guide-pve-pvp-leveling-global",
+    "title": "AION 2 Cleric Build Guide: PvE, PvP, & Leveling (Global)",
+    "titleEn": null,
+    "date": "2026-10-06",
+    "relevance": 2,
+    "note": "The defensive view: group stigmas Absolution, Salvation, Yustiel's Power, Summon Resurrection, with Light of Protection only as an alternate.",
+    "summaryEn": "Heal-first group Cleric with no damage stigma; damage only fills stable windows. Leveling stigmas Noble Aura, Prayer of Amplification, Earth Punishment, Voice of Doom.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/01-guides/gamerblurb-com-guides-aion-2-cleric-build-guide-pve-pvp-leveling-global.md",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
    },
    {
     "id": "web:gamesfuze-cleric-build",
@@ -263,6 +315,45 @@
     "recordSlug": "001-cleric-build"
    },
    {
+    "id": "web:oslink-cleric-build",
+    "site": "web",
+    "url": "https://www.oslink.io/blog/guide/aion-2-cleric-build-guide.html",
+    "title": "AION 2 Cleric Build Guide and Best Builds",
+    "titleEn": null,
+    "date": "2026-10-01",
+    "relevance": 1,
+    "note": "Remote-play vendor blog; damage priority list but a heal-first PvE stigma set (Summon Resurrection, Earth Punishment, Salvation).",
+    "summaryEn": "Heal-first PvE Cleric; keep Debilitating Mark and Chain of Torment on the boss, Condemnation when Chain is up.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/01-guides/oslink-io-blog-guide-aion-2-cleric-build-guide-html.md",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": "web:pixelnitro-cleric-build",
+    "site": "web",
+    "url": "https://pixelnitro.com/?p=20616",
+    "title": "Aion 2 Cleric Build Guide: Best PvP and PvE Skills, Stigmas, and Skill Boost Priorities (2026)",
+    "titleEn": null,
+    "date": "2026-09-27",
+    "relevance": 0,
+    "note": "Pre-launch and generic; its macro puts Lightning Strike Scattershot in a boss loop, which only hits staggered targets.",
+    "summaryEn": "Generic Cleric guide; 'if nobody needs healing, you should be attacking'.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/01-guides/pixelnitro-com.md",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": "web:playhub-builds",
+    "site": "web",
+    "url": "https://playhub.com/blog/aion-2/best-builds-for-each-class-978315",
+    "title": "Best Builds for Each Class in AION 2 - Stats, Gear, Stigmas",
+    "titleEn": null,
+    "date": "2026-10-06",
+    "relevance": 2,
+    "note": "Cleric 'Group-Healing Build': just enough healing, then as much damage as possible; all four stigmas to 5, then Light of Protection to 20.",
+    "summaryEn": "Healer that maximises damage: Light of Protection, Noble Aura, Earth Punishment, Prayer of Amplification; damage macro Chain of Torment, Debilitating Mark, Condemnation, Judgment Thunder.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/01-guides/playhub-com-blog-aion-2-best-builds-for-each-class-978315.md",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
     "id": "web:plaync-developers",
     "site": "web",
     "url": "https://developers.plaync.com/",
@@ -328,6 +419,58 @@
     "recordSlug": "001-cleric-build"
    },
    {
+    "id": "web:vortex-ranker-skills",
+    "site": "web",
+    "url": "https://vortexgaming.io/postdetail/730212",
+    "title": "아이온2 치유성, TOP 랭커들이 선택한 최신 스킬트리 완벽 공략 | Vortex Gaming",
+    "titleEn": "Aion 2 Cleric: the latest skill tree the top rankers chose",
+    "date": null,
+    "relevance": 1,
+    "note": "Korean service, top-100 ranker statistics after the skill rework; levels past 10 and five-plus stigma slots, so logic only.",
+    "summaryEn": "KR rankers: Condemnation wins single-target, Debilitating Mark barely raised, Light of Protection on every ranker, Earth Punishment's numbers rising.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/01-guides/vortexgaming-io-postdetail-730212.md",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": "yt:-86sdRZ4SX4",
+    "site": "yt",
+    "url": "https://www.youtube.com/watch?v=-86sdRZ4SX4",
+    "title": "Aion 2 Cleric PvE DPS Guide - Korean Macro Setup for Global",
+    "titleEn": null,
+    "date": "2026-10-07",
+    "relevance": 2,
+    "note": "Digest only (no captions). Korean meta mapped onto global: Condemnation 51% of damage, one stacked column as the macro step, Earth Punishment and Yustiel's Power.",
+    "summaryEn": "Condemnation engine with Earth Punishment; macro is one stacked column; Bolt, heals and shields by hand.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/02-youtube/yt--86sdRZ4SX4.txt",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": "yt:5Dy9OA_NEzs",
+    "site": "yt",
+    "url": "https://www.youtube.com/watch?v=5Dy9OA_NEzs",
+    "title": "The ONLY AION 2 Cleric Macro Guide You Need | PvE & PvP",
+    "titleEn": null,
+    "date": "2026-10-09",
+    "relevance": 2,
+    "note": "Frames transcribed: entries Light of Regeneration, Earth Punishment, Bolt, each drawn as a stacked column's row-0 skill.",
+    "summaryEn": "Global Cleric macro: spammable last, Light of Regeneration kept in, left click woven beside the macro.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/02-youtube/yt-5Dy9OA_NEzs.txt",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": "yt:KptUtnv35vk",
+    "site": "yt",
+    "url": "https://www.youtube.com/watch?v=KptUtnv35vk",
+    "title": "Aion 2 Cleric Guide from a Worlds 1st Rank 1",
+    "titleEn": null,
+    "date": "2026-10-04",
+    "relevance": 1,
+    "note": "Digest only; a TW guide updated for global. A tested comment says the macro alternates one skill per column.",
+    "summaryEn": "Rank-1 Cleric's skill specs, stigmas, macro and gear, carried from Taiwan to global.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/02-youtube/yt-KptUtnv35vk.txt",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
     "id": "yt:WhNIY6j8TRM",
     "site": "yt",
     "url": "https://www.youtube.com/watch?v=WhNIY6j8TRM",
@@ -352,6 +495,19 @@
     "summaryEn": "KR Cleric hunting setups including an in-game skill macro.",
     "capturePath": "research/001-cleric-build/evidence/02-youtube/yt-r4WXaGgKCxw.txt",
     "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "yt:tYxkzfd_9-A",
+    "site": "yt",
+    "url": "https://www.youtube.com/watch?v=tYxkzfd_9-A",
+    "title": "AION 2: Cleric Macro Guide - 2 Button Gameplay",
+    "titleEn": null,
+    "date": "2026-10-05",
+    "relevance": 2,
+    "note": "Frames transcribed: dungeon macro entries Earth Punishment, Divine Aura, Earth's Retribution at 10 ms; Condemnation and Bolt stacked in one column.",
+    "summaryEn": "Global PvE dungeon and boss macro on two buttons; turn Skill Queue off so Condemnation fires.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/02-youtube/yt-tYxkzfd_9-A.txt",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
    },
    {
     "id": "yt:v_NuuOGFp_4",
@@ -400,11 +556,25 @@
     "seasonLabel": "Global launch, level cap 45",
     "lede": "aion2.plaync.com serves any character as JSON, no login: search by name, then info + equipment by server and id.",
     "caveat": "Undocumented endpoints; NC's Open API has nothing for Aion 2 and its Terms forbid other automated access. Macros and keybinds are not published."
+   },
+   {
+    "slug": "003-cleric-dungeon-dps-offheal",
+    "question": "Which skill levels, stigmas and built-in macro chain make a level-38 global Cleric a damage-first dungeon player that heals the party on the side?",
+    "status": "active",
+    "startedAt": "2026-10-10",
+    "updatedAt": "2026-10-10",
+    "seasonLabel": "Global launch, level cap 45",
+    "lede": "Dungeon DPS Cleric: damage skills to 10, heals to 8; Light of Protection, Earth Punishment, Noble Aura, Prayer of Amplification.",
+    "caveat": "Theory until played: guides split on the fourth stigma, Debilitating Mark and whether a macro entry fires a whole hotbar column."
    }
   ],
   "recordClasses": [
    {
     "recordSlug": "001-cleric-build",
+    "class": "cleric"
+   },
+   {
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
     "class": "cleric"
    }
   ],
@@ -1308,6 +1478,566 @@
     "approx": null,
     "tool": "curl",
     "sha256": "27c1ebe80b2132bbf1a20111f3f03dfb6bec5f5ee88efdf2e26e5e899ad1450e"
+   },
+   {
+    "id": 91,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/01-guides/pixelnitro-com.md",
+    "url": "https://pixelnitro.com/?p=20616",
+    "capturedAt": "2026-10-10T13:31:50+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "ab401d6eecde091700eeef79c3ccb34d5f115dddc73758994a40aaf9a8e5e13e"
+   },
+   {
+    "id": 92,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/01-guides/oslink-io-blog-guide-aion-2-cleric-build-guide-html.md",
+    "url": "https://www.oslink.io/blog/guide/aion-2-cleric-build-guide.html",
+    "capturedAt": "2026-10-10T13:31:57+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "2b1ffe2e289f1acc894809f91baa36e340924545aab4a41821bce82b7164e126"
+   },
+   {
+    "id": 93,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/01-guides/gameoverdrive-com-br-aion-2-builds-cleric-ranger-assassin.md",
+    "url": "https://gameoverdrive.com.br/aion-2-builds-cleric-ranger-assassin/",
+    "capturedAt": "2026-10-10T13:32:02+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "a171abdeb431a4ff626cdf6993140b7034210ff4939df36087faf992901a8d6b"
+   },
+   {
+    "id": 94,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/01-guides/playhub-com-blog-aion-2-best-builds-for-each-class-978315.md",
+    "url": "https://playhub.com/blog/aion-2/best-builds-for-each-class-978315",
+    "capturedAt": "2026-10-10T13:32:16+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "1935dcf12f7a141e527d3a162778024725a36c8332877463309a6dddd5a1fa17"
+   },
+   {
+    "id": 95,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/01-guides/metabot-gg-en-aion-2-classes-cleric-build.md",
+    "url": "https://metabot.gg/en/aion-2/classes/cleric/build",
+    "capturedAt": "2026-10-10T13:32:19+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "df920f52b60005d345d45e45792168b97c3fdfda2d4b828dc06fd9656f82b155"
+   },
+   {
+    "id": 96,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/01-guides/inven-co-kr-board-aion2-6452-24018.md",
+    "url": "https://www.inven.co.kr/board/aion2/6452/24018",
+    "capturedAt": "2026-10-10T13:32:24+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "d9c4c6110927784046dff2011d24a33c5f5f986ab64a06ffc9cb5021b3327fca"
+   },
+   {
+    "id": 97,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/01-guides/vortexgaming-io-postdetail-730212.md",
+    "url": "https://vortexgaming.io/postdetail/730212",
+    "capturedAt": "2026-10-10T13:32:27+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "ec8c2b591cd63b14b367aa9d99d2de1e8502b3cd63e742bcfc5f91184a746dca"
+   },
+   {
+    "id": 98,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/01-guides/gamerblurb-com-guides-aion-2-cleric-build-guide-pve-pvp-leveling-global.md",
+    "url": "https://gamerblurb.com/guides/aion-2-cleric-build-guide-pve-pvp-leveling-global",
+    "capturedAt": "2026-10-10T13:34:12+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "f1bd454c083d49d7c79ae4d12e071dbf09e7618363f05b6be70aafe5e33a15bb"
+   },
+   {
+    "id": 99,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/01-guides/expcarry-com-aion-2-cleric-guide.md",
+    "url": "https://expcarry.com/aion-2-cleric-guide",
+    "capturedAt": "2026-10-10T13:34:16+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "f700221afe818227b3349f46875ad9bf11a3cf49202cbee1cfc8d892a359863f"
+   },
+   {
+    "id": 100,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/01-guides/aion2hub-com-updates-aion-2-update-2026-08-26.md",
+    "url": "https://aion2hub.com/updates/aion-2-update-2026-08-26",
+    "capturedAt": "2026-10-10T13:34:19+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "8babb9982b7c433387c598e5bab11acc0e08bd4a7daefe9525d7edd9d76593c8"
+   },
+   {
+    "id": 101,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/ytq-aion_2_cleric_dps_build.html",
+    "url": "https://www.youtube.com/results?search_query=aion%202%20cleric%20dps%20build",
+    "capturedAt": "2026-10-10T13:34:58+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "4b909b92fcbaa9ece574bc53d350d8c21bf31542439b35e05953634003f1181f"
+   },
+   {
+    "id": 102,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/ytq-aion_2_cleric_dps_build-new.html",
+    "url": "https://www.youtube.com/results?search_query=aion%202%20cleric%20dps%20build&sp=CAI%253D",
+    "capturedAt": "2026-10-10T13:34:59+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "9fc1403d343c17b77d136095156abd3183a8bab8a00edf073fd3930b43e5f4f1"
+   },
+   {
+    "id": 103,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/ytq-aion_2_cleric_dungeon_guide.html",
+    "url": "https://www.youtube.com/results?search_query=aion%202%20cleric%20dungeon%20guide",
+    "capturedAt": "2026-10-10T13:35:00+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "49f45732a2ddd854779c827da448d5e25fa39074ef1408922313a1effdb7da69"
+   },
+   {
+    "id": 104,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/ytq-aion_2_cleric_dungeon_guide-new.html",
+    "url": "https://www.youtube.com/results?search_query=aion%202%20cleric%20dungeon%20guide&sp=CAI%253D",
+    "capturedAt": "2026-10-10T13:35:01+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "f7e066f1fec8949f46535b064686c141a6eb9e3c7a1710b2c8e9e79fc50cac96"
+   },
+   {
+    "id": 105,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/yt--86sdRZ4SX4.html",
+    "url": "https://www.youtube.com/watch?v=-86sdRZ4SX4&hl=ko",
+    "capturedAt": "2026-10-10T13:35:33+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "bcdf22629441a991d95617321a779db52ffb1cbc69f1e4035cc55f0dd9897305"
+   },
+   {
+    "id": 106,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/yt--86sdRZ4SX4.txt",
+    "url": "https://www.youtube.com/watch?v=-86sdRZ4SX4",
+    "capturedAt": "2026-10-10T13:35:33+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "9eb32540de48dd5e3791ed0b952aab92a787b0c6f1fc8d44d8bfe4bdf489b079"
+   },
+   {
+    "id": 107,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/yt-5Dy9OA_NEzs.html",
+    "url": "https://www.youtube.com/watch?v=5Dy9OA_NEzs&hl=ko",
+    "capturedAt": "2026-10-10T13:35:34+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "f23fd0c06896f07d4eade38b0e1e25d944a32a82488c705371f529865eccbc31"
+   },
+   {
+    "id": 108,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/yt-5Dy9OA_NEzs.txt",
+    "url": "https://www.youtube.com/watch?v=5Dy9OA_NEzs",
+    "capturedAt": "2026-10-10T13:35:35+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "ebe3cc392e54a96ee9fde3efc1460d2f5b1cdda6165ef8567d1ff29f10881d86"
+   },
+   {
+    "id": 109,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/yt-sPYma2Jzy-Y.html",
+    "url": "https://www.youtube.com/watch?v=sPYma2Jzy-Y&hl=ko",
+    "capturedAt": "2026-10-10T13:35:35+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "680729cf8f28011dd5680c19165bfb7dd3935116e46988edb41b4eb0feac434d"
+   },
+   {
+    "id": 110,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/yt-sPYma2Jzy-Y.txt",
+    "url": "https://www.youtube.com/watch?v=sPYma2Jzy-Y",
+    "capturedAt": "2026-10-10T13:35:36+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "49e818195c6e544f50c956f617f73aa543370314d1e4f82c3831cf78aef90ee7"
+   },
+   {
+    "id": 111,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/yt-KptUtnv35vk.html",
+    "url": "https://www.youtube.com/watch?v=KptUtnv35vk&hl=ko",
+    "capturedAt": "2026-10-10T13:35:37+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "9a89656c29efab55f0abaaf579ed75d6109f517d44caaf33a1c6fc733cd9edd1"
+   },
+   {
+    "id": 112,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/yt-KptUtnv35vk.txt",
+    "url": "https://www.youtube.com/watch?v=KptUtnv35vk",
+    "capturedAt": "2026-10-10T13:35:38+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "83baf3843ec9d8b599fcf4897d26bac6470d794136b01397b26e97ee4df1e0eb"
+   },
+   {
+    "id": 113,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/yt-tYxkzfd_9-A.html",
+    "url": "https://www.youtube.com/watch?v=tYxkzfd_9-A&hl=ko",
+    "capturedAt": "2026-10-10T13:35:38+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "3e6c8bfd2b467a8a13e05799e58ff712fe74d1be1d5c81facd1211b6dc115288"
+   },
+   {
+    "id": 114,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/yt-tYxkzfd_9-A.txt",
+    "url": "https://www.youtube.com/watch?v=tYxkzfd_9-A",
+    "capturedAt": "2026-10-10T13:35:39+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "5f1c6cc433b5fb318f3a35f4d459ce649bd7e1bc8dca9011697bbfef7e887c30"
+   },
+   {
+    "id": 115,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/yt-w_cmBSY_CpE.html",
+    "url": "https://www.youtube.com/watch?v=w_cmBSY_CpE&hl=ko",
+    "capturedAt": "2026-10-10T13:35:40+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "104e5b6b606316938212bd4e3a08fc77a9002c75b03e4be368da8264c147d4ea"
+   },
+   {
+    "id": 116,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/yt-w_cmBSY_CpE.txt",
+    "url": "https://www.youtube.com/watch?v=w_cmBSY_CpE",
+    "capturedAt": "2026-10-10T13:35:41+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "7844bd925594904694b5c00230e9d39187cffb8579b7fd6930bc48f3e393dc9b"
+   },
+   {
+    "id": 117,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/video/tYxkzfd_9-A.webm",
+    "url": "https://www.youtube.com/watch?v=tYxkzfd_9-A",
+    "capturedAt": "2026-10-10T13:36:27+02:00",
+    "approx": null,
+    "tool": "yt-dlp",
+    "sha256": "4543a19fa3ca3fb9057a95e171abf0e18a89e440a2bef0ad3c988831b3cbeaec"
+   },
+   {
+    "id": 118,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/video/5Dy9OA_NEzs.webm",
+    "url": "https://www.youtube.com/watch?v=5Dy9OA_NEzs",
+    "capturedAt": "2026-10-10T13:37:16+02:00",
+    "approx": null,
+    "tool": "yt-dlp",
+    "sha256": "9e1fccbc9d626659cf21e5435d7a59cb48e58debb61495a46ffefc980aed719f"
+   },
+   {
+    "id": 119,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-tYxkzfd_9-A/f-00m30.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:37:54+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "736d9d0ae80c51fb925a19c3fe2308b1a9cedff01fb307260223063426e130e4"
+   },
+   {
+    "id": 120,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-tYxkzfd_9-A/f-00m35.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:37:54+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "621859dd404a4a153274f58c2d2176e94f869da3baa4cc9dc5ddb7fc2c68af26"
+   },
+   {
+    "id": 121,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-tYxkzfd_9-A/f-00m55.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:37:54+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "7178bbf509004b85f7fbd9464ac7961fe663e7801ac3d14b8ae782f7b7eb9b76"
+   },
+   {
+    "id": 122,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-tYxkzfd_9-A/f-01m15.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:37:54+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "e05d3f6a2a5c5eace0c5beaa829ae9757bc72ce4d5aebfa22641e26f47fc4339"
+   },
+   {
+    "id": 123,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-tYxkzfd_9-A/f-01m20.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:37:54+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "b4eb65994a3fb48281161fa76010e45ec9dce4cd9fae804b60e93d049df521a4"
+   },
+   {
+    "id": 124,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-tYxkzfd_9-A/f-01m30.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:37:54+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "5e219d9d73356f116a72ed56741d3e935146189c304a0b6cffa1cec0cb1bc3b9"
+   },
+   {
+    "id": 125,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-tYxkzfd_9-A/f-01m35.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:37:54+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "bb3a44d80c6c91f2408a5dfc95deadb979b64740a2b8d38e538a2e3aaa4097a8"
+   },
+   {
+    "id": 126,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-tYxkzfd_9-A/f-01m40.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:37:54+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "32cde4e1d4ddc47652d655b5366266ee2e580dd32f7882c04fbe18896b209c98"
+   },
+   {
+    "id": 127,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-tYxkzfd_9-A/f-01m50.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:37:54+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "6973b2622ca42b09786e3ff9560dad11def09e196e26e6fa528525476188d3f5"
+   },
+   {
+    "id": 128,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-tYxkzfd_9-A/f-02m00.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:37:54+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "93d063f5f47e91b6436ec9e156ef35594e9660ed37acc1d8e865ea11cf04f10d"
+   },
+   {
+    "id": 129,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-tYxkzfd_9-A/f-02m35.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:37:54+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "c16d73f2379adcbbef36894f5315409b21efa1fee09514e8cc8574a7b935144a"
+   },
+   {
+    "id": 130,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-tYxkzfd_9-A/f-02m40.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:37:54+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "ab6d4b3182583ec0dc0c28a3d6c0fc688bc002904429a426c6768d063df13e4a"
+   },
+   {
+    "id": 131,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-tYxkzfd_9-A/f-02m45.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:37:54+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "c5260367bea9c4feca9e4de160f21f4c70b6123353db6e7e1212456fecf8ce67"
+   },
+   {
+    "id": 132,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-tYxkzfd_9-A/f-02m50.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:37:54+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "db2407e920f6da58ab62a12f2e11977bfe87985eb3f4c7fdc5ab9fe072afd90c"
+   },
+   {
+    "id": 133,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-tYxkzfd_9-A/f-02m55.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:37:54+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "a5c906ab15b65f74296df5edd79591861e2645ea10935291ceb43e6a9993dfaa"
+   },
+   {
+    "id": 134,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-tYxkzfd_9-A/f-03m00.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:37:54+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "26c785a60e734f9d8b658ab6b14045493cc8d4406edad0721ec8b725f6551102"
+   },
+   {
+    "id": 135,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-tYxkzfd_9-A/f-03m10.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:37:54+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "adfa762ffab56c374afca701d7317e298b2639c0712fc2c375d0e0c1c1692886"
+   },
+   {
+    "id": 136,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-5Dy9OA_NEzs/f-03m45.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:38:35+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "7103e18e220ffb7cdcdf1cfa93677a2adcac90f793579a1fcbcdf5350bde29d2"
+   },
+   {
+    "id": 137,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-5Dy9OA_NEzs/f-03m50.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:38:35+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "0025713d73674ce070ab7f90cebeda5260059a5fd89a03594c78c40b19906679"
+   },
+   {
+    "id": 138,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-5Dy9OA_NEzs/f-04m05.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:38:35+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "f9aa1e32db5ca00d9b8023d58b91c08c5603272ae1e9b5893b35cb8aef1e1ed1"
+   },
+   {
+    "id": 139,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-5Dy9OA_NEzs/f-04m10.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:38:35+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "7ce933847f1cb18e230d2204b6c3f49da21183ccdef402fff02c9080c67a4d03"
+   },
+   {
+    "id": 140,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-5Dy9OA_NEzs/f-04m45.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:38:35+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "588a231c74c607b161fbd22d2ed2436d18cf422807f3af4c6ff672f52bba7ab1"
+   },
+   {
+    "id": 141,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-5Dy9OA_NEzs/f-04m55.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:38:35+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "27d853392dae618016a0bc16006389289a7634f5836ef3d0094c17c31b9f0c52"
+   },
+   {
+    "id": 142,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-5Dy9OA_NEzs/f-05m05.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:38:35+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "d5227db3446a2f2c827bdeec940ca97fb3d645d114613497e51966fdb0df7c1c"
+   },
+   {
+    "id": 143,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-5Dy9OA_NEzs/f-05m20.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:38:35+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "1b1a4e36452b1f6178d07647f6b5daf232c5100f921148aa3608dfad392bce10"
+   },
+   {
+    "id": 144,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-5Dy9OA_NEzs/f-05m50.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:38:35+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "3ecdac52a2fd454f5f4f66f55666313e893b0b2f3753bf63925b92e295e35bee"
+   },
+   {
+    "id": 145,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/frames-5Dy9OA_NEzs/f-06m25.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T13:38:35+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "af15ef846443bdd1711773d6bb7173a05d1f5358be7b8b6f0c3a1c0790692634"
+   },
+   {
+    "id": 146,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "path": "evidence/02-youtube/macro-frames-transcription-2026-10-10.md",
+    "url": null,
+    "capturedAt": "2026-10-10T13:42:00+02:00",
+    "approx": null,
+    "tool": "manual",
+    "sha256": "25015a7bdd657a604d5b3dd2f19ed4aa7a421dc95a800d5633aeddbfe07124df"
    }
   ],
   "glossary": [
@@ -2155,6 +2885,18 @@
     "recordSlug": "001-cleric-build",
     "obsoleteSince": null,
     "obsoleteReason": null
+   },
+   {
+    "id": "cleric-pve-dps-offheal",
+    "class": "cleric",
+    "purpose": "pve",
+    "title": "Dungeon DPS with off-heal: Condemnation engine, heals on demand",
+    "why": "Damage first in farmed or geared groups: Condemnation loop, damage stigmas, heals at 8 pressed by hand. Healer build again after a wipe.",
+    "confidence": "theory",
+    "position": 0,
+    "recordSlug": "003-cleric-dungeon-dps-offheal",
+    "obsoleteSince": null,
+    "obsoleteReason": null
    }
   ],
   "buildSkills": [
@@ -2341,6 +3083,102 @@
     "rank": 11,
     "targetLevel": 7,
     "why": "Charged by hand in safe windows for stagger; low priority for a healer."
+   },
+   {
+    "id": 24,
+    "buildId": "cleric-pve-dps-offheal",
+    "skillId": "cleric-condemnation",
+    "rank": 1,
+    "targetLevel": 10,
+    "why": "The engine: half the damage on a KR meter, crits on Earth Punishment's target; spec +12% vs fewer targets, reset at 12."
+   },
+   {
+    "id": 25,
+    "buildId": "cleric-pve-dps-offheal",
+    "skillId": "cleric-chain-of-torment",
+    "rank": 2,
+    "targetLevel": 10,
+    "why": "Condemnation only hits its target, and it cuts boss Tolerance 5% for the party; spec +3 s DoT."
+   },
+   {
+    "id": 26,
+    "buildId": "cleric-pve-dps-offheal",
+    "skillId": "cleric-earths-retribution",
+    "rank": 3,
+    "targetLevel": 10,
+    "why": "Held left click feeds MP for the loop; spec +20% Discharge trigger, Bolt −7 s at 12."
+   },
+   {
+    "id": 27,
+    "buildId": "cleric-pve-dps-offheal",
+    "skillId": "cleric-divine-aura",
+    "rank": 4,
+    "targetLevel": 10,
+    "why": "Free boss damage every 30 s; spec +50% attack speed for single targets, AoE only for trash."
+   },
+   {
+    "id": 28,
+    "buildId": "cleric-pve-dps-offheal",
+    "skillId": "cleric-bolt",
+    "rank": 5,
+    "targetLevel": 10,
+    "why": "Biggest hit, fully charged by hand inside Prayer of Amplification and stagger windows; spec +30% Skill Speed."
+   },
+   {
+    "id": 29,
+    "buildId": "cleric-pve-dps-offheal",
+    "skillId": "cleric-judgment-thunder",
+    "rank": 6,
+    "targetLevel": 10,
+    "why": "No-cooldown filler, last in the macro; some testers drop it on bosses. Spec +12% vs fewer targets."
+   },
+   {
+    "id": 30,
+    "buildId": "cleric-pve-dps-offheal",
+    "skillId": "cleric-healing-light",
+    "rank": 7,
+    "targetLevel": 8,
+    "why": "The off-heal on the lowest ally, pressed by hand; spec +2 consecutive uses."
+   },
+   {
+    "id": 31,
+    "buildId": "cleric-pve-dps-offheal",
+    "skillId": "cleric-radiant-recovery",
+    "rank": 8,
+    "targetLevel": 8,
+    "why": "Party heal and cleanse for raid-wide hits, by hand; spec removes up to 2 debuffs."
+   },
+   {
+    "id": 32,
+    "buildId": "cleric-pve-dps-offheal",
+    "skillId": "cleric-light-of-regeneration",
+    "rank": 9,
+    "targetLevel": 8,
+    "why": "Party HoT that runs in the macro, the healing you don't press; spec +20% healed at 50% HP or less."
+   },
+   {
+    "id": 33,
+    "buildId": "cleric-pve-dps-offheal",
+    "skillId": "cleric-empyrean-lords-grace",
+    "rank": 10,
+    "targetLevel": 10,
+    "why": "+100 Crit and extra damage on every hit; the passive top Clerics raise first."
+   },
+   {
+    "id": 34,
+    "buildId": "cleric-pve-dps-offheal",
+    "skillId": "cleric-earths-grace",
+    "rank": 11,
+    "targetLevel": 10,
+    "why": "+10.5% Crit Damage, which every guaranteed Condemnation crit uses; finish with Wisdom Stones."
+   },
+   {
+    "id": 35,
+    "buildId": "cleric-pve-dps-offheal",
+    "skillId": "cleric-debilitating-mark",
+    "rank": 12,
+    "targetLevel": 8,
+    "why": "Contested: a global dummy tester gains with it, KR rankers barely raise it; −15% Defense spec, late in the macro."
    }
   ],
   "buildStigmas": [
@@ -2399,9 +3237,46 @@
     "slotLevel": 37,
     "skillId": "cleric-noble-aura",
     "why": "Free damage for 300 s; swap Resurrection for Prayer of Amplification once nobody dies."
+   },
+   {
+    "id": 9,
+    "buildId": "cleric-pve-dps-offheal",
+    "slotLevel": 22,
+    "skillId": "cleric-light-of-protection",
+    "why": "+10.5% party PvE damage and tolerance; 87% of top Clerics. Swap for Absolution when a Chanter runs Undefeated Mantra."
+   },
+   {
+    "id": 10,
+    "buildId": "cleric-pve-dps-offheal",
+    "slotLevel": 27,
+    "skillId": "cleric-earth-punishment",
+    "why": "Level 5 first: Condemnation always crits on its target. Then toward 15 and 20 for uptime."
+   },
+   {
+    "id": 11,
+    "buildId": "cleric-pve-dps-offheal",
+    "slotLevel": 32,
+    "skillId": "cleric-noble-aura",
+    "why": "300 s aura that attacks your target; 79% of top Clerics. Recast after deaths and teleports."
+   },
+   {
+    "id": 12,
+    "buildId": "cleric-pve-dps-offheal",
+    "slotLevel": 37,
+    "skillId": "cleric-prayer-of-amplification",
+    "why": "+20% Attack for 10 s, heals included; line up charged Bolt. Summon Resurrection instead while the group still dies."
    }
   ],
   "macros": [
+   {
+    "id": "cleric-dungeon-dps-loop",
+    "buildId": "cleric-pve-dps-offheal",
+    "position": 1,
+    "name": "Dungeon DPS loop",
+    "key": "Right Mouse Button (hold with Left Mouse)",
+    "delayMs": 10,
+    "why": "Hold both buttons on the boss: Earth Punishment then Chain set up Condemnation, the HoT rolls, filler last. Release to heal by hand."
+   },
    {
     "id": "cleric-leveling-solo",
     "buildId": "cleric-leveling",
@@ -2519,6 +3394,55 @@
     "position": 7,
     "skillId": "cleric-judgment-thunder",
     "note": "Entry 7: filler, last so it never starves the rest"
+   },
+   {
+    "id": 15,
+    "macroId": "cleric-dungeon-dps-loop",
+    "position": 1,
+    "skillId": "cleric-earth-punishment",
+    "note": "Entry 1: opens the crit window before every Condemnation"
+   },
+   {
+    "id": 16,
+    "macroId": "cleric-dungeon-dps-loop",
+    "position": 2,
+    "skillId": "cleric-chain-of-torment",
+    "note": "Entry 2: marks the boss; Condemnation needs it"
+   },
+   {
+    "id": 17,
+    "macroId": "cleric-dungeon-dps-loop",
+    "position": 3,
+    "skillId": "cleric-condemnation",
+    "note": "Entry 3: the main hit, a guaranteed crit inside Earth Punishment"
+   },
+   {
+    "id": 18,
+    "macroId": "cleric-dungeon-dps-loop",
+    "position": 4,
+    "skillId": "cleric-divine-aura",
+    "note": "Entry 4: free boss damage every 30 s"
+   },
+   {
+    "id": 19,
+    "macroId": "cleric-dungeon-dps-loop",
+    "position": 5,
+    "skillId": "cleric-light-of-regeneration",
+    "note": "Entry 5: party HoT on cooldown, the off-heal that runs itself"
+   },
+   {
+    "id": 20,
+    "macroId": "cleric-dungeon-dps-loop",
+    "position": 6,
+    "skillId": "cleric-debilitating-mark",
+    "note": "Entry 6: contested; delete it if the meter drops"
+   },
+   {
+    "id": 21,
+    "macroId": "cleric-dungeon-dps-loop",
+    "position": 7,
+    "skillId": "cleric-judgment-thunder",
+    "note": "Entry 7: no-cooldown filler, last so it never starves the rest"
    }
   ],
   "mechanics": [
@@ -2897,6 +3821,110 @@
     "topic": "character-data",
     "alsoTopics": [],
     "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": 34,
+    "title": "Condemnation is the damage engine",
+    "body": "Hits only Chain of Torment targets; Earth Punishment at stigma 5 makes it always crit; at skill 12 a crit resets its cooldown. Half the damage on a KR meter.",
+    "confidence": "posted",
+    "class": "cleric",
+    "topic": "rotation",
+    "alsoTopics": [
+     "skills"
+    ],
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": 35,
+    "title": "A damage Cleric still owes the chest contribution",
+    "body": "Chest needs 5% of the final boss's HP in damage or 20% of party damage healed (aion2.run, citing GamersTogether); a pure healer can leave with nothing.",
+    "confidence": "posted",
+    "class": "cleric",
+    "topic": "dungeons",
+    "alsoTopics": [],
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": 36,
+    "title": "Light of Protection doesn't stack with Undefeated Mantra",
+    "body": "Only the stronger applies and the Chanter's Mantra wins a tie; with a Chanter in the group, slot Absolution instead.",
+    "confidence": "posted",
+    "class": "cleric",
+    "topic": "stigmas",
+    "alsoTopics": [],
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": 37,
+    "title": "Conflict: the fourth stigma for a damage Cleric",
+    "body": "Prayer of Amplification (expcarry, playhub, aion2maps, aion2.run offensive) against Summon Resurrection (64% of top Clerics vs 50%) or Yustiel's Power (Antochi).",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "stigmas",
+    "alsoTopics": [
+     "conflicts"
+    ],
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": 38,
+    "title": "Conflict: Debilitating Mark in the damage loop",
+    "body": "In the macro per playhub and expcarry, and a global dummy tester gains with it; Antochi and KR ranker data call casting it on cooldown a damage loss.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "rotation",
+    "alsoTopics": [
+     "conflicts",
+     "macros"
+    ],
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": 39,
+    "title": "Conflict: does a macro entry fire a whole hotbar column?",
+    "body": "Creators stack skills in one column and register only its row-0 skill (Antochi: 'one step, that column'); the 2026-10-10 in-game read took an entry as one skill.",
+    "confidence": "theory",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": [
+     "conflicts",
+     "hotbar"
+    ],
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": 40,
+    "title": "Conflict: Bolt inside the macro",
+    "body": "Th3Ruthless registers Bolt as an entry; Antochi, allthings.how and a BoredAF commenter keep it manual, since the macro fires it at charge 1.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "macros",
+    "alsoTopics": [
+     "conflicts"
+    ],
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": 41,
+    "title": "Repeat Condemnation once the reset is live",
+    "body": "Expcarry lists Condemnation several times in its boss macro to catch crit resets; worth it only once Condemnation reaches 12 with the reset spec.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "macros",
+    "alsoTopics": [],
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": 42,
+    "title": "Turn Skill Queue off for the Condemnation macro",
+    "body": "BoredAF: with Skill Queue on, Condemnation doesn't go out properly; Antochi and expcarry say turn it on. Test both on the dummy.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "macros",
+    "alsoTopics": [
+     "conflicts"
+    ],
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
    }
   ],
   "rngFactors": [],
@@ -2956,6 +3984,34 @@
     "event": "Global client read in game: the macro editor takes one skill per entry, 10 ms default delay.",
     "class": null,
     "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 9,
+    "date": "2026-08-26",
+    "event": "KR: support party synergy softened; Earth Punishment's party share cut to 5%, Prayer of Amplification and Earth's Grace raised.",
+    "class": "cleric",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": 10,
+    "date": "2026-10-05",
+    "event": "Global: first hybrid Cleric builds pair Light of Protection with Earth Punishment, Noble Aura and Prayer of Amplification.",
+    "class": "cleric",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": 11,
+    "date": "2026-10-06",
+    "event": "Global: expcarry and playhub publish the damage-leaning boss healer; gamerblurb keeps a stigma set with no damage slot.",
+    "class": "cleric",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": 12,
+    "date": "2026-10-07",
+    "event": "Global: Antochi maps the Korean Condemnation macro onto global's four stigma slots.",
+    "class": "cleric",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
    }
   ],
   "takeaways": [
@@ -3046,6 +4102,46 @@
     "detail": "NC's Open API documents Lineage 2M only. The scheduled GitHub Actions sync is the part the Terms bear on most.",
     "class": null,
     "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": 12,
+    "position": 0,
+    "text": "Dungeon DPS Cleric: Condemnation, Chain of Torment, Earth's Retribution, Divine Aura, Bolt, Judgment Thunder to 10; heals to 8.",
+    "detail": "Then Empyrean Lord's Grace and Earth's Grace to 10; Debilitating Mark last and contested.",
+    "class": "cleric",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": 13,
+    "position": 1,
+    "text": "Stigmas: Light of Protection, Earth Punishment, Noble Aura, Prayer of Amplification; Earth Punishment to 5 first.",
+    "detail": "Summon Resurrection for Prayer while the group dies; Absolution for Light of Protection with a Chanter.",
+    "class": "cleric",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": 14,
+    "position": 2,
+    "text": "Macro: Earth Punishment, Chain of Torment, Condemnation, Divine Aura, Light of Regeneration, Debilitating Mark, Judgment Thunder.",
+    "detail": "Right mouse held with left click, 10 ms; Bolt, Healing Light, Radiant Recovery and the stigmas stay manual.",
+    "class": "cleric",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": 15,
+    "position": 3,
+    "text": "Heal by hand first, then return to the loop: the macro's only heal is Light of Regeneration.",
+    "detail": null,
+    "class": "cleric",
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
+   },
+   {
+    "id": 16,
+    "position": 4,
+    "text": "Unsettled: whether an entry fires its hotbar column. Put each macro skill on its own key and it works either way.",
+    "detail": "Creators stack columns behind one entry; the 2026-10-10 read took an entry as one skill.",
+    "class": null,
+    "recordSlug": "003-cleric-dungeon-dps-offheal"
    }
   ],
   "recommendations": [],
@@ -4357,6 +5453,420 @@
     "entity": "takeaway",
     "entityId": "11",
     "sourceId": "web:plaync-developers"
+   },
+   {
+    "id": 219,
+    "entity": "build",
+    "entityId": "cleric-pve-dps-offheal",
+    "sourceId": "web:expcarry-cleric-guide"
+   },
+   {
+    "id": 220,
+    "entity": "build",
+    "entityId": "cleric-pve-dps-offheal",
+    "sourceId": "web:playhub-builds"
+   },
+   {
+    "id": 221,
+    "entity": "build",
+    "entityId": "cleric-pve-dps-offheal",
+    "sourceId": "web:gameoverdrive-builds"
+   },
+   {
+    "id": 222,
+    "entity": "build",
+    "entityId": "cleric-pve-dps-offheal",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 223,
+    "entity": "build",
+    "entityId": "cleric-pve-dps-offheal",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 224,
+    "entity": "build",
+    "entityId": "cleric-pve-dps-offheal",
+    "sourceId": "web:keengamer-pve-builds"
+   },
+   {
+    "id": 225,
+    "entity": "build",
+    "entityId": "cleric-pve-dps-offheal",
+    "sourceId": "yt:-86sdRZ4SX4"
+   },
+   {
+    "id": 226,
+    "entity": "build",
+    "entityId": "cleric-pve-dps-offheal",
+    "sourceId": "yt:5Dy9OA_NEzs"
+   },
+   {
+    "id": 227,
+    "entity": "build",
+    "entityId": "cleric-pve-dps-offheal",
+    "sourceId": "yt:tYxkzfd_9-A"
+   },
+   {
+    "id": 228,
+    "entity": "build",
+    "entityId": "cleric-pve-dps-offheal",
+    "sourceId": "web:vortex-ranker-skills"
+   },
+   {
+    "id": 229,
+    "entity": "build",
+    "entityId": "cleric-pve-dps-offheal",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 230,
+    "entity": "build",
+    "entityId": "cleric-pve-dps-offheal",
+    "sourceId": "web:game-client-skill-window"
+   },
+   {
+    "id": 231,
+    "entity": "mechanic",
+    "entityId": "34",
+    "sourceId": "yt:-86sdRZ4SX4"
+   },
+   {
+    "id": 232,
+    "entity": "mechanic",
+    "entityId": "34",
+    "sourceId": "web:gameoverdrive-builds"
+   },
+   {
+    "id": 233,
+    "entity": "mechanic",
+    "entityId": "34",
+    "sourceId": "web:expcarry-cleric-guide"
+   },
+   {
+    "id": 234,
+    "entity": "mechanic",
+    "entityId": "34",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 235,
+    "entity": "mechanic",
+    "entityId": "35",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 236,
+    "entity": "mechanic",
+    "entityId": "36",
+    "sourceId": "web:gameoverdrive-builds"
+   },
+   {
+    "id": 237,
+    "entity": "mechanic",
+    "entityId": "36",
+    "sourceId": "web:expcarry-cleric-guide"
+   },
+   {
+    "id": 238,
+    "entity": "mechanic",
+    "entityId": "36",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 239,
+    "entity": "mechanic",
+    "entityId": "37",
+    "sourceId": "web:expcarry-cleric-guide"
+   },
+   {
+    "id": 240,
+    "entity": "mechanic",
+    "entityId": "37",
+    "sourceId": "web:playhub-builds"
+   },
+   {
+    "id": 241,
+    "entity": "mechanic",
+    "entityId": "37",
+    "sourceId": "web:gameoverdrive-builds"
+   },
+   {
+    "id": 242,
+    "entity": "mechanic",
+    "entityId": "37",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 243,
+    "entity": "mechanic",
+    "entityId": "37",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 244,
+    "entity": "mechanic",
+    "entityId": "37",
+    "sourceId": "yt:-86sdRZ4SX4"
+   },
+   {
+    "id": 245,
+    "entity": "mechanic",
+    "entityId": "38",
+    "sourceId": "web:playhub-builds"
+   },
+   {
+    "id": 246,
+    "entity": "mechanic",
+    "entityId": "38",
+    "sourceId": "web:expcarry-cleric-guide"
+   },
+   {
+    "id": 247,
+    "entity": "mechanic",
+    "entityId": "38",
+    "sourceId": "yt:-86sdRZ4SX4"
+   },
+   {
+    "id": 248,
+    "entity": "mechanic",
+    "entityId": "38",
+    "sourceId": "web:vortex-ranker-skills"
+   },
+   {
+    "id": 249,
+    "entity": "mechanic",
+    "entityId": "39",
+    "sourceId": "yt:-86sdRZ4SX4"
+   },
+   {
+    "id": 250,
+    "entity": "mechanic",
+    "entityId": "39",
+    "sourceId": "yt:5Dy9OA_NEzs"
+   },
+   {
+    "id": 251,
+    "entity": "mechanic",
+    "entityId": "39",
+    "sourceId": "yt:tYxkzfd_9-A"
+   },
+   {
+    "id": 252,
+    "entity": "mechanic",
+    "entityId": "39",
+    "sourceId": "yt:KptUtnv35vk"
+   },
+   {
+    "id": 253,
+    "entity": "mechanic",
+    "entityId": "39",
+    "sourceId": "web:playnews-macros"
+   },
+   {
+    "id": 254,
+    "entity": "mechanic",
+    "entityId": "39",
+    "sourceId": "web:game-client-skill-window"
+   },
+   {
+    "id": 255,
+    "entity": "mechanic",
+    "entityId": "40",
+    "sourceId": "yt:5Dy9OA_NEzs"
+   },
+   {
+    "id": 256,
+    "entity": "mechanic",
+    "entityId": "40",
+    "sourceId": "yt:-86sdRZ4SX4"
+   },
+   {
+    "id": 257,
+    "entity": "mechanic",
+    "entityId": "40",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 258,
+    "entity": "mechanic",
+    "entityId": "40",
+    "sourceId": "yt:tYxkzfd_9-A"
+   },
+   {
+    "id": 259,
+    "entity": "mechanic",
+    "entityId": "41",
+    "sourceId": "web:expcarry-cleric-guide"
+   },
+   {
+    "id": 260,
+    "entity": "mechanic",
+    "entityId": "41",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 261,
+    "entity": "mechanic",
+    "entityId": "42",
+    "sourceId": "yt:tYxkzfd_9-A"
+   },
+   {
+    "id": 262,
+    "entity": "mechanic",
+    "entityId": "42",
+    "sourceId": "yt:-86sdRZ4SX4"
+   },
+   {
+    "id": 263,
+    "entity": "mechanic",
+    "entityId": "42",
+    "sourceId": "web:expcarry-cleric-guide"
+   },
+   {
+    "id": 264,
+    "entity": "timeline_event",
+    "entityId": "9",
+    "sourceId": "web:aion2hub-2026-08-26"
+   },
+   {
+    "id": 265,
+    "entity": "timeline_event",
+    "entityId": "10",
+    "sourceId": "web:gameoverdrive-builds"
+   },
+   {
+    "id": 266,
+    "entity": "timeline_event",
+    "entityId": "10",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 267,
+    "entity": "timeline_event",
+    "entityId": "10",
+    "sourceId": "yt:tYxkzfd_9-A"
+   },
+   {
+    "id": 268,
+    "entity": "timeline_event",
+    "entityId": "11",
+    "sourceId": "web:expcarry-cleric-guide"
+   },
+   {
+    "id": 269,
+    "entity": "timeline_event",
+    "entityId": "11",
+    "sourceId": "web:playhub-builds"
+   },
+   {
+    "id": 270,
+    "entity": "timeline_event",
+    "entityId": "11",
+    "sourceId": "web:gamerblurb-cleric-build"
+   },
+   {
+    "id": 271,
+    "entity": "timeline_event",
+    "entityId": "12",
+    "sourceId": "yt:-86sdRZ4SX4"
+   },
+   {
+    "id": 272,
+    "entity": "takeaway",
+    "entityId": "12",
+    "sourceId": "web:expcarry-cleric-guide"
+   },
+   {
+    "id": 273,
+    "entity": "takeaway",
+    "entityId": "12",
+    "sourceId": "web:gameoverdrive-builds"
+   },
+   {
+    "id": 274,
+    "entity": "takeaway",
+    "entityId": "12",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 275,
+    "entity": "takeaway",
+    "entityId": "13",
+    "sourceId": "web:expcarry-cleric-guide"
+   },
+   {
+    "id": 276,
+    "entity": "takeaway",
+    "entityId": "13",
+    "sourceId": "web:playhub-builds"
+   },
+   {
+    "id": 277,
+    "entity": "takeaway",
+    "entityId": "13",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 278,
+    "entity": "takeaway",
+    "entityId": "14",
+    "sourceId": "web:playhub-builds"
+   },
+   {
+    "id": 279,
+    "entity": "takeaway",
+    "entityId": "14",
+    "sourceId": "web:expcarry-cleric-guide"
+   },
+   {
+    "id": 280,
+    "entity": "takeaway",
+    "entityId": "14",
+    "sourceId": "yt:5Dy9OA_NEzs"
+   },
+   {
+    "id": 281,
+    "entity": "takeaway",
+    "entityId": "14",
+    "sourceId": "yt:tYxkzfd_9-A"
+   },
+   {
+    "id": 282,
+    "entity": "takeaway",
+    "entityId": "15",
+    "sourceId": "web:expcarry-cleric-guide"
+   },
+   {
+    "id": 283,
+    "entity": "takeaway",
+    "entityId": "15",
+    "sourceId": "web:playhub-builds"
+   },
+   {
+    "id": 284,
+    "entity": "takeaway",
+    "entityId": "15",
+    "sourceId": "web:gamerblurb-cleric-build"
+   },
+   {
+    "id": 285,
+    "entity": "takeaway",
+    "entityId": "16",
+    "sourceId": "yt:-86sdRZ4SX4"
+   },
+   {
+    "id": 286,
+    "entity": "takeaway",
+    "entityId": "16",
+    "sourceId": "yt:5Dy9OA_NEzs"
+   },
+   {
+    "id": 287,
+    "entity": "takeaway",
+    "entityId": "16",
+    "sourceId": "web:game-client-skill-window"
    }
   ],
   "factClaims": [],
@@ -4403,7 +5913,7 @@
   "accountSkills": [
    {
     "id": 1,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Earth's Retribution",
     "skillId": "cleric-earths-retribution",
     "level": 10,
@@ -4411,7 +5921,7 @@
    },
    {
     "id": 2,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Judgment Thunder",
     "skillId": "cleric-judgment-thunder",
     "level": 11,
@@ -4419,7 +5929,7 @@
    },
    {
     "id": 3,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Debilitating Mark",
     "skillId": "cleric-debilitating-mark",
     "level": 12,
@@ -4427,7 +5937,7 @@
    },
    {
     "id": 4,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Divine Aura",
     "skillId": "cleric-divine-aura",
     "level": 11,
@@ -4435,23 +5945,23 @@
    },
    {
     "id": 5,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Chain of Torment",
     "skillId": "cleric-chain-of-torment",
-    "level": 12,
+    "level": 13,
     "slot": "T·0"
    },
    {
     "id": 6,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Lightning Strike Scattershot",
     "skillId": "cleric-lightning-strike-scattershot",
-    "level": 11,
+    "level": 12,
     "slot": "E"
    },
    {
     "id": 7,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Light of Regeneration",
     "skillId": "cleric-light-of-regeneration",
     "level": 9,
@@ -4459,15 +5969,15 @@
    },
    {
     "id": 8,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Condemnation",
     "skillId": "cleric-condemnation",
-    "level": 10,
+    "level": 11,
     "slot": "T·2"
    },
    {
     "id": 9,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Healing Light",
     "skillId": "cleric-healing-light",
     "level": 10,
@@ -4475,23 +5985,23 @@
    },
    {
     "id": 10,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Radiant Recovery",
     "skillId": "cleric-radiant-recovery",
-    "level": 7,
+    "level": 9,
     "slot": "3"
    },
    {
     "id": 11,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Bolt",
     "skillId": "cleric-bolt",
-    "level": 9,
+    "level": 11,
     "slot": "1"
    },
    {
     "id": 12,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Defiance",
     "skillId": "cleric-defiance",
     "level": 2,
@@ -4499,7 +6009,7 @@
    },
    {
     "id": 13,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Warm Benediction",
     "skillId": "cleric-warm-benediction",
     "level": 3,
@@ -4507,7 +6017,7 @@
    },
    {
     "id": 14,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Empyrean Lords' Benediction",
     "skillId": "cleric-empyrean-lords-benediction",
     "level": 2,
@@ -4515,15 +6025,15 @@
    },
    {
     "id": 15,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Empyrean Lord's Grace",
     "skillId": "cleric-empyrean-lords-grace",
-    "level": 12,
+    "level": 13,
     "slot": null
    },
    {
     "id": 16,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Healing Enhancement",
     "skillId": "cleric-healing-enhancement",
     "level": 2,
@@ -4531,7 +6041,7 @@
    },
    {
     "id": 17,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Immortal Veil",
     "skillId": "cleric-immortal-veil",
     "level": 2,
@@ -4539,7 +6049,7 @@
    },
    {
     "id": 18,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Heal Block",
     "skillId": "cleric-heal-block",
     "level": 2,
@@ -4547,7 +6057,7 @@
    },
    {
     "id": 19,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Prayer of Concentration",
     "skillId": "cleric-prayer-of-concentration",
     "level": 2,
@@ -4555,15 +6065,15 @@
    },
    {
     "id": 20,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Earth's Grace",
     "skillId": "cleric-earths-grace",
-    "level": 11,
+    "level": 12,
     "slot": null
    },
    {
     "id": 21,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Survival Willpower",
     "skillId": "cleric-survival-willpower",
     "level": 2,
@@ -4571,7 +6081,7 @@
    },
    {
     "id": 22,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "skillName": "Radiant Benediction",
     "skillId": "cleric-radiant-benediction",
     "level": 3,
@@ -4580,189 +6090,13 @@
    {
     "id": 23,
     "snapshotId": "2026-10-10-sync",
-    "skillName": "Earth's Retribution",
-    "skillId": "cleric-earths-retribution",
-    "level": 10,
-    "slot": "R"
-   },
-   {
-    "id": 24,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Judgment Thunder",
-    "skillId": "cleric-judgment-thunder",
-    "level": 11,
-    "slot": "T·3"
-   },
-   {
-    "id": 25,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Debilitating Mark",
-    "skillId": "cleric-debilitating-mark",
-    "level": 12,
-    "slot": "T·1"
-   },
-   {
-    "id": 26,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Divine Aura",
-    "skillId": "cleric-divine-aura",
-    "level": 11,
-    "slot": "2"
-   },
-   {
-    "id": 27,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Chain of Torment",
-    "skillId": "cleric-chain-of-torment",
-    "level": 13,
-    "slot": "T·0"
-   },
-   {
-    "id": 28,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Lightning Strike Scattershot",
-    "skillId": "cleric-lightning-strike-scattershot",
-    "level": 12,
-    "slot": "E"
-   },
-   {
-    "id": 29,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Light of Regeneration",
-    "skillId": "cleric-light-of-regeneration",
-    "level": 9,
-    "slot": "Q·0"
-   },
-   {
-    "id": 30,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Condemnation",
-    "skillId": "cleric-condemnation",
-    "level": 11,
-    "slot": "T·2"
-   },
-   {
-    "id": 31,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Healing Light",
-    "skillId": "cleric-healing-light",
-    "level": 10,
-    "slot": "Q·1"
-   },
-   {
-    "id": 32,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Radiant Recovery",
-    "skillId": "cleric-radiant-recovery",
-    "level": 9,
-    "slot": "3"
-   },
-   {
-    "id": 33,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Bolt",
-    "skillId": "cleric-bolt",
-    "level": 11,
-    "slot": "1"
-   },
-   {
-    "id": 34,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Defiance",
-    "skillId": "cleric-defiance",
-    "level": 2,
-    "slot": "Space"
-   },
-   {
-    "id": 35,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Warm Benediction",
-    "skillId": "cleric-warm-benediction",
-    "level": 3,
-    "slot": null
-   },
-   {
-    "id": 36,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Empyrean Lords' Benediction",
-    "skillId": "cleric-empyrean-lords-benediction",
-    "level": 2,
-    "slot": null
-   },
-   {
-    "id": 37,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Empyrean Lord's Grace",
-    "skillId": "cleric-empyrean-lords-grace",
-    "level": 13,
-    "slot": null
-   },
-   {
-    "id": 38,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Healing Enhancement",
-    "skillId": "cleric-healing-enhancement",
-    "level": 2,
-    "slot": null
-   },
-   {
-    "id": 39,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Immortal Veil",
-    "skillId": "cleric-immortal-veil",
-    "level": 2,
-    "slot": null
-   },
-   {
-    "id": 40,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Heal Block",
-    "skillId": "cleric-heal-block",
-    "level": 2,
-    "slot": null
-   },
-   {
-    "id": 41,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Prayer of Concentration",
-    "skillId": "cleric-prayer-of-concentration",
-    "level": 2,
-    "slot": null
-   },
-   {
-    "id": 42,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Earth's Grace",
-    "skillId": "cleric-earths-grace",
-    "level": 12,
-    "slot": null
-   },
-   {
-    "id": 43,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Survival Willpower",
-    "skillId": "cleric-survival-willpower",
-    "level": 2,
-    "slot": null
-   },
-   {
-    "id": 44,
-    "snapshotId": "2026-10-10-sync",
-    "skillName": "Radiant Benediction",
-    "skillId": "cleric-radiant-benediction",
-    "level": 3,
-    "slot": null
-   },
-   {
-    "id": 45,
-    "snapshotId": "2026-10-10-sync",
     "skillName": "Power Burst",
     "skillId": "cleric-power-burst",
     "level": 0,
     "slot": null
    },
    {
-    "id": 46,
+    "id": 24,
     "snapshotId": "2026-10-10-sync",
     "skillName": "Prayer of Amplification",
     "skillId": "cleric-prayer-of-amplification",
@@ -4770,7 +6104,7 @@
     "slot": null
    },
    {
-    "id": 47,
+    "id": 25,
     "snapshotId": "2026-10-10-sync",
     "skillName": "Earth Punishment",
     "skillId": "cleric-earth-punishment",
@@ -4778,7 +6112,7 @@
     "slot": null
    },
    {
-    "id": 48,
+    "id": 26,
     "snapshotId": "2026-10-10-sync",
     "skillName": "Light of Protection",
     "skillId": "cleric-light-of-protection",
@@ -4786,7 +6120,7 @@
     "slot": null
    },
    {
-    "id": 49,
+    "id": 27,
     "snapshotId": "2026-10-10-sync",
     "skillName": "Voice of Doom",
     "skillId": "cleric-voice-of-doom",
@@ -4794,70 +6128,246 @@
     "slot": null
    },
    {
-    "id": 50,
+    "id": 28,
     "snapshotId": "2026-10-10-sync",
     "skillName": "Noble Aura",
     "skillId": "cleric-noble-aura",
     "level": 6,
+    "slot": null
+   },
+   {
+    "id": 29,
+    "snapshotId": "2026-10-10",
+    "skillName": "Earth's Retribution",
+    "skillId": "cleric-earths-retribution",
+    "level": 10,
+    "slot": "R"
+   },
+   {
+    "id": 30,
+    "snapshotId": "2026-10-10",
+    "skillName": "Judgment Thunder",
+    "skillId": "cleric-judgment-thunder",
+    "level": 11,
+    "slot": "T·3"
+   },
+   {
+    "id": 31,
+    "snapshotId": "2026-10-10",
+    "skillName": "Debilitating Mark",
+    "skillId": "cleric-debilitating-mark",
+    "level": 12,
+    "slot": "T·1"
+   },
+   {
+    "id": 32,
+    "snapshotId": "2026-10-10",
+    "skillName": "Divine Aura",
+    "skillId": "cleric-divine-aura",
+    "level": 11,
+    "slot": "2"
+   },
+   {
+    "id": 33,
+    "snapshotId": "2026-10-10",
+    "skillName": "Chain of Torment",
+    "skillId": "cleric-chain-of-torment",
+    "level": 12,
+    "slot": "T·0"
+   },
+   {
+    "id": 34,
+    "snapshotId": "2026-10-10",
+    "skillName": "Lightning Strike Scattershot",
+    "skillId": "cleric-lightning-strike-scattershot",
+    "level": 11,
+    "slot": "E"
+   },
+   {
+    "id": 35,
+    "snapshotId": "2026-10-10",
+    "skillName": "Light of Regeneration",
+    "skillId": "cleric-light-of-regeneration",
+    "level": 9,
+    "slot": "Q·0"
+   },
+   {
+    "id": 36,
+    "snapshotId": "2026-10-10",
+    "skillName": "Condemnation",
+    "skillId": "cleric-condemnation",
+    "level": 10,
+    "slot": "T·2"
+   },
+   {
+    "id": 37,
+    "snapshotId": "2026-10-10",
+    "skillName": "Healing Light",
+    "skillId": "cleric-healing-light",
+    "level": 10,
+    "slot": "Q·1"
+   },
+   {
+    "id": 38,
+    "snapshotId": "2026-10-10",
+    "skillName": "Radiant Recovery",
+    "skillId": "cleric-radiant-recovery",
+    "level": 7,
+    "slot": "3"
+   },
+   {
+    "id": 39,
+    "snapshotId": "2026-10-10",
+    "skillName": "Bolt",
+    "skillId": "cleric-bolt",
+    "level": 9,
+    "slot": "1"
+   },
+   {
+    "id": 40,
+    "snapshotId": "2026-10-10",
+    "skillName": "Defiance",
+    "skillId": "cleric-defiance",
+    "level": 2,
+    "slot": "Space"
+   },
+   {
+    "id": 41,
+    "snapshotId": "2026-10-10",
+    "skillName": "Warm Benediction",
+    "skillId": "cleric-warm-benediction",
+    "level": 3,
+    "slot": null
+   },
+   {
+    "id": 42,
+    "snapshotId": "2026-10-10",
+    "skillName": "Empyrean Lords' Benediction",
+    "skillId": "cleric-empyrean-lords-benediction",
+    "level": 2,
+    "slot": null
+   },
+   {
+    "id": 43,
+    "snapshotId": "2026-10-10",
+    "skillName": "Empyrean Lord's Grace",
+    "skillId": "cleric-empyrean-lords-grace",
+    "level": 12,
+    "slot": null
+   },
+   {
+    "id": 44,
+    "snapshotId": "2026-10-10",
+    "skillName": "Healing Enhancement",
+    "skillId": "cleric-healing-enhancement",
+    "level": 2,
+    "slot": null
+   },
+   {
+    "id": 45,
+    "snapshotId": "2026-10-10",
+    "skillName": "Immortal Veil",
+    "skillId": "cleric-immortal-veil",
+    "level": 2,
+    "slot": null
+   },
+   {
+    "id": 46,
+    "snapshotId": "2026-10-10",
+    "skillName": "Heal Block",
+    "skillId": "cleric-heal-block",
+    "level": 2,
+    "slot": null
+   },
+   {
+    "id": 47,
+    "snapshotId": "2026-10-10",
+    "skillName": "Prayer of Concentration",
+    "skillId": "cleric-prayer-of-concentration",
+    "level": 2,
+    "slot": null
+   },
+   {
+    "id": 48,
+    "snapshotId": "2026-10-10",
+    "skillName": "Earth's Grace",
+    "skillId": "cleric-earths-grace",
+    "level": 11,
+    "slot": null
+   },
+   {
+    "id": 49,
+    "snapshotId": "2026-10-10",
+    "skillName": "Survival Willpower",
+    "skillId": "cleric-survival-willpower",
+    "level": 2,
+    "slot": null
+   },
+   {
+    "id": 50,
+    "snapshotId": "2026-10-10",
+    "skillName": "Radiant Benediction",
+    "skillId": "cleric-radiant-benediction",
+    "level": 3,
     "slot": null
    }
   ],
   "accountStigmas": [
    {
     "id": 1,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "slotLevel": 22,
     "skillName": "Prayer of Amplification",
     "skillId": "cleric-prayer-of-amplification"
    },
    {
     "id": 2,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "slotLevel": 27,
     "skillName": "Earth Punishment",
     "skillId": "cleric-earth-punishment"
    },
    {
     "id": 3,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "slotLevel": 32,
     "skillName": "Noble Aura",
     "skillId": "cleric-noble-aura"
    },
    {
     "id": 4,
-    "snapshotId": "2026-10-10",
+    "snapshotId": "2026-10-10-sync",
     "slotLevel": 37,
-    "skillName": null,
-    "skillId": null
+    "skillName": "Voice of Doom",
+    "skillId": "cleric-voice-of-doom"
    },
    {
     "id": 5,
-    "snapshotId": "2026-10-10-sync",
+    "snapshotId": "2026-10-10",
     "slotLevel": 22,
     "skillName": "Prayer of Amplification",
     "skillId": "cleric-prayer-of-amplification"
    },
    {
     "id": 6,
-    "snapshotId": "2026-10-10-sync",
+    "snapshotId": "2026-10-10",
     "slotLevel": 27,
     "skillName": "Earth Punishment",
     "skillId": "cleric-earth-punishment"
    },
    {
     "id": 7,
-    "snapshotId": "2026-10-10-sync",
+    "snapshotId": "2026-10-10",
     "slotLevel": 32,
     "skillName": "Noble Aura",
     "skillId": "cleric-noble-aura"
    },
    {
     "id": 8,
-    "snapshotId": "2026-10-10-sync",
+    "snapshotId": "2026-10-10",
     "slotLevel": 37,
-    "skillName": "Voice of Doom",
-    "skillId": "cleric-voice-of-doom"
+    "skillName": null,
+    "skillId": null
    }
   ],
   "accountMacros": [],
