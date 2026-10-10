@@ -37,7 +37,7 @@ Synthesis: no source settles the editor's entry order; it stays a conflict for t
 Final takeaways, each tied to its capture:
 
 - Damage first while leveling solo; heals first for dungeons (aion2.run, eloboost24, gamesfuze).
-- Earth Punishment is the first solo stigma (eloboost24); Light of Protection is the first group stigma and the most used by top Clerics (metabot, aion2.run).
+- Light of Protection is the first stigma in both client-data sources, solo and group, and the most used by top Clerics (metabot, aion2.run); eloboost24 alone puts Earth Punishment first solo. Earth Punishment's guaranteed Condemnation crit holds; the cooldown reset needs Condemnation 12 (metabot), past what points buy.
 - Column priority is bottom-first (playnews, mein-mmo, allthings.how); cooldown skills go low, filler on top (playnews, mein-mmo), against allthings.how's one line.
-- Entry order (top-down per allthings.how, bottom-up per mein-mmo) and chain length (4 per column, 20 entries) are for the in-game check.
+- The entry model (whole column per allthings.how and playnews, one skill per the Korean frame), entry order (top-down per allthings.how, bottom-up per mein-mmo, which may mean the column) and chain length (4 per column, 20 entries) are for the in-game check.
 - Keep Light of Protection and Bolt out of the macro; 10 ms delay; hold left click alongside (allthings.how, gamesfuze, mein-mmo, playnews).

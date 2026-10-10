@@ -6,10 +6,10 @@
     "sources": ["web:aion2run-cleric", "web:metabot-cleric-build"]
   },
   {
-    "text": "Solo stigmas: Earth Punishment, Light of Protection, Noble Aura now; Prayer of Amplification at 37.",
-    "detail": "Earth Punishment level 5 first: it makes Condemnation crit and lose its cooldown.",
+    "text": "Solo stigmas: Light of Protection, Earth Punishment, Noble Aura now; Prayer of Amplification at 37.",
+    "detail": "Earth Punishment level 5 makes Condemnation crit; the cooldown reset also needs Condemnation at 12.",
     "class": "cleric",
-    "sources": ["web:eloboost24-cleric-build", "web:aion2run-cleric"]
+    "sources": ["web:metabot-cleric-build", "web:aion2run-cleric"]
   },
   {
     "text": "Dungeons: heals to 10 first, Light of Protection and Earth Punishment, Summon Resurrection until the group stops dying.",
@@ -19,9 +19,9 @@
   },
   {
     "text": "Macro: bind it, hold it with left click, 10 ms delay; cooldown skills at the bottom of each column.",
-    "detail": "Entries are hotbar columns; the bottom skill of a column is tried first.",
+    "detail": "The bottom skill of a column is tried first. Whether an entry is a column or one skill is unconfirmed.",
     "class": null,
-    "sources": ["web:allthings-macros", "web:playnews-macros", "web:meinmmo-macros"]
+    "sources": ["web:allthings-macros", "web:playnews-macros", "web:meinmmo-macros", "yt:v_NuuOGFp_4"]
   },
   {
     "text": "Never macro Light of Protection or Bolt: the loop turns the toggle off and fires Bolt uncharged.",
@@ -30,7 +30,7 @@
   },
   {
     "text": "Unconfirmed: whether the editor runs its entries top-down or bottom-up. Check in game before trusting step order.",
-    "detail": "allthings.how says top to bottom; mein-mmo says bottom up.",
+    "detail": "allthings.how says top to bottom; mein-mmo's 'bottom up' may describe the column instead.",
     "class": null,
     "sources": ["web:allthings-macros", "web:meinmmo-macros"]
   },

@@ -10,7 +10,7 @@
   },
   {
     "title": "Conflict: what sits at the bottom of a column",
-    "body": "Cooldown skills at the bottom, no-cooldown filler on top (mein-mmo, playnews). allthings.how says put the no-cooldown attack at the bottom, which would starve the rest.",
+    "body": "Cooldown skills at the bottom, filler on top (mein-mmo, playnews). allthings.how says both: no-cooldown attack at the bottom, and zero-cooldown skills high.",
     "confidence": "theory",
     "class": null,
     "topic": "macros",
@@ -18,16 +18,17 @@
     "sources": ["web:meinmmo-macros", "web:playnews-macros", "web:allthings-macros"]
   },
   {
-    "title": "Macro entries point at hotbar slots, not skills",
-    "body": "Each entry registers a whole hotbar column; changing the skills in that slot changes the macro.",
-    "confidence": "posted",
+    "title": "Conflict: an entry is a hotbar column or a single skill",
+    "body": "Unsettled: allthings.how and playnews say each entry registers a whole hotbar column; the KR editor frame (after May 2026) shows one skill per entry. Both chains assume columns.",
+    "confidence": "theory",
     "class": null,
     "topic": "macros",
-    "sources": ["web:allthings-macros", "web:playnews-macros"]
+    "alsoTopics": ["conflicts"],
+    "sources": ["web:allthings-macros", "web:playnews-macros", "yt:v_NuuOGFp_4"]
   },
   {
     "title": "Conflict: the order the editor runs its entries",
-    "body": "Likely top to bottom: allthings.how says so and a KR editor frame numbers entries 1… from the top. mein-mmo says bottom up. Confirm in game.",
+    "body": "Likely top to bottom (allthings.how); the KR frame's top-down numbering is consistent with it. mein-mmo's 'bottom up' may mean the column. Confirm in game.",
     "confidence": "theory",
     "class": null,
     "topic": "macros",
@@ -36,7 +37,7 @@
   },
   {
     "title": "The editor numbers its entries from the top",
-    "body": "A KR Cleric's editor (May 2026) lists entries 1, 2, 3… downward, each with its own delay (10 ms); 'Add Macro' appends below.",
+    "body": "A KR Cleric's editor (May 2026) lists single-skill entries 1, 2, 3… downward, each with its own 10 ms delay; 'Add Macro' appends below. Display order, not run order.",
     "confidence": "posted",
     "class": null,
     "topic": "macros",
@@ -86,7 +87,7 @@
   },
   {
     "title": "Hold the basic attack beside the macro",
-    "body": "Hold left click with the macro key: basic attacks cancel animations and restore MP. Putting the basic attack inside the macro loses damage.",
+    "body": "Hold left click with the macro key: basic attacks cancel animations and restore MP. Whether it also belongs inside the macro is a conflict below.",
     "confidence": "posted",
     "class": null,
     "topic": "macros",
@@ -129,7 +130,7 @@
   },
   {
     "title": "Specializations at skill levels 8, 12, 16 and 20",
-    "body": "Options unlock at 8, 12 and 16; slots open at 8, 12 and 20. Past 10 only Daevanion, gear and Arcana raise a skill.",
+    "body": "A skill at 10 holds one pick from its level-8 options; slots open at 8, 12 and 20. Past 10 only Daevanion, gear and Arcana raise a skill.",
     "confidence": "theory",
     "class": null,
     "topic": "skills",
@@ -137,15 +138,15 @@
   },
   {
     "title": "Skill level gate: one level per 3 character levels",
-    "body": "A skill gains at most one level every 3 character levels on global, so at 36 nothing is capped below 10.",
+    "body": "A skill gains at most one level every 3 character levels; at 36 points decide, and aion2maps' plan still has Bolt at 8 (10 at 38).",
     "confidence": "theory",
     "class": null,
     "topic": "skills",
     "sources": ["web:aion2run-cleric"]
   },
   {
-    "title": "Condemnation needs Chain of Torment; Earth Punishment removes its cooldown",
-    "body": "Condemnation hits only Chain of Torment targets. From stigma level 5 Earth Punishment makes it crit, and its spec-12 crit reset makes it cooldown-free.",
+    "title": "Condemnation needs Chain of Torment; Earth Punishment makes it crit",
+    "body": "Condemnation hits only Chain of Torment targets; Earth Punishment level 5 makes it crit. Cooldown-free only at Condemnation 12 (Daevanion or gear past 10).",
     "confidence": "theory",
     "class": "cleric",
     "topic": "rotation",
@@ -163,12 +164,12 @@
   },
   {
     "title": "Conflict: the first solo stigma",
-    "body": "Earth Punishment first (eloboost24: Light of Protection is a solo mistake) vs Light of Protection first (aion2.run). Verdict: Earth Punishment, then Light of Protection.",
+    "body": "Light of Protection at 22 (metabot and aion2.run, the client-data sources) vs Earth Punishment first (eloboost24, on paper). Verdict: Light of Protection, Earth Punishment at 27.",
     "confidence": "theory",
     "class": "cleric",
     "topic": "stigmas",
     "alsoTopics": ["conflicts"],
-    "sources": ["web:eloboost24-cleric-build", "web:aion2run-cleric"]
+    "sources": ["web:metabot-cleric-build", "web:aion2run-cleric", "web:eloboost24-cleric-build"]
   },
   {
     "title": "Conflict: Resurrection or Noble Aura in group stigmas",

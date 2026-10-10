@@ -4,68 +4,68 @@
     "class": "cleric",
     "purpose": "leveling",
     "title": "Solo leveling: damage first, self-sustain built in",
-    "why": "Kill fast alone: the Chain of Torment → Condemnation loop with Earth Punishment crits; Radiant Benediction and Light of Regeneration keep you up.",
-    "confidence": "posted",
+    "why": "Kill fast alone: the Chain of Torment → Condemnation loop, crit-boosted by Earth Punishment; Radiant Benediction and Light of Regeneration keep you up.",
+    "confidence": "theory",
     "skills": [
       {
         "skillId": "cleric-condemnation",
         "rank": 1,
         "targetLevel": 10,
-        "why": "Main damage; with Earth Punishment it always crits and its spec-12 reset removes the cooldown."
+        "why": "Main damage, 3 s cooldown, always crits on Earth Punishment's target; spec: +12% vs fewer targets."
       },
       {
         "skillId": "cleric-chain-of-torment",
         "rank": 2,
         "targetLevel": 10,
-        "why": "Condemnation only hits targets it marks; 4-target DoT for packs."
+        "why": "Condemnation only hits targets it marks; 4-target DoT. Spec pick: read in game."
       },
       {
         "skillId": "cleric-earths-retribution",
         "rank": 3,
         "targetLevel": 10,
-        "why": "Held left click: damage plus 110 MP a hit keeps the loop fed."
+        "why": "Held left click, 110 MP a hit keeps the loop fed; spec: +20% MP restored."
       },
       {
         "skillId": "cleric-judgment-thunder",
         "rank": 4,
         "targetLevel": 10,
-        "why": "No-cooldown 4-target filler at the top of the macro column."
+        "why": "No-cooldown 4-target filler; spec: +12% vs fewer targets (−20% MP if MP runs short)."
       },
       {
         "skillId": "cleric-divine-aura",
         "rank": 5,
         "targetLevel": 10,
-        "why": "Free damage every 30 s; take the AoE spec at 8 for packs."
+        "why": "Free damage every 30 s; spec: Changes to AoE Skill, for packs."
       },
       {
         "skillId": "cleric-bolt",
         "rank": 6,
         "targetLevel": 10,
-        "why": "Biggest single hit when fully charged by hand; 10 by level 38."
+        "why": "Biggest hit, fully charged by hand; 8 at 36, 10 at 38; spec: +30% Skill Speed."
       },
       {
         "skillId": "cleric-debilitating-mark",
         "rank": 7,
         "targetLevel": 8,
-        "why": "10 s 4-target DoT; spec 8 takes 15% off the target's Defense."
+        "why": "10 s 4-target DoT; spec: −15% target Defense."
       },
       {
         "skillId": "cleric-healing-light",
         "rank": 8,
         "targetLevel": 8,
-        "why": "Manual self-heal on a 6 s cooldown; spec 8 gives +2 casts."
+        "why": "Manual self-heal on a 6 s cooldown; spec: +2 consecutive uses."
       },
       {
         "skillId": "cleric-light-of-regeneration",
         "rank": 9,
         "targetLevel": 8,
-        "why": "30 s heal over time that sits in the macro and covers chip damage."
+        "why": "30 s heal over time in the macro; spec: +20% healed at 50% HP or less."
       },
       {
         "skillId": "cleric-radiant-recovery",
         "rank": 10,
         "targetLevel": 8,
-        "why": "Burst heal and cleanse for elites; spec 8 removes 2 debuffs."
+        "why": "Burst heal and cleanse for elites; spec: removes up to 2 debuffs."
       },
       {
         "skillId": "cleric-empyrean-lords-grace",
@@ -83,13 +83,13 @@
     "stigmas": [
       {
         "slotLevel": 22,
-        "skillId": "cleric-earth-punishment",
-        "why": "Solo first pick: 30 s DoT nuke, and from level 5 Condemnation crits without cooldown."
+        "skillId": "cleric-light-of-protection",
+        "why": "Toggle on yourself: +10.5% damage and tolerance for 1 point; keep it out of the macro."
       },
       {
         "slotLevel": 27,
-        "skillId": "cleric-light-of-protection",
-        "why": "Toggle on yourself: +10.5% damage and tolerance for 1 point; keep it out of the macro."
+        "skillId": "cleric-earth-punishment",
+        "why": "30 s DoT nuke; from stigma level 5 Condemnation always crits on its target."
       },
       {
         "slotLevel": 32,
@@ -157,61 +157,61 @@
     "purpose": "pve",
     "title": "Group dungeon healer: heal first, damage between heals",
     "why": "Party healer that still deals damage: heals maxed, Light of Protection for the party, Chain of Torment on the boss, a resurrection slotted.",
-    "confidence": "posted",
+    "confidence": "theory",
     "skills": [
       {
         "skillId": "cleric-healing-light",
         "rank": 1,
         "targetLevel": 10,
-        "why": "Workhorse heal on the lowest ally every 6 s; spec 8 gives +2 casts."
+        "why": "Workhorse heal on the lowest ally every 6 s; spec: +2 consecutive uses."
       },
       {
         "skillId": "cleric-radiant-recovery",
         "rank": 2,
         "targetLevel": 10,
-        "why": "Party heal and cleanse every 12 s; spec 8 removes 2 debuffs."
+        "why": "Party heal and cleanse every 12 s; spec: removes up to 2 debuffs."
       },
       {
         "skillId": "cleric-light-of-regeneration",
         "rank": 3,
         "targetLevel": 10,
-        "why": "30 s party heal over time, kept up by the macro."
+        "why": "30 s party heal over time in the macro; spec: +20% healed at 50% HP or less."
       },
       {
         "skillId": "cleric-chain-of-torment",
         "rank": 4,
         "targetLevel": 10,
-        "why": "Party damage debuff on the boss (−15% Tolerance at spec 12) and Condemnation's enabler."
+        "why": "Boss −5% Tolerance for the party (−10% more needs skill 12); enables Condemnation."
       },
       {
         "skillId": "cleric-condemnation",
         "rank": 5,
         "targetLevel": 10,
-        "why": "Damage between heals; chests need your damage contribution too."
+        "why": "Damage between heals, which chests also count; spec: +12% vs fewer targets."
       },
       {
         "skillId": "cleric-earths-retribution",
         "rank": 6,
         "targetLevel": 10,
-        "why": "Left-click MP source for long fights."
+        "why": "Left-click MP source for long fights; spec: +20% MP restored."
       },
       {
         "skillId": "cleric-judgment-thunder",
         "rank": 7,
         "targetLevel": 10,
-        "why": "No-cooldown filler on the boss and adds."
+        "why": "No-cooldown filler on the boss and adds; spec: +12% vs fewer targets."
       },
       {
         "skillId": "cleric-debilitating-mark",
         "rank": 8,
         "targetLevel": 8,
-        "why": "Cuts the boss's damage 5% and Defense 15% (spec 8)."
+        "why": "Cuts the boss's damage 5%; spec: −15% target Defense."
       },
       {
         "skillId": "cleric-divine-aura",
         "rank": 9,
         "targetLevel": 8,
-        "why": "Free damage every 30 s; place it within 20 m of the boss."
+        "why": "Free damage every 30 s within 20 m of the boss; spec pick: read in game."
       },
       {
         "skillId": "cleric-healing-enhancement",
@@ -235,7 +235,7 @@
       {
         "slotLevel": 27,
         "skillId": "cleric-earth-punishment",
-        "why": "Crit Condemnations on the boss plus Earth's Blessing for the party."
+        "why": "Guaranteed-crit Condemnations on the boss from stigma level 5, plus Earth's Blessing for the party."
       },
       {
         "slotLevel": 32,

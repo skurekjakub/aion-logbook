@@ -51,7 +51,7 @@
     "kind": "active",
     "unlockLevel": 4,
     "cooldownSec": 20,
-    "summary": "4-target DoT that cuts PvE Damage Tolerance 5% (15% with spec 12); Condemnation needs it on the target.",
+    "summary": "4-target DoT that cuts PvE Damage Tolerance 5% (a further 10% with the skill-12 spec); Condemnation needs it on the target.",
     "sources": ["web:metabot-cleric-build", "web:aion2run-cleric"]
   },
   {
@@ -84,7 +84,7 @@
     "kind": "active",
     "unlockLevel": 8,
     "cooldownSec": 3,
-    "summary": "Core damage: hits Chain of Torment targets only; spec 12 resets its cooldown on a crit.",
+    "summary": "Core damage: hits Chain of Torment targets only; at skill level 12 a spec resets its cooldown on a crit.",
     "sources": ["web:metabot-cleric-build", "web:aion2run-cleric", "web:gamesfuze-cleric-build"]
   },
   {

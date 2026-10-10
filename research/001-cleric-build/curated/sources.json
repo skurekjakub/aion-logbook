@@ -76,7 +76,7 @@
     "title": "AION 2: How to Use Macros and Pick the Right Delay",
     "date": "2026-10-05",
     "relevance": 3,
-    "note": "Most detailed macro-editor description: 20 entries, entries are hotbar columns, run top to bottom, 10 ms default, toggles and charged skills out; a short Cleric dummy test.",
+    "note": "Most detailed macro-editor description: says 20 entries, each a hotbar column, run top to bottom, 10 ms default, toggles and charged skills out; a short Cleric dummy test.",
     "summaryEn": "How the built-in macro works: bind, build from hotbar columns, 10 ms delay, what to leave out, presets with their own macros.",
     "capturePath": "research/001-cleric-build/evidence/01-guides/allthings-how-p-211813.md"
   },
