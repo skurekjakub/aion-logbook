@@ -252,5 +252,6 @@ describe("backfill", () => {
       "evidence/c.md": "2026-09-28T11:00:00+02:00",
       "evidence/sub/b 한.json": "2026-09-28T09:30:00+02:00",
     });
-  });
+    // Several git processes on Windows exceed the default 5 s once the full suite loads the machine.
+  }, 30_000);
 });
