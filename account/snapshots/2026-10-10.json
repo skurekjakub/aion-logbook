@@ -78,6 +78,7 @@
     "Stigma slot levels: mapped from hotbar keys 4, 5, 6",
     "Voice of Doom: padlocked in game, flagged equipped at Lv 0 in official data",
     "Specialization picks",
+    "Whether acquiring a stigma needs a free slot",
     "Presets 2 and 3",
     "Character window: name, level, gear from official data"
   ]

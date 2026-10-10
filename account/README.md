@@ -32,7 +32,7 @@ The character as read from the Aion 2 client, and what's left to apply from the 
 Read from the recording `snapshots/screens/2026-10-10/tour/` (11:21 to 11:23, +02:00) after the user had spent skill points. The snapshot holds the last state observed: the macro editor empty. The macro first seen in the recording, and its clearing, are in `apply-log-2026-10-10.md`.
 
 - **Character:** Baon, Fafnir (EU), Asmodian Cleric, level 36; item level 749 as `gearScore` (combat power 33293). Source: `research/002-character-data-source/evidence/03-api/character-info-baon.json`.
-- **Skill points:** 2 left (frames `f-0031` to `f-0065`). **Stigma points:** 1; Noble Aura's next level costs 2 (`f-0001`), Earth Punishment's costs 1 (`f-0016`), and a padlocked stigma shows `Lv. 1` with an `Acquire` button costing 1 (`f-0005` to `f-0027`).
+- **Skill points:** 2 left (frames `f-0031` to `f-0065`). **Stigma points:** 1; Noble Aura's next level costs 2 (`f-0001`), Earth Punishment's costs 1 (`f-0016`), and a padlocked stigma shows `Lv. 1` with an `Acquire` button costing 1 (`f-0005` to `f-0027`). The roadmap spends the held point on acquiring Light of Protection (`f-0021`) and gives Earth Punishment the next one; whether acquiring needs a free slot is unread.
 - **Invested level, gear bonus and next cost per skill**, read from the selected skill's name strip and the Level Up button (frames `f-0031` to `f-0065`). The snapshot's `level` is the sum.
 
   | Skill | Invested | Gear | Level Up |

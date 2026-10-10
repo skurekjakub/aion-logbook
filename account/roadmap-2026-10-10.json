@@ -11,8 +11,8 @@
     {
       "priority": "now",
       "area": "stigmas",
-      "action": "Earth Punishment 4 → 5",
-      "why": "Costs 1, 1 held (frame f-0016); from level 5 Condemnation always crits on its target.",
+      "action": "Acquire Light of Protection (costs 1, 1 held)",
+      "why": "Best first stigma: +10.5% PvE damage and tolerance, a toggle, switch it on by hand (f-0021); whether it needs a free slot is unread.",
       "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling" }]
     },
     {
@@ -53,8 +53,8 @@
     {
       "priority": "next",
       "area": "stigmas",
-      "action": "Acquire Light of Protection",
-      "why": "Padlocked, Acquire costs 1 (f-0021), the point Earth Punishment 4 → 5 also wants; the build's 22 slot.",
+      "action": "Earth Punishment 4 → 5",
+      "why": "Takes the next stigma point (costs 1, f-0016); from level 5 Condemnation always crits on its target.",
       "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling" }]
     },
     {
