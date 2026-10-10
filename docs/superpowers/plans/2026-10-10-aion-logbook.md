@@ -1,6 +1,6 @@
 # aion-logbook Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Port crumble-logbook to Aion 2 as `aion-logbook`, restyle it in the Aion 2 register, bridge it to the live game client, research and apply the character's skill/stigma/macro build, wire the giga-marketplace agent workspace, and publish it (public GitHub + Vercel).
 
@@ -45,7 +45,7 @@
 **Interfaces:**
 - Produces: `@aion/eslint-config` exporting `aionConfig(rootDir: string)`; `@aion/capture` with subcommands `youtube *`, `web fetch <record> <url> <dir>`, `log`, `verify`, `backfill`; root scripts `typecheck`, `test`, `lint`, `format`, `verify`, `dev`, `dev:server`, `dev:web`, `import:record`, `import:account`, `db:export`, `db:restore`, `db:scope`, `build:vercel`, `capture`, `game`.
 
-- [ ] **Step 1: Copy the generic files**
+- [x] **Step 1: Copy the generic files**
 
 ```bash
 C=/c/repositories/crumble-logbook; A=/c/repositories/aion-logbook
@@ -58,7 +58,7 @@ cp -r $C/.claude/hooks .claude/; cp -r $C/.claude/agents .claude/
 mkdir -p .claude/skills && cp -r $C/.claude/skills/{deep-research,iterative-research,agent-browser} .claude/skills/
 ```
 
-- [ ] **Step 2: Rename crumble → aion everywhere in the copied files**
+- [x] **Step 2: Rename crumble → aion everywhere in the copied files**
 
 ```bash
 cd /c/repositories/aion-logbook
@@ -69,7 +69,7 @@ grep -rnI -i crumble --exclude-dir=node_modules --exclude-dir=.git --exclude-dir
 
 Review every remaining hit by hand: game-specific prose (Cookie Run, 배, cookies) is rewritten for Aion 2 or deleted.
 
-- [ ] **Step 3: Prune the capture package to the generic subcommands**
+- [x] **Step 3: Prune the capture package to the generic subcommands**
 
 Delete the `dc`, `naver` and `crumbgg` scrapers and their tests/fixtures from `packages/capture/src` and `packages/capture/test` (and `cheerio`/`domhandler` only if nothing else imports them). Add `web fetch <record> <url> <dir>`: GET the URL with `fetch`, convert HTML to Markdown-ish text (strip `script/style/nav/footer`, keep headings, lists, tables, paragraphs), write `<dir>/<slug-of-url>.md` with a front-matter block `url`, `captured_at`, `title`, never overwrite, and append the ledger line with `tool: "capture:web"`. Extend `CAPTURE_TOOL` in the ledger schema (it moves to `packages/schema` in Task 2; until then keep it in `packages/capture/src/ledger.ts`) with `capture:web`.
 
@@ -99,7 +99,7 @@ describe("web capture", () => {
 });
 ```
 
-- [ ] **Step 4: Rewrite the project docs for Aion 2**
+- [x] **Step 4: Rewrite the project docs for Aion 2**
 
 - `AGENTS.md`: same structure and every rule that is not crumble-content (pull first, read README and OPEN-QUESTIONS, records/evidence/ledger rules, no enumerating, layering, JSDoc, no auth, public repo, main + worktree lanes, Opus reviews, agent-browser, UI rules). Replace the crumble-content rules ("rank by damage, never by 배", "every deck cookie carries a level") with: "Every build skill carries a target level and a one-line why"; "A macro chain lists its steps in the editor's order and names its key". Add a "Game bridge" rule: capture with `pnpm game shot`, drive with `pnpm game key|click|drag`, menus only, never in combat, read the shot before the next action.
 - `README.md`: What's here, Development, Deployment, The database, API, Game bridge, Working notes, Captures — each rewritten from crumble's section for this repo.
@@ -108,7 +108,7 @@ describe("web capture", () => {
 - `.claude/settings.json`: merge crumble's hooks block into the existing `enabledPlugins` file; permissions name `pnpm` (not `npm`): `Bash(pnpm verify)`, `Bash(pnpm test*)`, `Bash(pnpm typecheck)`, `Bash(pnpm lint*)`, `Bash(pnpm game *)`, `Bash(pnpm capture *)`.
 - `.claude/agents/rubber-duk.md`: rewritten for this repo (layering, ledger, JSDoc, UI rules), Opus, effort xhigh.
 
-- [ ] **Step 5: Install and verify**
+- [x] **Step 5: Install and verify**
 
 Temporarily point root `vitest.config.ts` projects and `pnpm-workspace.yaml` at what exists (`packages/*`, `tools/eslint-config`). Run:
 
@@ -118,7 +118,7 @@ pnpm install && pnpm verify
 
 Expected: install succeeds; typecheck, lint, format check and the capture tests pass.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add -A && git commit -F .git/COMMIT_MSG   # "chore: port the crumble-logbook skeleton and tooling"
@@ -136,11 +136,11 @@ git add -A && git commit -F .git/COMMIT_MSG   # "chore: port the crumble-logbook
 - Consumes: crumble `packages/schema` generic files (copy, rename, drop domain references).
 - Produces (exact names later tasks use): enums `CLASS`, `BUILD_PURPOSE`, `SKILL_KIND`, `CONFIDENCE`, `SOURCE_SITE` (`web|yt`), `CITED_ENTITY` (adds `skill|build|macro`); tables `skills`, `builds`, `buildSkills`, `buildStigmas`, `macros`, `macroSteps`, `accountSnapshots`, `accountSkills`, `accountRoadmapItems`; Zod `skillInput/skillPatch`, `buildInput/buildPatch`, `macroInput/macroPatch`, `accountSnapshotFile` (the `aion-account-snapshot/1` document), `slug`, `sourceId` (`^(web|yt):.+$`), `isoDate`; types `GameClass`, `BuildInput`, `MacroInput`, `AccountSnapshotFile`. `classColumn()` replaces crumble's `modeColumn()`.
 
-- [ ] **Step 1: Copy the generic schema files and strip domain**
+- [x] **Step 1: Copy the generic schema files and strip domain**
 
 Copy `package.json`, `tsconfig.json`, `drizzle.config.ts`, `src/{index,zod,inputs,ledger,obsolete,migrations-path}.ts`, `src/tables/{index,columns,records,sources,citations,fact-claims,captures,glossary,findings,recommendations}.ts`, `test/{driver,ledger}.test.ts`. In `inputs.ts` and `zod.ts` keep only generic inputs (records, sources, glossary, findings: mechanics/timeline/takeaways/rng factors, recommendations, captures). `records.ts`: `record_modes` becomes `record_classes` (`recordSlug`, `class`). Remove every import of a deleted module; `pnpm --filter @aion/schema typecheck` must pass before Step 2.
 
-- [ ] **Step 2: Write the enums and column helper**
+- [x] **Step 2: Write the enums and column helper**
 
 `packages/schema/src/enums.ts` (generic enums kept from crumble, plus):
 
@@ -187,7 +187,7 @@ export function classColumn() {
 }
 ```
 
-- [ ] **Step 3: Write the failing table test**
+- [x] **Step 3: Write the failing table test**
 
 `packages/schema/test/aion-tables.test.ts`:
 
@@ -236,12 +236,12 @@ describe("aion tables", () => {
 });
 ```
 
-- [ ] **Step 4: Run it to make sure it fails**
+- [x] **Step 4: Run it to make sure it fails**
 
 Run: `pnpm --filter @aion/schema exec vitest run test/aion-tables.test.ts`
 Expected: FAIL — `skills` is not exported.
 
-- [ ] **Step 5: Write the tables**
+- [x] **Step 5: Write the tables**
 
 `packages/schema/src/tables/skills.ts`:
 
@@ -391,11 +391,11 @@ export const accountRoadmapItems = sqliteTable("account_roadmap_items", {
 
 Export all from `tables/index.ts`. Generate the single initial migration: `pnpm --filter @aion/schema exec drizzle-kit generate --name init`.
 
-- [ ] **Step 6: Run the table test**
+- [x] **Step 6: Run the table test**
 
 Run: `pnpm --filter @aion/schema exec vitest run test/aion-tables.test.ts` — Expected: PASS.
 
-- [ ] **Step 7: Write the failing input test**
+- [x] **Step 7: Write the failing input test**
 
 `packages/schema/test/inputs.test.ts`:
 
@@ -433,9 +433,9 @@ describe("aion inputs", () => {
 });
 ```
 
-- [ ] **Step 8: Run it to make sure it fails** — `pnpm --filter @aion/schema exec vitest run test/inputs.test.ts` — Expected: FAIL (not exported).
+- [x] **Step 8: Run it to make sure it fails** — `pnpm --filter @aion/schema exec vitest run test/inputs.test.ts` — Expected: FAIL (not exported).
 
-- [ ] **Step 9: Write the inputs**
+- [x] **Step 9: Write the inputs**
 
 Append to `packages/schema/src/inputs.ts`:
 
@@ -534,9 +534,9 @@ export const accountSnapshotFile = z.object({
 export type AccountSnapshotFile = z.output<typeof accountSnapshotFile>;
 ```
 
-- [ ] **Step 10: Run the schema package** — `pnpm --filter @aion/schema exec vitest run` — Expected: PASS. Then `pnpm verify` — PASS.
+- [x] **Step 10: Run the schema package** — `pnpm --filter @aion/schema exec vitest run` — Expected: PASS. Then `pnpm verify` — PASS.
 
-- [ ] **Step 11: Commit** — `feat(schema): the generic tables and the Aion 2 build domain`.
+- [x] **Step 11: Commit** — `feat(schema): the generic tables and the Aion 2 build domain`.
 
 ---
 
@@ -550,7 +550,7 @@ export type AccountSnapshotFile = z.output<typeof accountSnapshotFile>;
 - Consumes: Task 2 exports.
 - Produces: `AppType` (Hono app type for the web's `hc` client); endpoints `GET /api/{records,sources,glossary,captures,export,account,skills,builds,builds/:id,macros}` and the registry CRUD for `skills`, `builds`, `macros`, `mechanics`, `timeline`, `takeaways`, `recommendations`; list filters `?class=`, `?current=`, `?record=`, `?purpose=` (builds); `GET /api/builds/:id` returns `{ ...build, skills: [{ rank, targetLevel, why, skill }], stigmas: [{ slotLevel, why, skill }], macros: [{ ..., steps: [{ position, note, skill }] }], sources }`; CLI scripts as in Task 1.
 
-- [ ] **Step 1: Port the generic server**
+- [x] **Step 1: Port the generic server**
 
 Copy crumble `apps/server` wholesale, then delete every file whose subject is a crumble domain (decks, rune builds, gear, scores, counters, rankings/usage, fight events, buff values, stage/rift, dungeon, daily dungeons, team power, crumble account) and its tests. Rewrite `registry.ts` to the generic entries (`sources`, `researchRecords`, `recordClasses`, `captures`, `glossary`, `mechanics`, `rngFactors`, `timeline`, `takeaways`, `recommendations`, `citations`, `factClaims`) plus:
 
@@ -579,7 +579,7 @@ Copy crumble `apps/server` wholesale, then delete every file whose subject is a 
 
 The `modeFilter` becomes `classFilter = { schema: z.enum(CLASS), match: { equals: "class" } }`, applied automatically to every table with a `class` column. Builds follow the decks pattern: `repos/builds.ts` inserts a build with its children in one transaction and reads them back nested; `services/builds.ts` checks every referenced skill id exists (422 `UnknownRefsError` naming the ids); `routes/builds.ts` mounts list/detail/create/patch/delete.
 
-- [ ] **Step 2: Write the failing route test**
+- [x] **Step 2: Write the failing route test**
 
 `apps/server/test/builds.routes.test.ts`:
 
@@ -623,25 +623,25 @@ describe("/api/builds", () => {
 
 (`helpers.ts` is ported from crumble's test helpers: an app over a migrated `:memory:` db.)
 
-- [ ] **Step 3: Run it, see it fail; implement; run it, see it pass**
+- [x] **Step 3: Run it, see it fail; implement; run it, see it pass**
 
 Run: `pnpm --filter @aion/server exec vitest run test/builds.routes.test.ts`.
 
-- [ ] **Step 4: Port and adapt the importer**
+- [x] **Step 4: Port and adapt the importer**
 
 `import.json` (strict): `record{slug, question, status, startedAt, classes: CLASS[]}`, `curated` folder, `extractions` (optional), `ledger{file}`. `curated/manifest.json` collections: `meta`, `sources`, `glossary`, `skills`, `builds`, `mechanics`, `timeline`, `takeaways`, `recommendations`. `builds.json` items use `buildInput`; skills in builds/macros must resolve to the record's `skills.json` or an already-imported skill, else `ImportError` "record <slug>: builds[<id>] names unknown skill <id>".
 
 Fixture record `apps/server/test/fixtures/records/900-fixture/` with a minimal `import.json`, `curated/{manifest,meta,sources,skills,builds}.json`, `evidence/captures.jsonl` (empty), and `import-record.test.ts` asserting: a clean import writes the build nested; a builds.json naming an unknown skill fails with that message; `--replace` clears and rewrites only that record's rows.
 
-- [ ] **Step 5: Account importer**
+- [x] **Step 5: Account importer**
 
 `pnpm import:account [file] [--replace]` reads `account/snapshots/YYYY-MM-DD.json` (`accountSnapshotFile`) and `account/roadmap-YYYY-MM-DD.json` when present; resolves each skill name to a `skills.id` by `(class, lower(name))`; unresolved names keep `skillId: null`. Test with a fixture snapshot.
 
-- [ ] **Step 6: Architecture, snapshot and Vercel**
+- [x] **Step 6: Architecture, snapshot and Vercel**
 
 Port `architecture.test.ts` with `@aion/` names and a rule that nothing in `apps/server/src` imports `@aion/game`. Port `vercel.ts` and `cli/build-vercel.ts` unchanged except names. `vercel.test.ts`: seed an in-memory db from a small snapshot built in the test (export after importing the fixture record) and assert `GET /api/records` and `GET /api/builds` answer 200 through the Vercel handler.
 
-- [ ] **Step 7: Verify and commit** — `pnpm verify` PASS; commit `feat(server): the layered API, importer and Vercel entry for builds`.
+- [x] **Step 7: Verify and commit** — `pnpm verify` PASS; commit `feat(server): the layered API, importer and Vercel entry for builds`.
 
 ---
 
@@ -655,9 +655,9 @@ Port `architecture.test.ts` with `@aion/` names and a rule that nothing in `apps
 - Consumes: `AppType` from `@aion/server` (types only); endpoints from Task 3.
 - Produces: `CLASS_SECTIONS` (one `ClassSection` per class with a `recordSlug` when content exists), `classSectionsWithContent(records): ClassSection[]`, components `SkillChip({ skill, level? })`, `MacroChain({ macro })`, `StigmaSlots({ stigmas, unlockedTo? })`.
 
-- [ ] **Step 1: Port the shell and generic components** (copy, rename, delete crumble domain views/components/routes/lib/CSS; `$mode` → `$class`; `MODES` → `CLASS_SECTIONS`; `resolveMode` → `resolveClass`; theme key `aion-theme`).
+- [x] **Step 1: Port the shell and generic components** (copy, rename, delete crumble domain views/components/routes/lib/CSS; `$mode` → `$class`; `MODES` → `CLASS_SECTIONS`; `resolveMode` → `resolveClass`; theme key `aion-theme`).
 
-- [ ] **Step 2: Write the failing view tests**
+- [x] **Step 2: Write the failing view tests**
 
 `apps/web/test/macros-view.test.tsx`:
 
@@ -691,13 +691,13 @@ describe("MacroChain", () => {
 
 `apps/web/test/skills-view.test.tsx`: `SkillsView` lists build skills by rank with target-level badges; a skill the account snapshot has below target shows a "level up" badge.
 
-- [ ] **Step 3: Run, fail; implement components/views/routes; run, pass**
+- [x] **Step 3: Run, fail; implement components/views/routes; run, pass**
 
 Run: `pnpm --filter @aion/web exec vitest run`.
 
-- [ ] **Step 4: Check every screen in agent-browser** (headed, `AGENT_BROWSER_EXECUTABLE_PATH="C:/Program Files/Google/Chrome/Application/chrome.exe"`, `AGENT_BROWSER_SESSION=aion`), at desktop and phone width, light and dark, with `pnpm dev` on the fixture data.
+- [x] **Step 4: Check every screen in agent-browser** (headed, `AGENT_BROWSER_EXECUTABLE_PATH="C:/Program Files/Google/Chrome/Application/chrome.exe"`, `AGENT_BROWSER_SESSION=aion`), at desktop and phone width, light and dark, with `pnpm dev` on the fixture data.
 
-- [ ] **Step 5: Verify and commit** — `feat(web): the class sections, build views and shared pages`.
+- [x] **Step 5: Verify and commit** — `feat(web): the class sections, build views and shared pages`.
 
 ---
 
@@ -708,12 +708,12 @@ Run: `pnpm --filter @aion/web exec vitest run`.
 - Create: `docs/design/2026-10-10-aion-look.md` (the design plan the skill produces: palette, type, layout, principles, what was revised and why)
 - Test: `apps/web/test/theme.test.tsx`
 
-- [ ] **Step 1: Invoke `frontend-design:frontend-design`** and follow it: design plan first (4–6 named hex colours per theme, typefaces and roles, layout concept with ASCII wireframes, principles), review it against the brief in the spec § 2 and against the generic-default traits the skill lists, revise, write it to `docs/design/2026-10-10-aion-look.md`.
-- [ ] **Step 2: Reference the client:** capture the HUD and the skill window with `pnpm game shot` (or the scratch capture until Task 6 lands) and sample colours from the PNGs (ffmpeg `crop` + a pixel dump) so the palette is grounded in the game, not guessed.
-- [ ] **Step 3: Write the failing theme test** — `theme.test.tsx`: `ThemeToggle` cycles system → light → dark, sets `data-theme` on `<html>`, persists `aion-theme`; a pre-paint inline script in `index.html` applies the stored theme before React mounts (assert the script exists in `index.html` and sets `data-theme`).
-- [ ] **Step 4: Implement tokens and sheets**, keeping light and dark, phone width with 16px gutters, visible focus, reduced motion; one memorable element only.
-- [ ] **Step 5: Screenshot every screen** in agent-browser (both themes, desktop + phone) and critique against the design plan; fix; re-shoot.
-- [ ] **Step 6: Verify and commit** — `feat(web): the Aion 2 look`.
+- [x] **Step 1: Invoke `frontend-design:frontend-design`** and follow it: design plan first (4–6 named hex colours per theme, typefaces and roles, layout concept with ASCII wireframes, principles), review it against the brief in the spec § 2 and against the generic-default traits the skill lists, revise, write it to `docs/design/2026-10-10-aion-look.md`.
+- [x] **Step 2: Reference the client:** capture the HUD and the skill window with `pnpm game shot` (or the scratch capture until Task 6 lands) and sample colours from the PNGs (ffmpeg `crop` + a pixel dump) so the palette is grounded in the game, not guessed.
+- [x] **Step 3: Write the failing theme test** — `theme.test.tsx`: `ThemeToggle` cycles system → light → dark, sets `data-theme` on `<html>`, persists `aion-theme`; a pre-paint inline script in `index.html` applies the stored theme before React mounts (assert the script exists in `index.html` and sets `data-theme`).
+- [x] **Step 4: Implement tokens and sheets**, keeping light and dark, phone width with 16px gutters, visible focus, reduced motion; one memorable element only.
+- [x] **Step 5: Screenshot every screen** in agent-browser (both themes, desktop + phone) and critique against the design plan; fix; re-shoot.
+- [x] **Step 6: Verify and commit** — `feat(web): the Aion 2 look`.
 
 ---
 
@@ -726,7 +726,7 @@ Run: `pnpm --filter @aion/web exec vitest run`.
 **Interfaces:**
 - Produces: `pnpm game shot <name>` → prints the PNG path; `pnpm game crop <name> <x> <y> <w> <h> [--scale n]`; `pnpm game key <keys>`, `click <x> <y>`, `rclick <x> <y>`, `drag <x1> <y1> <x2> <y2>`, `scroll <x> <y> <n>`, `focus`, `back` — each input command then takes a shot named `<n>-after-<verb>` and prints its path. Functions `captureArgs(outPath: string): string[]`, `ahkArgs(verb: InputVerb, args: string[]): string[]`, `screenPath(root: string, date: string, name: string): string`, `isGameRunning(run: Runner): Promise<boolean>`.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 `packages/game/test/capture.test.ts`:
 
@@ -771,9 +771,9 @@ describe("input", () => {
 });
 ```
 
-- [ ] **Step 2: Run, fail** — `pnpm --filter @aion/game exec vitest run`.
+- [x] **Step 2: Run, fail** — `pnpm --filter @aion/game exec vitest run`.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 `packages/game/src/runner.ts`: `export type Runner = (cmd: string, args: string[]) => Promise<{ code: number; stdout: string }>;` and `nodeRunner` via `node:child_process` `execFile`.
 `capture.ts`: `isGameRunning` runs `tasklist /FI "IMAGENAME eq AION2.exe" /NH` and checks for `AION2.exe`; `shot` checks it, mkdirs, runs ffmpeg with `captureArgs`, then verifies the PNG exists and is > 10 kB (else throws "capture came back empty").
@@ -823,9 +823,9 @@ Sleep Random(400, 700)
 ExitApp 0
 ```
 
-- [ ] **Step 4: Run, pass**; live check: `pnpm game shot probe` writes a 1920×1080 PNG; `pnpm game key "{Esc}"` returns 0 and its after-shot exists.
-- [ ] **Step 5: The repeatable-workflow skill.** Create `.claude/skills/aion-game/SKILL.md` (frontmatter `name: aion-game`, a description that triggers on "read my character", "audit my account", "apply the build", "set up skills/stigmas/macros", "drive the game") documenting: preconditions (game running, out of combat, solo, safe zone), the commands (`pnpm game shot|crop|key|click|rclick|drag|scroll|focus|back`), the read-one-window loop (open → shot → crop/read → close), the window map (`references/windows.md`: each window's hotkey and the client coordinates of its tabs, buttons and slots, filled in as Tasks 7 and 9 discover them), the apply loop (one action → shot → check → next), the stop rules, and where outputs go (`account/snapshots/…`, `account/apply-log-…`). Add `tools/aion-input/README.md` pointing at it.
-- [ ] **Step 6: Verify and commit** — `feat(game): read the client by window capture and drive menus through AutoHotkey`.
+- [x] **Step 4: Run, pass**; live check: `pnpm game shot probe` writes a 1920×1080 PNG; `pnpm game key "{Esc}"` returns 0 and its after-shot exists.
+- [x] **Step 5: The repeatable-workflow skill.** Create `.claude/skills/aion-game/SKILL.md` (frontmatter `name: aion-game`, a description that triggers on "read my character", "audit my account", "apply the build", "set up skills/stigmas/macros", "drive the game") documenting: preconditions (game running, out of combat, solo, safe zone), the commands (`pnpm game shot|crop|key|click|rclick|drag|scroll|focus|back`), the read-one-window loop (open → shot → crop/read → close), the window map (`references/windows.md`: each window's hotkey and the client coordinates of its tabs, buttons and slots, filled in as Tasks 7 and 9 discover them), the apply loop (one action → shot → check → next), the stop rules, and where outputs go (`account/snapshots/…`, `account/apply-log-…`). Add `tools/aion-input/README.md` pointing at it.
+- [x] **Step 6: Verify and commit** — `feat(game): read the client by window capture and drive menus through AutoHotkey`.
 
 ---
 
@@ -834,11 +834,11 @@ ExitApp 0
 **Files:**
 - Create: `account/README.md`, `account/snapshots/2026-10-10.json`, `account/snapshots/screens/2026-10-10/*.png` (gitignored)
 
-- [ ] **Step 1:** Confirm the character is out of combat and solo (shot of the HUD: no target frame, no party frame). If in combat, wait and re-shoot; never send input during combat.
-- [ ] **Step 2:** Open, shoot and close, one at a time: character info, the skill window (every tab, scrolling), the stigma panel, the macro editor, Settings > Key Settings > Gameplay > Macro. Discover each window's key from the HUD's key hints (top-right icons carry their letters: G, H, U, I, K, J); fall back to the menu button. Crop and upscale text regions (`pnpm game crop … --scale 2`) for reading.
-- [ ] **Step 3:** Write `account/snapshots/2026-10-10.json` (`aion-account-snapshot/1`): name, class, level, gear score, server, every skill with level and hotbar slot, stigmas per slot, existing macros, `screens[]`, `unread[]` for anything not read. Validate with `accountSnapshotFile`.
-- [ ] **Step 4:** `account/README.md`: how the audit is read (commands, windows, safety rules). Record every window hotkey and coordinate found into `.claude/skills/aion-game/references/windows.md`.
-- [ ] **Step 5:** `pnpm import:account account/snapshots/2026-10-10.json` succeeds. Commit `account: the 2026-10-10 snapshot of the character`.
+- [x] **Step 1:** Confirm the character is out of combat and solo (shot of the HUD: no target frame, no party frame). If in combat, wait and re-shoot; never send input during combat.
+- [x] **Step 2:** Open, shoot and close, one at a time: character info, the skill window (every tab, scrolling), the stigma panel, the macro editor, Settings > Key Settings > Gameplay > Macro. Discover each window's key from the HUD's key hints (top-right icons carry their letters: G, H, U, I, K, J); fall back to the menu button. Crop and upscale text regions (`pnpm game crop … --scale 2`) for reading.
+- [x] **Step 3:** Write `account/snapshots/2026-10-10.json` (`aion-account-snapshot/1`): name, class, level, gear score, server, every skill with level and hotbar slot, stigmas per slot, existing macros, `screens[]`, `unread[]` for anything not read. Validate with `accountSnapshotFile`.
+- [x] **Step 4:** `account/README.md`: how the audit is read (commands, windows, safety rules). Record every window hotkey and coordinate found into `.claude/skills/aion-game/references/windows.md`.
+- [x] **Step 5:** `pnpm import:account account/snapshots/2026-10-10.json` succeeds. Commit `account: the 2026-10-10 snapshot of the character`.
 
 ---
 
@@ -847,11 +847,11 @@ ExitApp 0
 **Files:**
 - Create: `research/001-<class>-build/{README.md,import.json,searches.json,research-trail.md}`, `curated/{manifest,meta,sources,glossary,skills,builds,mechanics,takeaways,timeline}.json`, `evidence/**` with `evidence/captures.jsonl`
 
-- [ ] **Step 1:** Follow `.claude/skills/deep-research/SKILL.md` (and `research-planning:iterative-research` for the search rounds). Question: "What skill levels, stigmas and built-in macro chains should a level-34 <class> on the global client run, for leveling and PvE, and how is the built-in macro editor's priority ordered?"
-- [ ] **Step 2:** Capture every guide used with `pnpm capture web fetch 001-<class>-build <url> evidence/01-guides` (ledger lines written by the tool); YouTube guides through `pnpm capture youtube subs`.
-- [ ] **Step 3:** Curate: `skills.json` (every class skill the guides and the snapshot name, with unlock levels), `builds.json` (a `leveling` and a `pve` build, each with skill ranks + target levels, stigma per global slot 22/27/32/37, macro chains with key and delay), conflicts between guides recorded in `mechanics.json` with confidence.
-- [ ] **Step 4:** `pnpm import:record 001-<class>-build` succeeds; `pnpm verify` passes (ledger suite included).
-- [ ] **Step 5:** Write the README to the deep-research contract (Question, Verdict, Reasoning, Steelman, Recommendation, What would change, Side findings, Sources, Files). Write `account/roadmap-2026-10-10.json` (+ `.md`) ranking the in-game changes. Commit `research(001): the <class> build for leveling and PvE`.
+- [x] **Step 1:** Follow `.claude/skills/deep-research/SKILL.md` (and `research-planning:iterative-research` for the search rounds). Question: "What skill levels, stigmas and built-in macro chains should a level-34 <class> on the global client run, for leveling and PvE, and how is the built-in macro editor's priority ordered?"
+- [x] **Step 2:** Capture every guide used with `pnpm capture web fetch 001-<class>-build <url> evidence/01-guides` (ledger lines written by the tool); YouTube guides through `pnpm capture youtube subs`.
+- [x] **Step 3:** Curate: `skills.json` (every class skill the guides and the snapshot name, with unlock levels), `builds.json` (a `leveling` and a `pve` build, each with skill ranks + target levels, stigma per global slot 22/27/32/37, macro chains with key and delay), conflicts between guides recorded in `mechanics.json` with confidence.
+- [x] **Step 4:** `pnpm import:record 001-<class>-build` succeeds; `pnpm verify` passes (ledger suite included).
+- [x] **Step 5:** Write the README to the deep-research contract (Question, Verdict, Reasoning, Steelman, Recommendation, What would change, Side findings, Sources, Files). Write `account/roadmap-2026-10-10.json` (+ `.md`) ranking the in-game changes. Commit `research(001): the <class> build for leveling and PvE`.
 
 ---
 
@@ -860,12 +860,12 @@ ExitApp 0
 **Files:**
 - Create: `account/snapshots/2026-10-10-after.json` (second snapshot), `account/apply-log-2026-10-10.md`
 
-- [ ] **Step 1:** Precondition shots: out of combat, solo, safe zone. If not, stop and wait.
-- [ ] **Step 2:** Skill levels: open the skill window; spend the available skill points in the build's rank order up to each target level; shoot after every click and compare the level numbers before the next click.
-- [ ] **Step 3:** Stigmas: equip the build's stigma in each unlocked slot (≤ character level).
-- [ ] **Step 4:** Macro: open the macro editor, read its own tooltip/help for the priority direction, set the delay, fill the chain's steps in the order the record gives (reversed if the editor's priority runs bottom-up), save.
-- [ ] **Step 5:** Keybind: Settings > Key Settings > General > Gameplay > Macro → the build's key; confirm no conflict (the game shows one; if so, pick the record's alternate key and log it).
-- [ ] **Step 6:** Re-read the character (Task 7 steps 2–3) into `2026-10-10-after.json`; `apply-log` lists each change with its before/after shot names; every coordinate used goes into `.claude/skills/aion-game/references/windows.md`. `pnpm import:account --replace` on the after snapshot. Commit `account: apply the 001 build in game`.
+- [x] **Step 1:** Precondition shots: out of combat, solo, safe zone. If not, stop and wait.
+- [x] **Step 2:** Skill levels: open the skill window; spend the available skill points in the build's rank order up to each target level; shoot after every click and compare the level numbers before the next click.
+- [x] **Step 3:** Stigmas: equip the build's stigma in each unlocked slot (≤ character level).
+- [x] **Step 4:** Macro: open the macro editor, read its own tooltip/help for the priority direction, set the delay, fill the chain's steps in the order the record gives (reversed if the editor's priority runs bottom-up), save.
+- [x] **Step 5:** Keybind: Settings > Key Settings > General > Gameplay > Macro → the build's key; confirm no conflict (the game shows one; if so, pick the record's alternate key and log it).
+- [x] **Step 6:** Re-read the character (Task 7 steps 2–3) into `2026-10-10-after.json`; `apply-log` lists each change with its before/after shot names; every coordinate used goes into `.claude/skills/aion-game/references/windows.md`. `pnpm import:account --replace` on the after snapshot. Commit `account: apply the 001 build in game`.
 
 ---
 
@@ -874,10 +874,10 @@ ExitApp 0
 **Files:**
 - Create/modify: what the setup-ai engine renders (`.claude/**`, `CLAUDE.md` append, `.gitignore` append, `.claude/setup-ai.json`)
 
-- [ ] **Step 1:** `ENGINE=~/.claude/plugins/cache/giga-marketplace/setup-ai/0.2.3/scripts/workspace.mjs`; `node $ENGINE detect --dest .`; `node $ENGINE catalog`.
-- [ ] **Step 2:** Values file in the scratchpad: packs `baseline,hooks,review-agents,dev-workflow,tech-writing`; `VERIFY_CMD=pnpm verify`; stack profile generic; every other token from `detect`/defaults (never invented).
-- [ ] **Step 3:** `plan` → prerequisites → `prereqs` (plugins, vendored skills; `jq` is installed via winget already) → `render --dry-run`; resolve conflicts per spec § 3 → `render`. `errors` must be empty.
-- [ ] **Step 4:** `pnpm verify` passes (prettier ignores `.claude/`); commit `chore: the agent workspace from giga-marketplace`.
+- [x] **Step 1:** `ENGINE=~/.claude/plugins/cache/giga-marketplace/setup-ai/0.2.3/scripts/workspace.mjs`; `node $ENGINE detect --dest .`; `node $ENGINE catalog`.
+- [x] **Step 2:** Values file in the scratchpad: packs `baseline,hooks,review-agents,dev-workflow,tech-writing`; `VERIFY_CMD=pnpm verify`; stack profile generic; every other token from `detect`/defaults (never invented).
+- [x] **Step 3:** `plan` → prerequisites → `prereqs` (plugins, vendored skills; `jq` is installed via winget already) → `render --dry-run`; resolve conflicts per spec § 3 → `render`. `errors` must be empty.
+- [x] **Step 4:** `pnpm verify` passes (prettier ignores `.claude/`); commit `chore: the agent workspace from giga-marketplace`.
 
 ---
 
@@ -887,11 +887,11 @@ ExitApp 0
 - Create: `data/snapshot.json`
 - Modify: `README.md` § Deployment (production URL), repo homepage
 
-- [ ] **Step 1:** Rebuild the snapshot from an empty db: `rm -f data/aion.db*; pnpm import:record 001-<class>-build; pnpm import:account --all; pnpm db:export`. `pnpm verify` passes (snapshot drift test).
-- [ ] **Step 2:** `pnpm build:vercel` locally; `.vercel/output/config.json` routes `/api*` to the function.
-- [ ] **Step 3:** GitHub: `gh repo create skurekjakub/aion-logbook --public --source . --push --description "Aion 2 build logbook: research records, the character's build, and the game bridge"` (auth via `GH_TOKEN` from Git Credential Manager).
-- [ ] **Step 4:** Vercel: `vercel link --yes --project aion-logbook`, `vercel git connect`, set `ENABLE_EXPERIMENTAL_COREPACK=1` for production, `vercel deploy --prod`. Check: `curl -sf https://<prod>/api/records` lists `001-<class>-build`; the root page returns the app shell.
-- [ ] **Step 5:** `gh repo edit --homepage https://<prod>`; README § Deployment names the URL. Commit `docs: the production deployment` and push.
+- [x] **Step 1:** Rebuild the snapshot from an empty db: `rm -f data/aion.db*; pnpm import:record 001-<class>-build; pnpm import:account --all; pnpm db:export`. `pnpm verify` passes (snapshot drift test).
+- [x] **Step 2:** `pnpm build:vercel` locally; `.vercel/output/config.json` routes `/api*` to the function.
+- [x] **Step 3:** GitHub: `gh repo create skurekjakub/aion-logbook --public --source . --push --description "Aion 2 build logbook: research records, the character's build, and the game bridge"` (auth via `GH_TOKEN` from Git Credential Manager).
+- [x] **Step 4:** Vercel: `vercel link --yes --project aion-logbook`, `vercel git connect`, set `ENABLE_EXPERIMENTAL_COREPACK=1` for production, `vercel deploy --prod`. Check: `curl -sf https://<prod>/api/records` lists `001-<class>-build`; the root page returns the app shell.
+- [x] **Step 5:** `gh repo edit --homepage https://<prod>`; README § Deployment names the URL. Commit `docs: the production deployment` and push.
 
 ---
 
@@ -907,19 +907,19 @@ Spec § 8. Runs after Task 9 and before Task 11 (so the first deploy already car
 **Interfaces:**
 - Produces: `pnpm sync [--no-push] [--date YYYY-MM-DD]`; `fetchCharacter(server: string, name: string, http: Http): Promise<unknown>`; `toSnapshot(raw: unknown, previous: AccountSnapshotFile | null, capturedAt: string): AccountSnapshotFile`; `deriveRoadmap(snapshot, builds): RoadmapItem[]`; `GET /api/account/roadmap` → `{ snapshotId, items: [{ rank, priority, area, action, why, refs, derived: boolean }] }`.
 
-- [ ] **Step 1: Spike** — find the official character data endpoint the official site and fan armories use (browser devtools via agent-browser on the official character page and metabot.gg's armory; capture the request URL, params, response JSON). Write `research/002-character-data-source/` to the deep-research contract with the captured responses as evidence. If the endpoint needs auth or is unreachable, record that and make `pnpm sync` use the game bridge read instead.
-- [ ] **Step 2: Mapping, TDD** — `toSnapshot` maps the captured response (fixture from the spike's evidence) to `aion-account-snapshot/1`: name, class, level, gear score, server, skills with levels, stigmas per slot; macros carry over from `previous`; fields never read go to `unread[]`. Tests: fixture maps exactly; a missing field lands in `unread[]`; macros carry over.
-- [ ] **Step 3: Fetch + CLI, TDD** — `fetchCharacter` with a fake `Http` (status errors named, retry once on 5xx, no retry on 4xx); `pnpm sync` writes the day's snapshot (a same-day rerun replaces it), runs `import:account --replace`, `db:export`, then `git commit -F` + `git push` unless `--no-push`; nothing is committed when the snapshot is unchanged.
-- [ ] **Step 4: Derived roadmap, TDD** — `deriveRoadmap`: skills below target in build rank order (priority `now` for the top ranks), unlocked-but-empty or mismatched stigma slots (`now`), missing/differing macro chains (`next`); curated items merged after; `GET /api/account/roadmap`. Tests per rule, plus "no snapshot → empty items".
-- [ ] **Step 5: Web** — home and account pages read the derived roadmap (badges: now/next/later; derived vs curated marker); render test.
-- [ ] **Step 6: Scheduled sync** — `.github/workflows/sync.yml`: daily cron + `workflow_dispatch`, `pnpm install --frozen-lockfile`, `pnpm sync` (fetch-only), commit with the bot identity only when changed, push.
-- [ ] **Step 7: Docs and verify** — README § Character sync, `aion-game` skill section; `pnpm verify`; commit `feat(sync): sync the character on demand and derive the roadmap`.
+- [x] **Step 1: Spike** — find the official character data endpoint the official site and fan armories use (browser devtools via agent-browser on the official character page and metabot.gg's armory; capture the request URL, params, response JSON). Write `research/002-character-data-source/` to the deep-research contract with the captured responses as evidence. If the endpoint needs auth or is unreachable, record that and make `pnpm sync` use the game bridge read instead.
+- [x] **Step 2: Mapping, TDD** — `toSnapshot` maps the captured response (fixture from the spike's evidence) to `aion-account-snapshot/1`: name, class, level, gear score, server, skills with levels, stigmas per slot; macros carry over from `previous`; fields never read go to `unread[]`. Tests: fixture maps exactly; a missing field lands in `unread[]`; macros carry over.
+- [x] **Step 3: Fetch + CLI, TDD** — `fetchCharacter` with a fake `Http` (status errors named, retry once on 5xx, no retry on 4xx); `pnpm sync` writes the day's snapshot (a same-day rerun replaces it), runs `import:account --replace`, `db:export`, then `git commit -F` + `git push` unless `--no-push`; nothing is committed when the snapshot is unchanged.
+- [x] **Step 4: Derived roadmap, TDD** — `deriveRoadmap`: skills below target in build rank order (priority `now` for the top ranks), unlocked-but-empty or mismatched stigma slots (`now`), missing/differing macro chains (`next`); curated items merged after; `GET /api/account/roadmap`. Tests per rule, plus "no snapshot → empty items".
+- [x] **Step 5: Web** — home and account pages read the derived roadmap (badges: now/next/later; derived vs curated marker); render test.
+- [x] **Step 6: Scheduled sync** — `.github/workflows/sync.yml`: daily cron + `workflow_dispatch`, `pnpm install --frozen-lockfile`, `pnpm sync` (fetch-only), commit with the bot identity only when changed, push.
+- [x] **Step 7: Docs and verify** — README § Character sync, `aion-game` skill section; `pnpm verify`; commit `feat(sync): sync the character on demand and derive the roadmap`.
 
 ---
 
 ### Task 12: Whole-branch review and wrap-up
 
-- [ ] **Step 1:** `superpowers:requesting-code-review` — one Opus reviewer over the whole branch against the spec and this plan.
-- [ ] **Step 2:** `superpowers:receiving-code-review` — fix what holds up, push back on what doesn't; `pnpm verify`; commit; push; confirm the Vercel deploy of the last commit is green.
-- [ ] **Step 3:** `superpowers:verification-before-completion` — fresh evidence for every claim in the final report (verify output, live URL responses, in-game after-shots).
-- [ ] **Step 4:** Update `todo.md` and `OPEN-QUESTIONS.md`; tick this plan's checkboxes; commit and push.
+- [x] **Step 1:** `superpowers:requesting-code-review` — one Opus reviewer over the whole branch against the spec and this plan.
+- [x] **Step 2:** `superpowers:receiving-code-review` — fix what holds up, push back on what doesn't; `pnpm verify`; commit; push; confirm the Vercel deploy of the last commit is green.
+- [x] **Step 3:** `superpowers:verification-before-completion` — fresh evidence for every claim in the final report (verify output, live URL responses, in-game after-shots).
+- [x] **Step 4:** Update `todo.md` and `OPEN-QUESTIONS.md`; tick this plan's checkboxes; commit and push.
