@@ -11,6 +11,16 @@ export function classColumn() {
 }
 
 /**
+ * Builds a nullable `class` column: the Aion 2 class a row is about, or
+ * `null` when the row applies to every class.
+ *
+ * @returns a nullable `CLASS` column
+ */
+export function optionalClassColumn() {
+  return text("class", { enum: CLASS });
+}
+
+/**
  * Builds a `record_slug` column: the research record whose import wrote the
  * row, which a record's re-import (`--replace`) clears and rewrites.
  *

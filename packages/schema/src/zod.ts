@@ -32,7 +32,7 @@ export const isoDate = z
 /** A citable source id: `<site>:<key>`, e.g. `yt:dQw4w9WgXcQ` or `web:eloboost24-gladiator`. */
 export const sourceId = z.string().regex(/^(web|yt):.+$/, "expected <site>:<key>");
 
-/** A non-empty list of non-empty strings, used for json string-array columns. */
+/** A list of non-empty strings, used for json string-array columns. */
 export const nameList = z.array(z.string().min(1));
 
 /**

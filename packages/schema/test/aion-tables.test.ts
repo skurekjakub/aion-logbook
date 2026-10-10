@@ -4,7 +4,7 @@ import { migrate } from "drizzle-orm/node-sqlite/migrator";
 import { eq } from "drizzle-orm";
 import { describe, expect, it } from "vitest";
 import { migrationsFolder } from "../src/migrations-path";
-import { buildSkills, buildStigmas, builds, macroSteps, macros, skills } from "../src";
+import { buildSkills, buildStigmas, builds, macroSteps, macros, mechanics, skills } from "../src";
 
 /**
  * Opens an in-memory database with every migration applied.
@@ -119,11 +119,35 @@ describe("aion tables", () => {
     db.insert(buildSkills)
       .values({ buildId: "b", skillId: "s", rank: 1, targetLevel: 5, why: "w" })
       .run();
+    db.insert(buildStigmas).values({ buildId: "b", slotLevel: 22, skillId: "s", why: "w" }).run();
+    db.insert(macros)
+      .values({ id: "m", buildId: "b", name: "M", key: "R", delayMs: 10, why: "w" })
+      .run();
+    db.insert(macroSteps).values({ macroId: "m", position: 1, skillId: "s" }).run();
 
     // Act
-    db.delete(builds).where(eq(builds.id, "b")).run();
+    const deleted = db.delete(builds).where(eq(builds.id, "b")).run();
 
     // Assert
+    expect(deleted.changes).toBe(1);
     expect(db.select().from(buildSkills).all()).toHaveLength(0);
+    expect(db.select().from(buildStigmas).all()).toHaveLength(0);
+    expect(db.select().from(macros).all()).toHaveLength(0);
+    expect(db.select().from(macroSteps).all()).toHaveLength(0);
+  });
+
+  it("stores a finding with no class, meaning it applies to every class", () => {
+    // Arrange
+    const db = openDb();
+
+    // Act
+    const row = db
+      .insert(mechanics)
+      .values({ title: "Macro delay", body: "b", confidence: "tested", class: null })
+      .returning()
+      .get();
+
+    // Assert
+    expect(row.class).toBeNull();
   });
 });

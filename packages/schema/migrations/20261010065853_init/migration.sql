@@ -44,7 +44,7 @@ CREATE TABLE `mechanics` (
 	`title` text NOT NULL,
 	`body` text NOT NULL,
 	`confidence` text NOT NULL,
-	`class` text NOT NULL,
+	`class` text,
 	`topic` text,
 	`also_topics` text DEFAULT '[]' NOT NULL,
 	`record_slug` text
@@ -55,7 +55,7 @@ CREATE TABLE `rng_factors` (
 	`factor` text NOT NULL,
 	`effect` text NOT NULL,
 	`mitigation` text,
-	`class` text NOT NULL,
+	`class` text,
 	`record_slug` text
 );
 --> statement-breakpoint
@@ -64,7 +64,7 @@ CREATE TABLE `takeaways` (
 	`position` integer NOT NULL,
 	`text` text NOT NULL,
 	`detail` text,
-	`class` text NOT NULL,
+	`class` text,
 	`record_slug` text
 );
 --> statement-breakpoint
@@ -72,7 +72,7 @@ CREATE TABLE `timeline` (
 	`id` integer PRIMARY KEY AUTOINCREMENT,
 	`date` text NOT NULL,
 	`event` text NOT NULL,
-	`class` text NOT NULL,
+	`class` text,
 	`record_slug` text
 );
 --> statement-breakpoint

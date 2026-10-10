@@ -29,7 +29,7 @@ export function isObsoleteEntity(entity: CitedEntity): entity is ObsoleteEntity 
  * The citation entity id of an obsolete row's reason.
  *
  * @param entity - the row's cited entity
- * @param id - the row's id: a build's slug, another row's integer id
+ * @param id - the row's id, e.g. a build's slug
  * @returns `<entity>:<id>`, e.g. `build:gladiator-leveling`
  */
 export function obsolescenceKey(entity: ObsoleteEntity, id: string | number): string {

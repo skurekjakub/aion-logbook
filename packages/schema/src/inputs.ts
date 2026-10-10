@@ -124,8 +124,14 @@ export const skillInput = z.object({
   summary: z.string().min(1).nullish(),
   sources: z.array(sourceId).default([]),
 });
-/** Patch for a skill. */
-export const skillPatch = skillInput.omit({ id: true }).partial();
+/**
+ * Patch for a skill. `sources`, when left out, stays out, so a patch that
+ * doesn't name the citations leaves them as they are.
+ */
+export const skillPatch = skillInput
+  .omit({ id: true, sources: true })
+  .partial()
+  .extend({ sources: z.array(sourceId).optional() });
 
 /** A step of a macro chain as curated: positions are assigned from the list order. */
 const macroStepInput = z.object({ skillId: slug, note: z.string().min(1).nullish() });
@@ -158,7 +164,11 @@ export const macroPatch = z
   })
   .partial();
 
-/** Input for a build with its skill priorities, stigmas and macro chains. */
+/**
+ * Input for a build with its skill priorities, stigmas and macro chains.
+ * Rejects a repeated skill rank, a stigma slot filled twice, and a macro id
+ * used twice, each with a message naming the build.
+ */
 export const buildInput = z
   .object({
     id: slug,
@@ -197,6 +207,17 @@ export const buildInput = z
         message: `build ${b.id} fills a stigma slot twice`,
         path: ["stigmas"],
       });
+    }
+    const seen = new Set<string>();
+    for (const m of b.macros) {
+      if (seen.has(m.id)) {
+        ctx.addIssue({
+          code: "custom",
+          message: `build ${b.id} repeats macro id ${m.id}`,
+          path: ["macros"],
+        });
+      }
+      seen.add(m.id);
     }
   });
 /** Output of {@link buildInput}. */
