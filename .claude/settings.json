@@ -9,6 +9,15 @@
     "agent-architecture@giga-marketplace": true
   },
 
+  "extraKnownMarketplaces": {
+    "giga-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "skurekjakub/giga-marketplace"
+      }
+    }
+  },
+
   "permissions": {
     "allow": [
       "Bash(pnpm verify)",
@@ -51,6 +60,11 @@
         "hooks": [
           {
             "type": "command",
+            "shell": "bash",
+            "command": "bash \"${CLAUDE_PROJECT_DIR}/.claude/hooks/block-destructive-bash\""
+          },
+          {
+            "type": "command",
             "command": "\"${CLAUDE_PROJECT_DIR}/.claude/hooks/run-hook.cmd\" prefer-verify-script",
             "async": false
           },
@@ -90,6 +104,17 @@
             "type": "command",
             "command": "\"${CLAUDE_PROJECT_DIR}/.claude/hooks/run-hook.cmd\" remind-rules",
             "async": false
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "bash",
+            "command": "bash \"${CLAUDE_PROJECT_DIR}/.claude/hooks/notify-done\""
           }
         ]
       }
