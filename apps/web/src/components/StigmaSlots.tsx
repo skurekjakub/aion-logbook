@@ -20,9 +20,9 @@ export interface StigmaSlotsProps {
   /** The character's level: a slot above it shows a lock. Omitted, nothing is locked. */
   unlockedTo?: number;
   /**
-   * What the character has slotted, by slot level (the skill id, or null
-   * for a stigma that didn't resolve): each filled slot then says whether
-   * it matches the build.
+   * What the character has slotted, by slot level: the skill id, or null
+   * for a slot read empty. Each of the build's slots the map names then
+   * says whether the character matches it: slotted, swap, or slot it.
    */
   equipped?: ReadonlyMap<number, string | null>;
 }
@@ -45,7 +45,8 @@ function Lock({ level }: { level: number }) {
 /**
  * The stigma slot track, lowest slot first: each slot's unlock level as a
  * badge (a lock when it is above the character's level), the stigma as a
- * chip with whether the character has it slotted, and its why cut to one
+ * chip with whether the character has it slotted, has another stigma there,
+ * or has the slot empty, and its why cut to one
  * line. A slot the build leaves empty says so.
  *
  * @param props - the build's stigmas, the character's level and what it has slotted
@@ -68,7 +69,9 @@ export function StigmaSlots({ stigmas, unlockedTo, equipped }: StigmaSlotsProps)
               <span className="slot-body">
                 <span className="slot-skill">
                   <SkillChip skill={stigma.skill} />
-                  {locked || has === undefined ? null : has === stigma.skill.id ? (
+                  {locked || has === undefined ? null : has === null ? (
+                    <Pill kind="warn">slot it</Pill>
+                  ) : has === stigma.skill.id ? (
                     <Pill kind="good">slotted</Pill>
                   ) : (
                     <Pill kind="warn">swap</Pill>

@@ -1,6 +1,25 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { MacroChain } from "../src/components/MacroChain";
+import { LEVELING } from "./fixtures";
+import { renderRoute } from "./view-harness";
+
+describe("MacrosView", () => {
+  it("lists the build's chains by their curated position", async () => {
+    // Arrange
+    const main = LEVELING.macros[0]!;
+    const burst = { ...main, id: "gladiator-leveling-burst", name: "Burst", position: 2 };
+    const build = { ...LEVELING, macros: [burst, main] };
+    const api = { "/api/builds?class=gladiator": { body: [build] } };
+
+    // Act
+    await renderRoute("/gladiator/macros", api);
+
+    // Assert
+    const titles = (await screen.findAllByRole("heading", { level: 3 })).map((h) => h.textContent);
+    expect(titles.filter((t) => t === "Main" || t === "Burst")).toEqual(["Main", "Burst"]);
+  });
+});
 
 describe("MacroChain", () => {
   it("shows the key, the delay and the steps in editor order", () => {

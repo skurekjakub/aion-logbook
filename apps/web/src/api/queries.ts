@@ -17,7 +17,6 @@
 import { queryOptions } from "@tanstack/react-query";
 import type { InferRequestType } from "hono/client";
 import { parseResponse } from "hono/client";
-import { toAccountOverview } from "./account";
 import { api } from "./client";
 
 /** An Aion 2 class, as the server's `?class=` list filter accepts it. */
@@ -148,7 +147,7 @@ export const recommendationsQuery = (record: string | null) =>
 /**
  * The character: a snapshot (the latest unless named) with its skills,
  * stigmas and macro chains as read, its roadmap, and every loaded snapshot
- * by id, in the shape `toAccountOverview` gives it.
+ * by id.
  *
  * @param snapshot - the snapshot id to show; the latest when omitted
  * @returns the query options
@@ -156,6 +155,5 @@ export const recommendationsQuery = (record: string | null) =>
 export const accountQuery = (snapshot?: string) =>
   queryOptions({
     queryKey: ["account", { snapshot: snapshot ?? null }],
-    queryFn: async () =>
-      toAccountOverview(await parseResponse(api.account.$get({ query: { snapshot } }))),
+    queryFn: () => parseResponse(api.account.$get({ query: { snapshot } })),
   });

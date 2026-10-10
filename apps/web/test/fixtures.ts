@@ -90,6 +90,7 @@ export const LEVELING = {
     {
       id: "gladiator-leveling-main",
       buildId: "gladiator-leveling",
+      position: 1,
       name: "Main",
       key: "R",
       delayMs: 100,
@@ -116,7 +117,10 @@ export const ACCOUNT = {
       { name: "Sever", skillId: SKILLS.sever.id, level: 5, slot: "2" },
       { name: "Unknown Strike", skillId: null, level: 2, slot: null },
     ],
-    stigmas: [{ slotLevel: 22, skillName: "Wrath Wave", skillId: SKILLS.wrath.id }],
+    stigmas: [
+      { slotLevel: 22, name: "Wrath Wave", skillId: SKILLS.wrath.id },
+      { slotLevel: 27, name: null, skillId: null },
+    ],
     macros: [],
   },
   roadmap: [

@@ -53,12 +53,13 @@ describe("StigmaSlots", () => {
     expect(slots[1]).toContain("empty");
   });
 
-  it("marks a slot whose stigma the character already has slotted", () => {
+  it("marks each slot slotted, swap or slot it against what the character has", () => {
     // Arrange
-    const stigmas = [slot(22), slot(27)];
+    const stigmas = [slot(22), slot(27), slot(32)];
     const equipped = new Map<number, string | null>([
       [22, "s22"],
       [27, "other"],
+      [32, null],
     ]);
 
     // Act
@@ -68,5 +69,6 @@ describe("StigmaSlots", () => {
     const slots = screen.getAllByRole("listitem").map((li) => li.textContent);
     expect(slots[0]).toContain("slotted");
     expect(slots[1]).toContain("swap");
+    expect(slots[2]).toContain("slot it");
   });
 });

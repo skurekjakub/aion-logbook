@@ -4,7 +4,7 @@ import type { BuildPageProps } from "./BuildPage";
 import { BuildPage } from "./BuildPage";
 
 /**
- * A build's built-in macro chains, in the build's order: each with its
+ * A build's built-in macro chains, by their curated `position`: each with its
  * key, delay and steps in the editor's order. The macro editor's rules
  * show above them as cited callouts.
  *
@@ -17,9 +17,11 @@ export function MacrosView(props: BuildPageProps) {
       {(build) =>
         build.macros.length ? (
           <div className="grid g2">
-            {build.macros.map((macro) => (
-              <MacroChain key={macro.id} macro={macro} />
-            ))}
+            {[...build.macros]
+              .sort((a, b) => a.position - b.position)
+              .map((macro) => (
+                <MacroChain key={macro.id} macro={macro} />
+              ))}
           </div>
         ) : (
           <EmptyState>This build sets no macro chains.</EmptyState>

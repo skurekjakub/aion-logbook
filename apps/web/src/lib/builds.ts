@@ -45,7 +45,11 @@ export interface CharacterReading {
   level: number;
   /** Skill id → its level as read (`null` when the level wasn't read). */
   skills: ReadonlyMap<string, number | null>;
-  /** Stigma slot level → the skill id slotted there (`null` when it didn't resolve or is empty). */
+  /**
+   * Stigma slot level → the skill id slotted there, or `null` for a slot
+   * read empty. A slot whose stigma didn't resolve to a skill is left out,
+   * since nothing can be said about it.
+   */
   stigmas: ReadonlyMap<number, string | null>;
 }
 
@@ -54,7 +58,8 @@ export interface SnapshotShape {
   class: string;
   level: number;
   skills: ReadonlyArray<{ skillId: string | null; level: number | null }>;
-  stigmas: ReadonlyArray<{ slotLevel: number; skillId: string | null }>;
+  /** Each stigma slot: `name` is `null` for an empty slot, `skillId` when the name resolved. */
+  stigmas: ReadonlyArray<{ slotLevel: number; name: string | null; skillId: string | null }>;
 }
 
 /**
@@ -72,11 +77,12 @@ export function readCharacter(
   if (!snapshot || snapshot.class !== cls) return null;
   const skills = new Map<string, number | null>();
   for (const s of snapshot.skills) if (s.skillId) skills.set(s.skillId, s.level);
-  return {
-    level: snapshot.level,
-    skills,
-    stigmas: new Map(snapshot.stigmas.map((s) => [s.slotLevel, s.skillId])),
-  };
+  const stigmas = new Map<number, string | null>();
+  for (const s of snapshot.stigmas) {
+    if (s.name === null) stigmas.set(s.slotLevel, null);
+    else if (s.skillId) stigmas.set(s.slotLevel, s.skillId);
+  }
+  return { level: snapshot.level, skills, stigmas };
 }
 
 /** How a skill's level compares with its target: below it, at or past it, or not read. */

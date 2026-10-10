@@ -62,8 +62,8 @@ const SKILL_COLUMNS: Column<AccountSkill>[] = [
 ];
 
 /**
- * A macro chain as the client's editor holds it: its key, then its steps
- * in the editor's order.
+ * A macro chain as the client's editor holds it: its key (an "unbound"
+ * badge when it has none), then its steps in the editor's order.
  *
  * @param props - the chain
  * @returns the chain
@@ -75,7 +75,7 @@ function ReadMacro({ macro }: { macro: AccountMacro }) {
         <h4>{macro.name}</h4>
         <span className="macro-key">
           <span className="label">Key</span>
-          <kbd>{macro.key}</kbd>
+          {macro.key === null ? <Pill kind="warn">unbound</Pill> : <kbd>{macro.key}</kbd>}
         </span>
       </div>
       <ol className="macro-steps" aria-label={`${macro.name} steps`}>
@@ -86,7 +86,7 @@ function ReadMacro({ macro }: { macro: AccountMacro }) {
               <span className="step-no mono" aria-hidden="true">
                 {step.position}
               </span>
-              <ReadName name={step.skillName} skillId={step.skillId} />
+              <ReadName name={step.name} skillId={step.skillId} />
             </li>
           ))}
       </ol>
@@ -171,7 +171,11 @@ function SnapshotParts({ snapshot }: { snapshot: AccountSnapshot }) {
                 <li key={s.slotLevel} className="stigma-slot">
                   <span className="slot-level mono">{s.slotLevel}</span>
                   <span className="slot-body">
-                    <ReadName name={s.skillName} skillId={s.skillId} />
+                    {s.name === null ? (
+                      <span className="muted">empty</span>
+                    ) : (
+                      <ReadName name={s.name} skillId={s.skillId} />
+                    )}
                   </span>
                 </li>
               ))}

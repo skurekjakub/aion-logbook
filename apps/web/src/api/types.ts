@@ -1,8 +1,6 @@
 /**
  * Response row types, inferred from the server's routes through the typed
- * client, so they track the API without a hand-written copy. The
- * character's types are the exception: {@link AccountOverview} is the shape
- * the views read, which `account.ts` maps the response onto.
+ * client, so they track the API without a hand-written copy.
  *
  * @module
  */
@@ -45,57 +43,20 @@ export type Takeaway = InferResponseType<typeof api.takeaways.$get, 200>[number]
 /** A "for your character" recommendation. */
 export type Recommendation = InferResponseType<typeof api.recommendations.$get, 200>[number];
 
-/** `GET /api/account` as the server answers it. */
-export type AccountResponse = InferResponseType<typeof api.account.$get, 200>;
-
-/** A stigma as read in a snapshot: its slot, its name as read and the skill it resolved to. */
-export interface AccountStigma {
-  /** The slot's unlock level. */
-  slotLevel: number;
-  /** The stigma's name as read. */
-  skillName: string;
-  /** The skill id it resolved to, or `null` when no loaded skill has the name. */
-  skillId: string | null;
-}
-
-/** One step of a macro chain as read, in the editor's order. */
-export interface AccountMacroStep {
-  /** 1 is the editor's first slot. */
-  position: number;
-  /** The skill's name as read. */
-  skillName: string;
-  /** The skill id it resolved to, or `null`. */
-  skillId: string | null;
-}
-
-/** A macro chain as read from the client's macro editor. */
-export interface AccountMacro {
-  /** Its place in the editor's list. */
-  position: number;
-  /** Its name in the editor. */
-  name: string;
-  /** The key it is bound to. */
-  key: string;
-  /** Its steps, in the editor's order. */
-  steps: AccountMacroStep[];
-}
-
-/** A character snapshot: its row, the skills read in it, its stigmas by slot and its macro chains. */
-export type AccountSnapshot = Omit<
-  NonNullable<AccountResponse["snapshot"]>,
-  "stigmas" | "macros"
-> & {
-  stigmas: AccountStigma[];
-  macros: AccountMacro[];
-};
-
 /** The character: the chosen snapshot, its roadmap, and every loaded snapshot. */
-export type AccountOverview = Omit<AccountResponse, "snapshot"> & {
-  snapshot: AccountSnapshot | null;
-};
+export type AccountOverview = InferResponseType<typeof api.account.$get, 200>;
+
+/** A character snapshot: its row, the skills read in it, its stigma slots and its macro chains. */
+export type AccountSnapshot = NonNullable<AccountOverview["snapshot"]>;
 
 /** One skill as read in a snapshot: its name as read, the skill it resolved to, level and hotbar slot. */
 export type AccountSkill = AccountSnapshot["skills"][number];
+
+/** A stigma slot as read: its unlock level, the name as read (`null` when empty) and the skill it resolved to. */
+export type AccountStigma = AccountSnapshot["stigmas"][number];
+
+/** A macro chain as read from the client's editor: position, name, key (`null` when unbound) and steps. */
+export type AccountMacro = AccountSnapshot["macros"][number];
 
 /** One roadmap item: rank, priority, area, action, why and refs. */
 export type AccountItem = AccountOverview["roadmap"][number];
