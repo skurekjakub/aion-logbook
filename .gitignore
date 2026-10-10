@@ -67,3 +67,6 @@ desktop.ini
 .ai/followups/*
 !.ai/followups/README.md
 .ai/**/*-handoff.md
+
+.vercel
+.env*

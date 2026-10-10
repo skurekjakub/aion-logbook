@@ -6,3 +6,8 @@ node_modules/
 **/dist/
 *.db
 *.db-*
+account/
+.cache/
+.superpowers/
+.ai/
+.env*
