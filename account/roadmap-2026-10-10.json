@@ -4,22 +4,29 @@
     {
       "priority": "now",
       "area": "skills",
-      "action": "Radiant Recovery 7 → 8",
-      "why": "Spends the 2 points left; level 8 opens its spec that removes up to 2 debuffs.",
+      "action": "Condemnation 9 → 10: save points (costs 4, 2 held)",
+      "why": "Rank 1 of the build and one level short; keep the 2 points for it instead of Radiant Recovery.",
+      "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling" }]
+    },
+    {
+      "priority": "now",
+      "area": "stigmas",
+      "action": "Earth Punishment 4 → 5",
+      "why": "Costs 1, 1 held (frame f-0016); from level 5 Condemnation always crits on its target.",
       "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling" }]
     },
     {
       "priority": "now",
       "area": "macro",
       "action": "Build the solo macro, one skill per entry",
-      "why": "Editor is empty: Earth Punishment, Divine Aura, Light of Regeneration, Chain of Torment, Debilitating Mark, Condemnation, Judgment Thunder; 10 ms each.",
+      "why": "Editor is empty; the entries and order are the 001 solo macro.",
       "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling-solo" }]
     },
     {
       "priority": "now",
       "area": "macro",
       "action": "Bind the macro key",
-      "why": "Unbound until set: Settings > Key Settings > General > Gameplay > Macro; right mouse, or a side button.",
+      "why": "Key not read; bind it under Settings > Key Settings > General > Gameplay > Macro.",
       "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling-solo" }]
     },
     {
@@ -31,37 +38,65 @@
     },
     {
       "priority": "next",
-      "area": "stigmas",
-      "action": "Earth Punishment 4 → 5",
-      "why": "From stigma level 5 Condemnation always crits on its target; costs 2 stigma points, 1 held.",
+      "area": "skills",
+      "action": "Bolt 8 → 10",
+      "why": "Rank 6; costs 4 a level, and the level gate may hold it at 8 until about 38.",
+      "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling" }]
+    },
+    {
+      "priority": "next",
+      "area": "skills",
+      "action": "Healing Light 7 → 8",
+      "why": "Rank 8; invested 7, shown as 10 with +3 gear; costs 4.",
       "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling" }]
     },
     {
       "priority": "next",
       "area": "stigmas",
-      "action": "Obtain Light of Protection",
-      "why": "Locked on the character; the build's 22 slot. Toggle it on by hand, never in the macro.",
+      "action": "Acquire Light of Protection",
+      "why": "Padlocked, Acquire costs 1 (f-0021), the point Earth Punishment 4 → 5 also wants; the build's 22 slot.",
       "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling" }]
     },
     {
       "priority": "next",
       "area": "stigmas",
       "action": "Check Voice of Doom in the Stigma tab",
-      "why": "Padlocked in the game read, equipped at level 0 in the official data; one of them is wrong.",
+      "why": "Padlocked in game, flagged equipped at Lv 0 in the official data; check whether it takes a slot.",
       "refs": [{ "record": "002-character-data-source" }]
+    },
+    {
+      "priority": "later",
+      "area": "skills",
+      "action": "Light of Regeneration 7 → 8",
+      "why": "Rank 9; invested 7, shown as 9 with +2 gear; costs 4.",
+      "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling" }]
+    },
+    {
+      "priority": "later",
+      "area": "skills",
+      "action": "Radiant Recovery 6 → 8",
+      "why": "Rank 10; invested 6, shown as 7 with +1 gear; costs 2 then 4; level 8 cleanses 2 debuffs.",
+      "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling" }]
+    },
+    {
+      "priority": "later",
+      "area": "skills",
+      "action": "Empyrean Lord's Grace 9 → 10",
+      "why": "Rank 11; invested 9, shown as 12 with +3 gear; costs 4.",
+      "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling" }]
+    },
+    {
+      "priority": "later",
+      "area": "skills",
+      "action": "Earth's Grace 9 → 10",
+      "why": "Rank 12; invested 9, shown as 11 with +2 gear; costs 4.",
+      "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling" }]
     },
     {
       "priority": "later",
       "area": "skills",
       "action": "Read and set the specialization picks",
       "why": "Not opened in the read; the build names a pick for each skill at 8 or more.",
-      "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling" }]
-    },
-    {
-      "priority": "later",
-      "area": "skills",
-      "action": "Bolt 9 → 10",
-      "why": "Biggest hit; the level gate holds it until about 38.",
       "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling" }]
     }
   ]
