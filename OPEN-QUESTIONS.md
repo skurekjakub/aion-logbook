@@ -12,3 +12,9 @@ Spec: [`docs/superpowers/specs/2026-10-10-aion-logbook-design.md`](docs/superpow
 4. **Which class the first record researches.** Record 001 researches the logged-in character's class. Is there another class you want covered next?
 5. **Driving the game.** The agent may click and type in menus (skills, stigmas, macro editor, key settings), never in combat or in a party, and checks a screenshot before every next input. Is any window off limits, or should every change wait for your go-ahead?
 6. **Publishing.** The repo goes public on `skurekjakub` and the site on Vercel, both carrying the character's name, level and build as read from the client. Is the character's name fine to publish, or should snapshots drop it?
+
+## Character sync (2026-10-10)
+
+Spec § 8; evidence in [`research/002-character-data-source/`](research/002-character-data-source/README.md).
+
+1. **A daily scheduled sync.** `pnpm sync` reads the character from the official site's JSON, which is not a published interface; NCSOFT's Terms of Use § 6 forbid automated access outside published interfaces, and the NC Open API covers no Aion 2 data. The GitHub Action ships manual-trigger only (`workflow_dispatch`). Should it also run daily, at your account's risk, or stay manual?
