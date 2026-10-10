@@ -7,8 +7,7 @@
   --ink:#1d2029; --ink-2:#474c58; --ink-3:#5c606a;
   --accent:#086a7e; --accent-ink:#ffffff; --accent-soft:#d3e8eb;
   --gold:#7d5800; --gold-soft:#f1e1b3; --gold-ink:#5e4200;
-  /* on vellum light can't glow, so the core is the deepest point */
-  --glow:#5a7fe0; --glow-hi:#1f3fa8;
+  --glow:#5a7fe0; --glow-core:#1f3fa8;
   --good:#276d17; --warn:#a14f00; --bad:#b3232b;
   /* verdict tints: a badge's or a row's background behind --good/--warn/--bad text */
   --good-soft:#dcecd3; --warn-soft:#f4e2cc; --bad-soft:#f5d9d8;
@@ -22,10 +21,10 @@
   --sp-1:4px; --sp-2:6px; --sp-3:10px; --sp-4:16px; --sp-5:24px; --sp-6:32px;
   /* shell: the sidebar's width and the phone top bar's height */
   --nav-w:216px; --bar-h:52px;
-  /* the tab glow, built from --glow and --glow-hi so every theme gets its own: the crescent along a
+  /* the tab glow, built from --glow and --glow-core so every theme gets its own: the crescent along a
      tab's foot (x) or a tree line (y), the bloom around it, the wash it throws on its label */
-  --glow-line-x:linear-gradient(90deg,transparent,var(--glow) 22%,var(--glow-hi) 50%,var(--glow) 78%,transparent);
-  --glow-line-y:linear-gradient(180deg,transparent,var(--glow) 22%,var(--glow-hi) 50%,var(--glow) 78%,transparent);
+  --glow-line-x:linear-gradient(90deg,transparent,var(--glow) 22%,var(--glow-core) 50%,var(--glow) 78%,transparent);
+  --glow-line-y:linear-gradient(180deg,transparent,var(--glow) 22%,var(--glow-core) 50%,var(--glow) 78%,transparent);
   --glow-bloom:0 0 10px 1px color-mix(in srgb,var(--glow) 55%,transparent);
   --glow-wash:linear-gradient(90deg,color-mix(in srgb,var(--glow) 16%,transparent),transparent 85%);
   --display:"Marcellus","Optima","Candara",serif;
@@ -39,7 +38,7 @@
     --ink:#e9ecf1; --ink-2:#b0b7c4; --ink-3:#8a92a1;
     --accent:#3fd8ea; --accent-ink:#0b1a1f; --accent-soft:#163640;
     --gold:#f2c230; --gold-soft:#3a3117; --gold-ink:#ffd968;
-    --glow:#8ba7ee; --glow-hi:#d6e6ff;
+    --glow:#8ba7ee; --glow-core:#d6e6ff;
     --good:#6bd04a; --warn:#ffa23a; --bad:#ff6b6f;
     --good-soft:#1c3318; --warn-soft:#3a2a14; --bad-soft:#3d1c20;
     --k-active:#8ba7ee; --k-passive:#2fbf55; --k-stigma:#c866b4;
@@ -52,7 +51,7 @@
   --ink:#e9ecf1; --ink-2:#b0b7c4; --ink-3:#8a92a1;
   --accent:#3fd8ea; --accent-ink:#0b1a1f; --accent-soft:#163640;
   --gold:#f2c230; --gold-soft:#3a3117; --gold-ink:#ffd968;
-  --glow:#8ba7ee; --glow-hi:#d6e6ff;
+  --glow:#8ba7ee; --glow-core:#d6e6ff;
   --good:#6bd04a; --warn:#ffa23a; --bad:#ff6b6f;
   --good-soft:#1c3318; --warn-soft:#3a2a14; --bad-soft:#3d1c20;
   --k-active:#8ba7ee; --k-passive:#2fbf55; --k-stigma:#c866b4;

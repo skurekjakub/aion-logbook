@@ -11,8 +11,9 @@ export interface TopBarProps {
 
 /**
  * The phone's sticky top bar: the logbook's mark, then one button that
- * names where the reader is and opens the navigation drawer (the popover whose id is `navId`). The
- * stylesheet hides it on wide screens, where the navigation is a sidebar.
+ * names where the reader is and opens the navigation drawer (the popover
+ * whose id is `navId`). The stylesheet hides it on wide screens, where the
+ * navigation is a sidebar.
  *
  * @param props - the navigation popover's id and the reader's location trail
  * @returns the top bar

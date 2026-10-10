@@ -11,12 +11,14 @@
     <script>
       // Applies the remembered theme (ThemeToggle's "aion-theme") before first paint, so a forced
       // theme never flashes the system one while the app loads.
-      try {
-        var theme = localStorage.getItem("aion-theme");
-        if (theme === "light" || theme === "dark") {
-          document.documentElement.setAttribute("data-theme", theme);
-        }
-      } catch (e) {}
+      (function () {
+        try {
+          var theme = localStorage.getItem("aion-theme");
+          if (theme === "light" || theme === "dark") {
+            document.documentElement.setAttribute("data-theme", theme);
+          }
+        } catch (e) {}
+      })();
     </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
