@@ -1,0 +1,19 @@
+{
+  "schema": "aion-account-roadmap/1",
+  "items": [
+    {
+      "priority": "now",
+      "area": "skills",
+      "action": "Level Ruinous Blow to 10",
+      "why": "The build's opener.",
+      "refs": [{ "record": "900-fixture", "id": "gladiator-leveling" }]
+    },
+    {
+      "priority": "later",
+      "area": "stigmas",
+      "action": "Slot a stigma at 27",
+      "why": "The slot is empty.",
+      "refs": []
+    }
+  ]
+}

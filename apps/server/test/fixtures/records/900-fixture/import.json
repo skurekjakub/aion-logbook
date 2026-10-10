@@ -1,0 +1,11 @@
+{
+  "record": {
+    "slug": "900-fixture",
+    "question": "Which skills does a gladiator level first?",
+    "status": "active",
+    "startedAt": "2026-10-01",
+    "classes": ["gladiator"]
+  },
+  "curated": "curated",
+  "ledger": { "file": "evidence/captures.jsonl" }
+}

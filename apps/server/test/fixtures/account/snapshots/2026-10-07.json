@@ -1,0 +1,22 @@
+{
+  "schema": "aion-account-snapshot/1",
+  "capturedAt": "2026-10-07T21:30:00+02:00",
+  "character": {
+    "name": "Fixture",
+    "class": "gladiator",
+    "level": 34,
+    "gearScore": 1520,
+    "server": "Siel"
+  },
+  "skills": [
+    { "name": "ruinous blow", "level": 8, "slot": "1" },
+    { "name": "Unknown Strike", "level": 2, "slot": null }
+  ],
+  "stigmas": [
+    { "slotLevel": 22, "name": "Wrath Wave" },
+    { "slotLevel": 27, "name": null }
+  ],
+  "macros": [],
+  "screens": ["skills.png"],
+  "unread": ["the gear score tooltip"]
+}

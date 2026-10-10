@@ -1,0 +1,16 @@
+{
+  "schema": "aion-account-snapshot/1",
+  "capturedAt": "2026-10-01T20:00:00+02:00",
+  "character": {
+    "name": "Fixture",
+    "class": "gladiator",
+    "level": 30,
+    "gearScore": null,
+    "server": null
+  },
+  "skills": [{ "name": "Ruinous Blow", "level": 5, "slot": "1" }],
+  "stigmas": [],
+  "macros": [],
+  "screens": [],
+  "unread": []
+}

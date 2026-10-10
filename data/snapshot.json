@@ -1,0 +1,26 @@
+{
+ "version": 1,
+ "tables": {
+  "sources": [],
+  "researchRecords": [],
+  "recordClasses": [],
+  "captures": [],
+  "glossary": [],
+  "skills": [],
+  "builds": [],
+  "buildSkills": [],
+  "buildStigmas": [],
+  "macros": [],
+  "macroSteps": [],
+  "mechanics": [],
+  "rngFactors": [],
+  "timeline": [],
+  "takeaways": [],
+  "recommendations": [],
+  "citations": [],
+  "factClaims": [],
+  "accountSnapshots": [],
+  "accountSkills": [],
+  "accountRoadmapItems": []
+ }
+}

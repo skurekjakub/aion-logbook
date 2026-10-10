@@ -1,0 +1,8 @@
+{
+  "collections": {
+    "meta": "meta.json",
+    "sources": "sources.json",
+    "skills": "skills.json",
+    "builds": "builds.json"
+  }
+}

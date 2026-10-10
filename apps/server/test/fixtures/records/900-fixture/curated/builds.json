@@ -1,0 +1,25 @@
+[
+  {
+    "id": "gladiator-leveling",
+    "class": "gladiator",
+    "purpose": "leveling",
+    "title": "Leveling",
+    "why": "Fast clears with one opener.",
+    "confidence": "posted",
+    "skills": [
+      { "skillId": "gladiator-ruinous-blow", "rank": 1, "targetLevel": 10, "why": "Opener." }
+    ],
+    "stigmas": [{ "slotLevel": 22, "skillId": "gladiator-wrath-wave", "why": "Area pull." }],
+    "macros": [
+      {
+        "id": "gladiator-leveling-main",
+        "name": "Main",
+        "key": "R",
+        "delayMs": 100,
+        "why": "One key for the opener.",
+        "steps": [{ "skillId": "gladiator-ruinous-blow" }]
+      }
+    ],
+    "sources": ["web:fixture-guide"]
+  }
+]

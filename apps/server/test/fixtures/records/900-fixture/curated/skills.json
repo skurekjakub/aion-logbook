@@ -1,0 +1,17 @@
+[
+  {
+    "id": "gladiator-ruinous-blow",
+    "class": "gladiator",
+    "name": "Ruinous Blow",
+    "kind": "active",
+    "unlockLevel": 10,
+    "sources": ["web:fixture-guide"]
+  },
+  {
+    "id": "gladiator-wrath-wave",
+    "class": "gladiator",
+    "name": "Wrath Wave",
+    "kind": "stigma",
+    "unlockLevel": 22
+  }
+]

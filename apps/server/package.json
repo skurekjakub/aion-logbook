@@ -1,0 +1,33 @@
+{
+  "name": "@aion/server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/app.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p .",
+    "test": "vitest run",
+    "dev": "tsx watch src/main.ts",
+    "start": "tsx src/main.ts",
+    "import:record": "tsx src/cli/import-record.ts",
+    "import:account": "tsx src/cli/import-account.ts",
+    "db:export": "tsx src/cli/export.ts",
+    "db:restore": "tsx src/cli/restore.ts",
+    "db:scope": "tsx src/cli/snapshot-scope.ts",
+    "build:vercel": "tsx src/cli/build-vercel.ts"
+  },
+  "dependencies": {
+    "@aion/capture": "workspace:*",
+    "@aion/schema": "workspace:*",
+    "@hono/node-server": "^2.1.1",
+    "@hono/zod-validator": "^0.9.1",
+    "drizzle-orm": "1.0.0-beta.22",
+    "hono": "^4.13.9",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}
