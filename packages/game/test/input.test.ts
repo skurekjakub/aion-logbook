@@ -31,42 +31,90 @@ describe("input", () => {
   });
 
   it.each([
-    ["{Click 100 100}", "{Click"],
-    ["{LButton}", "LButton"],
-    ["{RButton down}", "RButton"],
-    ["{MButton}", "MButton"],
-    ["{XButton1}", "XButton1"],
-    ["{WheelDown 3}", "WheelDown"],
-    ["{WheelLeft}", "WheelLeft"],
+    ["{Click 100 100}", "{Click 100 100}"],
+    ["{LButton}", "{LButton}"],
+    ["{RButton down}", "{RButton down}"],
+    ["{XButton1}", "{XButton1}"],
+    ["{WheelDown 3}", "{WheelDown 3}"],
+    ["{vk01}", "{vk01}"],
   ])("refuses the mouse through key: %s", (keys, token) => {
     // Act & Assert
-    expect(() => ahkArgs("key", [keys])).toThrow(`key refuses ${token}`);
+    expect(() => ahkArgs("key", [keys])).toThrow(`key refuses ${token}:`);
   });
 
   it.each([
     ["#r", "#"],
-    ["{LWin}", "LWin"],
-    ["{RWin down}", "RWin"],
+    ["{LWin}", "{LWin}"],
+    ["{vk5B}", "{vk5B}"],
+    ["{sc15B}", "{sc15B}"],
   ])("refuses the Windows key: %s", (keys, token) => {
     // Act & Assert
-    expect(() => ahkArgs("key", [keys])).toThrow(`key refuses ${token}`);
+    expect(() => ahkArgs("key", [keys])).toThrow(`key refuses ${token}:`);
+  });
+
+  it.each([
+    ["{Alt down}{F4}{Alt up}", "{Alt down}"],
+    ["{vk12 down}{F4}", "{vk12 down}"],
+    ["{Alt DownR}", "{Alt DownR}"],
+    ["{Ctrl DownTemp}", "{Ctrl DownTemp}"],
+    ["{Down down}", "{Down down}"],
+    ["{Shift}", "{Shift}"],
+  ])("refuses held and bare modifiers: %s", (keys, token) => {
+    // Act & Assert
+    expect(() => ahkArgs("key", [keys])).toThrow(`key refuses ${token}:`);
+  });
+
+  it.each([
+    ["{Sleep}", "{Sleep}"],
+    ["{Browser_Home}", "{Browser_Home}"],
+    ["{Launch_App1}", "{Launch_App1}"],
+    ["{Media_Play_Pause}", "{Media_Play_Pause}"],
+    ["!{vk73}", "{vk73}"],
+    ["{Tab 100}", "{Tab 100}"],
+    ["a\tb", "\t"],
+    ["{Esc", "{Esc"],
+    ["a!", "!"],
+  ])("refuses keys outside the menu set: %s", (keys, token) => {
+    // Act & Assert
+    expect(() => ahkArgs("key", [keys])).toThrow(`key refuses ${token}:`);
   });
 
   it.each([
     ["!{F4}", "!{F4}"],
     ["!{tab}", "!{tab}"],
+    ["!{Esc}", "!{Esc}"],
+    ["!{Space}", "!{Space}"],
+    ["! ", "! "],
     ["^{Esc}", "^{Esc}"],
+    ["^+{Esc}", "^+{Esc}"],
     ["^!{Delete}", "^!{Delete}"],
     ["!^{Del}", "!^{Del}"],
-    ["{Alt down}{F4}{Alt up}", "{Alt down}"],
   ])("refuses system chords: %s", (keys, token) => {
     // Act & Assert
-    expect(() => ahkArgs("key", [keys])).toThrow(`key refuses ${token}`);
+    expect(() => ahkArgs("key", [keys])).toThrow(`key refuses ${token}:`);
   });
 
-  it("lets menu keys and a literal # through", () => {
+  it("lets menu keys and plain text through", () => {
     // Arrange
-    const keys = ["i", "{Esc}", "{Enter}", "^a", "+{Tab}", "{#}", "{F1}"];
+    const keys = [
+      "i",
+      "7",
+      "Darwin",
+      "{Esc}",
+      "{Enter}",
+      "{Tab}",
+      "+{Tab}",
+      "^{Tab}",
+      "^a",
+      "!a",
+      "{Down 3}",
+      "{PgDn}",
+      "{Numpad5}",
+      "{#}",
+      "{{}",
+      "{}}",
+      ...Array.from({ length: 12 }, (_, i) => `{F${i + 1}}`),
+    ];
     // Act
     const built = keys.map((k) => ahkArgs("key", [k]).at(-1));
     // Assert

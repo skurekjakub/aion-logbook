@@ -13,8 +13,24 @@ GAME := "ahk_exe AION2.exe"
 ; The window that was active before the first input; `back` re-activates it.
 PREV_FILE := A_Temp "\aion-input-prev.txt"
 ARITY := Map("focus", 0, "key", 1, "click", 2, "rclick", 2, "drag", 4, "scroll", 3)
-; `key` never clicks, scrolls or presses the Windows key; `pnpm game` also refuses system chords.
-KEY_REFUSED := "i)\{Click|[LRM]Button|XButton[12]|Wheel(Up|Down|Left|Right)|[LR]Win|(?<!\{)#|#(?!\})"
+; The braced keys `key` may send, optionally with a repeat count up to 99; a braced single character is allowed too.
+MENU_KEY := "i)^(Esc|Enter|Tab|Space|Backspace|BS|Delete|Del|Insert|Home|End|PgUp|PgDn|Up|Down|Left|Right|F[1-9]|F1[0-2]|Numpad[0-9]|NumpadEnter|\S)( \d{1,2})?$"
+
+; Allows only menu keys: characters typed as themselves, `+ ^ !` prefixes and the braced keys in MENU_KEY.
+; Mirrors `refusedKeyToken` in packages/game/src/input.ts, which also refuses system chords such as Alt+F4.
+KeyAllowed(keys) {
+    if RegExMatch(keys, "[\x00-\x1F\x7F]")
+        return false
+    pos := 1, rest := ""
+    while (p := RegExMatch(keys, "\{(\}|[^}]*)\}", &m, pos)) {
+        if !RegExMatch(m[1], MENU_KEY)
+            return false
+        rest .= SubStr(keys, pos, p - pos)
+        pos := p + m.Len
+    }
+    rest .= SubStr(keys, pos)
+    return !InStr(rest, "#") && !InStr(rest, "{")
+}
 
 Breathe() => Sleep(Random(80, 200))
 Clamp(v, lo, hi) => Min(Max(v, lo), hi)
@@ -48,7 +64,7 @@ if (verb = "back" && A_Args.Length = 1) {
 ; Everything is checked before the game window is touched.
 if !ARITY.Has(verb) || A_Args.Length != ARITY[verb] + 1
     ExitApp 12
-if (verb = "key" && RegExMatch(A_Args[2], KEY_REFUSED))
+if (verb = "key" && !KeyAllowed(A_Args[2]))
     ExitApp 12
 if !WinExist(GAME)
     ExitApp 10
