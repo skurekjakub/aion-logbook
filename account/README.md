@@ -4,6 +4,7 @@ The character as read from the Aion 2 client, and what's left to apply from the 
 
 | Path | What it holds |
 |---|---|
+| `character.json` | Which character `pnpm sync` reads from the official site: name, region, server id and the cached `characterId` (README § Character sync). |
 | `snapshots/<id>.json` | A read of the character (`aion-account-snapshot/1`, `packages/schema/src/account.ts`). The id leads with the day; `<day>-after` is a re-read after applying. |
 | `roadmap-<id>.json` | The next actions ranked against snapshot `<id>` (`aion-account-roadmap/1`), most urgent first, each pointing at the record it follows. |
 | `apply-log-<day>.md` | What changed in the game that day, each change with its before and after evidence. |

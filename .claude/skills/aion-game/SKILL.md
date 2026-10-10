@@ -62,6 +62,21 @@ that prints is always the new frame.
 Write what you read into the account snapshot as you go, with `unread[]` for anything you couldn't read; never
 fill a value from memory or from a guide.
 
+## Sync first, read the rest
+
+`pnpm sync` (`packages/armory`) reads the character from the official site's public data without touching
+the client: name, class, level, item level, server, every skill and stigma with its level, and which stigmas
+are equipped. Run it before a read; the game read is then only for what the site doesn't publish.
+
+- **From the site:** levels, gear score, equipped stigmas. The sync writes `account/snapshots/<date>.json`,
+  imports it and exports the database; `--no-push` stops before the commit.
+- **From the game read:** hotbar slots, macro chains and their keys, stigma slot positions, specialization
+  picks. The sync carries these from the latest snapshot and lists what it can't settle in `unread[]`.
+- **When they disagree** (Voice of Doom equipped at level 0 online, padlocked in game, 2026-10-10): the game
+  read wins for what the client shows; note the disagreement in `unread[]` and the roadmap.
+- **Order on one day:** sync, then read. A sync after a game read replaces that day's file: it keeps the
+  read's macros, slots and notes but takes levels and stigmas from the site, which can lag the client.
+
 ## Guided read (the user clicks, you record)
 
 When a window or tab needs the mouse, record the client while the user works through it, then read the frames.
