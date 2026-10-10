@@ -16,7 +16,10 @@
     { "slotLevel": 22, "name": "Wrath Wave" },
     { "slotLevel": 27, "name": null }
   ],
-  "macros": [],
+  "macros": [
+    { "name": "Opener", "key": "R", "steps": ["Ruinous Blow", "Unknown Strike"] },
+    { "name": "Spare", "key": null, "steps": ["wrath wave"] }
+  ],
   "screens": ["skills.png"],
   "unread": ["the gear score tooltip"]
 }

@@ -5,7 +5,7 @@ import { ImportError } from "../src/errors";
 import { importRecord } from "../src/importers/import-record";
 import type { Store } from "../src/repos";
 import { createServices } from "../src/services";
-import { exportSnapshot } from "../src/services/export";
+import { exportSnapshot, restoreSnapshot } from "../src/services/export";
 import { copyFixture, editJson, testStore } from "./helpers";
 
 /** A build as `builds.json` holds it, for editing in place. */
@@ -142,6 +142,31 @@ describe("importRecord", () => {
     expect(warnings).toContain(
       "skill gladiator-ruinous-blow is already loaded by record 900-fixture; keeping that row (this record's differs in unlockLevel)",
     );
+  });
+
+  it("keeps a build's macro chains in curated order, through an export and a restore", () => {
+    // Arrange
+    const store = testStore();
+    const dir = record();
+    editJson(dir, "curated/builds.json", (builds: BuildRow[]) => {
+      const [chain] = builds[0]!.macros;
+      builds[0]!.macros = [
+        { ...chain!, id: "gladiator-zeta" },
+        { ...chain!, id: "gladiator-alpha" },
+      ];
+    });
+    importRecord(store, dir);
+    const restored = testStore();
+
+    // Act
+    restoreSnapshot(restored, JSON.parse(JSON.stringify(exportSnapshot(store))));
+
+    // Assert
+    const macros = createServices(restored).builds.get("gladiator-leveling").macros;
+    expect(macros.map((m) => [m.id, m.position])).toEqual([
+      ["gladiator-zeta", 1],
+      ["gladiator-alpha", 2],
+    ]);
   });
 
   it("refuses a second import without replace", () => {

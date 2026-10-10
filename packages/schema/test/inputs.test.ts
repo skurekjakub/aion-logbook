@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { accountSnapshotFile, buildInput, macroInput, mechanicInput, skillPatch } from "../src";
+import {
+  accountRoadmapFile,
+  accountSnapshotFile,
+  buildInput,
+  macroInput,
+  mechanicInput,
+  skillPatch,
+} from "../src";
 
 const macro = {
   id: "m",
@@ -136,5 +143,28 @@ describe("aion inputs", () => {
 
     // Assert
     expect(parsed.character.level).toBe(34);
+  });
+
+  it("accepts a roadmap document and rejects an item with an unknown priority", () => {
+    // Arrange
+    const item = {
+      priority: "now",
+      area: "skills",
+      action: "a",
+      why: "w",
+      refs: [{ record: "001" }],
+    };
+    const doc = { schema: "aion-account-roadmap/1", items: [item] };
+
+    // Act
+    const parsed = accountRoadmapFile.safeParse(doc);
+    const rejected = accountRoadmapFile.safeParse({
+      ...doc,
+      items: [{ ...item, priority: "soon" }],
+    });
+
+    // Assert
+    expect(parsed.success).toBe(true);
+    expect(rejected.success).toBe(false);
   });
 });

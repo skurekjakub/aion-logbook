@@ -67,7 +67,7 @@ function differences<T>(kept: T, incoming: T, fields: readonly (keyof T)[]): str
  * @param context - the write context: the record, and where warnings go
  * @param write - stores `incoming` owned by the record, as an insert or an
  *   overwrite
- * @param label - how a warning names the row, e.g. `source dc:1`
+ * @param label - how a warning names the row, e.g. `source web:eloboost24-gladiator`
  * @param fields - the fields a warning compares
  */
 export function writeShared<T extends { recordSlug?: string | null }>(

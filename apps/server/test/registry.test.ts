@@ -314,31 +314,50 @@ describe("the content-type registry", () => {
       (key) => specOf(key).path && Object.keys(specOf(key).filters ?? {}).length > 0,
     );
 
-    // Act & Assert
-    expect(filtered.length).toBeGreaterThan(0);
-    for (const key of filtered) {
-      const seed = SEEDS[key];
-      expect(seed, `${key} needs a seed in SEEDS`).toBeDefined();
-      for (const name of Object.keys(specOf(key).filters!)) {
-        const probe =
+    const probes = filtered.flatMap((key) =>
+      Object.keys(specOf(key).filters!).map((name) => ({
+        label: `${key}?${name}=`,
+        key,
+        name,
+        seed: SEEDS[key],
+        probe:
           FILTER_CASES[key]?.[name] ??
-          (name === "class" ? CLASS_CASE : name === "current" ? CURRENT_CASE : undefined);
-        expect(probe, `${key}?${name}= needs a case in FILTER_CASES`).toBeDefined();
-        const store = testStore();
-        const app = makeTestApp(store);
-        const [field, wanted] = seed!(store, probe!.match);
-        seed!(store, probe!.other);
-        const url = `/api${specOf(key).path!}`;
-        const all = (await (await app.request(url)).json()) as Record<string, unknown>[];
-        expect(all, `${key}: both rows listed unfiltered`).toHaveLength(2);
-        const res = await app.request(`${url}?${name}=${encodeURIComponent(probe!.value)}`);
-        expect(res.status, `${key}?${name}=`).toBe(200);
-        const rows = (await res.json()) as Record<string, unknown>[];
-        expect(
-          rows.map((row) => row[field]),
-          `${key}?${name}=${probe!.value}`,
-        ).toEqual([wanted]);
+          (name === "class" ? CLASS_CASE : name === "current" ? CURRENT_CASE : undefined),
+      })),
+    );
+
+    // Act
+    const outcomes = [];
+    for (const { label, key, name, seed, probe } of probes) {
+      if (!seed || !probe) {
+        outcomes.push({ label, seeded: false, unfiltered: 0, status: 0, kept: [], wanted: [] });
+        continue;
       }
+      const store = testStore();
+      const app = makeTestApp(store);
+      const [field, wanted] = seed(store, probe.match);
+      seed(store, probe.other);
+      const url = `/api${specOf(key).path!}`;
+      const all = (await (await app.request(url)).json()) as Record<string, unknown>[];
+      const res = await app.request(`${url}?${name}=${encodeURIComponent(probe.value)}`);
+      const rows = (await res.json()) as Record<string, unknown>[];
+      outcomes.push({
+        label,
+        seeded: true,
+        unfiltered: all.length,
+        status: res.status,
+        kept: rows.map((row) => row[field]),
+        wanted: [wanted],
+      });
+    }
+
+    // Assert
+    expect(outcomes.length).toBeGreaterThan(0);
+    for (const { label, seeded, unfiltered, status, kept, wanted } of outcomes) {
+      expect(seeded, `${label} needs a seed in SEEDS and a case in FILTER_CASES`).toBe(true);
+      expect(unfiltered, `${label} both rows listed unfiltered`).toBe(2);
+      expect(status, label).toBe(200);
+      expect(kept, label).toEqual(wanted);
     }
   }, 30_000);
 

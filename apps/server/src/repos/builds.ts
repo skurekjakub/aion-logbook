@@ -69,8 +69,8 @@ export interface BuildsRepo {
   insert(row: BuildInsert): BuildRow;
   /**
    * Inserts a build with its skill priorities, stigma slots, macro chains
-   * and their steps. Run it inside a transaction: a failure part-way leaves
-   * the rows written before it.
+   * (positioned from 1 in list order) and their steps. Run it inside a
+   * transaction: a failure part-way leaves the rows written before it.
    *
    * @param aggregate - the build and its children
    * @returns the inserted build row
@@ -125,14 +125,20 @@ export interface BuildsRepo {
    * @throws if a slot repeats or a skill id doesn't exist
    */
   replaceStigmas(buildId: string, rows: readonly BuildStigmaInsert[]): void;
-  /** Returns every macro chain, ordered by build then `id`. */
+  /** Returns every macro chain, ordered by build, then position, then `id`. */
   macros(): MacroRow[];
   /**
-   * Returns the macro chains of `buildIds`, ordered by build then `id`.
+   * Returns the macro chains of `buildIds`, ordered by build, then position, then `id`.
    *
    * @param buildIds - build ids to look up; `[]` returns `[]`
    */
   macrosOf(buildIds: readonly string[]): MacroRow[];
+  /**
+   * Returns one past the highest macro position of `buildId`, or 1 when it has no chains.
+   *
+   * @param buildId - the build
+   */
+  nextMacroPosition(buildId: string): number;
   /**
    * Returns the macro chain with `id`, or `undefined` if there is none.
    *
@@ -211,10 +217,10 @@ export function createBuildsRepo(db: Db): BuildsRepo {
       const row = repo.insert(aggregate.build);
       repo.replaceSkills(row.id, aggregate.skills);
       repo.replaceStigmas(row.id, aggregate.stigmas);
-      for (const { macro, steps } of aggregate.macros) {
-        repo.insertMacro({ ...macro, buildId: row.id });
+      aggregate.macros.forEach(({ macro, steps }, index) => {
+        repo.insertMacro({ ...macro, buildId: row.id, position: index + 1 });
         repo.replaceSteps(macro.id, steps);
-      }
+      });
       return row;
     },
     /** @inheritdoc */
@@ -271,7 +277,12 @@ export function createBuildsRepo(db: Db): BuildsRepo {
       }
     },
     /** @inheritdoc */
-    macros: () => db.select().from(macros).orderBy(asc(macros.buildId), asc(macros.id)).all(),
+    macros: () =>
+      db
+        .select()
+        .from(macros)
+        .orderBy(asc(macros.buildId), asc(macros.position), asc(macros.id))
+        .all(),
     /** @inheritdoc */
     macrosOf: (buildIds) =>
       buildIds.length === 0
@@ -280,8 +291,17 @@ export function createBuildsRepo(db: Db): BuildsRepo {
             .select()
             .from(macros)
             .where(inArray(macros.buildId, [...buildIds]))
-            .orderBy(asc(macros.buildId), asc(macros.id))
+            .orderBy(asc(macros.buildId), asc(macros.position), asc(macros.id))
             .all(),
+    /** @inheritdoc */
+    nextMacroPosition: (buildId) => {
+      const row = db
+        .select({ max: max(macros.position) })
+        .from(macros)
+        .where(eq(macros.buildId, buildId))
+        .get();
+      return (row?.max ?? 0) + 1;
+    },
     /** @inheritdoc */
     getMacro: (id) => db.select().from(macros).where(eq(macros.id, id)).get(),
     /** @inheritdoc */

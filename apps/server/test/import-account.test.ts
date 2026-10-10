@@ -69,14 +69,41 @@ describe("importAccount", () => {
     ).toEqual([
       { skillName: "ruinous blow", skillId: "gladiator-ruinous-blow", level: 8, slot: "1" },
       { skillName: "Unknown Strike", skillId: null, level: 2, slot: null },
-      { skillName: "Wrath Wave", skillId: "gladiator-wrath-wave", level: null, slot: "stigma:22" },
+    ]);
+    expect(store.repos.account.stigmas("2026-10-07")).toMatchObject([
+      { slotLevel: 22, skillName: "Wrath Wave", skillId: "gladiator-wrath-wave" },
+      { slotLevel: 27, skillName: null, skillId: null },
     ]);
     expect(store.repos.account.roadmap("2026-10-07")).toMatchObject([
       { rank: 1, priority: "now", action: "Level Ruinous Blow to 10" },
       { rank: 2, priority: "later", refs: [] },
     ]);
-    expect(result.warnings).toContain(
+    expect(result.warnings).toEqual([
       "snapshot 2026-10-07: no loaded gladiator skill is named Unknown Strike; its skillId stays null",
+    ]);
+    expect(result.counts).toMatchObject({ accountMacros: 2, accountMacroSteps: 3 });
+  });
+
+  it("stores the snapshot's macro chains in editor order, each step resolved where it can be", () => {
+    // Arrange
+    const store = storeWithSkills();
+
+    // Act
+    importAccount(store, ACCOUNT);
+
+    // Assert
+    const macros = store.repos.account.macros("2026-10-07");
+    const steps = store.repos.account.macroSteps(macros.map((m) => m.id));
+    expect(macros).toMatchObject([
+      { position: 1, name: "Opener", key: "R" },
+      { position: 2, name: "Spare", key: null },
+    ]);
+    expect(steps.map(({ position, skillName, skillId }) => [position, skillName, skillId])).toEqual(
+      [
+        [1, "Ruinous Blow", "gladiator-ruinous-blow"],
+        [2, "Unknown Strike", null],
+        [1, "wrath wave", "gladiator-wrath-wave"],
+      ],
     );
   });
 
@@ -109,7 +136,7 @@ describe("importAccount", () => {
     );
   });
 
-  it("replaces a loaded snapshot with replace, its skills and roadmap included", () => {
+  it("replaces a loaded snapshot with replace, its skills, stigmas, macros and roadmap included", () => {
     // Arrange
     const store = storeWithSkills();
     importAccount(store, ACCOUNT);
@@ -120,7 +147,9 @@ describe("importAccount", () => {
 
     // Assert
     expect(result.snapshots).toEqual(["2026-10-07"]);
-    expect(store.repos.account.skills("2026-10-07")).toHaveLength(3);
+    expect(store.repos.account.skills("2026-10-07")).toHaveLength(2);
+    expect(store.repos.account.stigmas("2026-10-07")).toHaveLength(2);
+    expect(store.repos.account.macros("2026-10-07")).toHaveLength(2);
     expect(store.repos.account.roadmap("2026-10-07")).toHaveLength(2);
   });
 
@@ -174,7 +203,7 @@ describe("GET /api/account", () => {
     expect(await res.json()).toEqual({ snapshots: [], snapshot: null, roadmap: [] });
   });
 
-  it("shows the latest snapshot with its skills, stigmas and roadmap", async () => {
+  it("shows the latest snapshot with its skills, stigmas, macro chains and roadmap", async () => {
     // Arrange
     const store = storeWithSkills();
     importAccount(store, ACCOUNT, { all: true });
@@ -192,7 +221,27 @@ describe("GET /api/account", () => {
         { name: "ruinous blow", skillId: "gladiator-ruinous-blow", level: 8, slot: "1" },
         { name: "Unknown Strike", skillId: null },
       ],
-      stigmas: [{ slotLevel: 22, name: "Wrath Wave", skillId: "gladiator-wrath-wave" }],
+      stigmas: [
+        { slotLevel: 22, name: "Wrath Wave", skillId: "gladiator-wrath-wave" },
+        { slotLevel: 27, name: null, skillId: null },
+      ],
+      macros: [
+        {
+          position: 1,
+          name: "Opener",
+          key: "R",
+          steps: [
+            { position: 1, name: "Ruinous Blow", skillId: "gladiator-ruinous-blow" },
+            { position: 2, name: "Unknown Strike", skillId: null },
+          ],
+        },
+        {
+          position: 2,
+          name: "Spare",
+          key: null,
+          steps: [{ position: 1, name: "wrath wave", skillId: "gladiator-wrath-wave" }],
+        },
+      ],
     });
     expect(got.roadmap).toMatchObject([{ rank: 1, area: "skills" }, { rank: 2 }]);
   });

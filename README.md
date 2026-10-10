@@ -47,7 +47,7 @@ The app is published read-only on Vercel (project `aion-logbook`). `pnpm build:v
 
 ### The database
 
-The server reads `data/aion.db`, or the file `AION_DB` names (an absolute path; the scripts run from `apps/server`). `PORT` overrides the default port, 8787.
+The server reads `data/aion.db`, or the file `AION_DB` names (an absolute path; the scripts run from `apps/server`). `PORT` overrides the default port, 8787. `pnpm import:account` reads the character's snapshots from `account/`, or the folder `AION_ACCOUNT` names (an absolute path).
 
 ```sh
 pnpm import:record 001-<class>-build             # load a research record next to any others

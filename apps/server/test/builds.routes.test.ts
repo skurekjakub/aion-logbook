@@ -58,10 +58,7 @@ async function appWithSkills() {
 describe("/api/builds", () => {
   it("creates a build and returns it nested", async () => {
     // Arrange
-    const app = makeTestApp();
-    for (const s of skills) {
-      expect((await app.request("/api/skills", jsonBody(s))).status).toBe(201);
-    }
+    const app = await appWithSkills();
 
     // Act
     const created = await app.request("/api/builds", jsonBody(build));
@@ -253,6 +250,38 @@ describe("/api/macros", () => {
     });
     expect(orphan.status).toBe(422);
     expect(await orphan.json()).toMatchObject({ kind: "builds", ids: ["nope"] });
+  });
+
+  it("keeps a build's chains in their given order, and appends a created one after them", async () => {
+    // Arrange
+    const app = await appWithSkills();
+    const chain = build.macros[0]!;
+    await app.request(
+      "/api/builds",
+      jsonBody({
+        ...build,
+        macros: [
+          { ...chain, id: "zeta" },
+          { ...chain, id: "alpha" },
+        ],
+      }),
+    );
+
+    // Act
+    await app.request(
+      "/api/macros",
+      jsonBody({ ...chain, id: "middle", buildId: "gladiator-leveling" }),
+    );
+    const got = await readJson<BuildView>(await app.request("/api/builds/gladiator-leveling"));
+    const listed = await readJson<MacroView[]>(await app.request("/api/macros"));
+
+    // Assert
+    expect(got.macros.map((m) => [m.id, m.position])).toEqual([
+      ["zeta", 1],
+      ["alpha", 2],
+      ["middle", 3],
+    ]);
+    expect(listed.map((m) => m.id)).toEqual(["zeta", "alpha", "middle"]);
   });
 
   it("patches a macro's key and deletes it", async () => {

@@ -2,12 +2,16 @@ import { integer, sqliteTable, text, unique } from "drizzle-orm/sqlite-core";
 import { builds } from "./builds";
 import { skills } from "./skills";
 
-/** One chain in the game's built-in macro editor, bound to `key`, with the editor's step delay. */
+/**
+ * One chain in the game's built-in macro editor, bound to `key`, with the
+ * editor's step delay. `position` orders a build's chains as curated.
+ */
 export const macros = sqliteTable("macros", {
   id: text("id").primaryKey(),
   buildId: text("build_id")
     .notNull()
     .references(() => builds.id, { onDelete: "cascade" }),
+  position: integer("position").notNull().default(0),
   name: text("name").notNull(),
   key: text("key").notNull(),
   delayMs: integer("delay_ms").notNull(),
