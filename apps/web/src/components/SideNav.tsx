@@ -3,6 +3,7 @@ import type { MouseEvent } from "react";
 import type { LinkTarget } from "../app/classes";
 import { APP_TITLE } from "../app/classes";
 import { ThemeToggle } from "./ThemeToggle";
+import { WingMark } from "./WingMark";
 
 /** One page link under the current section of a {@link SideNav}. */
 export interface NavPage {
@@ -75,8 +76,9 @@ export function SideNav({ id, label, sections }: SideNavProps) {
   return (
     <nav id={id} className="sidenav" aria-label={label} popover="auto" onClick={closeAfterFollow}>
       <div className="brand">
+        <WingMark className="brand-mark" />
         <span className="brand-name">{APP_TITLE}</span>
-        <span className="brand-game">Aion 2 · global client</span>
+        <span className="brand-game">for the Aion 2 global client</span>
         <ThemeToggle />
       </div>
       <ul className="nav-sections">
