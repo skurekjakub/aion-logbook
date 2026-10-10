@@ -10,7 +10,7 @@
  * types) and a view. `test/registry.test.ts` fails if the route or the
  * entity is missing, or if a declared list filter doesn't narrow its list.
  *
- * Two list filters come without declaring them. A table with a `class`
+ * Some list filters come without declaring them. A table with a `class`
  * column gets `?class=`: where the column is NOT NULL it keeps the rows of
  * that class; where it is nullable (a finding that applies to every class
  * stores `null`) it keeps the rows of that class and the class-wide rows.
@@ -28,9 +28,12 @@ import {
   CLASS,
   SKILL_KIND,
   SOURCE_SITE,
+  accountMacroSteps,
+  accountMacros,
   accountRoadmapItems,
   accountSkills,
   accountSnapshots,
+  accountStigmas,
   buildInput,
   buildPatch,
   buildSkills,
@@ -316,6 +319,9 @@ export const REGISTRY = {
   // The character, owned by no record: `pnpm import:account` loads it, and `/api/account` serves it.
   accountSnapshots: entry(accountSnapshots, {}),
   accountSkills: entry(accountSkills, {}),
+  accountStigmas: entry(accountStigmas, {}),
+  accountMacros: entry(accountMacros, {}),
+  accountMacroSteps: entry(accountMacroSteps, {}),
   accountRoadmapItems: entry(accountRoadmapItems, {}),
 };
 

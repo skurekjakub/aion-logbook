@@ -1,7 +1,7 @@
 {
   "version": "7",
   "dialect": "sqlite",
-  "id": "c4ffb6b9-413a-4288-ad51-db695b470add",
+  "id": "ee8716cf-544f-4170-8df1-0c4961893493",
   "prevIds": [
     "00000000-0000-0000-0000-000000000000"
   ],
@@ -79,6 +79,14 @@
       "entityType": "tables"
     },
     {
+      "name": "account_macro_steps",
+      "entityType": "tables"
+    },
+    {
+      "name": "account_macros",
+      "entityType": "tables"
+    },
+    {
       "name": "account_roadmap_items",
       "entityType": "tables"
     },
@@ -88,6 +96,10 @@
     },
     {
       "name": "account_snapshots",
+      "entityType": "tables"
+    },
+    {
+      "name": "account_stigmas",
       "entityType": "tables"
     },
     {
@@ -1191,6 +1203,16 @@
       "table": "macros"
     },
     {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": "0",
+      "generated": null,
+      "name": "position",
+      "entityType": "columns",
+      "table": "macros"
+    },
+    {
       "type": "text",
       "notNull": true,
       "autoincrement": false,
@@ -1229,6 +1251,106 @@
       "name": "why",
       "entityType": "columns",
       "table": "macros"
+    },
+    {
+      "type": "integer",
+      "notNull": false,
+      "autoincrement": true,
+      "default": null,
+      "generated": null,
+      "name": "id",
+      "entityType": "columns",
+      "table": "account_macro_steps"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "macro_id",
+      "entityType": "columns",
+      "table": "account_macro_steps"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "position",
+      "entityType": "columns",
+      "table": "account_macro_steps"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "skill_name",
+      "entityType": "columns",
+      "table": "account_macro_steps"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "skill_id",
+      "entityType": "columns",
+      "table": "account_macro_steps"
+    },
+    {
+      "type": "integer",
+      "notNull": false,
+      "autoincrement": true,
+      "default": null,
+      "generated": null,
+      "name": "id",
+      "entityType": "columns",
+      "table": "account_macros"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "snapshot_id",
+      "entityType": "columns",
+      "table": "account_macros"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "position",
+      "entityType": "columns",
+      "table": "account_macros"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "name",
+      "entityType": "columns",
+      "table": "account_macros"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "key",
+      "entityType": "columns",
+      "table": "account_macros"
     },
     {
       "type": "integer",
@@ -1451,6 +1573,56 @@
       "table": "account_snapshots"
     },
     {
+      "type": "integer",
+      "notNull": false,
+      "autoincrement": true,
+      "default": null,
+      "generated": null,
+      "name": "id",
+      "entityType": "columns",
+      "table": "account_stigmas"
+    },
+    {
+      "type": "text",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "snapshot_id",
+      "entityType": "columns",
+      "table": "account_stigmas"
+    },
+    {
+      "type": "integer",
+      "notNull": true,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "slot_level",
+      "entityType": "columns",
+      "table": "account_stigmas"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "skill_name",
+      "entityType": "columns",
+      "table": "account_stigmas"
+    },
+    {
+      "type": "text",
+      "notNull": false,
+      "autoincrement": false,
+      "default": null,
+      "generated": null,
+      "name": "skill_id",
+      "entityType": "columns",
+      "table": "account_stigmas"
+    },
+    {
       "columns": [
         "record_slug"
       ],
@@ -1602,6 +1774,36 @@
     },
     {
       "columns": [
+        "macro_id"
+      ],
+      "tableTo": "account_macros",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "nameExplicit": false,
+      "name": "fk_account_macro_steps_macro_id_account_macros_id_fk",
+      "entityType": "fks",
+      "table": "account_macro_steps"
+    },
+    {
+      "columns": [
+        "snapshot_id"
+      ],
+      "tableTo": "account_snapshots",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "nameExplicit": false,
+      "name": "fk_account_macros_snapshot_id_account_snapshots_id_fk",
+      "entityType": "fks",
+      "table": "account_macros"
+    },
+    {
+      "columns": [
         "snapshot_id"
       ],
       "tableTo": "account_snapshots",
@@ -1629,6 +1831,21 @@
       "name": "fk_account_skills_snapshot_id_account_snapshots_id_fk",
       "entityType": "fks",
       "table": "account_skills"
+    },
+    {
+      "columns": [
+        "snapshot_id"
+      ],
+      "tableTo": "account_snapshots",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "nameExplicit": false,
+      "name": "fk_account_stigmas_snapshot_id_account_snapshots_id_fk",
+      "entityType": "fks",
+      "table": "account_stigmas"
     },
     {
       "columns": [
@@ -1798,6 +2015,24 @@
         "id"
       ],
       "nameExplicit": false,
+      "name": "account_macro_steps_pk",
+      "table": "account_macro_steps",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "account_macros_pk",
+      "table": "account_macros",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
       "name": "account_roadmap_items_pk",
       "table": "account_roadmap_items",
       "entityType": "pks"
@@ -1818,6 +2053,15 @@
       "nameExplicit": false,
       "name": "account_snapshots_pk",
       "table": "account_snapshots",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "account_stigmas_pk",
+      "table": "account_stigmas",
       "entityType": "pks"
     },
     {
@@ -1951,6 +2195,36 @@
       "name": "macro_steps_position",
       "entityType": "uniques",
       "table": "macro_steps"
+    },
+    {
+      "columns": [
+        "macro_id",
+        "position"
+      ],
+      "nameExplicit": true,
+      "name": "account_macro_steps_position",
+      "entityType": "uniques",
+      "table": "account_macro_steps"
+    },
+    {
+      "columns": [
+        "snapshot_id",
+        "position"
+      ],
+      "nameExplicit": true,
+      "name": "account_macros_position",
+      "entityType": "uniques",
+      "table": "account_macros"
+    },
+    {
+      "columns": [
+        "snapshot_id",
+        "slot_level"
+      ],
+      "nameExplicit": true,
+      "name": "account_stigmas_slot",
+      "entityType": "uniques",
+      "table": "account_stigmas"
     }
   ],
   "renames": []

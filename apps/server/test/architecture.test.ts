@@ -77,6 +77,13 @@ function importsOf(file: string): ImportEdge[] {
   const code = readFileSync(join(repoRoot, file), "utf-8")
     .replace(/\/\*[\s\S]*?\*\//g, "")
     .replace(/^\s*\/\/.*$/gm, "");
+  /**
+   * Builds the edge of one import statement of `file`.
+   *
+   * @param specifier - the module specifier as written
+   * @param typeOnly - whether the statement brings in types only
+   * @returns the edge, with a relative specifier resolved against `file`
+   */
   const edge = (specifier: string, typeOnly: boolean): ImportEdge => ({
     file,
     specifier,
@@ -119,20 +126,36 @@ const under = (path: string, dir: string) => path === dir || path.startsWith(`${
 const isPackage = (specifier: string, pkg: string) =>
   specifier === pkg || specifier.startsWith(`${pkg}/`);
 
+/**
+ * Reports whether an import is of drizzle-orm.
+ *
+ * @param edge - the import
+ * @returns `true` for `drizzle-orm` or one of its subpaths
+ */
 const isDrizzle = (edge: ImportEdge) => isPackage(edge.specifier, "drizzle-orm");
+
+/**
+ * Reports whether an import is of Hono.
+ *
+ * @param edge - the import
+ * @returns `true` for `hono`, its subpaths, or an `@hono/` package
+ */
 const isHono = (edge: ImportEdge) =>
   isPackage(edge.specifier, "hono") || edge.specifier.startsWith("@hono/");
+
+/**
+ * Reports whether an import reaches the game bridge.
+ *
+ * @param edge - the import
+ * @returns `true` for `@aion/game`, its subpaths, or a relative path into `packages/game/src`
+ */
 const isGame = (edge: ImportEdge) =>
   isPackage(edge.specifier, "@aion/game") || under(edge.target, GAME);
 
 /** The server files, besides their own folder, that importers may import values from. */
-const IMPORTER_DEPENDENCIES = [
-  "errors",
-  "registry",
-  "config",
-  "services/names",
-  "services/account-slots",
-].map((path) => `${SERVER}/${path}`);
+const IMPORTER_DEPENDENCIES = ["errors", "registry", "config", "services/names"].map(
+  (path) => `${SERVER}/${path}`,
+);
 
 /**
  * Reports whether an importer may make `edge`: its own files, the schema
@@ -353,14 +376,23 @@ describe("architecture", () => {
     const registry = `${SERVER}/registry.ts`;
     const importer = `${SERVER}/importers/x.ts`;
 
-    // Act & Assert
-    expect(violations([fake(registry, "@aion/schema"), fake(registry, "zod")])).toEqual([]);
-    expect(violations([fake(registry, "drizzle-orm/sqlite-core", true)])).toEqual([]);
-    expect(violations([fake(registry, "./repos")])).toHaveLength(1);
-    expect(violations([fake(registry, "./services/names", true)])).toHaveLength(1);
-    expect(violations([fake(importer, "../routes/content", true)])).toHaveLength(1);
-    expect(violations([fake(importer, "hono")])).toHaveLength(1);
-    expect(violations([fake(importer, "../services/names")])).toEqual([]);
+    // Act
+    const allowed = violations([
+      fake(registry, "@aion/schema"),
+      fake(registry, "zod"),
+      fake(registry, "drizzle-orm/sqlite-core", true),
+      fake(importer, "../services/names"),
+    ]);
+    const forbidden = [
+      fake(registry, "./repos"),
+      fake(registry, "./services/names", true),
+      fake(importer, "../routes/content", true),
+      fake(importer, "hono"),
+    ].map((edge) => violations([edge]).length);
+
+    // Assert
+    expect(allowed).toEqual([]);
+    expect(forbidden).toEqual([1, 1, 1, 1]);
   });
 
   it("lets importers/ import only what the allow-list names", () => {
@@ -379,22 +411,24 @@ describe("architecture", () => {
       fake(importer, "../registry"),
       fake(importer, "../config"),
       fake(importer, "../services/names"),
-      fake(importer, "../services/account-slots"),
     ];
     const forbidden = [
       fake(importer, "../repos"),
       fake(importer, "../services/content"),
+      fake(importer, "../services/account"),
       fake(importer, "../db/client", true),
       fake(importer, "../app", true),
       fake(importer, "../cli/export"),
       fake(importer, "left-pad"),
     ];
 
-    // Act & Assert
-    expect(violations(allowed)).toEqual([]);
-    for (const edge of forbidden) {
-      expect(violations([edge]).length, edge.specifier).toBeGreaterThan(0);
-    }
+    // Act
+    const allowedFound = violations(allowed);
+    const forbiddenFound = forbidden.filter((edge) => violations([edge]).length === 0);
+
+    // Assert
+    expect(allowedFound).toEqual([]);
+    expect(forbiddenFound).toEqual([]);
   });
 
   it("treats cli/ as a composition root that nothing else imports", () => {
@@ -402,23 +436,34 @@ describe("architecture", () => {
     const cli = `${SERVER}/cli/x.ts`;
     const below = ["../db/client", "../repos", "../services/export", "../importers/import-record"];
 
-    // Act & Assert
-    expect(violations(below.map((specifier) => fake(cli, specifier)))).toEqual([]);
-    for (const specifier of ["../routes/content", "../app", "../main", "hono"]) {
-      expect(violations([fake(cli, specifier)]), specifier).toHaveLength(1);
-    }
-    expect(violations([fake(`${SERVER}/services/x.ts`, "../cli/export", true)])).toHaveLength(1);
+    // Act
+    const allowed = violations(below.map((specifier) => fake(cli, specifier)));
+    const forbidden = ["../routes/content", "../app", "../main", "hono"].map(
+      (specifier) => violations([fake(cli, specifier)]).length,
+    );
+    const intoCli = violations([fake(`${SERVER}/services/x.ts`, "../cli/export", true)]);
+
+    // Assert
+    expect(allowed).toEqual([]);
+    expect(forbidden).toEqual([1, 1, 1, 1]);
+    expect(intoCli).toHaveLength(1);
   });
 
   it("keeps @aion/game out of the server, by package name or relative path", () => {
     // Arrange
     const relativeGame = "../../../../packages/game/src/index";
 
-    // Act & Assert
-    expect(violations([fake(`${SERVER}/services/x.ts`, "@aion/game", true)])).toHaveLength(1);
-    expect(violations([fake(`${SERVER}/cli/x.ts`, "@aion/game/capture")])).toHaveLength(1);
-    expect(violations([fake(`${SERVER}/services/x.ts`, relativeGame)])).toHaveLength(1);
-    expect(edges.filter((edge) => under(edge.file, SERVER) && isGame(edge))).toEqual([]);
+    // Act
+    const found = [
+      fake(`${SERVER}/services/x.ts`, "@aion/game", true),
+      fake(`${SERVER}/cli/x.ts`, "@aion/game/capture"),
+      fake(`${SERVER}/services/x.ts`, relativeGame),
+    ].map((edge) => violations([edge]).length);
+    const real = edges.filter((edge) => under(edge.file, SERVER) && isGame(edge));
+
+    // Assert
+    expect(found).toEqual([1, 1, 1]);
+    expect(real).toEqual([]);
   });
 
   it("keeps packages/capture to pure I/O, and its ledger the importers' only way in", () => {
@@ -426,33 +471,40 @@ describe("architecture", () => {
     const capture = `${CAPTURE}/web.ts`;
     const allowed = ["./html", "@aion/schema", "zod", "cheerio", "domhandler", "node:fs"];
 
-    // Act & Assert
-    expect(violations(allowed.map((s) => fake(capture, s)))).toEqual([]);
-    for (const specifier of [
-      "../../../apps/server/src/repos",
-      "@aion/server",
-      "drizzle-orm",
-      "hono",
-    ]) {
-      expect(violations([fake(capture, specifier, true)]).length, specifier).toBeGreaterThan(0);
-    }
-    expect(violations([fake(`${SERVER}/importers/ledger.ts`, "@aion/capture/ledger")])).toEqual([]);
-    expect(
-      violations([fake(`${SERVER}/importers/ledger.ts`, "@aion/capture")]).length,
-    ).toBeGreaterThan(0);
-    expect(violations([fake(`${SERVER}/services/x.ts`, "@aion/capture/ledger")])).toHaveLength(1);
-    expect(violations([fake(`${WEB}/views/x.tsx`, "@aion/capture", true)])).toHaveLength(1);
+    // Act
+    const pure = violations(allowed.map((s) => fake(capture, s)));
+    const unpure = ["../../../apps/server/src/repos", "@aion/server", "drizzle-orm", "hono"]
+      .map((specifier) => fake(capture, specifier, true))
+      .filter((edge) => violations([edge]).length === 0);
+    const ledger = violations([fake(`${SERVER}/importers/ledger.ts`, "@aion/capture/ledger")]);
+    const outsideLedger = [
+      fake(`${SERVER}/importers/ledger.ts`, "@aion/capture"),
+      fake(`${SERVER}/services/x.ts`, "@aion/capture/ledger"),
+      fake(`${WEB}/views/x.tsx`, "@aion/capture", true),
+    ].filter((edge) => violations([edge]).length === 0);
+
+    // Assert
+    expect(pure).toEqual([]);
+    expect(unpure).toEqual([]);
+    expect(ledger).toEqual([]);
+    expect(outsideLedger).toEqual([]);
   });
 
   it("holds the web app to types-only server imports, whether or not it exists yet", () => {
     // Arrange
     const view = `${WEB}/views/x.tsx`;
 
-    // Act & Assert
-    expect(violations([fake(`${WEB}/api/client.ts`, "@aion/server", true)])).toEqual([]);
-    expect(violations([fake(view, "@aion/server")])).toHaveLength(1);
-    expect(violations([fake(view, "@aion/game", true)])).toHaveLength(1);
-    expect(violations([fake(`${WEB}/components/x.tsx`, "../api/client")])).toHaveLength(1);
+    // Act
+    const typeImport = violations([fake(`${WEB}/api/client.ts`, "@aion/server", true)]);
+    const forbidden = [
+      fake(view, "@aion/server"),
+      fake(view, "@aion/game", true),
+      fake(`${WEB}/components/x.tsx`, "../api/client"),
+    ].map((edge) => violations([edge]).length);
+
+    // Assert
+    expect(typeImport).toEqual([]);
+    expect(forbidden).toEqual([1, 1, 1]);
   });
 
   it("reads import type, inline type specifiers, multi-line clauses and re-exports", () => {

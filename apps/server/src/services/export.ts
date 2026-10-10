@@ -80,9 +80,9 @@ export function restoreSnapshot(store: Store, snapshot: Snapshot): TableCounts {
   const tables = Object.fromEntries(
     TABLE_KEYS.map((key) => [key, (snapshot.tables as Partial<SnapshotTables>)[key] ?? []]),
   ) as SnapshotTables;
-  // See `DeckService.create`'s implementation for why the inner return is
-  // cast `as never` and the outer call `as TableCounts`: `Store.transaction`
-  // can't infer its type parameter through its own conditional return type.
+  // `Store.transaction` can't infer its type parameter through its own
+  // conditional return type, so the inner return is cast `as never`, as in
+  // `createBuildService`'s implementation.
   return store.transaction((repos) => {
     if (TABLE_KEYS.some((key) => repos.tables.count(key) > 0)) {
       throw new ConflictError("database is not empty; restore needs a fresh database");

@@ -1,7 +1,6 @@
 import { NotFoundError } from "../errors";
 import type { Repos, Store } from "../repos";
 import type { AccountRoadmapItemRow, AccountSnapshotRow } from "../repos/account";
-import { stigmaSlotLevel } from "./account-slots";
 
 /** A skill as read in a snapshot: its name as read, the skill it resolved to, its level and hotbar slot. */
 export interface AccountSkillView {
@@ -15,20 +14,33 @@ export interface AccountSkillView {
   slot: string | null;
 }
 
-/** A stigma as read in a snapshot. */
+/** A stigma slot as read in a snapshot. */
 export interface AccountStigmaView {
   /** The slot's unlock level. */
   slotLevel: number;
-  /** The stigma's name as read. */
-  name: string;
+  /** The stigma's name as read, or `null` for an empty slot. */
+  name: string | null;
   /** The `skills.id` the name resolved to, or `null`. */
   skillId: string | null;
 }
 
-/** A snapshot as returned to callers: its row, its skills and its stigmas. */
+/** A built-in macro chain as read in a snapshot. */
+export interface AccountMacroView {
+  /** The chain's place in the editor, 1 first. */
+  position: number;
+  /** The chain's name. */
+  name: string;
+  /** The key it is bound to, or `null` when none is. */
+  key: string | null;
+  /** Its steps, by position. */
+  steps: Array<{ position: number; name: string; skillId: string | null }>;
+}
+
+/** A snapshot as returned to callers: its row, its skills, its stigma slots and its macro chains. */
 export type AccountSnapshotView = AccountSnapshotRow & {
   skills: AccountSkillView[];
   stigmas: AccountStigmaView[];
+  macros: AccountMacroView[];
 };
 
 /** A roadmap item as returned to callers. */
@@ -70,25 +82,34 @@ export interface AccountService {
  *
  * @param repos - the repos to read from
  * @param row - the snapshot row
- * @returns the snapshot with its skills and stigmas, each in the order it was read
+ * @returns the snapshot with its skills in the order read, its stigma slots
+ *   by slot level and its macro chains by position, each chain's steps by position
  */
 function snapshotView(repos: Repos, row: AccountSnapshotRow): AccountSnapshotView {
-  const skills: AccountSkillView[] = [];
-  const stigmas: AccountStigmaView[] = [];
-  for (const skill of repos.account.skills(row.id)) {
-    const slotLevel = stigmaSlotLevel(skill.slot);
-    if (slotLevel === undefined) {
-      skills.push({
-        name: skill.skillName,
-        skillId: skill.skillId,
-        level: skill.level,
-        slot: skill.slot,
-      });
-    } else {
-      stigmas.push({ slotLevel, name: skill.skillName, skillId: skill.skillId });
-    }
-  }
-  return { ...row, skills, stigmas };
+  const macros = repos.account.macros(row.id);
+  const steps = repos.account.macroSteps(macros.map((macro) => macro.id));
+  return {
+    ...row,
+    skills: repos.account.skills(row.id).map((skill) => ({
+      name: skill.skillName,
+      skillId: skill.skillId,
+      level: skill.level,
+      slot: skill.slot,
+    })),
+    stigmas: repos.account.stigmas(row.id).map((stigma) => ({
+      slotLevel: stigma.slotLevel,
+      name: stigma.skillName,
+      skillId: stigma.skillId,
+    })),
+    macros: macros.map((macro) => ({
+      position: macro.position,
+      name: macro.name,
+      key: macro.key,
+      steps: steps
+        .filter((step) => step.macroId === macro.id)
+        .map((step) => ({ position: step.position, name: step.skillName, skillId: step.skillId })),
+    })),
+  };
 }
 
 /**

@@ -89,7 +89,7 @@ export interface BuildService {
 /** CRUD over macro chains, each nested with its steps' skills. */
 export interface MacroService {
   /**
-   * Returns every macro view, ordered by build then `id`.
+   * Returns every macro view, ordered by build, then position, then `id`.
    *
    * @param filter - the registry's list filters for macros (`build`), each applied when given
    */
@@ -102,7 +102,7 @@ export interface MacroService {
    */
   get(id: string): MacroView;
   /**
-   * Inserts a macro chain on a build, with its steps.
+   * Inserts a macro chain on a build, with its steps, after the build's other chains.
    *
    * @param input - the chain, its steps in the editor's order, and its build
    * @throws {ConflictError} if the macro id already exists
@@ -341,7 +341,8 @@ export function createMacroService(store: Store): MacroService {
           input.steps.map((s) => s.skillId),
         );
         const { macro, steps } = macroAggregate(input);
-        const row = repos.builds.insertMacro({ ...macro, buildId });
+        const position = repos.builds.nextMacroPosition(buildId);
+        const row = repos.builds.insertMacro({ ...macro, buildId, position });
         repos.builds.replaceSteps(row.id, steps);
         return macroViews(repos, [row], skillMap(repos))[0] as never;
       }),

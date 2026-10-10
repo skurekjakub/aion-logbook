@@ -173,11 +173,32 @@ CREATE TABLE `macro_steps` (
 CREATE TABLE `macros` (
 	`id` text PRIMARY KEY,
 	`build_id` text NOT NULL,
+	`position` integer DEFAULT 0 NOT NULL,
 	`name` text NOT NULL,
 	`key` text NOT NULL,
 	`delay_ms` integer NOT NULL,
 	`why` text NOT NULL,
 	CONSTRAINT `fk_macros_build_id_builds_id_fk` FOREIGN KEY (`build_id`) REFERENCES `builds`(`id`) ON DELETE CASCADE
+);
+--> statement-breakpoint
+CREATE TABLE `account_macro_steps` (
+	`id` integer PRIMARY KEY AUTOINCREMENT,
+	`macro_id` integer NOT NULL,
+	`position` integer NOT NULL,
+	`skill_name` text NOT NULL,
+	`skill_id` text,
+	CONSTRAINT `fk_account_macro_steps_macro_id_account_macros_id_fk` FOREIGN KEY (`macro_id`) REFERENCES `account_macros`(`id`) ON DELETE CASCADE,
+	CONSTRAINT `account_macro_steps_position` UNIQUE(`macro_id`,`position`)
+);
+--> statement-breakpoint
+CREATE TABLE `account_macros` (
+	`id` integer PRIMARY KEY AUTOINCREMENT,
+	`snapshot_id` text NOT NULL,
+	`position` integer NOT NULL,
+	`name` text NOT NULL,
+	`key` text,
+	CONSTRAINT `fk_account_macros_snapshot_id_account_snapshots_id_fk` FOREIGN KEY (`snapshot_id`) REFERENCES `account_snapshots`(`id`) ON DELETE CASCADE,
+	CONSTRAINT `account_macros_position` UNIQUE(`snapshot_id`,`position`)
 );
 --> statement-breakpoint
 CREATE TABLE `account_roadmap_items` (
@@ -211,6 +232,16 @@ CREATE TABLE `account_snapshots` (
 	`gear_score` integer,
 	`server` text,
 	`unread` text NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE `account_stigmas` (
+	`id` integer PRIMARY KEY AUTOINCREMENT,
+	`snapshot_id` text NOT NULL,
+	`slot_level` integer NOT NULL,
+	`skill_name` text,
+	`skill_id` text,
+	CONSTRAINT `fk_account_stigmas_snapshot_id_account_snapshots_id_fk` FOREIGN KEY (`snapshot_id`) REFERENCES `account_snapshots`(`id`) ON DELETE CASCADE,
+	CONSTRAINT `account_stigmas_slot` UNIQUE(`snapshot_id`,`slot_level`)
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `citations_entity_entity_id_source_id_uq` ON `citations` (`entity`,`entity_id`,`source_id`);--> statement-breakpoint

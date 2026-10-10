@@ -11,40 +11,16 @@
  */
 import { existsSync, readdirSync } from "node:fs";
 import { basename, isAbsolute, join, relative, sep } from "node:path";
-import type { AccountSnapshotFile, GameClass } from "@aion/schema";
-import { ACCOUNT_PRIORITY, accountSnapshotFile, isoDate } from "@aion/schema";
-import { z } from "zod";
+import type { AccountRoadmapFile, AccountSnapshotFile } from "@aion/schema";
+import { accountRoadmapFile, accountSnapshotFile, isoDate } from "@aion/schema";
 import { ImportError } from "../errors";
 import type { TableKey } from "../registry";
 import type { Repos, Store } from "../repos";
-import type { AccountSkillInsert } from "../repos/account";
-import { stigmaSlot } from "../services/account-slots";
+import type { AccountMacroInsert, AccountSkillInsert, AccountStigmaInsert } from "../repos/account";
 import { parseFile, readJson } from "./files";
 
 /** The folder under `account/` that holds the snapshots. */
 const SNAPSHOT_DIR = "snapshots";
-
-/**
- * The `aion-account-roadmap/1` document: the next actions for the
- * character, most urgent first, each against the research it follows.
- */
-export const accountRoadmapFile = z.strictObject({
-  schema: z.literal("aion-account-roadmap/1"),
-  items: z.array(
-    z.strictObject({
-      priority: z.enum(ACCOUNT_PRIORITY),
-      area: z.string().min(1),
-      action: z.string().min(1),
-      why: z.string().min(1),
-      refs: z.array(
-        z.strictObject({ record: z.string().min(1), id: z.string().min(1).optional() }),
-      ),
-    }),
-  ),
-});
-
-/** Output of {@link accountRoadmapFile}. */
-export type AccountRoadmapFile = z.output<typeof accountRoadmapFile>;
 
 /** Which snapshots {@link importAccount} loads. */
 export interface AccountImportOptions {
@@ -67,7 +43,7 @@ export interface AccountImportResult {
   skipped: string[];
   /** Rows inserted per account table; a replaced snapshot's rows count as inserted. */
   counts: Record<Extract<TableKey, `account${string}`>, number>;
-  /** Non-fatal findings: skill names no loaded skill has, and what a snapshot holds that isn't stored. */
+  /** Non-fatal findings: skill names no loaded skill has. */
   warnings: string[];
 }
 
@@ -184,21 +160,33 @@ function skillIndex(repos: Repos): Map<string, string> {
   );
 }
 
+/** A snapshot's rows, ready to insert under its id. */
+interface SnapshotRows {
+  /** Its skills, in the order read. */
+  skills: AccountSkillInsert[];
+  /** Its stigma slots, empty ones included. */
+  stigmas: AccountStigmaInsert[];
+  /** Its macro chains, positioned in the order read, each with its positioned steps. */
+  macros: AccountMacroInsert[];
+}
+
 /**
- * Maps a snapshot's skills and stigmas onto the rows `account_skills`
- * stores, each name resolved to a loaded skill of the character's class.
+ * Maps a snapshot's skills, stigma slots and macro chains onto the rows
+ * the account tables store, each name resolved to a loaded skill of the
+ * character's class by its lower-cased name.
  *
  * @param plan - the snapshot
  * @param index - the loaded skills, by class and lower-cased name
- * @param warn - records a name no loaded skill has
- * @returns the rows: the skills as read, then each filled stigma slot
+ * @param warn - records a name no loaded skill has, once per name
+ * @returns the rows
  */
-function skillRows(
+function snapshotRows(
   plan: SnapshotPlan,
   index: ReadonlyMap<string, string>,
   warn: (message: string) => void,
-): AccountSkillInsert[] {
-  const cls: GameClass = plan.data.character.class;
+): SnapshotRows {
+  const cls = plan.data.character.class;
+  const unresolved = new Set<string>();
   /**
    * Resolves a name as read to a skill id.
    *
@@ -208,39 +196,43 @@ function skillRows(
   const resolve = (name: string): string | null => {
     const id = index.get(`${cls}|${name.toLowerCase()}`);
     if (id !== undefined) return id;
-    warn(`snapshot ${plan.id}: no loaded ${cls} skill is named ${name}; its skillId stays null`);
+    if (!unresolved.has(name)) {
+      unresolved.add(name);
+      warn(`snapshot ${plan.id}: no loaded ${cls} skill is named ${name}; its skillId stays null`);
+    }
     return null;
   };
-  const skills = plan.data.skills.map((skill) => ({
-    skillName: skill.name,
-    skillId: resolve(skill.name),
-    level: skill.level,
-    slot: skill.slot,
-  }));
-  const stigmas = plan.data.stigmas.flatMap((stigma) =>
-    stigma.name === null
-      ? []
-      : [
-          {
-            skillName: stigma.name,
-            skillId: resolve(stigma.name),
-            level: null,
-            slot: stigmaSlot(stigma.slotLevel),
-          },
-        ],
-  );
-  return [...skills, ...stigmas];
+  return {
+    skills: plan.data.skills.map((skill) => ({
+      skillName: skill.name,
+      skillId: resolve(skill.name),
+      level: skill.level,
+      slot: skill.slot,
+    })),
+    stigmas: plan.data.stigmas.map((stigma) => ({
+      slotLevel: stigma.slotLevel,
+      skillName: stigma.name,
+      skillId: stigma.name === null ? null : resolve(stigma.name),
+    })),
+    macros: plan.data.macros.map((macro, index) => ({
+      macro: { position: index + 1, name: macro.name, key: macro.key },
+      steps: macro.steps.map((name, step) => ({
+        position: step + 1,
+        skillName: name,
+        skillId: resolve(name),
+      })),
+    })),
+  };
 }
 
 /**
  * Loads the character's snapshots from `accountDir`: the latest snapshot
  * by id, every one with `all`, or the files named in `files`, each with the
- * roadmap ranked against it when `roadmap-<id>.json` exists. Each skill and
- * stigma name is resolved to a loaded skill of the character's class by its
- * lower-cased name; an unresolved name keeps `skillId: null` and is
- * reported. A stigma is stored as a skill row whose slot is
- * `stigma:<slot level>`; macro chains aren't stored, and a snapshot that
- * lists some is reported.
+ * roadmap ranked against it when `roadmap-<id>.json` exists. Its skills,
+ * stigma slots and macro chains (with their steps) are stored in the order
+ * read; each name is resolved to a loaded skill of the character's class
+ * by its lower-cased name, and an unresolved name keeps `skillId: null`
+ * and is reported.
  *
  * @param store - the store to load into
  * @param accountDir - absolute path to the account folder
@@ -259,7 +251,14 @@ export function importAccount(
   const plans = choose(accountDir, opts).map((file) => readSnapshot(accountDir, file));
   // See `createBuildService`'s implementation for why the inner return is cast `as never`.
   return store.transaction((repos) => {
-    const counts = { accountSnapshots: 0, accountSkills: 0, accountRoadmapItems: 0 };
+    const counts = {
+      accountSnapshots: 0,
+      accountSkills: 0,
+      accountStigmas: 0,
+      accountMacros: 0,
+      accountMacroSteps: 0,
+      accountRoadmapItems: 0,
+    };
     const index = skillIndex(repos);
     const warnings: string[] = [];
     const loaded: string[] = [];
@@ -279,7 +278,7 @@ export function importAccount(
         }
         repos.account.removeSnapshot(plan.id);
       }
-      const { character, capturedAt, unread, macros } = plan.data;
+      const { character, capturedAt, unread } = plan.data;
       repos.account.insertSnapshot({
         id: plan.id,
         capturedAt,
@@ -290,16 +289,18 @@ export function importAccount(
         server: character.server,
         unread,
       });
-      const skills = skillRows(plan, index, (message) => warnings.push(message));
+      const rows = snapshotRows(plan, index, (message) => warnings.push(message));
       const roadmap = (plan.roadmap?.items ?? []).map((item, i) => ({ ...item, rank: i + 1 }));
-      repos.account.insertSkills(plan.id, skills);
+      repos.account.insertSkills(plan.id, rows.skills);
+      repos.account.insertStigmas(plan.id, rows.stigmas);
+      repos.account.insertMacros(plan.id, rows.macros);
       repos.account.insertRoadmap(plan.id, roadmap);
       counts.accountSnapshots += 1;
-      counts.accountSkills += skills.length;
+      counts.accountSkills += rows.skills.length;
+      counts.accountStigmas += rows.stigmas.length;
+      counts.accountMacros += rows.macros.length;
+      counts.accountMacroSteps += rows.macros.reduce((n, { steps }) => n + steps.length, 0);
       counts.accountRoadmapItems += roadmap.length;
-      if (macros.length > 0) {
-        warnings.push(`snapshot ${plan.id}: its macro chains aren't stored; no table holds them`);
-      }
       loaded.push(plan.id);
     }
     return { snapshots: loaded, skipped, counts, warnings } as never;

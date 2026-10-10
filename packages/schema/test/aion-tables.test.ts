@@ -4,7 +4,19 @@ import { migrate } from "drizzle-orm/node-sqlite/migrator";
 import { eq } from "drizzle-orm";
 import { describe, expect, it } from "vitest";
 import { migrationsFolder } from "../src/migrations-path";
-import { buildSkills, buildStigmas, builds, macroSteps, macros, mechanics, skills } from "../src";
+import {
+  accountMacroSteps,
+  accountMacros,
+  accountSnapshots,
+  accountStigmas,
+  buildSkills,
+  buildStigmas,
+  builds,
+  macroSteps,
+  macros,
+  mechanics,
+  skills,
+} from "../src";
 
 /**
  * Opens an in-memory database with every migration applied.
@@ -149,5 +161,63 @@ describe("aion tables", () => {
 
     // Assert
     expect(row.class).toBeNull();
+  });
+
+  it("cascades a snapshot's stigmas, macro chains and their steps when the snapshot is deleted", () => {
+    // Arrange
+    const db = openDb();
+    db.insert(accountSnapshots)
+      .values({
+        id: "2026-10-10",
+        capturedAt: "2026-10-10T08:00:00+02:00",
+        character: "C",
+        class: "gladiator",
+        level: 34,
+        unread: [],
+      })
+      .run();
+    db.insert(accountStigmas)
+      .values([
+        { snapshotId: "2026-10-10", slotLevel: 22, skillName: "Wrath Wave" },
+        { snapshotId: "2026-10-10", slotLevel: 27, skillName: null },
+      ])
+      .run();
+    const macro = db
+      .insert(accountMacros)
+      .values({ snapshotId: "2026-10-10", position: 1, name: "Opener", key: null })
+      .returning()
+      .get();
+    db.insert(accountMacroSteps)
+      .values({ macroId: macro.id, position: 1, skillName: "Ruinous Blow" })
+      .run();
+
+    // Act
+    db.delete(accountSnapshots).run();
+
+    // Assert
+    expect(db.select().from(accountStigmas).all()).toHaveLength(0);
+    expect(db.select().from(accountMacros).all()).toHaveLength(0);
+    expect(db.select().from(accountMacroSteps).all()).toHaveLength(0);
+  });
+
+  it("refuses a stigma slot filled twice in one snapshot", () => {
+    // Arrange
+    const db = openDb();
+    db.insert(accountSnapshots)
+      .values({
+        id: "s",
+        capturedAt: "2026-10-10T08:00:00+02:00",
+        character: "C",
+        class: "gladiator",
+        level: 34,
+        unread: [],
+      })
+      .run();
+    db.insert(accountStigmas).values({ snapshotId: "s", slotLevel: 22, skillName: "A" }).run();
+
+    // Act & Assert
+    expect(() =>
+      db.insert(accountStigmas).values({ snapshotId: "s", slotLevel: 22, skillName: "B" }).run(),
+    ).toThrow();
   });
 });

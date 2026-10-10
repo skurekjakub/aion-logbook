@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { CLASS } from "./enums";
+import { ACCOUNT_PRIORITY, CLASS } from "./enums";
 import { isoDateTime } from "./ledger";
 
 /** The `aion-account-snapshot/1` document: the character as the agent read it from the client. */
@@ -33,3 +33,25 @@ export const accountSnapshotFile = z.object({
 });
 /** Output of {@link accountSnapshotFile}. */
 export type AccountSnapshotFile = z.output<typeof accountSnapshotFile>;
+
+/**
+ * The `aion-account-roadmap/1` document: the next actions for the
+ * character, most urgent first, each against the research it follows.
+ * It is ranked against the snapshot of the same id.
+ */
+export const accountRoadmapFile = z.strictObject({
+  schema: z.literal("aion-account-roadmap/1"),
+  items: z.array(
+    z.strictObject({
+      priority: z.enum(ACCOUNT_PRIORITY),
+      area: z.string().min(1),
+      action: z.string().min(1),
+      why: z.string().min(1),
+      refs: z.array(
+        z.strictObject({ record: z.string().min(1), id: z.string().min(1).optional() }),
+      ),
+    }),
+  ),
+});
+/** Output of {@link accountRoadmapFile}. */
+export type AccountRoadmapFile = z.output<typeof accountRoadmapFile>;

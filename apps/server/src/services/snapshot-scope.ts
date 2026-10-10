@@ -28,25 +28,24 @@ const CHILDREN: Partial<Record<TableKey, { parent: TableKey; column: string }>> 
 /** The table whose rows cite other tables' rows, compared as part of the row each cites for. */
 const CITATIONS: TableKey = "citations";
 
-/** The table of research records' claims to game facts, which name a fact by its integer id. */
-const FACT_CLAIMS: TableKey = "factClaims";
-
 /** The tables of the character, which `pnpm import:account` loads and no record owns. */
 const ACCOUNT_TABLES: ReadonlySet<TableKey> = new Set([
   "accountSnapshots",
   "accountSkills",
+  "accountStigmas",
+  "accountMacros",
+  "accountMacroSteps",
   "accountRoadmapItems",
 ]);
 
 /**
  * How `db:scope` compares a table's rows:
  * - `owned`: a research record owns each row;
- * - `fact`: a game fact, owned by no record, compared on its own;
  * - `child`: each row belongs to a row of another table ({@link CHILDREN});
  * - `citation`: each row cites for a row of another table;
  * - `account`: the character, owned by no record, compared on its own.
  */
-export type ScopeRole = "owned" | "fact" | "child" | "citation" | "account";
+export type ScopeRole = "owned" | "child" | "citation" | "account";
 
 /**
  * Tells how `db:scope` compares a table's rows.
@@ -59,7 +58,6 @@ export function scopeRole(key: TableKey): ScopeRole | undefined {
   if (key === CITATIONS) return "citation";
   if (CHILDREN[key]) return "child";
   if (recordColumnOf(key) !== undefined) return "owned";
-  if (specOf(key).entity !== undefined) return "fact";
   return undefined;
 }
 
@@ -70,7 +68,7 @@ type Row = Record<string, unknown>;
 interface Entry {
   /** The row's table. */
   key: TableKey;
-  /** The record that owns it; `undefined` for a game fact or a row no record owns. */
+  /** The record that owns it; `undefined` for a row no record owns. */
   record: string | undefined;
   /** Its columns as JSON, an integer `id` left out. */
   base: string;
@@ -97,10 +95,9 @@ function stripped(row: Row, drop: readonly string[] = []): Row {
 
 /**
  * Reads every compared row of a snapshot, with its child rows and its
- * citations (a reason's among them) folded into it. A fact claim names
- * its fact by the fact's columns rather than its integer id. Integer ids
- * are left out throughout: import order assigns them, so a record that
- * gains or loses a row renumbers every later record's rows.
+ * citations (a reason's among them) folded into it. Integer ids are left
+ * out throughout: import order assigns them, so a record that gains or
+ * loses a row renumbers every later record's rows.
  *
  * @param snapshot - the snapshot
  * @returns the compared rows
@@ -112,23 +109,17 @@ function entries(snapshot: Snapshot): Entry[] {
   const all: Entry[] = [];
   for (const key of TABLE_KEYS) {
     const role = scopeRole(key);
-    if (role !== "owned" && role !== "fact") continue;
+    if (role !== "owned") continue;
     const { entity } = specOf(key);
     if (entity) byEntity.set(entity, key);
     const owner = recordColumnOf(key);
     const ids = new Map<string, Entry>();
     (tables[key] ?? []).forEach((row, index) => {
-      let columns = stripped(row);
-      if (key === FACT_CLAIMS) {
-        const factKey = byEntity.get(row.entity as CitedEntity);
-        const fact = factKey && byId.get(factKey)?.get(String(row.entityId));
-        columns = { ...stripped(row, ["entityId"]), fact: fact?.base ?? row.entityId };
-      }
       const record = owner === undefined ? undefined : row[owner];
       const entry: Entry = {
         key,
         record: typeof record === "string" ? record : undefined,
-        base: JSON.stringify(columns),
+        base: JSON.stringify(stripped(row)),
         parts: [],
       };
       all.push(entry);
@@ -235,31 +226,9 @@ export function changedRecords(before: Snapshot, after: Snapshot): RecordChange[
 }
 
 /**
- * Lists the game-fact tables whose rows differ between two snapshots,
- * compared by content with their citations, integer ids aside.
- *
- * @param before - the earlier snapshot
- * @param after - the later snapshot
- * @returns the differing fact tables, in registry order
- */
-export function changedFacts(before: Snapshot, after: Snapshot): TableKey[] {
-  /**
-   * Groups a game fact under one label and leaves every other row out.
-   *
-   * @param entry - a compared row
-   * @returns `facts` for a game fact
-   */
-  const facts = (entry: Entry) => (scopeRole(entry.key) === "fact" ? "facts" : undefined);
-  return differing(
-    grouped(entries(before), facts).get("facts"),
-    grouped(entries(after), facts).get("facts"),
-  );
-}
-
-/**
  * Lists the account tables whose rows differ between two snapshots, row
- * for row, ids included: the account is loaded whole per snapshot or
- * roadmap, so its ids follow the files.
+ * for row, ids included: the account is loaded whole per snapshot, so its
+ * ids follow the files.
  *
  * @param before - the earlier snapshot
  * @param after - the later snapshot; a table either lacks counts as empty
