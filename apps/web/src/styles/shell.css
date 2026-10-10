@@ -1,23 +1,35 @@
-/* Styles the base sheets don't cover: the navigation (sidebar, phone top bar and drawer), the
-   "On this page" list. tokens.css, base.css and
-   components.css are kept unformatted (see .prettierignore). The 960px breakpoint matches the
-   shell grid in base.css. */
+/* Styles the base sheets don't cover: the navigation (sidebar, phone top bar and drawer).
+   tokens.css, base.css and components.css are kept unformatted (see .prettierignore). The 960px
+   breakpoint matches the shell grid in base.css. */
 
-/* SideNav: the logbook index. The current section carries a candy spine; the current page is filled. */
+/* SideNav: the logbook index. The current section is set on a panel; the current page lights the
+   tree line beside it with the tab glow. */
 .sidenav {
   font-size: var(--fs-base);
 }
 .brand {
   display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--sp-2);
   padding: 0 10px var(--sp-4);
 }
+.brand-mark {
+  grid-row: span 2;
+  width: 34px;
+  height: 34px;
+  color: var(--gold);
+}
 .brand-name {
-  font: 700 var(--fs-l) / 1.1 var(--display);
+  font: 400 var(--fs-l) / 1.1 var(--display);
   color: var(--ink);
 }
 .brand-game {
   font-size: var(--fs-2xs);
   color: var(--ink-3);
+}
+.brand .theme-toggle {
+  grid-column: 1 / -1;
 }
 .nav-sections,
 .nav-pages {
@@ -31,6 +43,7 @@
   border-top: 1px solid var(--line);
 }
 .nav-section-link {
+  position: relative;
   display: grid;
   padding: 5px 10px;
   border-radius: var(--radius-s);
@@ -51,7 +64,6 @@
 .nav-section-link[aria-current] {
   background: var(--surface);
   color: var(--ink);
-  box-shadow: inset 3px 0 0 var(--candy);
 }
 .nav-pages {
   margin: 2px 0 var(--sp-2) 14px;
@@ -59,6 +71,7 @@
   border-left: 1px solid var(--line);
 }
 .nav-pages a {
+  position: relative;
   display: block;
   padding: 3px 8px;
   border-radius: var(--radius-s);
@@ -70,10 +83,28 @@
   background: var(--surface-2);
   color: var(--ink);
 }
-.nav-pages a[aria-current="page"] {
-  background: var(--accent);
-  color: var(--accent-ink);
-  font-weight: 600;
+.nav-pages a[aria-current="page"],
+.nav-section-link[aria-current="page"] {
+  background: var(--glow-wash);
+  color: var(--ink);
+  font-weight: 700;
+}
+.nav-pages a[aria-current="page"]::before,
+.nav-section-link[aria-current="page"]::before {
+  content: "";
+  position: absolute;
+  inset-block: -2px;
+  left: calc(-1 * var(--sp-2) - 2px);
+  width: 3px;
+  border-radius: 2px;
+  background: var(--glow-line-y);
+  box-shadow: var(--glow-bloom);
+  animation: glow-in-y 0.32s ease-out;
+}
+/* Inset from the sidebar's edge, whose scroll box would clip the bloom. */
+.nav-section-link[aria-current="page"]::before {
+  inset-block: -1px;
+  left: 3px;
 }
 
 /* Wide screens: the popover is laid out in the page as a sticky sidebar, never in the top layer. */
@@ -138,6 +169,13 @@
     background: var(--bg);
     border-bottom: 1px solid var(--line);
   }
+}
+.topbar-mark {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  margin-right: var(--sp-2);
+  color: var(--gold);
 }
 .menu-btn {
   display: flex;

@@ -7,7 +7,7 @@ export interface Column<T> {
   /** Renders the row's cell. */
   cell: (row: T) => ReactNode;
   /**
-   * Class for the column's `<td>`s; `"n"` sets mono, tabular, no-wrap
+   * Class for the column's `<td>`s; `"n"` sets tabular, no-wrap
    * numbers, and `"wide"` gives the cell a line of its own when a stacked
    * table reflows on a phone.
    */

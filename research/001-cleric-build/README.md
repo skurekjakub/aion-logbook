@@ -64,9 +64,9 @@ The case for trusting mein-mmo's bottom-up macro order: it is consistent with th
 | 11 | Empyrean Lord's Grace | 10 | — | +100 Crit, extra damage per hit |
 | 12 | Earth's Grace | 10 | — | +10.5% Crit Damage |
 
-The specialization picks come from aion2.run's leveling plan and eloboost24's heal picks, except Light of Regeneration's +20% at 50% HP or less, which gamesfuze lists and the KR 2026-08-12 patch note sets at 20% (`gamesfuze-com-guides-aion-2-cleric-build-…md`, `aion2hub-com-updates-aion-2-update-2026-08-12.md`); a skill at 10 holds one.
+Targets are invested levels, the points spent: the game adds gear bonuses on top of them in the level it shows, and its Level Up button reads `Max Level` at invested 10 (`account/README.md` § Reading a snapshot). The specialization picks come from aion2.run's leveling plan and eloboost24's heal picks, except Light of Regeneration's +20% at 50% HP or less, which gamesfuze lists and the KR 2026-08-12 patch note sets at 20% (`gamesfuze-com-guides-aion-2-cleric-build-…md`, `aion2hub-com-updates-aion-2-update-2026-08-12.md`); a skill at 10 holds one.
 
-Stigmas: 22 Light of Protection (toggle on yourself, keep it on, 1 point), 27 Earth Punishment (take it to level 5 first for the guaranteed Condemnation crit), 32 Noble Aura (recast after deaths and teleports), 37 Prayer of Amplification (manual burst). This is aion2.run's leveling order; metabot's has Noble Aura at 27 and Earth Punishment at 32, and the record keeps Earth Punishment earlier because it is the solo damage stigma both sources slot. The character hasn't obtained Light of Protection yet (padlocked on 2026-10-10, `account/snapshots/2026-10-10.json`); the build keeps it at 22 as the target, and the account roadmap carries obtaining it.
+Stigmas: 22 Light of Protection (toggle on yourself, keep it on, 1 point), 27 Earth Punishment (take it to level 5 first for the guaranteed Condemnation crit), 32 Noble Aura (recast after deaths and teleports), 37 Prayer of Amplification (manual burst). This is aion2.run's leveling order; metabot's has Noble Aura at 27 and Earth Punishment at 32, and the record keeps Earth Punishment earlier because it is the solo damage stigma both sources slot. The character hasn't obtained Light of Protection yet (padlocked on 2026-10-10, `account/snapshots/2026-10-10.json`); the build keeps it at 22 as the target, and the account roadmap carries acquiring it, which costs 1 stigma point.
 
 **PvE build (group dungeons, healer).** Healing Light, Radiant Recovery, Light of Regeneration, Chain of Torment, Condemnation, Earth's Retribution, Judgment Thunder to 10; Debilitating Mark and Divine Aura 8; Healing Enhancement 10; Bolt 7. Specializations as in the leveling table; Chain of Torment's and Divine Aura's picks are read in game. Stigmas: 22 Light of Protection, 27 Earth Punishment, 32 Summon Resurrection, 37 Noble Aura; swap Resurrection for Prayer of Amplification once nobody dies, and Light of Protection for Absolution when a Chanter brings Undefeated Mantra.
 
@@ -82,11 +82,11 @@ Manual, never in a macro: Light of Protection (toggle), Bolt (charged), Noble Au
 Open sub-choices, with a recommendation each:
 
 - **Right mouse or a side button for the macro.** Right mouse moves the default heavy attack to T (allthings.how); Judgment Thunder sits in the macro anyway. Recommended: right mouse; a side button if the rebind gets in the way.
-- **Earth's Grace to 10 now or later.** aion2maps keeps it at 4 for the actives, Couga54 raises it early (aion2.run). Recommended: actives first. The character's Earth's Grace already reads 11 with a +2 gear bonus (snapshot 2026-10-10), so the question is settled for now.
+- **Earth's Grace to 10 now or later.** aion2maps keeps it at 4 for the actives, Couga54 raises it early (aion2.run). Recommended: actives first. The character has 9 invested in it (11 shown with a +2 gear bonus, `account/README.md` § 2026-10-10), so the last level waits behind the actives.
 
 ## What would change
 
-Nothing in the repo beyond this record and `account/`. In the game (by hand from the account roadmap, since the client ignores the bridge's pointer input): the last skill point, the macro entries and the macro key. `account/roadmap-2026-10-10.json` ranks those changes against the 2026-10-10 snapshot; `account/apply-log-2026-10-10.md` records what changed that day.
+Nothing in the repo beyond this record and `account/`. In the game (by hand from the account roadmap, since the client ignores the bridge's pointer input): the skill levels still below target, Earth Punishment's next level, the macro entries and the macro key. `account/roadmap-2026-10-10.json` ranks those changes against the 2026-10-10 snapshot; `account/apply-log-2026-10-10.md` records what changed that day.
 
 ## Open questions for the in-game check (Task 9)
 
@@ -95,7 +95,7 @@ Status after the 2026-10-10 read (`evidence/03-game/`, `account/snapshots/2026-1
 - **Entry model: settled.** One skill per entry with its own delay; both chains are written that way.
 - **Run order: open.** Entries are numbered from the top; whether they run top-down (allthings.how) or bottom-up (mein-mmo) needs the macro held in game. Whether a hotbar column still tries its bottom slot first is also unread.
 - **Chain length and delay: partly read.** 4 skills a hotbar key (rows 0–3) and a 10 ms default delay, read; entries per macro (20?) not reached.
-- **Condemnation's effective level: read, 10.** The crit reset at 12 isn't there yet.
+- **Condemnation's effective level: read, 10** (9 invested, +1 gear). The crit reset at 12 isn't there yet, and the build's invested target of 10 is one level away.
 - **Specialization picks: open.** Not opened in the read; Chain of Torment's and Divine Aura's (PvE) stay open.
 - **Presets and resets: partly read.** Presets 1–3 exist on the Skill window; whether they keep separate points and stigmas, and the reset cost at 36, are unread (aion2.run: free at 45; KR charged 10,000 Kinah per stigma point from 2026-01-28).
 - **Key binding: open.** Settings wasn't opened; the path and whether Right Mouse moves the heavy attack to T are unread.

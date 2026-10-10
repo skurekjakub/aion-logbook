@@ -51,9 +51,12 @@ Lower-row slots 1–8 sit ≈ 50 px apart.
 | Passive grid (Mastery) | slots | same x; y 549 / 623 | 1511 512 372 150 | unlock order, row by row |
 | Stigma grid (Stigma tab) | slots | same x; y 265 / 340 / 414 | 1511 228 372 224 | the official data's `Dp` order, row by row |
 | Hotbar block | slots | columns x 641 / 698 / 755 / 812 / 875 / 932 / 989 / 1046 (keys 1–8), 1108 / 1165 / 1222 / 1279 (Q, E, R, T); rows y 950 / 893 / 836 / 779 (rows 0–3) | 612 748 698 292 | row labels 0–3 at x 1332, row 0 at the bottom; key labels at y ≈ 1010 |
-| Skill points | counter | ≈ 1729, 962 | 1598 948 148 30 | Mastery tab |
-| Stigma points | counter | ≈ 1761, 962 | 1630 948 148 30 | Stigma tab |
-| Level Up (`F`) | button | 1697, 1016 | 1513 990 368 52 | shows the selected skill's cost |
+| Points counter | counter | region centre 1672, 963; digit ≈ 1729, 962 | 1598 948 148 30 | without Reset (`f-0060`); skill points on Mastery, stigma points on Stigma |
+| Points counter | counter | region centre 1704, 963; digit ≈ 1761, 962 | 1630 948 148 30 | with Reset shown (`f-0016`, `f-0047`) |
+| Reset | button | ≈ 1544, 1016 | — | shown when the selected skill or stigma has levels above 1 to refund; absent for a level-1 passive or a padlocked stigma |
+| Level Up (`F`) | button | 1697, 1016 | 1513 990 368 52 | without Reset; shows the cost |
+| Level Up (`F`) | button | 1730, 1016 | 1580 990 300 52 | beside Reset; greyed with the cost in red when points fall short; reads `Max Level` at invested 10 (`f-0031` to `f-0040`) |
+| Acquire (`F`) | button | 1697, 1016 | 1513 990 368 52 | in place of Level Up for a padlocked stigma, which shows `Lv. 1`; costs 1 (`f-0005` to `f-0027`) |
 
 ### Macro editor
 
