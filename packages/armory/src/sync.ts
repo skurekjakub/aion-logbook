@@ -176,33 +176,49 @@ async function commitAndPush(
 }
 
 /**
- * Checks, before any request, that the sync can file the day's snapshot
- * without losing a read or exporting an empty database.
+ * Picks the id the day's synced snapshot is filed under: `<date>`, or
+ * `<date>-sync` when `<date>.json` is a game read (it lists screens), so
+ * the read stays as it was and the sync, sorting after it, shows as the
+ * latest.
+ *
+ * @param root - the repo root
+ * @param date - the day the snapshot is filed under
+ * @returns the snapshot's id
+ * @throws {AccountFileError} if `<date>.json` isn't JSON or fails its schema
+ */
+function syncedId(root: string, date: string): string {
+  const sameDay = readSnapshot(root, date);
+  return sameDay && sameDay.data.screens.length > 0 ? `${date}-sync` : date;
+}
+
+/**
+ * Checks, before any request, that the sync can file its snapshot without
+ * losing a read or exporting an empty database.
  *
  * @param deps - the repo root and whether the database exists
- * @param date - the day the snapshot is filed under
- * @param previous - the latest snapshot on or before that day, or `null`
- * @throws {SyncError} if `<date>.json` is a game read (it lists screens),
- *   if a later read of the day (`<date>-…`) exists, which the day's file
- *   would sort before, or if the database must be restored from an export
+ * @param id - the id the snapshot is filed under
+ * @param previous - the latest snapshot on or before its day, or `null`
+ * @throws {SyncError} if `<id>.json` is a game read (it lists screens), if
+ *   a read of the same day sorts after `id`, so the snapshot would never
+ *   show as the latest, or if the database must be restored from an export
  *   that holds no skills
  */
 function assertWritable(
   deps: SyncDeps,
-  date: string,
+  id: string,
   previous: { id: string; data: AccountSnapshotFile } | null,
 ): void {
-  const sameDay = readSnapshot(deps.root, date);
-  if (sameDay && sameDay.data.screens.length > 0) {
+  const target = readSnapshot(deps.root, id);
+  if (target && target.data.screens.length > 0) {
     throw new SyncError(
-      `${snapshotPath(date)} is a game read (it lists screens) and the sync won't replace it:\n` +
-        `pass --date <another day>, or rename the read to ${date}-<name>.json`,
+      `${snapshotPath(id)} is a game read (it lists screens) and the sync won't replace it:\n` +
+        `pass --date <another day>, or rename the read`,
     );
   }
-  if (previous && previous.id !== date && previous.id.startsWith(date)) {
+  if (previous && previous.id > id && previous.id.startsWith(id.slice(0, 10))) {
     throw new SyncError(
-      `${snapshotPath(previous.id)} is a later read of ${date}; ${snapshotPath(date)} would sort ` +
-        `before it and never show as the latest: pass --date <another day>`,
+      `${snapshotPath(previous.id)} is a later read of ${id.slice(0, 10)}; ${snapshotPath(id)} ` +
+        `would sort before it and never show as the latest: pass --date <another day>`,
     );
   }
   if (!deps.dbExists() && exportedSkills(deps.root, EXPORT_PATH) === 0) {
@@ -217,9 +233,10 @@ function assertWritable(
  * Syncs the character: fetches it from the official site, maps it onto
  * the day's snapshot (what the site doesn't publish carried from the
  * latest snapshot on or before that day) and, unless it matches that
- * snapshot, writes `account/snapshots/<day>.json` (replacing a synced file
- * of the same day), runs `pnpm import:account <file> --replace` and `pnpm
- * db:export`, then commits the snapshot and the export and pushes, unless
+ * snapshot, writes `account/snapshots/<day>.json`, or `<day>-sync.json`
+ * beside a game read of the day (replacing a synced file of that id),
+ * runs `pnpm import:account <file> --replace` and `pnpm db:export`, then
+ * commits the snapshot and the export and pushes, unless
  * `push` is off. A characterId the search found is saved to
  * `account/character.json` and committed with them.
  *
@@ -227,7 +244,7 @@ function assertWritable(
  * @param deps - the HTTP door, the runner, the clock and the log
  * @returns how the run ended
  * @throws {SyncError} if a command fails, or, before any request, if the
- *   day's file is a game read, a later read of the day exists, or the
+ *   file it would write is a game read, a later read of the day exists, or the
  *   database would be restored from an export without skills
  * @throws whatever `fetchCharacter`, `toSnapshot` or the account files throw
  */
@@ -237,7 +254,8 @@ export async function runSync(opts: SyncOptions, deps: SyncDeps): Promise<SyncRe
   const capturedAt = isoLocal(now);
   const date = opts.date ?? capturedAt.slice(0, 10);
   const previous = latestSnapshot(deps.root, date);
-  assertWritable(deps, date, previous);
+  const id = syncedId(deps.root, date);
+  assertWritable(deps, id, previous);
 
   const data = await fetchCharacter(character, deps.http);
   deps.log(`fetched ${character.name}, ${character.server}`);
@@ -252,7 +270,7 @@ export async function runSync(opts: SyncOptions, deps: SyncDeps): Promise<SyncRe
     deps.log(`unchanged since ${previous.id}: nothing written`);
     return { outcome: "unchanged", since: previous.id };
   }
-  const file = writeSnapshot(deps.root, date, snapshot);
+  const file = writeSnapshot(deps.root, id, snapshot);
   deps.log(`wrote ${file}`);
 
   if (!deps.dbExists()) {

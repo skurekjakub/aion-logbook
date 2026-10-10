@@ -60,8 +60,8 @@ export const MEDIA_EXTENSIONS = [
 export const IGNORED_SEGMENTS: readonly RegExp[] = [
   /\.db$/,
   /\.db-(journal|wal|shm)$/,
-  /^\.env$/,
-  /^\.env\./,
+  /^\.env/,
+  /^\.vercel$/,
   /\.tsbuildinfo$/,
   /\.pyc$/,
   /^\.DS_Store$/,

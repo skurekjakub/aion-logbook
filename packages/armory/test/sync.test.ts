@@ -218,9 +218,31 @@ describe("runSync", () => {
     expect(site.calls).toEqual([]);
   });
 
-  it("refuses to replace a game read of the same day, before any request", async () => {
+  it("files a sync beside a game read of the same day as <day>-sync, leaving the read", async () => {
     // Arrange
     const root = repo();
+    const read = readFileSync(join(root, "account", "snapshots", "2026-10-10.json"), "utf-8");
+    const { deps: d, calls } = deps(root);
+
+    // Act
+    const result = await runSync({ push: false, date: "2026-10-10" }, d);
+
+    // Assert
+    expect(result).toEqual({ outcome: "exported", file: "account/snapshots/2026-10-10-sync.json" });
+    expect(readFileSync(join(root, "account", "snapshots", "2026-10-10.json"), "utf-8")).toBe(read);
+    expect(snapshotAt(root, "2026-10-10-sync").screens).toEqual([]);
+    expect(calls.map((c) => c.line)).toContain(
+      "pnpm import:account account/snapshots/2026-10-10-sync.json --replace",
+    );
+  });
+
+  it("refuses to replace a <day>-sync file that is a game read, before any request", async () => {
+    // Arrange
+    const root = repo();
+    writeFileSync(
+      join(root, "account", "snapshots", "2026-10-10-sync.json"),
+      fixtureText("snapshot-2026-10-10.json"),
+    );
     const site = baonSite();
     const { deps: d } = deps(root, { http: site.http });
 
@@ -229,9 +251,8 @@ describe("runSync", () => {
 
     // Assert
     await expect(run).rejects.toThrow(SyncError);
-    await expect(run).rejects.toThrow(/2026-10-10\.json is a game read.*--date/s);
+    await expect(run).rejects.toThrow(/2026-10-10-sync\.json is a game read/);
     expect(site.calls).toEqual([]);
-    expect(snapshotAt(root, "2026-10-10").screens).not.toEqual([]);
   });
 
   it("refuses a day that already has a later read, which its snapshot would sort before", async () => {

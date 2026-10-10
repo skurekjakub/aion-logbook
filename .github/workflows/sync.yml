@@ -1,9 +1,9 @@
 # Syncs the character from the official site's public data and commits the snapshot and the database export
 # when they changed (spec § 8).
 #
-# Manual trigger only. A daily `schedule:` is waiting on the user's decision: the official character data is
-# not a published interface, and NCSOFT's Terms of Use § 6 forbid automated access outside published ones
-# (OPEN-QUESTIONS.md § Character sync, research/002-character-data-source).
+# Runs on `workflow_dispatch` only, never on a schedule: the official character data is not a published
+# interface, and NCSOFT's Terms of Use § 6 forbid automated access outside published ones
+# (research/002-character-data-source).
 #
 # The runner has no database, so the sync restores one from data/snapshot.json; it refuses to run while that
 # export holds no skills, so dispatch it only once the committed export carries the research records.

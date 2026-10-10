@@ -8,6 +8,7 @@ import { exportRouter } from "./routes/export";
 import { glossaryRouter } from "./routes/glossary";
 import { recordsRouter } from "./routes/records";
 import { sourcesRouter } from "./routes/sources";
+import { syncRouter } from "./routes/sync";
 import type { Services } from "./services";
 import { contentEndpoints as endpoints } from "./services/content";
 
@@ -43,6 +44,7 @@ export function createApp(services: Services) {
     .route(R.glossary.path, glossaryRouter(services.glossary))
     .route(R.researchRecords.path, recordsRouter(services.records))
     .route(R.captures.path, capturesRouter(services.captures))
+    .route("/account/sync", syncRouter(services.sync))
     .route("/account", accountRouter(services.account, services.roadmap))
     .route("/export", exportRouter(services.export))
     .onError((err, c) => {

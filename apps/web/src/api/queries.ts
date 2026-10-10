@@ -159,6 +159,31 @@ export const accountQuery = (snapshot?: string) =>
   });
 
 /**
+ * How a press of the sync button starts a sync: run by the local server,
+ * dispatched to GitHub, or by hand on the workflow's page.
+ *
+ * @returns the query options
+ */
+export const syncInfoQuery = () =>
+  queryOptions({
+    queryKey: ["sync"],
+    queryFn: () => parseResponse(api.account.sync.$get()),
+    staleTime: Infinity,
+  });
+
+/**
+ * Presses the sync button. A failed sync answers 502 with its reason,
+ * which resolves like any other outcome rather than throwing.
+ *
+ * @returns what the press did
+ * @throws if the request itself fails
+ */
+export async function startSync() {
+  const res = await api.account.sync.$post();
+  return res.json();
+}
+
+/**
  * The roadmap ranked against a snapshot (the latest unless named): the
  * items derived from it and its class's build, then the curated ones.
  *

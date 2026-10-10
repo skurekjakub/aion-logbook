@@ -1,6 +1,52 @@
 /* The character: the home page's card, the profile tiles, the roadmap's priority groups and rows,
    and the snapshot's sections. Priority colours: now gold (the client's Level Up), next accent, later quiet. */
 
+/* The sync button above the character card, and what its last press did. */
+.sync-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+.sync-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 7px 14px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font: 600 var(--fs-s) / 1.2 var(--body);
+  text-decoration: none;
+  cursor: pointer;
+}
+.sync-btn:hover {
+  filter: brightness(1.1);
+}
+.sync-btn:focus-visible {
+  outline: 2px solid var(--glow);
+  outline-offset: 2px;
+}
+.sync-btn:disabled {
+  opacity: 0.65;
+  cursor: progress;
+}
+.sync-note {
+  font-size: var(--fs-xs);
+  color: var(--ink-2);
+}
+.sync-note.good {
+  color: var(--good);
+}
+.sync-note.warn {
+  color: var(--warn);
+}
+.sync-note.bad {
+  color: var(--bad);
+}
+
 /* The character card on the home page: name and level badge, then class, gear score and server. */
 .char-card {
   gap: var(--sp-3);

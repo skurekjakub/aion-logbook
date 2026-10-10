@@ -2,7 +2,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { createMemoryHistory, RouterProvider } from "@tanstack/react-router";
 import { render } from "@testing-library/react";
 import { createAppRouter } from "../src/router";
-import { ACCOUNT, RECORD, ROADMAP, SOURCES } from "./fixtures";
+import { ACCOUNT, RECORD, ROADMAP, SOURCES, SYNC_MANUAL } from "./fixtures";
 import type { Canned } from "./helpers";
 import { stubApi, testQueryClient } from "./helpers";
 
@@ -14,6 +14,7 @@ const DEFAULT_API: Record<string, Canned> = {
   [`/api/sources?record=${RECORD.slug}`]: { body: SOURCES },
   "/api/account": { body: ACCOUNT },
   "/api/account/roadmap": { body: ROADMAP },
+  "/api/account/sync": { body: SYNC_MANUAL },
 };
 
 /**

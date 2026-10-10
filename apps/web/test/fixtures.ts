@@ -194,3 +194,9 @@ export const ROADMAP = {
     },
   ],
 } satisfies AccountRoadmapData;
+
+/** The workflow page the sync button falls back to. */
+export const SYNC_URL = "https://github.com/skurekjakub/aion-logbook/actions/workflows/sync.yml";
+
+/** A server that can't start a sync: the button links to the workflow's page. */
+export const SYNC_MANUAL = { mode: "manual", url: SYNC_URL } as const;

@@ -72,10 +72,12 @@ are equipped. Run it before a read; the game read is then only for what the site
   imports it and exports the database; `--no-push` stops before the commit.
 - **From the game read:** hotbar slots, macro chains and their keys, stigma slot positions, specialization
   picks. The sync carries these from the latest snapshot and lists what it can't settle in `unread[]`.
-- **When they disagree** (Voice of Doom equipped at level 0 online, padlocked in game, 2026-10-10): the game
-  read wins for what the client shows; note the disagreement in `unread[]` and the roadmap.
-- **Order on one day:** sync, then read. A sync after a game read replaces that day's file: it keeps the
-  read's macros, slots and notes but takes levels and stigmas from the site, which can lag the client.
+- **When they disagree** (Voice of Doom equipped at level 0 online, padlocked in game, 2026-10-10): the later
+  snapshot shows as the latest, so a game read after a sync wins back; note the disagreement in `unread[]`
+  and the roadmap.
+- **Order on one day:** sync, then read. A sync after a game read leaves the read and writes
+  `<date>-sync.json` beside it: it keeps the read's macros, slots and notes but takes levels and stigmas from
+  the site, which can lag the client.
 
 ## Guided read (the user clicks, you record)
 

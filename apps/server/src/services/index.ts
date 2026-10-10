@@ -19,6 +19,8 @@ import type { RoadmapService } from "./roadmap";
 import { createRoadmapService } from "./roadmap";
 import type { SourcesService } from "./sources";
 import { createSourcesService } from "./sources";
+import type { SyncService } from "./sync";
+import { manualSyncService } from "./sync";
 
 /** One content service per registered content type, built from its registry entry. */
 export type ContentServices = { [K in ContentKey]: RegisteredService<K> };
@@ -34,15 +36,17 @@ export type Services = ContentServices & {
   account: AccountService;
   roadmap: RoadmapService;
   export: ExportService;
+  sync: SyncService;
 };
 
 /**
  * Builds every service over a shared {@link Store}.
  *
  * @param store - the store services persist through
+ * @param sync - how a press of the sync button starts a sync; by hand on GitHub when omitted
  * @returns the service set
  */
-export function createServices(store: Store): Services {
+export function createServices(store: Store, sync: SyncService = manualSyncService()): Services {
   const content = Object.fromEntries(
     CONTENT_KEYS.map((key) => [key, registeredService(store, key)]),
   ) as ContentServices;
@@ -59,5 +63,6 @@ export function createServices(store: Store): Services {
     account,
     roadmap: createRoadmapService(store, account, builds),
     export: createExportService(store),
+    sync,
   };
 }

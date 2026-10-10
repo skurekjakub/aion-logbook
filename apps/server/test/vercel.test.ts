@@ -58,6 +58,20 @@ describe("the Vercel handler", () => {
     expect(res.headers.get("allow")).toBe("GET, HEAD");
   });
 
+  it("passes the sync button's press through to the sync service", async () => {
+    // Arrange
+    const handler = readOnlyHandler(fixtureSnapshot());
+
+    // Act
+    const res = await handler(
+      new Request("https://aion.test/api/account/sync", { method: "POST" }),
+    );
+
+    // Assert
+    expect(res.status).toBe(200);
+    expect(await res.json()).toMatchObject({ status: "manual" });
+  });
+
   it("answers HEAD like GET", async () => {
     // Arrange
     const handler = readOnlyHandler(fixtureSnapshot());

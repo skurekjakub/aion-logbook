@@ -8,6 +8,7 @@ import { QueryResult } from "../components/QueryResult";
 import { ViewHeader } from "../components/ViewHeader";
 import type { Priority } from "./AccountRoadmap";
 import { AccountRoadmap } from "./AccountRoadmap";
+import { SyncControl } from "./SyncControl";
 
 /** The roadmap priorities the home page shows; the rest wait on the character page. */
 const DUE: readonly Priority[] = ["now", "next"];
@@ -120,10 +121,8 @@ export function HomeView() {
   );
   return (
     <>
-      <ViewHeader
-        title="Your character"
-        lede={["As last read from the client.", "Do these next."]}
-      />
+      <ViewHeader title="Your character" lede={["As last read or synced.", "Do these next."]} />
+      <SyncControl />
       <QueryResult query={account} resource="character">
         {(data) => <HomeBody data={data} covered={covered} />}
       </QueryResult>
