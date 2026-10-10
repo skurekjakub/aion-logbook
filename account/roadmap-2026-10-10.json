@@ -1,0 +1,68 @@
+{
+  "schema": "aion-account-roadmap/1",
+  "items": [
+    {
+      "priority": "now",
+      "area": "skills",
+      "action": "Radiant Recovery 7 → 8",
+      "why": "Spends the 2 points left; level 8 opens its spec that removes up to 2 debuffs.",
+      "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling" }]
+    },
+    {
+      "priority": "now",
+      "area": "macro",
+      "action": "Build the solo macro, one skill per entry",
+      "why": "Editor is empty: Earth Punishment, Divine Aura, Light of Regeneration, Chain of Torment, Debilitating Mark, Condemnation, Judgment Thunder; 10 ms each.",
+      "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling-solo" }]
+    },
+    {
+      "priority": "now",
+      "area": "macro",
+      "action": "Bind the macro key",
+      "why": "Unbound until set: Settings > Key Settings > General > Gameplay > Macro; right mouse, or a side button.",
+      "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling-solo" }]
+    },
+    {
+      "priority": "next",
+      "area": "macro",
+      "action": "Check the macro's run order",
+      "why": "Unconfirmed top-down or bottom-up; if holding it only fires Judgment Thunder, reverse the list.",
+      "refs": [{ "record": "001-cleric-build" }]
+    },
+    {
+      "priority": "next",
+      "area": "stigmas",
+      "action": "Earth Punishment 4 → 5",
+      "why": "From stigma level 5 Condemnation always crits on its target; costs 2 stigma points, 1 held.",
+      "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling" }]
+    },
+    {
+      "priority": "next",
+      "area": "stigmas",
+      "action": "Obtain Light of Protection",
+      "why": "Locked on the character; the build's 22 slot. Toggle it on by hand, never in the macro.",
+      "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling" }]
+    },
+    {
+      "priority": "next",
+      "area": "stigmas",
+      "action": "Check Voice of Doom in the Stigma tab",
+      "why": "Padlocked in the game read, equipped at level 0 in the official data; one of them is wrong.",
+      "refs": [{ "record": "002-character-data-source" }]
+    },
+    {
+      "priority": "later",
+      "area": "skills",
+      "action": "Read and set the specialization picks",
+      "why": "Not opened in the read; the build names a pick for each skill at 8 or more.",
+      "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling" }]
+    },
+    {
+      "priority": "later",
+      "area": "skills",
+      "action": "Bolt 9 → 10",
+      "why": "Biggest hit; the level gate holds it until about 38.",
+      "refs": [{ "record": "001-cleric-build", "id": "cleric-leveling" }]
+    }
+  ]
+}

@@ -10,6 +10,11 @@ input. Every read is a PNG you look at yourself; every input is followed by a sh
 one. Code: `packages/game` (capture and argument checks) and `tools/aion-input/aion.ahk` (the AutoHotkey v2
 script that sends the input).
 
+**Clicks don't land.** The client pins the cursor and ignores injected pointer motion, so `click`, `rclick`,
+`drag` and `scroll` change nothing in it (seen 2026-10-10). Keys land: `K` opens the Skill window. In
+practice the bridge is read-only plus keys, and anything that needs the mouse runs as a guided read: the user
+clicks, you record and read (below).
+
 ## Preconditions — check before the first input, every session
 
 - `AION2.exe` is running with a 1920×1080 client (a shot warns when the frame is another size; every
@@ -57,7 +62,41 @@ that prints is always the new frame.
 Write what you read into the account snapshot as you go, with `unread[]` for anything you couldn't read; never
 fill a value from memory or from a guide.
 
+## Guided read (the user clicks, you record)
+
+When a window or tab needs the mouse, record the client while the user works through it, then read the frames.
+
+1. Tell the user which windows and tabs to open, in order, and to pause a second on each.
+2. Start a 1 fps recording in the background (cursor kept, so the frames show what was clicked):
+
+   ```sh
+   mkdir -p account/snapshots/screens/<date>/tour
+   ffmpeg -filter_complex "gfxcapture=window_exe=AION2.exe,hwdownload,format=bgra,fps=1" \
+     account/snapshots/screens/<date>/tour/f-%04d.png
+   ```
+
+   Stop it (`q`, or stop the background task) when the user says they're done.
+3. Find the frames worth reading with contact sheets, one per run of frames:
+
+   ```sh
+   ffmpeg -start_number 61 -i account/snapshots/screens/<date>/tour/f-%04d.png -frames:v 1 \
+     -vf "scale=480:-1,tile=6x7" <scratch>/sheet-61.png
+   ```
+
+4. Read the chosen frames full size, and crop text regions (`ffmpeg -i f-0066.png -vf "crop=w:h:x:y,scale=iw*2:-1"`)
+   using `references/windows.md` for the regions.
+5. Each frame's mtime is its capture time: put the first frame's time in the snapshot's `capturedAt`, and the
+   frames read in its `screens[]`.
+
+A frame that a research record cites goes into the record's `evidence/` as a copy, with a ledger line from
+`pnpm capture log … --tool manual --at <frame time>`, and a text transcription beside it so the record reads
+without the media.
+
 ## Applying a change
+
+A change that needs the mouse is made by the user, by hand, from a walkthrough you write (the roadmap's
+actions, with the coordinates from `references/windows.md`); log it from the guided read's frames. A change
+that keys alone can make follows the loop below.
 
 One action, one shot, one check:
 
@@ -87,5 +126,7 @@ reading the shot, memory reading, packet capture, injection. AGENTS.md § Game b
 - Shots and crops: `account/snapshots/screens/<date>/` — local only, gitignored, never committed.
 - What was read: `account/snapshots/<date>.json` (`aion-account-snapshot/1`, loaded by `pnpm import:account`),
   and `account/snapshots/<date>-after.json` when re-read after applying.
+- What's left to apply: `account/roadmap-<date>.json` (`aion-account-roadmap/1`), ranked against that day's snapshot.
 - What was changed: `account/apply-log-<date>.md` — each change with its before and after shot names.
+- Recording frames: `account/snapshots/screens/<date>/tour/` — local only, like the shots.
 - Window hotkeys and coordinates: `references/windows.md`.
