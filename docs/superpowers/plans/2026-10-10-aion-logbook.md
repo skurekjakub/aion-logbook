@@ -823,7 +823,8 @@ ExitApp 0
 ```
 
 - [ ] **Step 4: Run, pass**; live check: `pnpm game shot probe` writes a 1920×1080 PNG; `pnpm game key "{Esc}"` returns 0 and its after-shot exists.
-- [ ] **Step 5: Verify and commit** — `feat(game): read the client by window capture and drive menus through AutoHotkey`.
+- [ ] **Step 5: The repeatable-workflow skill.** Create `.claude/skills/aion-game/SKILL.md` (frontmatter `name: aion-game`, a description that triggers on "read my character", "audit my account", "apply the build", "set up skills/stigmas/macros", "drive the game") documenting: preconditions (game running, out of combat, solo, safe zone), the commands (`pnpm game shot|crop|key|click|rclick|drag|scroll|focus|back`), the read-one-window loop (open → shot → crop/read → close), the window map (`references/windows.md`: each window's hotkey and the client coordinates of its tabs, buttons and slots, filled in as Tasks 7 and 9 discover them), the apply loop (one action → shot → check → next), the stop rules, and where outputs go (`account/snapshots/…`, `account/apply-log-…`). Add `tools/aion-input/README.md` pointing at it.
+- [ ] **Step 6: Verify and commit** — `feat(game): read the client by window capture and drive menus through AutoHotkey`.
 
 ---
 
@@ -835,7 +836,7 @@ ExitApp 0
 - [ ] **Step 1:** Confirm the character is out of combat and solo (shot of the HUD: no target frame, no party frame). If in combat, wait and re-shoot; never send input during combat.
 - [ ] **Step 2:** Open, shoot and close, one at a time: character info, the skill window (every tab, scrolling), the stigma panel, the macro editor, Settings > Key Settings > Gameplay > Macro. Discover each window's key from the HUD's key hints (top-right icons carry their letters: G, H, U, I, K, J); fall back to the menu button. Crop and upscale text regions (`pnpm game crop … --scale 2`) for reading.
 - [ ] **Step 3:** Write `account/snapshots/2026-10-10.json` (`aion-account-snapshot/1`): name, class, level, gear score, server, every skill with level and hotbar slot, stigmas per slot, existing macros, `screens[]`, `unread[]` for anything not read. Validate with `accountSnapshotFile`.
-- [ ] **Step 4:** `account/README.md`: how the audit is read (commands, windows, safety rules).
+- [ ] **Step 4:** `account/README.md`: how the audit is read (commands, windows, safety rules). Record every window hotkey and coordinate found into `.claude/skills/aion-game/references/windows.md`.
 - [ ] **Step 5:** `pnpm import:account account/snapshots/2026-10-10.json` succeeds. Commit `account: the 2026-10-10 snapshot of the character`.
 
 ---
@@ -863,7 +864,7 @@ ExitApp 0
 - [ ] **Step 3:** Stigmas: equip the build's stigma in each unlocked slot (≤ character level).
 - [ ] **Step 4:** Macro: open the macro editor, read its own tooltip/help for the priority direction, set the delay, fill the chain's steps in the order the record gives (reversed if the editor's priority runs bottom-up), save.
 - [ ] **Step 5:** Keybind: Settings > Key Settings > General > Gameplay > Macro → the build's key; confirm no conflict (the game shows one; if so, pick the record's alternate key and log it).
-- [ ] **Step 6:** Re-read the character (Task 7 steps 2–3) into `2026-10-10-after.json`; `apply-log` lists each change with its before/after shot names. `pnpm import:account --replace` on the after snapshot. Commit `account: apply the 001 build in game`.
+- [ ] **Step 6:** Re-read the character (Task 7 steps 2–3) into `2026-10-10-after.json`; `apply-log` lists each change with its before/after shot names; every coordinate used goes into `.claude/skills/aion-game/references/windows.md`. `pnpm import:account --replace` on the after snapshot. Commit `account: apply the 001 build in game`.
 
 ---
 
