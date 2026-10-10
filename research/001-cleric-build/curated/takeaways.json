@@ -18,10 +18,10 @@
     "sources": ["web:aion2run-cleric", "web:metabot-cleric-build", "web:keengamer-pve-builds"]
   },
   {
-    "text": "Macro: bind it, hold it with left click, 10 ms delay; cooldown skills at the bottom of each column.",
-    "detail": "The bottom skill of a column is tried first. Whether an entry is a column or one skill is unconfirmed.",
+    "text": "Macro: one skill per entry, cooldowns first, Judgment Thunder last, 10 ms each; bind it and hold it with left click.",
+    "detail": "Read in the global client: an entry holds one skill and its own delay, numbered from the top.",
     "class": null,
-    "sources": ["web:allthings-macros", "web:playnews-macros", "web:meinmmo-macros", "yt:v_NuuOGFp_4"]
+    "sources": ["web:game-client-skill-window", "web:allthings-macros", "web:playnews-macros", "web:meinmmo-macros"]
   },
   {
     "text": "Never macro Light of Protection or Bolt: the loop turns the toggle off and fires Bolt uncharged.",

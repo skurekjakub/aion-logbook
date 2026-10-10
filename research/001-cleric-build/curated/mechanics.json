@@ -18,30 +18,30 @@
     "sources": ["web:meinmmo-macros", "web:playnews-macros", "web:allthings-macros"]
   },
   {
-    "title": "Conflict: an entry is a hotbar column or a single skill",
-    "body": "Unsettled: allthings.how and playnews say each entry registers a whole hotbar column; the KR editor frame (after May 2026) shows one skill per entry. Both chains assume columns.",
-    "confidence": "theory",
+    "title": "A macro entry is one skill, not a hotbar column",
+    "body": "Read in the global client: each entry holds one skill and its own delay. Settles the conflict: allthings.how and playnews said whole columns; the KR frame showed single skills.",
+    "confidence": "tested",
     "class": null,
     "topic": "macros",
     "alsoTopics": ["conflicts"],
-    "sources": ["web:allthings-macros", "web:playnews-macros", "yt:v_NuuOGFp_4"]
+    "sources": ["web:game-client-skill-window", "web:allthings-macros", "web:playnews-macros", "yt:v_NuuOGFp_4"]
   },
   {
     "title": "Conflict: the order the editor runs its entries",
-    "body": "Likely top to bottom (allthings.how); the KR frame's top-down numbering is consistent with it. mein-mmo's 'bottom up' may mean the column. Confirm in game.",
+    "body": "Likely top to bottom (allthings.how); the editor's top-down numbering fits it. mein-mmo's 'bottom up' may mean the column. Not yet seen in game.",
     "confidence": "theory",
     "class": null,
     "topic": "macros",
     "alsoTopics": ["conflicts"],
-    "sources": ["web:allthings-macros", "web:meinmmo-macros", "yt:v_NuuOGFp_4"]
+    "sources": ["web:allthings-macros", "web:meinmmo-macros", "web:game-client-skill-window"]
   },
   {
     "title": "The editor numbers its entries from the top",
-    "body": "A KR Cleric's editor (May 2026) lists single-skill entries 1, 2, 3… downward, each with its own 10 ms delay; 'Add Macro' appends below. Display order, not run order.",
-    "confidence": "posted",
+    "body": "Entries run 1, 2, 3… downward, each with a trash can; Add Macro appends an Earth's Retribution entry below. Display order, not run order.",
+    "confidence": "tested",
     "class": null,
     "topic": "macros",
-    "sources": ["yt:v_NuuOGFp_4", "web:allthings-macros"]
+    "sources": ["web:game-client-skill-window", "yt:v_NuuOGFp_4"]
   },
   {
     "title": "Conflict: the basic attack inside the macro",
@@ -53,13 +53,13 @@
     "sources": ["web:inven-cleric-guide", "yt:v_NuuOGFp_4", "web:meinmmo-macros", "web:playnews-macros"]
   },
   {
-    "title": "Conflict: how long a chain can be",
-    "body": "4 skills per hotbar button (playnews) and up to 20 entries per macro (allthings.how); likely both, at different layers. Confirm in game.",
+    "title": "How long a chain can be",
+    "body": "A hotbar key holds rows 0–3, so 4 skills (read in game, as playnews says). Entries per macro: up to 20 (allthings.how), not yet seen in game.",
     "confidence": "theory",
     "class": null,
     "topic": "macros",
-    "alsoTopics": ["conflicts"],
-    "sources": ["web:playnews-macros", "web:allthings-macros"]
+    "alsoTopics": ["hotbar"],
+    "sources": ["web:game-client-skill-window", "web:playnews-macros", "web:allthings-macros"]
   },
   {
     "title": "Bind the macro key first; hold it to run",
@@ -71,11 +71,11 @@
   },
   {
     "title": "Delay: 10 ms, raise only if skills drop",
-    "body": "Each entry has a delay; the default fell from 50 to 10 ms. Try 40–50 ms only if skills fail to fire. It is input spacing, not ping.",
+    "body": "Each entry has a delay; the default fell from 50 to 10 ms (10 in the global client). Try 40–50 ms only if skills fail to fire. It is input spacing, not ping.",
     "confidence": "posted",
     "class": null,
     "topic": "macros",
-    "sources": ["web:allthings-macros", "web:gamesfuze-macros", "web:inven-cleric-guide"]
+    "sources": ["web:allthings-macros", "web:gamesfuze-macros", "web:inven-cleric-guide", "web:game-client-skill-window"]
   },
   {
     "title": "Keep toggles, charged skills and long cooldowns out",
@@ -87,7 +87,7 @@
   },
   {
     "title": "Hold the basic attack beside the macro",
-    "body": "Hold left click with the macro key: basic attacks cancel animations and restore MP. Whether it also belongs inside the macro is a conflict below.",
+    "body": "Hold left click with the macro key: basic attacks cancel animations and restore MP. Whether it also belongs inside the macro is its own conflict entry.",
     "confidence": "posted",
     "class": null,
     "topic": "macros",
@@ -138,7 +138,7 @@
   },
   {
     "title": "Skill level gate: one level per 3 character levels",
-    "body": "A skill gains at most one level every 3 character levels; at 36 points decide, and aion2maps' plan still has Bolt at 8 (10 at 38).",
+    "body": "A skill gains at most one level every 3 character levels; at 36 that holds Bolt (learned at 14) at 8, and aion2maps' plan has it at 10 by 38.",
     "confidence": "theory",
     "class": null,
     "topic": "skills",

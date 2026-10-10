@@ -111,32 +111,32 @@
         "why": "Hold both mouse buttons: cooldowns fire as they come up, Judgment Thunder fills, left click weaves Earth's Retribution for MP.",
         "steps": [
           {
-            "skillId": "cleric-light-of-regeneration",
-            "note": "Entry 1 (hotbar column B), top slot: self-heal over time on cooldown"
+            "skillId": "cleric-earth-punishment",
+            "note": "Entry 1: 30 s DoT that makes Condemnation crit"
           },
           {
             "skillId": "cleric-divine-aura",
-            "note": "Entry 1 (column B), middle slot"
+            "note": "Entry 2: free damage every 30 s"
           },
           {
-            "skillId": "cleric-earth-punishment",
-            "note": "Entry 1 (column B), bottom slot: tried first, every 30 s"
-          },
-          {
-            "skillId": "cleric-judgment-thunder",
-            "note": "Entry 2 (hotbar column A), top slot: no-cooldown filler, tried last"
-          },
-          {
-            "skillId": "cleric-condemnation",
-            "note": "Entry 2 (column A), above Chain of Torment: fires only on a marked target"
-          },
-          {
-            "skillId": "cleric-debilitating-mark",
-            "note": "Entry 2 (column A), second slot from the bottom"
+            "skillId": "cleric-light-of-regeneration",
+            "note": "Entry 3: self-heal over time on cooldown"
           },
           {
             "skillId": "cleric-chain-of-torment",
-            "note": "Entry 2 (column A), bottom slot: marks the target first"
+            "note": "Entry 4: marks the target; Condemnation needs it"
+          },
+          {
+            "skillId": "cleric-debilitating-mark",
+            "note": "Entry 5: 10 s DoT, cuts Defense with its spec"
+          },
+          {
+            "skillId": "cleric-condemnation",
+            "note": "Entry 6: main hit, lands only on a marked target"
+          },
+          {
+            "skillId": "cleric-judgment-thunder",
+            "note": "Entry 7: no-cooldown filler, last so it never starves the rest"
           }
         ]
       }
@@ -145,10 +145,13 @@
       "web:aion2run-cleric",
       "web:eloboost24-cleric-build",
       "web:metabot-cleric-build",
+      "web:gamesfuze-cleric-build",
+      "web:aion2hub-2026-08-12",
       "web:allthings-macros",
       "web:playnews-macros",
       "web:meinmmo-macros",
-      "web:inven-cleric-guide"
+      "web:inven-cleric-guide",
+      "web:game-client-skill-window"
     ]
   },
   {
@@ -257,32 +260,32 @@
         "why": "Keeps the party HoT and boss debuffs rolling while you hold it; release to cast Healing Light or Radiant Recovery by hand.",
         "steps": [
           {
-            "skillId": "cleric-divine-aura",
-            "note": "Entry 1 (hotbar column B), top slot"
+            "skillId": "cleric-light-of-regeneration",
+            "note": "Entry 1: party HoT on every cooldown"
           },
           {
             "skillId": "cleric-earth-punishment",
-            "note": "Entry 1 (column B), middle slot"
+            "note": "Entry 2: 30 s DoT, Condemnation crits on its target"
           },
           {
-            "skillId": "cleric-light-of-regeneration",
-            "note": "Entry 1 (column B), bottom slot: party HoT on every cooldown, tried first"
-          },
-          {
-            "skillId": "cleric-judgment-thunder",
-            "note": "Entry 2 (hotbar column A), top slot: filler, tried last"
-          },
-          {
-            "skillId": "cleric-condemnation",
-            "note": "Entry 2 (column A), above Chain of Torment"
-          },
-          {
-            "skillId": "cleric-debilitating-mark",
-            "note": "Entry 2 (column A), second slot from the bottom"
+            "skillId": "cleric-divine-aura",
+            "note": "Entry 3: free damage every 30 s near the boss"
           },
           {
             "skillId": "cleric-chain-of-torment",
-            "note": "Entry 2 (column A), bottom slot: boss debuff first"
+            "note": "Entry 4: boss Tolerance debuff; Condemnation needs it"
+          },
+          {
+            "skillId": "cleric-debilitating-mark",
+            "note": "Entry 5: cuts the boss's damage"
+          },
+          {
+            "skillId": "cleric-condemnation",
+            "note": "Entry 6: damage between heals, on a marked target"
+          },
+          {
+            "skillId": "cleric-judgment-thunder",
+            "note": "Entry 7: filler, last so it never starves the rest"
           }
         ]
       }
@@ -295,7 +298,9 @@
       "web:gamesfuze-cleric-build",
       "web:inven-cleric-guide",
       "web:vortex-cleric-guide",
-      "web:allthings-macros"
+      "web:aion2hub-2026-08-12",
+      "web:allthings-macros",
+      "web:game-client-skill-window"
     ]
   }
 ]

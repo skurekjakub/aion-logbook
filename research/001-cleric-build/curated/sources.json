@@ -193,5 +193,15 @@
     "note": "Korean; digest only. Pairs an external mouse macro with the in-game one; external macros are against the rules.",
     "summaryEn": "KR Cleric setup combining an external mouse macro with the in-game macro.",
     "capturePath": "research/001-cleric-build/evidence/02-youtube/yt-ymKxcPRDksU.txt"
+  },
+  {
+    "id": "web:game-client-skill-window",
+    "url": "https://github.com/skurekjakub/aion-logbook/blob/main/research/001-cleric-build/evidence/03-game/game-client-skill-window-2026-10-10.md",
+    "title": "Global client: the Skill window and the macro editor, read in game",
+    "date": "2026-10-10",
+    "relevance": 3,
+    "note": "In-game reading of the global client, transcribed from a local 1 fps recording (frames stay local). The URL is the transcription in this repo; the game has no page of its own.",
+    "summaryEn": "One skill per macro entry with its own 10 ms delay, entries numbered from the top, Add Macro appends Earth's Retribution; hotbar keys hold rows 0–3.",
+    "capturePath": "research/001-cleric-build/evidence/03-game/game-client-skill-window-2026-10-10.md"
   }
 ]

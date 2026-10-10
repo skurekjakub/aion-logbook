@@ -40,5 +40,11 @@
     "event": "First global Cleric and macro guides published (eloboost24, keengamer, playnews, mein-mmo).",
     "class": "cleric",
     "sources": ["web:eloboost24-cleric-build", "web:keengamer-pve-builds", "web:playnews-macros", "web:meinmmo-macros"]
+  },
+  {
+    "date": "2026-10-10",
+    "event": "Global client read in game: the macro editor takes one skill per entry, 10 ms default delay.",
+    "class": null,
+    "sources": ["web:game-client-skill-window"]
   }
 ]
