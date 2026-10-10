@@ -181,7 +181,7 @@ interface SnapshotRows {
  * @returns the rows
  */
 function snapshotRows(
-  plan: SnapshotPlan,
+  plan: Pick<SnapshotPlan, "id" | "data">,
   index: ReadonlyMap<string, string>,
   warn: (message: string) => void,
 ): SnapshotRows {
@@ -223,6 +223,71 @@ function snapshotRows(
       })),
     })),
   };
+}
+
+/**
+ * Inserts a snapshot that isn't loaded: its row, skills, stigma slots,
+ * macro chains and the roadmap ranked against it.
+ *
+ * @param repos - the repos to write through, inside a transaction
+ * @param index - the loaded skills, by class and lower-cased name
+ * @param plan - the snapshot's id, contents and roadmap
+ * @param warn - records a name no loaded skill has, once per name
+ * @returns the rows inserted and the ranked roadmap items
+ */
+function insertSnapshot(
+  repos: Repos,
+  index: ReadonlyMap<string, string>,
+  plan: Pick<SnapshotPlan, "id" | "data" | "roadmap">,
+  warn: (message: string) => void,
+) {
+  const { character, capturedAt, unread } = plan.data;
+  repos.account.insertSnapshot({
+    id: plan.id,
+    capturedAt,
+    character: character.name,
+    class: character.class,
+    level: character.level,
+    gearScore: character.gearScore,
+    server: character.server,
+    unread,
+  });
+  const rows = snapshotRows(plan, index, warn);
+  const roadmap = (plan.roadmap?.items ?? []).map((item, i) => ({ ...item, rank: i + 1 }));
+  repos.account.insertSkills(plan.id, rows.skills);
+  repos.account.insertStigmas(plan.id, rows.stigmas);
+  repos.account.insertMacros(plan.id, rows.macros);
+  repos.account.insertRoadmap(plan.id, roadmap);
+  return { rows, roadmap };
+}
+
+/**
+ * Loads one snapshot held in memory under `id`, replacing a loaded
+ * snapshot of that id, and removes the snapshots `drop` names, all in one
+ * transaction. Names resolve to skills as {@link importAccount} resolves them.
+ *
+ * @param store - the store to load into
+ * @param id - the id to load it under
+ * @param data - the snapshot
+ * @param drop - ids of loaded snapshots to remove first; missing ones are ignored
+ * @returns a warning per name no loaded skill has
+ */
+export function loadSnapshot(
+  store: Store,
+  id: string,
+  data: AccountSnapshotFile,
+  drop: readonly string[] = [],
+): string[] {
+  return store.transaction((repos) => {
+    for (const old of [...drop, id]) {
+      if (repos.account.getSnapshot(old)) repos.account.removeSnapshot(old);
+    }
+    const warnings: string[] = [];
+    insertSnapshot(repos, skillIndex(repos), { id, data, roadmap: undefined }, (message) =>
+      warnings.push(message),
+    );
+    return warnings as never;
+  });
 }
 
 /**
@@ -278,23 +343,9 @@ export function importAccount(
         }
         repos.account.removeSnapshot(plan.id);
       }
-      const { character, capturedAt, unread } = plan.data;
-      repos.account.insertSnapshot({
-        id: plan.id,
-        capturedAt,
-        character: character.name,
-        class: character.class,
-        level: character.level,
-        gearScore: character.gearScore,
-        server: character.server,
-        unread,
-      });
-      const rows = snapshotRows(plan, index, (message) => warnings.push(message));
-      const roadmap = (plan.roadmap?.items ?? []).map((item, i) => ({ ...item, rank: i + 1 }));
-      repos.account.insertSkills(plan.id, rows.skills);
-      repos.account.insertStigmas(plan.id, rows.stigmas);
-      repos.account.insertMacros(plan.id, rows.macros);
-      repos.account.insertRoadmap(plan.id, roadmap);
+      const { rows, roadmap } = insertSnapshot(repos, index, plan, (message) =>
+        warnings.push(message),
+      );
       counts.accountSnapshots += 1;
       counts.accountSkills += rows.skills.length;
       counts.accountStigmas += rows.stigmas.length;

@@ -1,9 +1,10 @@
 /**
  * Starting a character sync from the web app, the way picked where the
  * server is composed: locally the server runs `pnpm sync` itself; on the
- * deployment it dispatches the GitHub workflow (`.github/workflows/sync.yml`)
- * when it holds a token, and otherwise points at the workflow's page, where
- * "Run workflow" starts it by hand.
+ * deployment it reads the character into memory (`./live-sync`) and saves
+ * it by dispatching the GitHub workflow (`.github/workflows/sync.yml`) when
+ * it holds a token, or otherwise points at the workflow's page, where "Run
+ * workflow" starts it by hand.
  *
  * @module
  */
@@ -17,8 +18,11 @@ export const SYNC_WORKFLOW_URL = `https://github.com/${SYNC_REPO}/actions/workfl
 /** How long after a run starts another dispatch is refused, in milliseconds. */
 export const SYNC_COOLDOWN_MS = 15 * 60_000;
 
-/** How a sync starts: run here, dispatched to GitHub, or by hand on GitHub. */
-export type SyncMode = "local" | "github" | "manual";
+/**
+ * How a sync starts: run here, dispatched to GitHub, by hand on GitHub, or
+ * read into the deployment's memory and then saved by one of those.
+ */
+export type SyncMode = "local" | "github" | "manual" | "live";
 
 /** What the web app needs to draw the sync button. */
 export interface SyncInfo {
@@ -38,6 +42,10 @@ export type SyncStart =
   | { status: "busy"; url: string }
   /** This server can't start a sync; `url` is where to run it by hand. */
   | { status: "manual"; url: string }
+  /** Nothing changed, so nothing was saved. */
+  | { status: "unchanged" }
+  /** The character was read into memory (`message` says what it read); `save` is what saving it did. */
+  | { status: "live"; message: string; save: SyncStart }
   /** The sync failed; `message` says why. */
   | { status: "failed"; message: string };
 

@@ -3,6 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "exports": {
+    "./fetch": "./src/fetch.ts",
+    "./map": "./src/map.ts",
+    "./changes": "./src/changes.ts"
+  },
   "scripts": {
     "typecheck": "tsc -p .",
     "test": "vitest run",

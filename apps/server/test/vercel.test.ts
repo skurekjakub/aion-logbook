@@ -5,7 +5,30 @@ import { importRecord } from "../src/importers/import-record";
 import { exportSnapshot } from "../src/services/export";
 import type { Snapshot } from "../src/services/export";
 import { readOnlyHandler } from "../src/vercel";
+import type { AccountSnapshotFile } from "@aion/schema";
+import { createAccountService } from "../src/services/account";
+import { liveSyncService } from "../src/services/live-sync";
+import { manualSyncService } from "../src/services/sync";
 import { copyFixture, testStore } from "./helpers";
+
+/**
+ * Builds what the official site maps to: Baon at level 40.
+ *
+ * @param capturedAt - when it was read
+ * @returns the snapshot
+ */
+function liveRead(capturedAt: string): AccountSnapshotFile {
+  return {
+    schema: "aion-account-snapshot/1",
+    capturedAt,
+    character: { name: "Baon", class: "cleric", level: 40, gearScore: 842, server: "Fafnir (EU)" },
+    skills: [],
+    stigmas: [],
+    macros: [],
+    screens: [],
+    unread: [],
+  };
+}
 
 const copies: string[] = [];
 afterEach(() => {
@@ -56,6 +79,29 @@ describe("the Vercel handler", () => {
     // Assert
     expect(res.status).toBe(405);
     expect(res.headers.get("allow")).toBe("GET, HEAD");
+  });
+
+  it("serves a live read from memory after a sync press", async () => {
+    // Arrange
+    const handler = readOnlyHandler(fixtureSnapshot(), (store) =>
+      liveSyncService({
+        store,
+        account: createAccountService(store),
+        fetchSnapshot: (_previous, capturedAt) => Promise.resolve(liveRead(capturedAt)),
+        same: () => false,
+        save: manualSyncService(),
+      }),
+    );
+
+    // Act
+    const press = await handler(
+      new Request("https://aion.test/api/account/sync", { method: "POST" }),
+    );
+    const account = await handler(new Request("https://aion.test/api/account"));
+
+    // Assert
+    expect(await press.json()).toMatchObject({ status: "live", save: { status: "manual" } });
+    expect(await account.json()).toMatchObject({ snapshot: { character: "Baon", level: 40 } });
   });
 
   it("passes the sync button's press through to the sync service", async () => {

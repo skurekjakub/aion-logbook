@@ -193,6 +193,9 @@ importers:
 
   apps/server:
     dependencies:
+      '@aion/armory':
+        specifier: workspace:*
+        version: link:../../packages/armory
       '@aion/capture':
         specifier: workspace:*
         version: link:../../packages/capture

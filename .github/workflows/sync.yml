@@ -46,8 +46,12 @@ jobs:
             echo "unchanged: nothing to commit"
             exit 0
           fi
+          # Vercel's Hobby plan skips deploying a commit whose author can't access the project, which
+          # the Actions bot can't; the repo owner's noreply address authors it, the bot commits it.
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          export GIT_AUTHOR_NAME="skurekjakub"
+          export GIT_AUTHOR_EMAIL="17474089+skurekjakub@users.noreply.github.com"
           cat > "$RUNNER_TEMP/commit-message.txt" <<'EOF'
           chore(account): sync the character
 

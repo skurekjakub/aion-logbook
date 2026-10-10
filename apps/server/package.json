@@ -19,6 +19,7 @@
     "build:vercel": "tsx src/cli/build-vercel.ts"
   },
   "dependencies": {
+    "@aion/armory": "workspace:*",
     "@aion/capture": "workspace:*",
     "@aion/schema": "workspace:*",
     "@hono/node-server": "^2.1.1",

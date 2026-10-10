@@ -55,9 +55,11 @@
     in committed files, and every committed file is published.
   - The deployed function answers anything but `GET` and `HEAD` with 405, and
     a write path reachable from the deployment is a BLOCKER. The one exception
-    the user set is the sync button's `POST /api/account/sync`: it writes
-    nothing itself, only dispatches `.github/workflows/sync.yml` with a
-    cooldown, and the token it holds stays server-side.
+    the user set is the sync button's `POST /api/account/sync`: it reads the
+    character from the official site into the instance's in-memory database,
+    at most once a minute, writes nothing that outlives the instance, and
+    saves a change by dispatching `.github/workflows/sync.yml` with a
+    cooldown; the token it holds stays server-side.
   - Only `VITE_`-prefixed env vars reach the web bundle; nothing private takes
     that prefix.
   - Captured media, game screenshots, game files, client data and decompiled

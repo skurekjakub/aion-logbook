@@ -47,6 +47,15 @@ function OutcomeLine({ outcome }: { outcome: Outcome }) {
           </a>
         </span>
       );
+    case "unchanged":
+      return <span className="sync-note good">✓ Already up to date</span>;
+    case "live":
+      return (
+        <span className="sync-note good">
+          ✓ Live: {outcome.message} <span className="muted">· memory only</span>{" "}
+          <SaveNote save={outcome.save} />
+        </span>
+      );
     case "failed":
     case "forbidden":
       return <span className="sync-note bad">✗ {outcome.message}</span>;
@@ -54,10 +63,45 @@ function OutcomeLine({ outcome }: { outcome: Outcome }) {
 }
 
 /**
+ * What saving a live read for good did, after the live outcome.
+ *
+ * @param props - the saving service's outcome
+ * @returns the note, or nothing when there was nothing to save
+ */
+function SaveNote({ save }: { save: Extract<Outcome, { status: "live" }>["save"] }) {
+  switch (save.status) {
+    case "dispatched":
+      return (
+        <a href={save.url} target="_blank" rel="noreferrer">
+          · saving (~3 min)
+        </a>
+      );
+    case "busy":
+      return (
+        <a href={save.url} target="_blank" rel="noreferrer">
+          · save already running
+        </a>
+      );
+    case "manual":
+      return (
+        <a href={save.url} target="_blank" rel="noreferrer">
+          · save permanently ↗
+        </a>
+      );
+    case "failed":
+      return <span className="bad">· save failed: {save.message}</span>;
+    default:
+      return null;
+  }
+}
+
+/**
  * The sync button: pulls the character from the official site. Locally the
- * server runs the sync and the page refetches when it ends; on the
- * deployment it dispatches the GitHub workflow and refetches until the
- * deploy lands, or, without a token there, links to the workflow's page.
+ * server runs the sync and the page refetches when it ends. On the
+ * deployment the server reads the character into its memory and the page
+ * refetches at once; saving it for good dispatches the GitHub workflow
+ * (and the page refetches until the deploy lands) or links to the
+ * workflow's page. A server that can only link makes the button a link.
  *
  * @returns the button and what its last press did
  */
@@ -67,7 +111,9 @@ export function SyncControl() {
   const press = useMutation({
     mutationFn: startSync,
     onSuccess: async (outcome) => {
-      if (outcome.status === "synced") await client.invalidateQueries();
+      if (outcome.status === "synced" || outcome.status === "live") {
+        await client.invalidateQueries();
+      }
     },
   });
 

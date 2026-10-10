@@ -269,9 +269,14 @@ const RULES: Rule[] = [
       ),
   },
   {
-    name: "nothing imports packages/armory: the sync reaches the server through its CLIs",
+    name: "only the deployment's entry imports packages/armory, and only its fetch, map and changes modules; the sync otherwise reaches the server through its CLIs",
     covers: (file) => !under(file, ARMORY),
-    forbids: (edge) => isPackage(edge.specifier, "@aion/armory") || under(edge.target, ARMORY),
+    forbids: (edge) =>
+      (isPackage(edge.specifier, "@aion/armory") || under(edge.target, ARMORY)) &&
+      !(
+        edge.file === `${SERVER}/vercel.ts` &&
+        ["@aion/armory/fetch", "@aion/armory/map", "@aion/armory/changes"].includes(edge.specifier)
+      ),
   },
   {
     name: "only repos/ and db/ import drizzle-orm values",
