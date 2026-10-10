@@ -20,6 +20,7 @@
 - JSDoc (TSDoc style) on every function, method, class and interface method; `pnpm verify` (typecheck, eslint `--max-warnings 0`, prettier check, vitest) passes before every commit.
 - Commits: `git commit -F <file>`, conventional prefix, body explains why, ends with `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Work on `main`.
 - No enumerating and no gratuitous counting in docs, comments, commit messages (crumble `AGENTS.md` § Key directives).
+- Tests label each `it()` body's phases with `// Arrange`, `// Act`, `// Assert` (a genuinely empty phase is omitted; `// Act & Assert` for one-line throw/reject assertions). The plan's test snippets predate this rule; add the labels when writing them.
 - UI rules from crumble `AGENTS.md` § "UI: scannable, not prose" carry over verbatim.
 - The repo is public: captured media (png/jpg/video) stays local under `research/` and `account/snapshots/screens/` (gitignored); Markdown/JSON captures are committed with ledger lines.
 - Game input only drives menus; never during combat; a capture is checked before every next action; no memory reading, no packet capture, no combat macros.
