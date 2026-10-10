@@ -30,6 +30,49 @@ describe("input", () => {
     expect(() => ahkArgs("key", [])).toThrow("key takes <keys>");
   });
 
+  it.each([
+    ["{Click 100 100}", "{Click"],
+    ["{LButton}", "LButton"],
+    ["{RButton down}", "RButton"],
+    ["{MButton}", "MButton"],
+    ["{XButton1}", "XButton1"],
+    ["{WheelDown 3}", "WheelDown"],
+    ["{WheelLeft}", "WheelLeft"],
+  ])("refuses the mouse through key: %s", (keys, token) => {
+    // Act & Assert
+    expect(() => ahkArgs("key", [keys])).toThrow(`key refuses ${token}`);
+  });
+
+  it.each([
+    ["#r", "#"],
+    ["{LWin}", "LWin"],
+    ["{RWin down}", "RWin"],
+  ])("refuses the Windows key: %s", (keys, token) => {
+    // Act & Assert
+    expect(() => ahkArgs("key", [keys])).toThrow(`key refuses ${token}`);
+  });
+
+  it.each([
+    ["!{F4}", "!{F4}"],
+    ["!{tab}", "!{tab}"],
+    ["^{Esc}", "^{Esc}"],
+    ["^!{Delete}", "^!{Delete}"],
+    ["!^{Del}", "!^{Del}"],
+    ["{Alt down}{F4}{Alt up}", "{Alt down}"],
+  ])("refuses system chords: %s", (keys, token) => {
+    // Act & Assert
+    expect(() => ahkArgs("key", [keys])).toThrow(`key refuses ${token}`);
+  });
+
+  it("lets menu keys and a literal # through", () => {
+    // Arrange
+    const keys = ["i", "{Esc}", "{Enter}", "^a", "+{Tab}", "{#}", "{F1}"];
+    // Act
+    const built = keys.map((k) => ahkArgs("key", [k]).at(-1));
+    // Assert
+    expect(built).toEqual(keys);
+  });
+
   it("rejects a scroll of zero notches", () => {
     // Act & Assert
     expect(() => ahkArgs("scroll", ["10", "10", "0"])).toThrow("notches");
@@ -48,9 +91,25 @@ describe("input", () => {
     expect(calls).toEqual([["ahk.exe", ahkArgs("key", ["{Esc}"])]]);
   });
 
-  it("explains AutoHotkey's exit codes", async () => {
+  it("returns what aion.ahk printed", async () => {
+    // Arrange
+    const run: Runner = () => Promise.resolve({ code: 0, stdout: "nothing to go back to\r\n" });
+    // Act
+    const printed = await drive("back", [], { run, ahk: "ahk.exe" });
+    // Assert
+    expect(printed).toBe("nothing to go back to");
+  });
+
+  it("leaves AutoHotkey's own exit codes unexplained", async () => {
     // Arrange
     const run: Runner = () => Promise.resolve({ code: 2, stdout: "" });
+    // Act & Assert
+    await expect(drive("focus", [], { run, ahk: "ahk.exe" })).rejects.toThrow("aion.ahk exited 2");
+  });
+
+  it("explains aion.ahk's exit codes", async () => {
+    // Arrange
+    const run: Runner = () => Promise.resolve({ code: 10, stdout: "" });
     // Act & Assert
     await expect(drive("focus", [], { run, ahk: "ahk.exe" })).rejects.toThrow(
       "AION2 window not found",

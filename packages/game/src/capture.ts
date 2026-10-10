@@ -4,7 +4,7 @@
  *
  * @module
  */
-import { existsSync, mkdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, rmSync, statSync } from "node:fs";
 import { dirname, posix } from "node:path";
 import type { Runner } from "./runner";
 
@@ -109,7 +109,8 @@ export async function isGameRunning(run: Runner): Promise<boolean> {
 }
 
 /**
- * Runs ffmpeg and checks it wrote an image.
+ * Runs ffmpeg and checks it wrote an image. The output is deleted first, so an earlier file of the same name
+ * can't pass for the new one, and deleted again on failure, so a failed capture leaves nothing behind.
  *
  * @param run - process runner
  * @param args - ffmpeg arguments, the output path last
@@ -118,15 +119,16 @@ export async function isGameRunning(run: Runner): Promise<boolean> {
  * @throws if ffmpeg exits non-zero, or the file is missing or not larger than `minBytes`
  */
 async function ffmpeg(run: Runner, args: string[], out: string, minBytes: number): Promise<void> {
-  const { code, stderr } = await run("ffmpeg", args);
-  if (code !== 0) throw new Error(`ffmpeg exited ${code}: ${(stderr ?? "").trim()}`);
-  let bytes = 0;
+  rmSync(out, { force: true });
   try {
-    bytes = statSync(out).size;
-  } catch {
-    // a missing file reads as empty
+    const { code, stderr } = await run("ffmpeg", args);
+    if (code !== 0) throw new Error(`ffmpeg exited ${code}: ${(stderr ?? "").trim()}`);
+    const bytes = existsSync(out) ? statSync(out).size : 0;
+    if (bytes <= minBytes) throw new Error(`capture came back empty: ${out} (${bytes} B)`);
+  } catch (err) {
+    rmSync(out, { force: true });
+    throw err;
   }
-  if (bytes <= minBytes) throw new Error(`capture came back empty: ${out} (${bytes} B)`);
 }
 
 /**

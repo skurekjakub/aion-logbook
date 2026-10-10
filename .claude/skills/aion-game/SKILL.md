@@ -32,15 +32,17 @@ Run from the repo root. Each prints the path of the PNG it wrote under
 | `pnpm game shot <name>`                         | Captures the window, even behind others, without focusing it. Never sends input.                                                               |
 | `pnpm game crop <name> <x> <y> <w> <h> [--scale n]` | Cuts a region out of today's `<name>.png` into `<name>-crop-<x>-<y>-<w>-<h>.png`; `--scale 2` or `3` makes small UI text legible.          |
 | `pnpm game focus`                               | Brings the game to the front, remembering the window it replaced.                                                                              |
-| `pnpm game key "<keys>"`                        | Sends AutoHotkey `Send` syntax: `i`, `{Esc}`, `{Enter}`, `^a` (Ctrl+A), `+{Tab}` (Shift+Tab).                                                  |
+| `pnpm game key "<keys>"`                        | Sends AutoHotkey `Send` syntax: `i`, `{Esc}`, `{Enter}`, `^a` (Ctrl+A), `+{Tab}` (Shift+Tab), `{#}` (a literal #). Refuses mouse buttons, wheel, `{Click}`, the Windows key, held Alt/Ctrl and system chords (Alt+F4, Alt+Tab, Ctrl+Esc, Ctrl+Alt+Delete). |
 | `pnpm game click <x> <y>` / `rclick <x> <y>`    | Left or right click at a client point.                                                                                                          |
 | `pnpm game drag <x1> <y1> <x2> <y2>`            | Press at the first point, move, release at the second: skill to hotbar, stigma to slot.                                                         |
 | `pnpm game scroll <x> <y> <n>`                  | Wheel notches over a point; positive scrolls up, negative down, at most 20 per call.                                                            |
-| `pnpm game back`                                | Re-activates the window that was in front before the first input.                                                                               |
+| `pnpm game back`                                | Re-activates the window that was in front before the first input. Takes no shot and works with the game closed.                                 |
 
-Every input verb then shoots `<n>-after-<verb>.png` and prints its path: read it before the next command.
-Coordinates outside 0–1919 × 0–1079 are refused before anything reaches the game. `aion.ahk` exits 2 when
-the game window is missing and 3 when the window isn't (or stops being) in front; the CLI prints the reason.
+Every input verb except `back` then shoots `<n>-after-<verb>.png` and prints its path: read it before the
+next command. Coordinates outside 0–1919 × 0–1079 are refused before anything reaches the game. `aion.ahk`
+exits 10 when the game window is missing, 11 when the window isn't (or stops being) in front, and 12 on a
+refused verb or argument; the CLI prints the reason. A failed capture leaves no file behind, so a shot path
+that prints is always the new frame.
 
 ## Reading one window
 

@@ -1,7 +1,7 @@
-import { existsSync, mkdtempSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
-import { describe, expect, it } from "vitest";
+import { dirname, join } from "node:path";
+import { afterEach, describe, expect, it } from "vitest";
 import {
   captureArgs,
   cropArgs,
@@ -15,19 +15,50 @@ import type { Runner } from "../src/runner";
 
 const RUNNING = "AION2.exe                    12345 Console                    1  4,200,000 K";
 
+const roots: string[] = [];
+
+/**
+ * Makes a temp repo root, removed after the test.
+ *
+ * @returns its absolute path
+ */
+function tempRoot(): string {
+  const root = mkdtempSync(join(tmpdir(), "aion-game-"));
+  roots.push(root);
+  return root;
+}
+
+/**
+ * Writes a frame-sized file where a shot would go, as an earlier shot of the same name would have.
+ *
+ * @param path - the shot's path
+ */
+function staleShot(path: string): void {
+  mkdirSync(dirname(path), { recursive: true });
+  writeFileSync(path, Buffer.alloc(20_000));
+}
+
 /**
  * Builds a runner that reports the game as running and answers ffmpeg by writing `bytes` bytes to the
- * output path, its last argument.
+ * output path, its last argument (nothing when `bytes` is 0), then exiting with `code`.
  *
  * @param bytes - size of the file the fake ffmpeg writes
+ * @param code - the fake ffmpeg's exit code
  * @returns the fake runner
  */
-function fakeGame(bytes: number): Runner {
+function fakeGame(bytes: number, code = 0): Runner {
   return (cmd, args) => {
-    if (cmd === "ffmpeg") writeFileSync(args.at(-1)!, Buffer.alloc(bytes));
-    return Promise.resolve({ code: 0, stdout: cmd === "tasklist" ? RUNNING : "" });
+    if (cmd === "ffmpeg" && bytes > 0) writeFileSync(args.at(-1)!, Buffer.alloc(bytes));
+    return Promise.resolve({
+      code: cmd === "ffmpeg" ? code : 0,
+      stdout: cmd === "tasklist" ? RUNNING : "",
+    });
   };
 }
+
+afterEach(() => {
+  for (const root of roots.splice(0)) rmSync(root, { recursive: true, force: true });
+});
 
 describe("capture", () => {
   it("captures the AION2 window through gfxcapture, without the cursor", () => {
@@ -79,7 +110,7 @@ describe("capture", () => {
 
   it("writes the shot and returns its path", async () => {
     // Arrange
-    const root = mkdtempSync(join(tmpdir(), "aion-game-"));
+    const root = tempRoot();
     // Act
     const path = await shot({ root, date: "2026-10-10", name: "probe", run: fakeGame(20_000) });
     // Assert
@@ -87,13 +118,57 @@ describe("capture", () => {
     expect(existsSync(path)).toBe(true);
   });
 
-  it("rejects a capture too small to be a frame", async () => {
+  it("rejects a capture too small to be a frame, and deletes it", async () => {
     // Arrange
-    const root = mkdtempSync(join(tmpdir(), "aion-game-"));
-    // Act & Assert
-    await expect(
-      shot({ root, date: "2026-10-10", name: "probe", run: fakeGame(100) }),
-    ).rejects.toThrow("capture came back empty");
+    const root = tempRoot();
+    const path = screenPath(root, "2026-10-10", "probe");
+    // Act
+    const failure = await shot({
+      root,
+      date: "2026-10-10",
+      name: "probe",
+      run: fakeGame(100),
+    }).then(
+      () => null,
+      (err: unknown) => err,
+    );
+    // Assert
+    expect(String(failure)).toContain("capture came back empty");
+    expect(existsSync(path)).toBe(false);
+  });
+
+  it("never passes off an earlier shot of the same name as the new one", async () => {
+    // Arrange
+    const root = tempRoot();
+    const path = screenPath(root, "2026-10-10", "probe");
+    staleShot(path);
+    // Act
+    const failure = await shot({ root, date: "2026-10-10", name: "probe", run: fakeGame(0) }).then(
+      () => null,
+      (err: unknown) => err,
+    );
+    // Assert
+    expect(String(failure)).toContain("capture came back empty");
+    expect(existsSync(path)).toBe(false);
+  });
+
+  it("deletes what a failing ffmpeg left behind", async () => {
+    // Arrange
+    const root = tempRoot();
+    const path = screenPath(root, "2026-10-10", "probe");
+    // Act
+    const failure = await shot({
+      root,
+      date: "2026-10-10",
+      name: "probe",
+      run: fakeGame(20_000, 1),
+    }).then(
+      () => null,
+      (err: unknown) => err,
+    );
+    // Assert
+    expect(String(failure)).toContain("ffmpeg exited 1");
+    expect(existsSync(path)).toBe(false);
   });
 
   it("reads a PNG's size from its header", () => {

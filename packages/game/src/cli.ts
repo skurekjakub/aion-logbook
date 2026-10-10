@@ -1,6 +1,6 @@
 /**
  * `pnpm game <command> …`: capture the client, crop a shot, or send one input and capture the result. Every
- * command prints the path of the PNG it wrote.
+ * command prints the path of the PNG it wrote, except `back`, which takes no shot and prints what it did.
  *
  * @module
  */
@@ -42,7 +42,7 @@ async function capture(date: string, name: string): Promise<string> {
  * Runs one command.
  *
  * @param argv - the arguments after `pnpm game`
- * @returns the path of the PNG written
+ * @returns the path of the PNG written, or for `back` what it did
  * @throws UsageError on a malformed command line; otherwise whatever capture or input throws
  */
 async function main(argv: string[]): Promise<string> {
@@ -62,7 +62,9 @@ async function main(argv: string[]): Promise<string> {
     return crop({ root: REPO_ROOT, date, name, rect: { x, y, w, h }, scale, run: nodeRunner });
   }
   if (isInputVerb(cmd)) {
-    await drive(cmd, rest, { run: nodeRunner, ahk: ahkExe() });
+    const printed = await drive(cmd, rest, { run: nodeRunner, ahk: ahkExe() });
+    // `back` hands the desktop back to the user; there's no game result to shoot.
+    if (cmd === "back") return printed || "restored the previous window";
     const dir = dirname(screenPath(REPO_ROOT, date, "x"));
     const existing = existsSync(dir) ? readdirSync(dir) : [];
     return capture(date, nextAfterName(existing, cmd));
