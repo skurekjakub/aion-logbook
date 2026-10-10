@@ -15,6 +15,8 @@ import type { GlossaryService } from "./glossary";
 import { createGlossaryService } from "./glossary";
 import type { RecordsService } from "./records";
 import { createRecordsService } from "./records";
+import type { RoadmapService } from "./roadmap";
+import { createRoadmapService } from "./roadmap";
 import type { SourcesService } from "./sources";
 import { createSourcesService } from "./sources";
 
@@ -30,6 +32,7 @@ export type Services = ContentServices & {
   records: RecordsService;
   captures: CapturesService;
   account: AccountService;
+  roadmap: RoadmapService;
   export: ExportService;
 };
 
@@ -43,15 +46,18 @@ export function createServices(store: Store): Services {
   const content = Object.fromEntries(
     CONTENT_KEYS.map((key) => [key, registeredService(store, key)]),
   ) as ContentServices;
+  const builds = createBuildService(store);
+  const account = createAccountService(store);
   return {
     ...content,
-    builds: createBuildService(store),
+    builds,
     macros: createMacroService(store),
     sources: createSourcesService(store),
     glossary: createGlossaryService(store),
     records: createRecordsService(store),
     captures: createCapturesService(store),
-    account: createAccountService(store),
+    account,
+    roadmap: createRoadmapService(store, account, builds),
     export: createExportService(store),
   };
 }

@@ -2,7 +2,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { createMemoryHistory, RouterProvider } from "@tanstack/react-router";
 import { render } from "@testing-library/react";
 import { createAppRouter } from "../src/router";
-import { ACCOUNT, RECORD, SOURCES } from "./fixtures";
+import { ACCOUNT, RECORD, ROADMAP, SOURCES } from "./fixtures";
 import type { Canned } from "./helpers";
 import { stubApi, testQueryClient } from "./helpers";
 
@@ -13,12 +13,13 @@ const DEFAULT_API: Record<string, Canned> = {
   "/api/sources": { body: SOURCES },
   [`/api/sources?record=${RECORD.slug}`]: { body: SOURCES },
   "/api/account": { body: ACCOUNT },
+  "/api/account/roadmap": { body: ROADMAP },
 };
 
 /**
  * Renders the whole app at `path` against a stubbed API: the gladiator
- * record, its sources and the character are answered unless `api`
- * overrides them.
+ * record, its sources, the character and its roadmap are answered unless
+ * `api` overrides them.
  *
  * @param path - the URL to open, query string included
  * @param api - extra (or overriding) canned responses by request path

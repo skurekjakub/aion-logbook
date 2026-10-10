@@ -1,10 +1,18 @@
 /**
  * API bodies the view tests answer with: a gladiator record and its
- * builds, the sources they cite, and a gladiator character snapshot.
+ * builds, the sources they cite, a gladiator character snapshot and its
+ * roadmap.
  *
  * @module
  */
-import type { AccountOverview, Build, ResearchRecord, Skill, Source } from "../src/api/types";
+import type {
+  AccountOverview,
+  AccountRoadmapData,
+  Build,
+  ResearchRecord,
+  Skill,
+  Source,
+} from "../src/api/types";
 
 /** The research record that gives the gladiator section its content. */
 export const RECORD = {
@@ -143,27 +151,46 @@ export const ACCOUNT = {
       },
     ],
   },
-  roadmap: [
+} satisfies AccountOverview;
+
+/** The account answer when no snapshot is loaded. */
+export const NO_ACCOUNT = { snapshots: [], snapshot: null } satisfies AccountOverview;
+
+/**
+ * The roadmap ranked against {@link ACCOUNT}'s snapshot: a derived skill
+ * item due now, a derived macro item due next, and a curated stigma item
+ * for later.
+ */
+export const ROADMAP = {
+  snapshotId: "2026-10-07",
+  curatedFrom: "2026-10-07",
+  items: [
     {
-      id: 1,
       rank: 1,
       priority: "now",
       area: "skills",
-      action: "Level Ruinous Blow to 10",
+      action: "Ruinous Blow 8 → 10",
       why: "The build's opener.",
       refs: [{ record: "900-fixture", id: "gladiator-leveling" }],
+      derived: true,
     },
     {
-      id: 2,
       rank: 2,
+      priority: "next",
+      area: "macro",
+      action: "Rebuild Opener as Main",
+      why: "One key for the opener.",
+      refs: [{ record: "900-fixture", id: "gladiator-leveling-main" }],
+      derived: true,
+    },
+    {
+      rank: 3,
       priority: "later",
       area: "stigmas",
       action: "Slot a stigma at 27",
       why: "The slot is empty.",
       refs: [],
+      derived: false,
     },
   ],
-} satisfies AccountOverview;
-
-/** The account answer when no snapshot is loaded. */
-export const NO_ACCOUNT = { snapshots: [], snapshot: null, roadmap: [] } satisfies AccountOverview;
+} satisfies AccountRoadmapData;

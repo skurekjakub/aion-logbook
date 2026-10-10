@@ -200,10 +200,10 @@ describe("GET /api/account", () => {
     const res = await app.request("/api/account");
 
     // Assert
-    expect(await res.json()).toEqual({ snapshots: [], snapshot: null, roadmap: [] });
+    expect(await res.json()).toEqual({ snapshots: [], snapshot: null });
   });
 
-  it("shows the latest snapshot with its skills, stigmas, macro chains and roadmap", async () => {
+  it("shows the latest snapshot with its skills, stigmas and macro chains", async () => {
     // Arrange
     const store = storeWithSkills();
     importAccount(store, ACCOUNT, { all: true });
@@ -243,7 +243,6 @@ describe("GET /api/account", () => {
         },
       ],
     });
-    expect(got.roadmap).toMatchObject([{ rank: 1, area: "skills" }, { rank: 2 }]);
   });
 
   it("shows an older snapshot by id, and answers 404 for one that isn't loaded", async () => {
@@ -260,7 +259,6 @@ describe("GET /api/account", () => {
 
     // Assert
     expect(older.snapshot).toMatchObject({ id: "2026-10-01", level: 30 });
-    expect(older.roadmap).toEqual([]);
     expect(missing.status).toBe(404);
   });
 });

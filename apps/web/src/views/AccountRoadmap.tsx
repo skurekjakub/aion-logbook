@@ -1,5 +1,6 @@
-import type { AccountItem } from "../api/types";
+import type { AccountItem, AccountRoadmapData } from "../api/types";
 import { Clamp } from "../components/Clamp";
+import { Pill } from "../components/Pill";
 
 /** When a roadmap item is due. */
 export type Priority = "now" | "next" | "later";
@@ -27,19 +28,48 @@ function RefChip({ target }: { target: AccountItem["refs"][number] }) {
 }
 
 /**
- * One roadmap row: the action in a line with its area chip; beneath, the
- * why cut to a line and the references as chips at the end.
+ * Where a roadmap item came from, as a badge: `auto` when derived from the
+ * snapshot and the build, `curated` when written by hand, `stale` when
+ * written by hand against an older snapshot.
  *
- * @param props - the item
+ * @param props - whether the item was derived, and the older snapshot its curation was ranked against
+ * @returns the badge
+ */
+function OriginBadge({ derived, staleFrom }: { derived: boolean; staleFrom: string | null }) {
+  if (derived) {
+    return (
+      <span title="Derived from the snapshot and the build">
+        <Pill kind="info">auto</Pill>
+      </span>
+    );
+  }
+  return staleFrom === null ? (
+    <span title="Curated by hand">
+      <Pill kind="quiet">curated</Pill>
+    </span>
+  ) : (
+    <span title={`Curated against the ${staleFrom} snapshot`}>
+      <Pill kind="warn">stale</Pill>
+    </span>
+  );
+}
+
+/**
+ * One roadmap row: the action in a line with its area chip and origin
+ * badge; beneath, the why cut to a line and the references as chips at
+ * the end.
+ *
+ * @param props - the item, and the older snapshot the curated items were ranked against
  * @returns the row
  */
-function RoadmapRow({ item }: { item: AccountItem }) {
+function RoadmapRow({ item, staleFrom }: { item: AccountItem; staleFrom: string | null }) {
   return (
     <li className={`road-item prio-${item.priority}`}>
       <div className="road-main">
         <span className="road-action">{item.action}</span>
         <span className="road-badges">
           <span className="chip area">{item.area}</span>
+          <OriginBadge derived={item.derived} staleFrom={staleFrom} />
         </span>
       </div>
       <div className="road-foot">
@@ -62,8 +92,8 @@ function RoadmapRow({ item }: { item: AccountItem }) {
 
 /** Props for {@link AccountRoadmap}. */
 export interface AccountRoadmapProps {
-  /** The roadmap's items, by rank. */
-  items: readonly AccountItem[];
+  /** The roadmap: its items by rank, the snapshot they are ranked against and the curated items' source. */
+  roadmap: AccountRoadmapData;
   /** The priorities to show; every priority when omitted. */
   priorities?: readonly Priority[];
 }
@@ -71,12 +101,15 @@ export interface AccountRoadmapProps {
 /**
  * The roadmap: its items grouped now, next, later under coloured priority
  * badges, each item one row, by rank within its group. A group with no
- * items is left out.
+ * items is left out. Curated items ranked against an older snapshot are
+ * marked stale.
  *
- * @param props - the items and the priorities to show
+ * @param props - the roadmap and the priorities to show
  * @returns the roadmap
  */
-export function AccountRoadmap({ items, priorities = PRIORITIES }: AccountRoadmapProps) {
+export function AccountRoadmap({ roadmap, priorities = PRIORITIES }: AccountRoadmapProps) {
+  const { items, snapshotId, curatedFrom } = roadmap;
+  const staleFrom = curatedFrom !== null && curatedFrom !== snapshotId ? curatedFrom : null;
   const groups = PRIORITIES.filter((p) => priorities.includes(p))
     .map((priority) => ({ priority, items: items.filter((i) => i.priority === priority) }))
     .filter((group) => group.items.length > 0);
@@ -89,7 +122,7 @@ export function AccountRoadmap({ items, priorities = PRIORITIES }: AccountRoadma
           </h4>
           <ol>
             {group.items.map((item) => (
-              <RoadmapRow key={item.id} item={item} />
+              <RoadmapRow key={item.rank} item={item} staleFrom={staleFrom} />
             ))}
           </ol>
         </section>

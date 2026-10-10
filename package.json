@@ -25,7 +25,8 @@
     "db:scope": "pnpm --filter @aion/server db:scope",
     "build:vercel": "pnpm --filter @aion/web build && pnpm --filter @aion/server build:vercel",
     "capture": "pnpm --filter @aion/capture capture",
-    "game": "pnpm --filter @aion/game game"
+    "game": "pnpm --filter @aion/game game",
+    "sync": "pnpm --filter @aion/armory sync"
   },
   "devDependencies": {
     "@aion/eslint-config": "workspace:*",

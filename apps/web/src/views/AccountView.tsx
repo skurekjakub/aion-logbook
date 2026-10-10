@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { accountQuery } from "../api/queries";
+import { accountQuery, roadmapQuery } from "../api/queries";
 import type { AccountMacro, AccountOverview, AccountSkill, AccountSnapshot } from "../api/types";
 import { CLASS_LABELS } from "../app/classes";
 import type { Column } from "../components/DataTable";
@@ -208,6 +208,31 @@ function SnapshotParts({ snapshot }: { snapshot: AccountSnapshot }) {
 }
 
 /**
+ * The roadmap ranked against the snapshot shown, grouped now, next, later:
+ * derived and curated items alike.
+ *
+ * @param props - the snapshot asked for; the latest when undefined
+ * @returns the section
+ */
+function RoadmapSection({ snapshot }: { snapshot: string | undefined }) {
+  const roadmap = useQuery(roadmapQuery(snapshot));
+  return (
+    <section className="acct-section" aria-labelledby="acct-roadmap">
+      <h3 id="acct-roadmap">Roadmap</h3>
+      <QueryResult query={roadmap} resource="roadmap">
+        {(data) =>
+          data.items.length ? (
+            <AccountRoadmap roadmap={data} />
+          ) : (
+            <EmptyState>No roadmap yet.</EmptyState>
+          )
+        }
+      </QueryResult>
+    </section>
+  );
+}
+
+/**
  * The character's sections: the profile, the roadmap grouped now, next,
  * later, then the snapshot's skills, stigmas and macro chains.
  *
@@ -215,7 +240,7 @@ function SnapshotParts({ snapshot }: { snapshot: AccountSnapshot }) {
  * @returns the sections
  */
 function AccountBody({ data, search, onSearch }: { data: AccountOverview } & AccountViewProps) {
-  const { snapshot, roadmap } = data;
+  const { snapshot } = data;
   if (!snapshot) {
     return (
       <EmptyState>
@@ -266,14 +291,7 @@ function AccountBody({ data, search, onSearch }: { data: AccountOverview } & Acc
           }}
         />
       </div>
-      <section className="acct-section" aria-labelledby="acct-roadmap">
-        <h3 id="acct-roadmap">Roadmap</h3>
-        {roadmap.length ? (
-          <AccountRoadmap items={roadmap} />
-        ) : (
-          <EmptyState>No roadmap yet.</EmptyState>
-        )}
-      </section>
+      <RoadmapSection snapshot={search.snapshot} />
       <SnapshotParts snapshot={snapshot} />
     </>
   );

@@ -147,8 +147,7 @@ export const recommendationsQuery = (record: string | null) =>
 
 /**
  * The character: a snapshot (the latest unless named) with its skills,
- * stigmas and macro chains as read, its roadmap, and every loaded snapshot
- * by id.
+ * stigmas and macro chains as read, and every loaded snapshot by id.
  *
  * @param snapshot - the snapshot id to show; the latest when omitted
  * @returns the query options
@@ -157,4 +156,17 @@ export const accountQuery = (snapshot?: string) =>
   queryOptions({
     queryKey: ["account", { snapshot: snapshot ?? null }],
     queryFn: () => parseResponse(api.account.$get({ query: { snapshot } })),
+  });
+
+/**
+ * The roadmap ranked against a snapshot (the latest unless named): the
+ * items derived from it and its class's build, then the curated ones.
+ *
+ * @param snapshot - the snapshot id to rank against; the latest when omitted
+ * @returns the query options
+ */
+export const roadmapQuery = (snapshot?: string) =>
+  queryOptions({
+    queryKey: ["account", "roadmap", { snapshot: snapshot ?? null }],
+    queryFn: () => parseResponse(api.account.roadmap.$get({ query: { snapshot } })),
   });

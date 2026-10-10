@@ -1,0 +1,58 @@
+# Syncs the character from the official site's public data and commits the snapshot and the database export
+# when they changed (spec § 8).
+#
+# Manual trigger only. A daily `schedule:` is waiting on the user's decision: the official character data is
+# not a published interface, and NCSOFT's Terms of Use § 6 forbid automated access outside published ones
+# (OPEN-QUESTIONS.md § Character sync, research/002-character-data-source).
+#
+# The runner has no database, so the sync restores one from data/snapshot.json; it refuses to run while that
+# export holds no skills, so dispatch it only once the committed export carries the research records.
+name: sync
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # Restores the database from data/snapshot.json, writes the day's snapshot, imports and exports it;
+      # --no-push leaves the commit to the next step.
+      - run: pnpm sync --no-push
+
+      - name: Commit and push when changed
+        run: |
+          git add account data/snapshot.json
+          if git diff --cached --quiet; then
+            echo "unchanged: nothing to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cat > "$RUNNER_TEMP/commit-message.txt" <<'EOF'
+          chore(account): sync the character
+
+          Run by .github/workflows/sync.yml from the official site's public
+          character data (research/002-character-data-source).
+          EOF
+          git commit -F "$RUNNER_TEMP/commit-message.txt"
+          git push

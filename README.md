@@ -9,10 +9,11 @@ A local build logbook for Aion 2 (NCSOFT, the global Steam client): which skills
 | Path | What it holds |
 |---|---|
 | `research/` | Research records. Each has a `README.md` (question, verdict, sources) and `evidence/` with verbatim captures (guide pages as Markdown, YouTube digests and frames) and `evidence/captures.jsonl`, the capture ledger (see [Captures](#captures)). A record may also keep a `research-trail.md` (its web search rounds). A record the app can load also has `import.json` (what to import and from where), `curated/` (the curated dataset) and `searches.json`, its saved searches (schema `packages/capture/src/searches.ts`), each dated by rounds the record ran: the day `import.json` says it started, or a `## Refresh <date>` section of its README. |
-| `account/` | The character as read from the client: snapshots at `snapshots/<date>.json` (schema `aion-account-snapshot/1`), the roadmap ranked against each (`roadmap-<date>.json`), apply logs, and the screens they were read from under `snapshots/screens/` (gitignored). `account/README.md` says how a read is made. |
+| `account/` | The character as read from the client and synced from the official site: `character.json` (which character `pnpm sync` reads), snapshots at `snapshots/<date>.json` (schema `aion-account-snapshot/1`), curated roadmap items ranked against a snapshot (`roadmap-<date>.json`), apply logs, and the screens they were read from under `snapshots/screens/` (gitignored). `account/README.md` says how a read is made. |
 | `packages/schema` | Zod schemas shared by every package: today the capture ledger's line schema; the Drizzle tables and migrations join it. |
 | `packages/capture` | The capture ledger and the scrapers (generic web pages, YouTube, and `yt-dlp`/`ffmpeg` wrappers), run as `pnpm capture`. Pure I/O: nothing from `apps/`. |
 | `packages/game` | The game bridge: window capture of `AION2.exe` and menu input through AutoHotkey, run as `pnpm game`. Pure I/O: nothing on the server imports it. |
+| `packages/armory` | The character sync: fetches the character from the official site's public data and maps it to a snapshot, run as `pnpm sync` (see [Character sync](#character-sync)). Nothing imports it; it reaches the server through its CLIs. |
 | `apps/server` | The data API: Hono over SQLite, layered `routes → services → repos`, with one content-type registry, plus the record importer and the snapshot CLIs. |
 | `apps/web` | The web app: React + TanStack Router/Query, typed against the API through `hc<AppType>`. One section per class with content (`/$class/skills`, `/stigmas`, `/macros`), plus the character card, Research, Sources and Glossary. |
 | `data/` | `aion.db` (local, gitignored) and `snapshot.json`, the committed, diffable dump of the database. |
@@ -77,10 +78,36 @@ Every resource is under `/api` and speaks JSON. Validation failures are 400 with
 | `/api/captures` | `GET` | The loaded records' capture ledgers, by record then path. `?record=` and `?path=` filter. Read-only. |
 | `/api/glossary` | `GET`, `POST` | `?kind=` filters. |
 | `/api/records` | `GET`, `GET /:slug` | Research records and the classes each covers. |
-| `/api/account` | `GET` | The character: the latest snapshot (class, level, gear score, skills with levels and hotbar slots, stigmas, macros) and its roadmap. Read-only: `pnpm import:account` writes it. |
+| `/api/account` | `GET` | The character: the latest snapshot (class, level, gear score, skills with levels and hotbar slots, stigmas, macros), or the one `?snapshot=` names, and every loaded snapshot. Read-only: `pnpm import:account` writes it. |
+| `/api/account/roadmap` | `GET` | The roadmap ranked against the latest snapshot (or `?snapshot=`): `{ snapshotId, curatedFrom, items }`, each item with `rank`, `priority`, `area`, `action`, `why`, `refs` and `derived`. Derived at request time (see [Character sync](#character-sync)), then the curated items. |
 | `/api/export` | `GET` | The full snapshot, the same shape as `data/snapshot.json`. |
 
 **SQLite driver:** Node's built-in `node:sqlite`, through the `drizzle-orm/node-sqlite` driver in drizzle-orm 1.0 beta. It needs no native build. Zod schemas come from `drizzle-orm/zod`.
+
+### Character sync
+
+`pnpm sync` reads the character named in `account/character.json` (name, region, server id, the cached `characterId`) from the official site's public JSON (`research/002-character-data-source`), without touching the client:
+
+```sh
+pnpm sync                      # fetch, write account/snapshots/<today>.json, import, export, commit, push
+pnpm sync --no-push            # stop after the export
+pnpm sync --date 2026-10-12    # file the snapshot under another day
+```
+
+- **Requests:** a name search only when no `characterId` is cached (or the cached one answers 404), then the info and equipment responses, one at a time, with a User-Agent naming the logbook. A 5xx is retried once after a 2 s pause, a 4xx never; a failure names the request and status, and nothing is written.
+- **Mapping** (`packages/armory/src/map.ts`): name, class, level, item level as `gearScore`, server, every acquired skill and stigma with its level, and the equipped stigmas placed into the slots open at the character's level. Macros, hotbar slots and stigma slot positions aren't published: they carry over from the latest snapshot, and `unread[]` says so.
+- **Writes:** `account/snapshots/<date>.json`, replacing a synced file of the same day; nothing at all when the character matches the latest snapshot. Before any request it refuses a day whose file is a game read (it lists `screens`) or that already has a later read (`<date>-after.json`), and a database restore from an export that holds no skills; pass `--date` or rename the read. Then `pnpm import:account <file> --replace` and `pnpm db:export` (restoring the database from `data/snapshot.json` first when `data/aion.db` doesn't exist), then a commit of the snapshot and the export alone, and a push. A failed push leaves the commit local and says so.
+- **Scheduled sync:** `.github/workflows/sync.yml` runs the same sync with `--no-push` and commits as the GitHub Actions bot when anything changed. It is manual-trigger only until the question in `OPEN-QUESTIONS.md` § Character sync is settled.
+
+**The roadmap** (`GET /api/account/roadmap`, `apps/server/src/services/roadmap.ts`) is derived at request time from the snapshot and the first current build of its class:
+
+- skills below their target level, in build rank order, the top ones due now and the rest next;
+- the stigmas the build wants in the open slots against the stigmas slotted, compared as sets since slot positions aren't readable: swap, slot, or acquire first, due now;
+- macro chains no read chain matches step for step (rebuild or build), or matching ones without a key (bind), due next.
+
+The curated items of the latest snapshot that has a `roadmap-<id>.json` follow (`curatedFrom` names it). Ranked against the snapshot itself, they win every area they cover and the derived items fill the rest; from an older snapshot, every derived item stays and a curated item a derived one already names is dropped. The home and character pages mark each item `auto`, `curated`, or `stale` (curated against an older snapshot).
+
+Skill targets are invested levels while a snapshot's levels include the gear bonus, so the derived skill items flag only skills whose total is below target.
 
 ## Game bridge
 
