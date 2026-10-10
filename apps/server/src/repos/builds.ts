@@ -1,6 +1,6 @@
 import { buildSkills, buildStigmas, builds, macroSteps, macros, skills } from "@aion/schema";
 import type { InferInsertModel, InferSelectModel } from "drizzle-orm";
-import { asc, count, eq, inArray, max } from "drizzle-orm";
+import { asc, count, eq, inArray, max, sql } from "drizzle-orm";
 import type { Db } from "../db/client";
 
 /** A row of `builds`. */
@@ -51,7 +51,11 @@ export interface BuildAggregate {
  * deleting a build cascades to all of them through the schema's foreign keys.
  */
 export interface BuildsRepo {
-  /** Returns every build, ordered by `position` then `id`. */
+  /**
+   * Returns every build, ordered by record (record slugs lead with their
+   * number, so this is number order; builds no record owns last), then
+   * `position`, then `id`.
+   */
   list(): BuildRow[];
   /**
    * Returns the build with `id`, or `undefined` if there is none.
@@ -207,7 +211,17 @@ export interface BuildsRepo {
 export function createBuildsRepo(db: Db): BuildsRepo {
   const repo: BuildsRepo = {
     /** @inheritdoc */
-    list: () => db.select().from(builds).orderBy(asc(builds.position), asc(builds.id)).all(),
+    list: () =>
+      db
+        .select()
+        .from(builds)
+        .orderBy(
+          asc(sql`${builds.recordSlug} is null`),
+          asc(builds.recordSlug),
+          asc(builds.position),
+          asc(builds.id),
+        )
+        .all(),
     /** @inheritdoc */
     get: (id) => db.select().from(builds).where(eq(builds.id, id)).get(),
     /** @inheritdoc */

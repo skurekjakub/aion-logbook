@@ -72,7 +72,7 @@ Every resource is under `/api` and speaks JSON. Validation failures are 400 with
 | Resource | Verbs | Notes |
 |---|---|---|
 | `/api/skills` | `GET`, `GET /:id`, `POST`, `PATCH /:id`, `DELETE /:id` | A class skill as the game names it: kind, unlock level, cooldown, summary. `?kind=` filters. |
-| `/api/builds` | `GET`, `GET /:id`, `POST`, `PATCH /:id`, `DELETE /:id` | A recommended setup for a class and purpose, listed in import order. `GET /:id` nests its skill priorities (target level and why), its stigma per slot and its macro chains. `?purpose=` filters. |
+| `/api/builds` | `GET`, `GET /:id`, `POST`, `PATCH /:id`, `DELETE /:id` | A recommended setup for a class and purpose, listed by record number, then in the record's own order. `GET /:id` nests its skill priorities (target level and why), its stigma per slot and its macro chains. `?purpose=` filters. |
 | `/api/macros` | `GET`, `GET /:id`, `POST`, `PATCH /:id`, `DELETE /:id` | A built-in macro chain: its key, delay and steps in the editor's order. `?build=<id>` keeps one build's chains. |
 | `/api/mechanics` | `GET`, `GET /:id`, `POST`, `PATCH /:id`, `DELETE /:id` | A game mechanic writeup with its confidence. `?topic=` filters. |
 | `/api/rng-factors` | `GET`, `GET /:id`, `POST`, `PATCH /:id`, `DELETE /:id` | A source of run-to-run randomness, its effect and its mitigation. |

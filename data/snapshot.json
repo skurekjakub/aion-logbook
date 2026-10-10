@@ -2893,7 +2893,7 @@
     "title": "Dungeon DPS with off-heal: Condemnation engine, heals on demand",
     "why": "Damage first in farmed or geared groups: Condemnation loop, damage stigmas, heals at 8 pressed by hand. Healer build again after a wipe.",
     "confidence": "theory",
-    "position": 2,
+    "position": 0,
     "recordSlug": "003-cleric-dungeon-dps-offheal",
     "obsoleteSince": null,
     "obsoleteReason": null
