@@ -99,6 +99,18 @@ From the record's leveling/PvE build and the snapshot: spend unspent skill point
 
 `gh repo create skurekjakub/aion-logbook --public --source . --push`. Vercel: `vercel link` (new project `aion-logbook`), `vercel git connect`, `vercel deploy --prod`; the site is read-only and serves `data/snapshot.json`, as crumble does. The repo homepage is set to the production URL.
 
+## 8. Character sync and the dynamic roadmap (added 2026-10-10, user request)
+
+The user asked for the logbook to sync with the character on demand and for the roadmap to update itself.
+
+**Source:** the official Aion 2 site publishes each character's public data (gear with enchant levels, stats, skills, stigmas, Daevanion boards); fan armories such as metabot.gg read it. A spike finds the official endpoint (by server + character name) and records its shape as a capture in a research record; if no official endpoint is reachable without auth, the sync falls back to the game bridge read (§ 4) alone.
+
+**Sync (`pnpm sync`, local, on demand):** fetch the character → map to `aion-account-snapshot/1` (fields the public data lacks, such as macros and keybinds, carry over from the latest game-read snapshot and are listed in `unread[]` when never read) → write `account/snapshots/<date>.json` (a same-day rerun replaces that day's file) → `import:account --replace` → `db:export` → commit and push, which redeploys Vercel. `--no-push` stops after the export. The character's server and name live in `account/character.json` (committed; the data is public).
+
+**Scheduled sync:** a GitHub Actions workflow runs the fetch-only sync daily and on `workflow_dispatch`, committing only when the snapshot changed.
+
+**Dynamic roadmap:** the server derives the roadmap at request time (`GET /api/account/roadmap`) from the latest snapshot and the current builds for the character's class: skills below their target level in build rank order, unlocked stigma slots that are empty or hold another stigma, macro chains missing or differing from the build. Curated roadmap items (`account/roadmap-*.json`) merge in after the derived ones. The web's home and account pages read it; no roadmap is stored for derived items.
+
 ## Error handling and testing
 
 - `pnpm verify` (typecheck, eslint, prettier, vitest) is the gate for every commit; the ported architecture and ledger tests keep the layering and capture rules enforced.

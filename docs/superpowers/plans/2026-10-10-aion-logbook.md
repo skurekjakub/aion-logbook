@@ -895,6 +895,28 @@ ExitApp 0
 
 ---
 
+### Task 13: Character sync and the dynamic roadmap
+
+Spec § 8. Runs after Task 9 and before Task 11 (so the first deploy already carries it).
+
+**Files:**
+- Create: `research/002-character-data-source/` (spike record: the official endpoint, its shape, rate limits, captured responses), `packages/armory/{package.json,tsconfig.json}`, `packages/armory/src/{fetch.ts,map.ts,cli.ts}`, `account/character.json`, `apps/server/src/services/roadmap.ts`, `.github/workflows/sync.yml`
+- Modify: `apps/server/src/{app.ts,routes/account.ts}`, `apps/web/src/views/{HomeView,AccountRoadmap}.tsx`, `apps/web/src/api/*`, root `package.json` (`sync` script), `README.md`, `.claude/skills/aion-game/SKILL.md` (sync section)
+- Test: `packages/armory/test/{map,fetch}.test.ts`, `apps/server/test/roadmap.test.ts`, `apps/web/test/roadmap.test.tsx`
+
+**Interfaces:**
+- Produces: `pnpm sync [--no-push] [--date YYYY-MM-DD]`; `fetchCharacter(server: string, name: string, http: Http): Promise<unknown>`; `toSnapshot(raw: unknown, previous: AccountSnapshotFile | null, capturedAt: string): AccountSnapshotFile`; `deriveRoadmap(snapshot, builds): RoadmapItem[]`; `GET /api/account/roadmap` → `{ snapshotId, items: [{ rank, priority, area, action, why, refs, derived: boolean }] }`.
+
+- [ ] **Step 1: Spike** — find the official character data endpoint the official site and fan armories use (browser devtools via agent-browser on the official character page and metabot.gg's armory; capture the request URL, params, response JSON). Write `research/002-character-data-source/` to the deep-research contract with the captured responses as evidence. If the endpoint needs auth or is unreachable, record that and make `pnpm sync` use the game bridge read instead.
+- [ ] **Step 2: Mapping, TDD** — `toSnapshot` maps the captured response (fixture from the spike's evidence) to `aion-account-snapshot/1`: name, class, level, gear score, server, skills with levels, stigmas per slot; macros carry over from `previous`; fields never read go to `unread[]`. Tests: fixture maps exactly; a missing field lands in `unread[]`; macros carry over.
+- [ ] **Step 3: Fetch + CLI, TDD** — `fetchCharacter` with a fake `Http` (status errors named, retry once on 5xx, no retry on 4xx); `pnpm sync` writes the day's snapshot (a same-day rerun replaces it), runs `import:account --replace`, `db:export`, then `git commit -F` + `git push` unless `--no-push`; nothing is committed when the snapshot is unchanged.
+- [ ] **Step 4: Derived roadmap, TDD** — `deriveRoadmap`: skills below target in build rank order (priority `now` for the top ranks), unlocked-but-empty or mismatched stigma slots (`now`), missing/differing macro chains (`next`); curated items merged after; `GET /api/account/roadmap`. Tests per rule, plus "no snapshot → empty items".
+- [ ] **Step 5: Web** — home and account pages read the derived roadmap (badges: now/next/later; derived vs curated marker); render test.
+- [ ] **Step 6: Scheduled sync** — `.github/workflows/sync.yml`: daily cron + `workflow_dispatch`, `pnpm install --frozen-lockfile`, `pnpm sync` (fetch-only), commit with the bot identity only when changed, push.
+- [ ] **Step 7: Docs and verify** — README § Character sync, `aion-game` skill section; `pnpm verify`; commit `feat(sync): sync the character on demand and derive the roadmap`.
+
+---
+
 ### Task 12: Whole-branch review and wrap-up
 
 - [ ] **Step 1:** `superpowers:requesting-code-review` — one Opus reviewer over the whole branch against the spec and this plan.
