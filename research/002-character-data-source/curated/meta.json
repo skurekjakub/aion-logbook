@@ -2,5 +2,5 @@
   "updated": "2026-10-10",
   "seasonLabel": "Global launch, level cap 45",
   "lede": "aion2.plaync.com serves any character as JSON, no login: search by name, then info + equipment by server and id.",
-  "caveat": "Undocumented endpoints; NC's Terms of Use forbid automated access outside published interfaces. Macros and keybinds are not published."
+  "caveat": "Undocumented endpoints; NC's Open API has nothing for Aion 2 and its Terms forbid other automated access. Macros and keybinds are not published."
 }

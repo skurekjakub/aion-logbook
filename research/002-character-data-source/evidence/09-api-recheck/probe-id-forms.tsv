@@ -1,0 +1,3 @@
+name	status	bytes	characterName	url
+id-percent-encoded	200	4049	Baon	https://aion2.plaync.com/api/character/info?region=eu&lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D&serverId=2319
+id-raw-equals	200	4049	Baon	https://aion2.plaync.com/api/character/info?region=eu&lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo=&serverId=2319

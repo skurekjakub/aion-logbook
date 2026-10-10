@@ -1,0 +1,33 @@
+Open
+DEVELOPERS
+LOG IN
+Welcome to
+PLAYNC DEVELOPERS!
+
+PLAYNC provides open-source game data
+and supports the creation of new services.
+Now you can more easily create your own service
+with PLAYNC DEVELOPERS.
+
+Start
+Login to PLAYNC
+and register your app
+to instantly be issued an API Key
+
+For more details on this process, please check the guide.
+
+Documentation
+Lineage 2M
+item and market price information API
+
+For more details, please check the API documentation.
+
+Notice
+
+Open API Call Limit Raise Notice 2023-03-07
+
+English
+About UsTerms of UsePrivacy PolicyYouth Protection PolicyOperation PolicySUPPORT
+© NC Corporation.
+All Rights Reserved.
+ON

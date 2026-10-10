@@ -16,6 +16,14 @@
     "lastHit": "2026-10-10"
   },
   {
+    "id": "web-nc-developers",
+    "kind": "web",
+    "url": "https://developers.plaync.com/",
+    "why": "NC's published Open API: recheck whether an Aion 2 character API appears, which would replace the unpublished endpoints. Client-rendered, read with agent-browser.",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  },
+  {
     "id": "web-metabot-armory",
     "kind": "web",
     "url": "https://metabot.gg/en/aion-2/armory",

@@ -7,7 +7,7 @@ The endpoints were found by measurement first (the official page's network log a
 | Query | What came back |
 |---|---|
 | `aion2.plaync.com api character info characterId serverId` | Nothing on Aion 2; PlayFab and other games' character APIs. |
-| `AION 2 official character search API open API NCSOFT developers` | No NCSOFT developer API; metabot.gg's armory, which says it reads the official site's public data. |
+| `AION 2 official character search API open API NCSOFT developers` | No NCSOFT developer API in the results (the search missed NC's developer center; see round 4); metabot.gg's armory, which says it reads the official site's public data. |
 | `aion2 armory character lookup github api-search.plaync.com` | No repo or doc names the endpoints; metabot.gg again. |
 
 Synthesis: the endpoints are undocumented. The only public trace is fan armories that say they read the official data. Next: does any Korean source document them, and what do NC's terms say about automated reads.
@@ -31,6 +31,17 @@ Fetched rather than searched:
 - metabot.gg's robots.txt and developer page (`evidence/05-metabot/`): `/api/` disallowed, no developer page (404).
 
 Synthesis: technically open, contractually unpublished. The verdict carries the Terms as the deciding caveat for the scheduled sync.
+
+## Round 4 — review recheck, 2026-10-10
+
+The review noted that the captured game Terms list an "NC OPEN API Service" in their policy menu, so "unpublished" needed testing rather than a search result. Fetched directly:
+
+- The NC OPEN API Service terms (`evidence/07-nc-open-api/plaync-com-policy-service-developers.md`): the API's kinds are whatever the developer center lists; a key from the developer center is required; result data can't be cached or stored beyond what the terms allow; automated or periodic access that loads the servers is forbidden.
+- The developer center (`evidence/07-nc-open-api/developers-plaync-com-home.txt`, `developers-plaync-com-apis-l2m.txt`, `developers-plaync-com-apis-aion2.txt`): it documents the Lineage 2M market API only; the Aion 2 path lands on NC's error page.
+- The gateway (`evidence/07-nc-open-api/dev-api-curl.tsv`): 401 without a key on the Lineage 2M path and on guessed Aion 2 paths alike, so it neither confirms nor denies an Aion 2 API.
+- The profile page's footer (`evidence/08-browser-recheck/official-profile-footer-links.json`): "Terms of Use" points at the captured game Terms, so they govern the page.
+
+Synthesis: NC has a published interface, but it carries no Aion 2 character data, global or KR. The verdict's caveat stands with that citation.
 
 ## Not used
 

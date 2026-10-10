@@ -46,12 +46,30 @@
   },
   {
     "title": "Terms of Use forbid automated access outside published interfaces",
-    "body": "NC's Terms § 6 bar accessing or searching the Services by automated means other than published interfaces, and scraping without consent. These endpoints are unpublished; a scheduled fetch runs against that.",
+    "body": "NC's Terms § 6, linked from the profile page's footer, bar automated access other than published interfaces, and scraping without consent. The character endpoints are unpublished; a scheduled fetch runs against that.",
     "confidence": "posted",
     "class": null,
     "topic": "character-data",
     "alsoTopics": ["sync"],
-    "sources": ["web:plaync-terms-of-use"]
+    "sources": ["web:plaync-terms-of-use", "web:aion2-plaync-character-baon"]
+  },
+  {
+    "title": "NC's published Open API has no Aion 2 character data",
+    "body": "The NC OPEN API at developers.plaync.com documents Lineage 2M market data only, needs a key, and forbids caching its data; /apis/aion2 lands on an error page. Nothing published covers Aion 2, global or KR.",
+    "confidence": "tested",
+    "class": null,
+    "topic": "character-data",
+    "alsoTopics": ["sync"],
+    "sources": ["web:plaync-developers", "web:plaync-open-api-terms"]
+  },
+  {
+    "title": "Name search is case-insensitive: match case-sensitively, by server",
+    "body": "The search returns substring matches in any case with <strong> markup (\"BAon\" for \"Baon\"). Strip the markup, keep the configured serverId, compare the name exactly; info accepts the id with %3D or =.",
+    "confidence": "tested",
+    "class": null,
+    "topic": "character-data",
+    "alsoTopics": ["sync"],
+    "sources": ["web:aion2-plaync-api-search", "web:aion2-plaync-api-info"]
   },
   {
     "title": "Fan armory: no public API",

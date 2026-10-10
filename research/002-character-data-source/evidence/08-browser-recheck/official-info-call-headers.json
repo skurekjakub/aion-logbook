@@ -1,0 +1,33 @@
+{
+  "note": "Request header NAMES only (values omitted) the official profile page sent for the info call, as reported by agent-browser; plus response status and headers.",
+  "url": "https://aion2.plaync.com/api/character/info?region=eu&lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D&serverId=2319",
+  "method": "GET",
+  "status": 200,
+  "requestHeaderNames": [
+    "Accept",
+    "Referer",
+    "User-Agent",
+    "sec-ch-ua",
+    "sec-ch-ua-mobile",
+    "sec-ch-ua-platform"
+  ],
+  "hasCookieHeader": false,
+  "hasAuthorizationHeader": false,
+  "responseHeaders": {
+    "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+    "content-encoding": "gzip",
+    "content-type": "application/json",
+    "date": "Sat, 10 Oct 2026 09:54:01 GMT",
+    "expires": "0",
+    "pragma": "no-cache",
+    "server": "envoy",
+    "strict-transport-security": "max-age=31536000 ; includeSubDomains",
+    "vary": "accept-encoding",
+    "via": "1.1 google",
+    "x-content-type-options": "nosniff",
+    "x-envoy-upstream-service-time": "1543",
+    "x-frame-options": "DENY",
+    "x-xss-protection": "0"
+  }
+}

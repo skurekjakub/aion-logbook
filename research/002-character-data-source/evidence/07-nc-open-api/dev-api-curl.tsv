@@ -1,0 +1,4 @@
+status	content_type	url
+401	application/problem+json	https://dev-api.plaync.com/l2m/v1.0/market/items/search
+401	application/problem+json	https://dev-api.plaync.com/aion2/v1.0/
+401	application/problem+json	https://dev-api.plaync.com/aion2global/v1.0/

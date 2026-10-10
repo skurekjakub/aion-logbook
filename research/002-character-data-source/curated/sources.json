@@ -68,5 +68,26 @@
     "note": "Section 6 forbids accessing or searching the Services by automated means other than NC's published interfaces, and scraping without NC's consent.",
     "summaryEn": "NC's game terms: no automated access or scraping outside published interfaces without a separate agreement.",
     "capturePath": "research/002-character-data-source/evidence/06-terms/plaync-com-policy-service-game-en.md"
+  },
+  {
+    "id": "web:plaync-open-api-terms",
+    "url": "https://www.plaync.com/policy/service/developers",
+    "title": "NC OPEN API 서비스 이용약관",
+    "titleEn": "NC OPEN API Service Terms of Use",
+    "date": "2026-10-10",
+    "relevance": 2,
+    "note": "Korean only. API kinds per the developer center (제 4 조); key required (제 6 조 ①); no caching beyond the terms (제 6 조 ⑤); no automated or periodic load (제 6 조 ⑧).",
+    "summaryEn": "NC's published API needs a developer-center key and forbids caching its data or loading its servers with automated access.",
+    "capturePath": "research/002-character-data-source/evidence/07-nc-open-api/plaync-com-policy-service-developers.md"
+  },
+  {
+    "id": "web:plaync-developers",
+    "url": "https://developers.plaync.com/",
+    "title": "PLAYNC Developers",
+    "date": "2026-10-10",
+    "relevance": 2,
+    "note": "Client-rendered, read with agent-browser. Documents the Lineage 2M market API only; /apis/aion2 lands on NC's error page.",
+    "summaryEn": "NC's developer center offers a Lineage 2M item and market price API and nothing for Aion 2.",
+    "capturePath": "research/002-character-data-source/evidence/07-nc-open-api/developers-plaync-com-home.txt"
   }
 ]

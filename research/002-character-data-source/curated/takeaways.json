@@ -18,9 +18,9 @@
     "sources": ["web:aion2-plaync-api-equipment"]
   },
   {
-    "text": "Unpublished endpoints under Terms that forbid automated access: keep sync on demand and gentle, decide the daily job.",
-    "detail": "OPEN-QUESTIONS candidate: the scheduled GitHub Actions sync is the part the Terms bear on most.",
+    "text": "No published NC API covers Aion 2, and the Terms forbid automated access elsewhere: keep sync on demand, decide the daily job.",
+    "detail": "NC's Open API documents Lineage 2M only. The scheduled GitHub Actions sync is the part the Terms bear on most.",
     "class": null,
-    "sources": ["web:plaync-terms-of-use"]
+    "sources": ["web:plaync-terms-of-use", "web:plaync-developers"]
   }
 ]

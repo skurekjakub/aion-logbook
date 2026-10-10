@@ -1,0 +1,31 @@
+Open
+
+Documentation
+
+Lineage 2M
+LOG IN
+Search Item
+Search Item
+Item Price Statistics
+Item Info
+Server Info
+Servers
+https://dev-api.plaync.com/l2m/v1.0 - PLAYNC DEVELOPERS API Server
+Authentication Key Settings
+search
+
+Search Item
+
+GET
+/market/items/search
+Searches for Trade Market items.
+Schemas
+SearchResult
+ItemPriceInfo
+Pagination
+AuthenError
+English
+About UsTerms of UsePrivacy PolicyYouth Protection PolicyOperation PolicySUPPORT
+© NC Corporation.
+All Rights Reserved.
+ON

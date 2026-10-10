@@ -1,0 +1,86 @@
+{
+  "page": "https://aion2.plaync.com/en-us/characters/2319/xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D?region=eu",
+  "note": "Footer links (text, href) read from the rendered page DOM.",
+  "links": [
+    {
+      "text": "English",
+      "href": "https://aion2.plaync.com/en-us/index?redirect=false"
+    },
+    {
+      "text": "Deutsch",
+      "href": "https://aion2.plaync.com/de-de/index?redirect=false"
+    },
+    {
+      "text": "Español",
+      "href": "https://aion2.plaync.com/es-es/index?redirect=false"
+    },
+    {
+      "text": "Français",
+      "href": "https://aion2.plaync.com/fr-fr/index?redirect=false"
+    },
+    {
+      "text": "Português (Brasil)",
+      "href": "https://aion2.plaync.com/pt-br/index?redirect=false"
+    },
+    {
+      "text": "日本語",
+      "href": "https://aion2.plaync.com/ja-jp/index?redirect=false"
+    },
+    {
+      "text": "Discord",
+      "href": "https://discord.gg/aion2official"
+    },
+    {
+      "text": "Youtube",
+      "href": "https://www.youtube.com/@Aion2Official"
+    },
+    {
+      "text": "Twitter",
+      "href": "https://x.com/Aion2Official"
+    },
+    {
+      "text": "Facebook",
+      "href": "https://www.facebook.com/aion2official/"
+    },
+    {
+      "text": "Instagram",
+      "href": "https://www.instagram.com/aion2official"
+    },
+    {
+      "text": "TikTok",
+      "href": "https://www.tiktok.com/@aion2official"
+    },
+    {
+      "text": "Twitch",
+      "href": "https://www.twitch.tv/aion2official"
+    },
+    {
+      "text": "Terms of Use",
+      "href": "https://www.plaync.com/policy/service/game_en"
+    },
+    {
+      "text": "Privacy Policy",
+      "href": "https://www.plaync.com/policy/privacy/en"
+    },
+    {
+      "text": "Community Policy",
+      "href": "https://aion2.plaync.com/en-us/board/rules/list"
+    },
+    {
+      "text": "Cookie Policy",
+      "href": "https://www.plaync.com/policy/cookiepolicy/en"
+    },
+    {
+      "text": "NC Service Consent",
+      "href": "https://consent.plaync.com/?locale=en-US"
+    },
+    {
+      "text": "SUPPORT",
+      "href": "https://help.plaync.com/faq/aion2global"
+    },
+    {
+      "text": "NC",
+      "href": "https://www.nc.com/"
+    }
+  ]
+}
