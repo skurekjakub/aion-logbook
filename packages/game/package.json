@@ -1,0 +1,11 @@
+{
+  "name": "@aion/game",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc -p .",
+    "test": "vitest run",
+    "game": "tsx src/cli.ts"
+  }
+}
