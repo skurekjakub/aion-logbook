@@ -4379,6 +4379,25 @@
      "Presets 2 and 3",
      "Character window: name, level, gear from official data"
     ]
+   },
+   {
+    "id": "2026-10-10-sync",
+    "capturedAt": "2026-10-10T13:40:58+02:00",
+    "character": "Baon",
+    "class": "cleric",
+    "level": 40,
+    "gearScore": 842,
+    "server": "Fafnir (EU)",
+    "unread": [
+     "Stigma slot levels: not published; kept from the last read, new ones fill open slots in list order",
+     "Macros, hotbar slots: carried from the last game read",
+     "Macro key: Settings not opened",
+     "Invested levels: totals only; gear bonus per skill in account/README",
+     "Specialization picks",
+     "Whether acquiring a stigma needs a free slot",
+     "Presets 2 and 3",
+     "Character window: name, level, gear from official data"
+    ]
    }
   ],
   "accountSkills": [
@@ -4557,6 +4576,230 @@
     "skillId": "cleric-radiant-benediction",
     "level": 3,
     "slot": null
+   },
+   {
+    "id": 23,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Earth's Retribution",
+    "skillId": "cleric-earths-retribution",
+    "level": 10,
+    "slot": "R"
+   },
+   {
+    "id": 24,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Judgment Thunder",
+    "skillId": "cleric-judgment-thunder",
+    "level": 11,
+    "slot": "T·3"
+   },
+   {
+    "id": 25,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Debilitating Mark",
+    "skillId": "cleric-debilitating-mark",
+    "level": 12,
+    "slot": "T·1"
+   },
+   {
+    "id": 26,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Divine Aura",
+    "skillId": "cleric-divine-aura",
+    "level": 11,
+    "slot": "2"
+   },
+   {
+    "id": 27,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Chain of Torment",
+    "skillId": "cleric-chain-of-torment",
+    "level": 13,
+    "slot": "T·0"
+   },
+   {
+    "id": 28,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Lightning Strike Scattershot",
+    "skillId": "cleric-lightning-strike-scattershot",
+    "level": 12,
+    "slot": "E"
+   },
+   {
+    "id": 29,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Light of Regeneration",
+    "skillId": "cleric-light-of-regeneration",
+    "level": 9,
+    "slot": "Q·0"
+   },
+   {
+    "id": 30,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Condemnation",
+    "skillId": "cleric-condemnation",
+    "level": 11,
+    "slot": "T·2"
+   },
+   {
+    "id": 31,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Healing Light",
+    "skillId": "cleric-healing-light",
+    "level": 10,
+    "slot": "Q·1"
+   },
+   {
+    "id": 32,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Radiant Recovery",
+    "skillId": "cleric-radiant-recovery",
+    "level": 9,
+    "slot": "3"
+   },
+   {
+    "id": 33,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Bolt",
+    "skillId": "cleric-bolt",
+    "level": 11,
+    "slot": "1"
+   },
+   {
+    "id": 34,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Defiance",
+    "skillId": "cleric-defiance",
+    "level": 2,
+    "slot": "Space"
+   },
+   {
+    "id": 35,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Warm Benediction",
+    "skillId": "cleric-warm-benediction",
+    "level": 3,
+    "slot": null
+   },
+   {
+    "id": 36,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Empyrean Lords' Benediction",
+    "skillId": "cleric-empyrean-lords-benediction",
+    "level": 2,
+    "slot": null
+   },
+   {
+    "id": 37,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Empyrean Lord's Grace",
+    "skillId": "cleric-empyrean-lords-grace",
+    "level": 13,
+    "slot": null
+   },
+   {
+    "id": 38,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Healing Enhancement",
+    "skillId": "cleric-healing-enhancement",
+    "level": 2,
+    "slot": null
+   },
+   {
+    "id": 39,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Immortal Veil",
+    "skillId": "cleric-immortal-veil",
+    "level": 2,
+    "slot": null
+   },
+   {
+    "id": 40,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Heal Block",
+    "skillId": "cleric-heal-block",
+    "level": 2,
+    "slot": null
+   },
+   {
+    "id": 41,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Prayer of Concentration",
+    "skillId": "cleric-prayer-of-concentration",
+    "level": 2,
+    "slot": null
+   },
+   {
+    "id": 42,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Earth's Grace",
+    "skillId": "cleric-earths-grace",
+    "level": 12,
+    "slot": null
+   },
+   {
+    "id": 43,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Survival Willpower",
+    "skillId": "cleric-survival-willpower",
+    "level": 2,
+    "slot": null
+   },
+   {
+    "id": 44,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Radiant Benediction",
+    "skillId": "cleric-radiant-benediction",
+    "level": 3,
+    "slot": null
+   },
+   {
+    "id": 45,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Power Burst",
+    "skillId": "cleric-power-burst",
+    "level": 0,
+    "slot": null
+   },
+   {
+    "id": 46,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Prayer of Amplification",
+    "skillId": "cleric-prayer-of-amplification",
+    "level": 3,
+    "slot": null
+   },
+   {
+    "id": 47,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Earth Punishment",
+    "skillId": "cleric-earth-punishment",
+    "level": 4,
+    "slot": null
+   },
+   {
+    "id": 48,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Light of Protection",
+    "skillId": "cleric-light-of-protection",
+    "level": 1,
+    "slot": null
+   },
+   {
+    "id": 49,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Voice of Doom",
+    "skillId": "cleric-voice-of-doom",
+    "level": 0,
+    "slot": null
+   },
+   {
+    "id": 50,
+    "snapshotId": "2026-10-10-sync",
+    "skillName": "Noble Aura",
+    "skillId": "cleric-noble-aura",
+    "level": 6,
+    "slot": null
    }
   ],
   "accountStigmas": [
@@ -4587,6 +4830,34 @@
     "slotLevel": 37,
     "skillName": null,
     "skillId": null
+   },
+   {
+    "id": 5,
+    "snapshotId": "2026-10-10-sync",
+    "slotLevel": 22,
+    "skillName": "Prayer of Amplification",
+    "skillId": "cleric-prayer-of-amplification"
+   },
+   {
+    "id": 6,
+    "snapshotId": "2026-10-10-sync",
+    "slotLevel": 27,
+    "skillName": "Earth Punishment",
+    "skillId": "cleric-earth-punishment"
+   },
+   {
+    "id": 7,
+    "snapshotId": "2026-10-10-sync",
+    "slotLevel": 32,
+    "skillName": "Noble Aura",
+    "skillId": "cleric-noble-aura"
+   },
+   {
+    "id": 8,
+    "snapshotId": "2026-10-10-sync",
+    "slotLevel": 37,
+    "skillName": "Voice of Doom",
+    "skillId": "cleric-voice-of-doom"
    }
   ],
   "accountMacros": [],
