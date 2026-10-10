@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+# PostToolUse hook matching Read. Routes large full-file source reads through
+# `rtk read` and returns the compacted result via `updatedToolOutput`, so the
+# model sees signatures instead of full bodies. This reaches the surface rtk's
+# PreToolUse/Bash hook cannot: Claude Code's built-in Read tool never runs as a
+# Bash command, so it otherwise bypasses rtk entirely.
+#
+# Collision-free by construction: rtk owns PreToolUse/Bash (input rewrite); this
+# owns PostToolUse/Read (output rewrite). Different (event, matcher) pair, so
+# Claude Code never discards competing updatedInput results.
+#
+# Compaction is applied ONLY when all hold (otherwise the original output is
+# kept untouched — exit 0, no JSON):
+#   - tool is Read (Grep/Glob output is arbitrary text; rtk read needs a file
+#     path and rejects stdin, so it can't compact them)
+#   - the read is a FULL read — no offset/limit (a targeted read means the model
+#     wants exact lines; never strip those)
+#   - the file is source code (signature-stripping is meaningless for prose/JSON)
+#   - the file is at least RTK_READ_HOOK_MIN_BYTES (small files save nothing)
+#   - rtk actually shrinks it (never return output larger than the original)
+#
+# Tradeoff: `aggressive` strips function bodies. If the model needs a body it
+# issues a targeted re-read (offset/limit) which this hook passes through. That
+# re-read costs a round trip — net positive for the common case (orientation
+# reads of large files the model never edits), net negative if every large read
+# is edit-prep. Tune via the env knobs below.
+#
+# Env knobs:
+#   RTK_READ_HOOK_DISABLE=1   escape hatch — always passthrough
+#   RTK_READ_HOOK_LEVEL       rtk filter level: aggressive (default) | minimal
+#   RTK_READ_HOOK_MIN_BYTES   file-size floor in bytes (default 6000 ~ 1.5k tok)
+#   RTK_READ_HOOK_DEBUG=path  append the raw stdin payload to this file (verify
+#                             the real Read tool_response shape against a live run)
+
+set -euo pipefail
+
+input=$(cat)
+
+if [ -n "${RTK_READ_HOOK_DEBUG:-}" ]; then
+    printf '%s\n---\n' "$input" >> "$RTK_READ_HOOK_DEBUG" 2>/dev/null || true
+fi
+
+[ "${RTK_READ_HOOK_DISABLE:-0}" = "1" ] && exit 0
+command -v rtk >/dev/null 2>&1 || exit 0
+command -v jq  >/dev/null 2>&1 || exit 0
+
+level="${RTK_READ_HOOK_LEVEL:-aggressive}"
+min_bytes="${RTK_READ_HOOK_MIN_BYTES:-6000}"
+
+tool_name=$(printf '%s' "$input" | jq -r '.tool_name // ""')
+[ "$tool_name" = "Read" ] || exit 0
+
+file_path=$(printf '%s' "$input" | jq -r '.tool_input.file_path // ""')
+[ -n "$file_path" ] && [ -f "$file_path" ] || exit 0
+
+# Targeted read — the model asked for specific lines. Never strip those.
+has_range=$(printf '%s' "$input" | jq -r '((.tool_input.offset // .tool_input.limit) != null)')
+[ "$has_range" = "true" ] && exit 0
+
+# Source code only. Prose/JSON/markup need full content; rtk signatures mangle them.
+case "$file_path" in
+    *.ts|*.tsx|*.js|*.jsx|*.mjs|*.mts|*.cjs|*.cts) ;;
+    *) exit 0 ;;
+esac
+
+original_bytes=$(wc -c < "$file_path")
+[ "$original_bytes" -ge "$min_bytes" ] || exit 0
+
+compacted=$(rtk read "$file_path" -l "$level" -n 2>/dev/null) || exit 0
+[ -n "$compacted" ] || exit 0
+
+# Never make it worse — bail if rtk didn't actually shrink the payload.
+compacted_bytes=$(printf '%s' "$compacted" | wc -c)
+[ "$compacted_bytes" -lt "$original_bytes" ] || exit 0
+
+jq -nc --arg out "$compacted" \
+    '{hookSpecificOutput:{hookEventName:"PostToolUse",updatedToolOutput:$out}}'
+exit 0

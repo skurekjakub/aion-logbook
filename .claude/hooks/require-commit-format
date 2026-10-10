@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+# PreToolUse hook matching Bash. Blocks the two commands that cannot produce a
+# message conforming to the commit rule in AGENTS.md, by exiting 2 (Claude
+# Code's "deny" signal for PreToolUse). Pass-through (exit 0) for anything else.
+#
+# It checks for flags, never for message content: a shell string cannot be
+# re-quoted reliably here, and a hook that mis-parses a heredoc would block
+# correct work. So the rules are deliberately narrow, and both fail open:
+#
+#   1. `git commit` carrying exactly one message flag, with no -F/--file
+#      -> blocked. That shape can only produce a subject; the format requires a
+#      body stating the problem, the justification, and what was discarded.
+#   2. `gh pr create --fill` (or --fill-first / --fill-verbose / -f) -> blocked.
+#      Autofilling a PR body from commit text bypasses the PR shape entirely.
+#
+# A multi-line command is left alone before any of that. `-m "$(cat <<'EOF' …)"`
+# is the repo's usual way of passing a real body, and it is indistinguishable
+# from a bare subject once the command has been split into lines.
+
+set -euo pipefail
+
+input=$(cat)
+cmd=$(echo "$input" | jq -r '.tool_input.command // ""' 2>/dev/null || echo "")
+
+if [ -z "$cmd" ]; then
+    exit 0
+fi
+
+advise() {
+    echo "blocked by project hook: ${1}" >&2
+    echo "" >&2
+    echo "${2}" >&2
+    echo "" >&2
+    echo "format: AGENTS.md § Rules the user set (Commits)" >&2
+    echo "command was: ${cmd}" >&2
+    exit 2
+}
+
+multiline=0
+case "$cmd" in
+*$'\n'*) multiline=1 ;;
+esac
+
+# Each segment is examined on its own, so a git commit chained behind a build
+# still gets checked. rtk proxies bare dev commands, so strip its prefix first.
+while IFS= read -r segment; do
+    segment="$(echo "$segment" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+    segment="${segment#rtk }"
+    [ -z "$segment" ] && continue
+
+    case "$segment" in
+    'git commit'* | 'git '*' commit'*)
+        [ "$multiline" -eq 1 ] && continue
+
+        # A body can arrive from a file or from stdin; either satisfies the format.
+        case "$segment" in
+        *' -F'* | *'--file'*) continue ;;
+        esac
+
+        # Combined short flags (-am) and both spellings of the long form count.
+        messages=$(echo "$segment" |
+            grep -oE '(^| )-[a-zA-Z]*m( |=|$)|(^| )--message( |=|$)' | wc -l || true)
+        [ "${messages:-0}" -eq 1 ] || continue
+
+        advise \
+            "git commit with a subject and no body" \
+            "A single -m can only produce a subject line. The body owes the problem this
+change solves, why this solution over the discarded ones, and what deliberately
+does not change — a reader must be able to judge the change without the diff.
+
+Write the message to a file and pass -F, or pass -m once per paragraph."
+        ;;
+    'gh pr create'*)
+        case "$segment" in
+        *' --fill'* | *' -f '* | *' -f')
+            advise \
+                "gh pr create autofilling its body from commits" \
+                "--fill copies commit text into the PR body. A PR body is a different
+document with its own sections, including the one a reviewer needs most: what
+the review should challenge.
+
+Write the body to a file and pass --body-file." ;;
+        esac
+        ;;
+    esac
+done < <(echo "$cmd" | sed -e 's/&&/\n/g' -e 's/||/\n/g' -e 's/;/\n/g')
+
+exit 0

@@ -1,0 +1,8 @@
+# The deployment builds from apps/, packages/, tools/ and data/snapshot.json alone.
+research/
+docs/
+.claude/
+node_modules/
+**/dist/
+*.db
+*.db-*

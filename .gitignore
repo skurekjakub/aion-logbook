@@ -1,0 +1,50 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+.vite/
+
+# local database and scratch
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+.env
+.env.*
+/.superpowers/
+
+# account audit screenshots stay local; the snapshot and roadmap JSON are committed
+/account/snapshots/screens/
+/account/**/*.log
+
+# personal Claude Code overrides
+.claude/settings.local.json
+
+# Claude Code agent worktrees
+.claude/worktrees/
+
+# captured media stays local; the Markdown and JSON captures are committed
+research/**/*.png
+research/**/*.jpg
+research/**/*.jpeg
+research/**/*.gif
+research/**/*.webp
+research/**/*.avif
+research/**/*.bmp
+research/**/*.mp4
+research/**/*.webm
+research/**/*.mkv
+research/**/*.mov
+
+# macro logs, and the screens a macro stopped on
+tools/**/*.log
+tools/**/stops/
+
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Vercel's project link and build output
+/.vercel/

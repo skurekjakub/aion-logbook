@@ -1,0 +1,40 @@
+{
+  "name": "aion-logbook",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.6.0",
+  "engines": {
+    "node": ">=24.18.0"
+  },
+  "scripts": {
+    "typecheck": "pnpm -r typecheck && tsc -p .",
+    "test": "vitest run",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint --max-warnings 0 .",
+    "lint:fix": "eslint --fix .",
+    "verify": "pnpm typecheck && pnpm lint && pnpm format:check && vitest run",
+    "dev": "pnpm --parallel --filter @aion/server --filter @aion/web dev",
+    "dev:reseed": "node -e \"for (const f of ['aion.db', 'aion.db-wal', 'aion.db-shm']) require('fs').rmSync('data/' + f, { force: true })\" && pnpm dev",
+    "dev:server": "pnpm --filter @aion/server dev",
+    "dev:web": "pnpm --filter @aion/web dev",
+    "import:record": "pnpm --filter @aion/server import:record",
+    "import:account": "pnpm --filter @aion/server import:account",
+    "db:export": "pnpm --filter @aion/server db:export",
+    "db:restore": "pnpm --filter @aion/server db:restore",
+    "db:scope": "pnpm --filter @aion/server db:scope",
+    "build:vercel": "pnpm --filter @aion/web build && pnpm --filter @aion/server build:vercel",
+    "capture": "pnpm --filter @aion/capture capture",
+    "game": "pnpm --filter @aion/game game"
+  },
+  "devDependencies": {
+    "@aion/eslint-config": "workspace:*",
+    "@types/node": "^24.19.0",
+    "eslint": "10.11.0",
+    "jiti": "2.7.0",
+    "prettier": "3.9.9",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vitest": "4.1.11"
+  }
+}

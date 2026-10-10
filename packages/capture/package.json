@@ -1,0 +1,21 @@
+{
+  "name": "@aion/capture",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./ledger": "./src/ledger.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p .",
+    "test": "vitest run",
+    "capture": "tsx src/cli.ts"
+  },
+  "dependencies": {
+    "@aion/schema": "workspace:*",
+    "cheerio": "1.2.0",
+    "domhandler": "5.0.3",
+    "zod": "^4.6.5"
+  }
+}
