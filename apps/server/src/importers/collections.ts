@@ -298,8 +298,11 @@ export const COLLECTIONS = {
     /** @inheritdoc */
     prepare: (builds) => [
       (repos, { record }) => {
-        builds.forEach((build, position) => {
+        // Positions continue past the builds already loaded, so a record imported later lists after them.
+        const first = repos.builds.nextPosition();
+        builds.forEach((build, index) => {
           const { skills, stigmas, macros, sources, obsolete, ...values } = build;
+          const position = first + index;
           repos.builds.insertAggregate({
             build: { ...values, position, recordSlug: record, ...lifecycleColumns(obsolete) },
             skills,

@@ -8,6 +8,7 @@ import type { RowId, TableRepo } from "../repos/table-repo";
 import { assertSourcesExist } from "./citations";
 import type { Cited } from "./citations";
 import { applyFilters } from "./filters";
+import { recordCoverage } from "./records";
 
 /**
  * CRUD over a cited-content table: every row carries the source ids that
@@ -149,7 +150,9 @@ export function createContentService<
     list: (filter) => {
       const repos = store.repos;
       const views = toViews(repos, table(repos).list());
-      return applyFilters(views, filters, filter as Record<string, string | undefined>);
+      return applyFilters(views, filters, filter as Record<string, string | undefined>, () =>
+        recordCoverage(repos),
+      );
     },
     /** @inheritdoc */
     get: (id) => {

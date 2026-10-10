@@ -276,13 +276,51 @@ describe("the content-type registry", () => {
       const notNull = column(key, "class");
       const match = specOf(key).filters?.class?.match;
       if (notNull === true) expect(match, key).toEqual({ equals: "class" });
-      else if (notNull === false) expect(match, key).toEqual({ equalsOrNull: "class" });
+      else if (notNull === false) expect(match, key).toEqual({ equalsOrCovered: "class" });
       else if (key === "researchRecords") expect(match, key).toEqual({ includes: "classes" });
       else expect(match, key).toBeUndefined();
     }
-    expect(REGISTRY.mechanics.filters.class.match).toEqual({ equalsOrNull: "class" });
+    expect(REGISTRY.mechanics.filters.class.match).toEqual({ equalsOrCovered: "class" });
     expect(REGISTRY.builds.filters.class.schema.safeParse("chanter").success).toBe(true);
     expect(REGISTRY.builds.filters.class.schema.safeParse("warrior").success).toBe(false);
+  });
+
+  it("keeps a class-wide row on ?class= only when its record covers the class, or no record owns it", async () => {
+    // Arrange
+    const store = testStore();
+    const seed = SEEDS.takeaways!;
+    const [, covering] = SEEDS.researchRecords!(store, { classes: ["cleric"] });
+    const [, unrelated] = SEEDS.researchRecords!(store, { classes: [] });
+    const [, wide] = seed(store, { recordSlug: covering, class: null });
+    const [, mine] = seed(store, { recordSlug: unrelated, class: "cleric" });
+    seed(store, { recordSlug: unrelated, class: null });
+    seed(store, { recordSlug: covering, class: "gladiator" });
+    const [, unowned] = seed(store, { recordSlug: null, class: null });
+    const app = makeTestApp(store);
+
+    // Act
+    const res = await app.request("/api/takeaways?class=cleric");
+
+    // Assert
+    const rows = (await res.json()) as Array<{ text: string }>;
+    expect(rows.map((row) => row.text).sort()).toEqual([wide, mine, unowned].sort());
+  });
+
+  it("lists takeaways by record, then rank, the ones no record owns last", () => {
+    // Arrange
+    const store = testStore();
+    const seed = SEEDS.takeaways!;
+    const [, late1] = seed(store, { recordSlug: "002-b", position: 1 });
+    const [, early1] = seed(store, { recordSlug: "001-a", position: 1 });
+    const [, unowned] = seed(store, { recordSlug: null, position: 0 });
+    const [, late0] = seed(store, { recordSlug: "002-b", position: 0 });
+    const [, early0] = seed(store, { recordSlug: "001-a", position: 0 });
+
+    // Act
+    const rows = createServices(store).takeaways.list();
+
+    // Assert
+    expect(rows.map((row) => row.text)).toEqual([early0, early1, late0, late1, unowned]);
   });
 
   it("gives every table with an obsolete_since column a ?current= filter on it, and no other table one", () => {

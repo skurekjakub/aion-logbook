@@ -12,6 +12,7 @@ import type { Store } from "../repos";
 import type { AccountRoadmapItemRow } from "../repos/account";
 import type { AccountService, AccountSnapshotView } from "./account";
 import type { BuildService, BuildView } from "./builds";
+import { mentionsName } from "./names";
 
 /** How many skills below target, highest rank first, are due now; the rest are next. */
 const NOW_SKILLS = 3;
@@ -58,8 +59,22 @@ export interface RoadmapService {
   roadmap(choice?: { snapshot?: string | undefined }): AccountRoadmap;
 }
 
-/** A derived item before it is ranked. */
-type Unranked = Omit<RoadmapItem, "rank">;
+/**
+ * What a derived item is about: the skills it names, or the macro chain it
+ * builds, rebuilds or binds.
+ */
+interface Subject {
+  /** The names a curated item would call it by: a skill's, or a chain's. */
+  names: string[];
+  /** The macro chain's id, which a curated item's `refs` may name. */
+  id?: string;
+}
+
+/** A derived item before it is ranked, with its subject. */
+type Unranked = Omit<RoadmapItem, "rank"> & { subject: Subject };
+
+/** A ranked derived item, with its subject. */
+type Derived = RoadmapItem & { subject: Subject };
 
 /**
  * Reports whether a macro chain as read has exactly a build chain's steps.
@@ -105,6 +120,7 @@ function skillItems(
     why: target.why,
     refs,
     derived: true,
+    subject: { names: [target.skill.name] },
   }));
 }
 
@@ -147,7 +163,16 @@ function stigmaItems(
       : out
         ? `Acquire ${name}, then swap it for ${out}`
         : `Acquire ${name}`;
-    return { priority: "now", area: "stigmas", action, why: want.why, refs, derived: true };
+    const subject = { names: out ? [name, out] : [name] };
+    return {
+      priority: "now",
+      area: "stigmas",
+      action,
+      why: want.why,
+      refs,
+      derived: true,
+      subject,
+    };
   });
 }
 
@@ -167,7 +192,8 @@ function macroItems(snapshot: AccountSnapshotView, build: BuildView): Unranked[]
   );
   return build.macros.flatMap((wanted, i): Unranked[] => {
     const refs = build.recordSlug ? [{ record: build.recordSlug, id: wanted.id }] : [];
-    const item = { priority: "next" as const, area: "macro", refs, derived: true };
+    const subject = { names: [wanted.name], id: wanted.id };
+    const item = { priority: "next" as const, area: "macro", refs, derived: true, subject };
     const match = snapshot.macros.find((read) => sameSteps(read, wanted));
     if (match) {
       return match.key === null
@@ -180,6 +206,39 @@ function macroItems(snapshot: AccountSnapshotView, build: BuildView): Unranked[]
       : `Build the ${wanted.name} macro`;
     return [{ ...item, action, why: wanted.why }];
   });
+}
+
+/**
+ * Derives the items of {@link deriveRoadmap}, each with its subject, and
+ * every skill name the snapshot and the followed build use.
+ *
+ * @param snapshot - the snapshot
+ * @param builds - builds, in position order; those of other classes and obsolete ones are ignored
+ * @returns the ranked items and the names; both empty when no current build of the class exists
+ */
+function derive(
+  snapshot: AccountSnapshotView,
+  builds: readonly BuildView[],
+): { items: Derived[]; names: string[] } {
+  const build = builds.find((b) => b.class === snapshot.class && b.obsoleteSince === null);
+  if (!build) return { items: [], names: [] };
+  const refs = build.recordSlug ? [{ record: build.recordSlug, id: build.id }] : [];
+  const items = [
+    ...skillItems(snapshot, build, refs),
+    ...stigmaItems(snapshot, build, refs),
+    ...macroItems(snapshot, build),
+  ];
+  const names = [
+    ...snapshot.skills.map((s) => s.name),
+    ...build.skills.map((s) => s.skill.name),
+    ...build.stigmas.map((s) => s.skill.name),
+    ...build.macros.flatMap((m) => m.steps.map((s) => s.skill.name)),
+  ];
+  // `sort` is stable, so items of one priority keep the order the rules listed them in.
+  const ranked = items
+    .sort((a, b) => ACCOUNT_PRIORITY.indexOf(a.priority) - ACCOUNT_PRIORITY.indexOf(b.priority))
+    .map((item, i) => ({ rank: i + 1, ...item }));
+  return { items: ranked, names: [...new Set(names)] };
 }
 
 /**
@@ -197,18 +256,26 @@ export function deriveRoadmap(
   snapshot: AccountSnapshotView,
   builds: readonly BuildView[],
 ): RoadmapItem[] {
-  const build = builds.find((b) => b.class === snapshot.class && b.obsoleteSince === null);
-  if (!build) return [];
-  const refs = build.recordSlug ? [{ record: build.recordSlug, id: build.id }] : [];
-  const items = [
-    ...skillItems(snapshot, build, refs),
-    ...stigmaItems(snapshot, build, refs),
-    ...macroItems(snapshot, build),
-  ];
-  // `sort` is stable, so items of one priority keep the order the rules listed them in.
-  return items
-    .sort((a, b) => ACCOUNT_PRIORITY.indexOf(a.priority) - ACCOUNT_PRIORITY.indexOf(b.priority))
-    .map((item, i) => ({ rank: i + 1, ...item }));
+  return derive(snapshot, builds).items.map(({ subject: _subject, ...item }) => item);
+}
+
+/**
+ * Reports whether a curated item is about what a derived item is about:
+ * both in one area, and the curated item names the derived item's macro
+ * chain in its `refs`, or names one of its subject's names in its action
+ * (see {@link mentionsName}), or has the same action.
+ *
+ * @param row - the curated item
+ * @param item - the derived item
+ * @param names - every skill name in play, to tell a longer name apart
+ * @returns `true` when both items are about the same skill, stigma or chain
+ */
+function sameSubject(row: AccountRoadmapItemRow, item: Derived, names: readonly string[]): boolean {
+  if (row.area !== item.area) return false;
+  if (row.action === item.action) return true;
+  const { id } = item.subject;
+  if (id !== undefined && row.refs.some((ref) => ref.id === id)) return true;
+  return item.subject.names.some((name) => mentionsName(row.action, name, names));
 }
 
 /**
@@ -216,9 +283,9 @@ export function deriveRoadmap(
  * snapshot, up to the one ranked against, that has any. When they were
  * ranked against that very snapshot, they win every area they cover and
  * the derived items fill only the areas they leave; when they come from
- * an older snapshot, every derived item stays and a curated item whose
- * action a derived item already names is dropped. Curated items follow
- * the derived ones.
+ * an older snapshot, every derived item stays and a curated item about
+ * the same skill, stigma or macro chain as a derived item of its area is
+ * dropped. Curated items follow the derived ones.
  *
  * @param store - the store to read curated items through
  * @param account - the account service, for the snapshot
@@ -244,15 +311,15 @@ export function createRoadmapService(
           break;
         }
       }
-      const covered = new Set(curatedFrom === snapshot.id ? curated.map((row) => row.area) : []);
-      const derived = deriveRoadmap(snapshot, builds.list({ class: snapshot.class }))
-        .filter((item) => !covered.has(item.area))
-        .map((item, i) => ({ ...item, rank: i + 1 }));
-      const named = new Set(derived.map((item) => item.action));
+      const fresh = curatedFrom === snapshot.id;
+      const covered = new Set(fresh ? curated.map((row) => row.area) : []);
+      const { items: all, names } = derive(snapshot, builds.list({ class: snapshot.class }));
+      const kept = all.filter((item) => !covered.has(item.area));
+      const derived = kept.map(({ subject: _subject, ...item }, i) => ({ ...item, rank: i + 1 }));
       const items = [
         ...derived,
         ...curated
-          .filter((row) => !named.has(row.action))
+          .filter((row) => fresh || !kept.some((item) => sameSubject(row, item, names)))
           .map((row, i) => ({
             rank: derived.length + i + 1,
             priority: row.priority,

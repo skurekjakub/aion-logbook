@@ -4,6 +4,7 @@ import { NotFoundError } from "../errors";
 import type { FiltersOf } from "../registry";
 import { REGISTRY } from "../registry";
 import type { Repos, Store } from "../repos";
+import type { RecordCoverage } from "./filters";
 import { applyFilters } from "./filters";
 
 /**
@@ -42,6 +43,22 @@ export function recordsCovering(repos: Repos, cls: GameClass): string[] {
     .classes()
     .filter((row) => row.class === cls)
     .map((row) => row.recordSlug);
+}
+
+/**
+ * Reads the classes every research record covers.
+ *
+ * @param repos - the repos to read
+ * @returns each record's slug → the classes it covers; a record that covers none is absent
+ */
+export function recordCoverage(repos: Repos): RecordCoverage {
+  const coverage = new Map<string, Set<string>>();
+  for (const { recordSlug, class: cls } of repos.records.classes()) {
+    const classes = coverage.get(recordSlug);
+    if (classes) classes.add(cls);
+    else coverage.set(recordSlug, new Set([cls]));
+  }
+  return coverage;
 }
 
 /**

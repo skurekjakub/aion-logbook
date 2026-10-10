@@ -12,18 +12,21 @@ import { readSearches, recordRounds, SEARCHES_FILE, searchRoundProblems } from "
  */
 const COLD_VERIFY = { timeout: 180_000 };
 
-/**
- * The research folder's entries. Until the first record lands there is no
- * `research/` folder, and the suites below are skipped rather than failed.
- */
+/** Whether the `research/` folder exists; a missing one fails the suites below. */
 const hasResearch = existsSync(researchDir);
+/** The research folder's entries. */
 const entries = hasResearch ? readdirSync(researchDir, { withFileTypes: true }) : [];
 
 const records = entries
   .filter((entry) => entry.isDirectory() && hasLedger(join(researchDir, entry.name)))
   .map((entry) => entry.name);
 
-describe.skipIf(!hasResearch)("every record's capture ledger", () => {
+describe("every record's capture ledger", () => {
+  it("finds the research folder", () => {
+    // Assert
+    expect(hasResearch, researchDir).toBe(true);
+  });
+
   it("finds a ledger in every record that has evidence", () => {
     // Act
     const withEvidence = entries
@@ -74,7 +77,7 @@ const areas = entries
   )
   .map((entry) => entry.name);
 
-describe.skipIf(!hasResearch)("every area's saved searches", () => {
+describe("every area's saved searches", () => {
   it("finds the areas", () => {
     // Assert
     expect(areas.length).toBeGreaterThan(0);

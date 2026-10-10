@@ -51,6 +51,24 @@ describe("HomeView", () => {
     expect(await screen.findByText("✓ pushed")).toBeInTheDocument();
   });
 
+  it("says a press failed, naming the status, when the server answers outside the sync's outcomes", async () => {
+    // Arrange
+    const api = { "/api/account/sync": { body: { mode: "local", url: SYNC_URL } } };
+    await renderRoute("/", api);
+    const canned = globalThis.fetch;
+    vi.stubGlobal("fetch", (input: RequestInfo | URL, init?: RequestInit) =>
+      init?.method === "POST" || (input instanceof Request && input.method === "POST")
+        ? Promise.resolve(new Response("<html>Method Not Allowed</html>", { status: 405 }))
+        : canned(input, init),
+    );
+
+    // Act
+    fireEvent.click(await screen.findByRole("button", { name: /Sync character/ }));
+
+    // Assert
+    expect(await screen.findByText("✗ Sync answered 405")).toBeInTheDocument();
+  });
+
   it("says how to load a character when none is", async () => {
     // Arrange
     const api = { "/api/account": { body: NO_ACCOUNT } };

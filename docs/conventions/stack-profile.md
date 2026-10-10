@@ -47,9 +47,9 @@
 ## Security surface (rubber-duk-auditor)
 
 - **Canonical config:** `vercel.json` (the deployment; it sets no headers
-  today) and the Hono app in `apps/server`, where response headers, CORS and
-  the read-only guard on the Vercel function live once the app lands. Read both
-  end to end before any header finding.
+  today), the Hono app in `apps/server/src/app.ts`, and the Vercel function's
+  entry `apps/server/src/vercel.ts`, which holds the read-only guard
+  (`readOnlyHandler`). Read them end to end before any header finding.
 - **Boundaries:**
   - The repo is public and there is no auth: no secret, token or personal path
     in committed files, and every committed file is published.

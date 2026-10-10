@@ -17,7 +17,7 @@ Verbatim intent, from the session that started the repo:
 
 - "The same project" means the same architecture, workflow and rules (records, capture ledger, layered Hono API, React web, snapshot-backed read-only Vercel site, AHK tools, `.claude` hooks), not crumble's Cookie Run content.
 - The "mode" axis of crumble (game modes) becomes the **class** axis in Aion 2: `/gladiator/...`, `/chanter/...`. Only classes with content appear in the nav.
-- The character is the one logged in on the Steam (global) client at `E:\Steam\steamapps\common\AION2`, level 34 when this spec was written.
+- The character is the one logged in on the client in the Steam (global) client's install folder, level 34 when this spec was written.
 
 ## Sub-projects and order
 

@@ -40,7 +40,7 @@ export function TopicNotes({ cls, topic }: { cls: GameClass; topic: string }) {
 
 /** Props for {@link MechanicsView}. */
 export interface MechanicsViewProps {
-  /** The class whose mechanics (and the class-wide ones) to show. */
+  /** The class whose mechanics (and the class-wide ones of its records) to show. */
   cls: GameClass;
   /** Topics another view shows; their mechanics are left out. */
   hidden: ReadonlySet<string>;

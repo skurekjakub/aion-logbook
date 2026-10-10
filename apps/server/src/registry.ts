@@ -13,7 +13,8 @@
  * Some list filters come without declaring them. A table with a `class`
  * column gets `?class=`: where the column is NOT NULL it keeps the rows of
  * that class; where it is nullable (a finding that applies to every class
- * stores `null`) it keeps the rows of that class and the class-wide rows.
+ * its record covers stores `null`) it keeps the rows of that class and the
+ * class-wide rows of the records that cover it.
  * A table with the obsolete lifecycle (an `obsoleteSince` column) gets
  * `?current=`.
  *
@@ -91,8 +92,9 @@ export type OrderKey<Row> =
  * How a list filter matches a view:
  * - `equals`: the view's column equals the value (a number column, the
  *   value read as a number);
- * - `equalsOrNull`: the view's column equals the value or is `null` (a row
- *   that applies to every value);
+ * - `equalsOrCovered`: the view's column equals the value, or is `null`
+ *   (a row that applies to every class its record covers) and the row's
+ *   research record (`recordSlug`) covers the value or is `null`;
  * - `includes`: the view's array field (e.g. a record's `classes`)
  *   contains the value;
  * - `isNull`: the value `true` keeps the views whose column is null, and
@@ -100,7 +102,7 @@ export type OrderKey<Row> =
  */
 export type FilterMatch<Row> =
   | { equals: ColumnOf<Row> }
-  | { equalsOrNull: ColumnOf<Row> }
+  | { equalsOrCovered: ColumnOf<Row> }
   | { includes: string }
   | { isNull: ColumnOf<Row> };
 
@@ -120,7 +122,8 @@ export interface AnyListFilter {
   /** Validates the query value. */
   schema: z.ZodType<string>;
   /** How a validated value selects views. */
-  match: { equals: string } | { equalsOrNull: string } | { includes: string } | { isNull: string };
+  match:
+    { equals: string } | { equalsOrCovered: string } | { includes: string } | { isNull: string };
 }
 
 /** Declared list filters of any row shape, by query param name. */
@@ -168,9 +171,9 @@ const classFilter = { schema: z.enum(CLASS), match: { equals: "class" } } as con
 
 /**
  * The `?class=` filter of a table whose `class` column is nullable: the
- * column equals a `CLASS`, or is `null` for a row that applies to every class.
+ * column equals a `CLASS`, or is `null` on a row whose record covers it.
  */
-const classWideFilter = { schema: z.enum(CLASS), match: { equalsOrNull: "class" } } as const;
+const classWideFilter = { schema: z.enum(CLASS), match: { equalsOrCovered: "class" } } as const;
 
 /** Either derived `?class=` filter. */
 type ClassFilter = typeof classFilter | typeof classWideFilter;
@@ -305,7 +308,7 @@ export const REGISTRY = {
     path: "/takeaways",
     entity: "takeaway",
     api: { id: rowId, input: takeawayInput, patch: takeawayPatch },
-    content: { order: ["position", "id"] },
+    content: { order: [{ column: "recordSlug", nullsLast: true }, "position", "id"] },
   }),
   recommendations: entry(recommendations, {
     path: "/recommendations",

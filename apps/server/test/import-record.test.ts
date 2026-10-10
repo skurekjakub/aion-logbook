@@ -121,6 +121,30 @@ describe("importRecord", () => {
     expect(build.skills[0]!.skill).toMatchObject({ id: "gladiator-ruinous-blow" });
   });
 
+  it("lists a later record's builds after an earlier record's, whatever their ids", () => {
+    // Arrange
+    const store = testStore();
+    const first = record();
+    editJson(first, "curated/builds.json", (builds: BuildRow[]) => {
+      builds.push({ ...builds[0]!, id: "gladiator-pve", purpose: "pve", macros: [] });
+    });
+    importRecord(store, first);
+    const second = record("901-second");
+    renameBuilds(second, "aaa");
+    editJson(second, "curated/skills.json", (skills: unknown[]) => skills.splice(0));
+
+    // Act
+    importRecord(store, second);
+
+    // Assert
+    const builds = createServices(store).builds.list();
+    expect(builds.map((b) => [b.id, b.position])).toEqual([
+      ["gladiator-leveling", 0],
+      ["gladiator-pve", 1],
+      ["aaa-gladiator-leveling", 2],
+    ]);
+  });
+
   it("keeps a shared skill with its first record, and warns when a later record's differs", () => {
     // Arrange
     const store = testStore();

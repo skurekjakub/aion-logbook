@@ -1,12 +1,21 @@
-import { readFileSync } from "node:fs";
-import { describe, expect, it } from "vitest";
-import { snapshotPath } from "../src/config";
+import { rmSync } from "node:fs";
+import { join } from "node:path";
+import { afterEach, describe, expect, it } from "vitest";
+import { importAccount } from "../src/importers/account";
+import { importRecord } from "../src/importers/import-record";
 import type { Store } from "../src/repos";
 import { createServices } from "../src/services";
 import { exportSnapshot, restoreSnapshot } from "../src/services/export";
 import type { Snapshot } from "../src/services/export";
 import { driftWarning, snapshotDrift } from "../src/services/snapshot-drift";
-import { addSource, testStore } from "./helpers";
+import { addSource, copyFixture, testStore } from "./helpers";
+
+const ACCOUNT = join(import.meta.dirname, "fixtures", "account");
+
+const temps: string[] = [];
+afterEach(() => {
+  for (const dir of temps.splice(0)) rmSync(dir, { recursive: true, force: true });
+});
 
 /**
  * Loads a record row and one cited mechanic into `store`.
@@ -57,9 +66,14 @@ describe("snapshotDrift", () => {
     expect(driftWarning(drift, PATHS)).toBeNull();
   });
 
-  it("finds nothing when a database is restored from the committed data/snapshot.json", () => {
+  it("finds nothing when a database is restored from an export of a loaded record and character", () => {
     // Arrange
-    const snapshot = JSON.parse(readFileSync(snapshotPath, "utf-8")) as Snapshot;
+    const source = testStore();
+    const dir = copyFixture();
+    temps.push(join(dir, ".."));
+    importRecord(source, dir);
+    importAccount(source, ACCOUNT, { all: true });
+    const snapshot = JSON.parse(JSON.stringify(exportSnapshot(source))) as Snapshot;
     const store = testStore();
     restoreSnapshot(store, snapshot);
 

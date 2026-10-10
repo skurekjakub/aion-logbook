@@ -80,3 +80,54 @@ export function createNameResolver(entries: readonly LookupEntry[]): NameResolve
     return { kr: name, en: winner?.en ?? null };
   };
 }
+
+/**
+ * Reports whether a character continues a word: a letter, a digit or an
+ * apostrophe (`Earth's`).
+ *
+ * @param char - the character, or `undefined` past either end of the text
+ * @returns `true` for a word character
+ */
+const isWordChar = (char: string | undefined) => char !== undefined && /[\p{L}\p{N}'’]/u.test(char);
+
+/**
+ * Lists where `word` starts in `text` as a whole word.
+ *
+ * @param text - the text, normalized
+ * @param word - the word or phrase, normalized and non-empty
+ * @returns each start index whose match no word character touches on either side
+ */
+function wholeWordStarts(text: string, word: string): number[] {
+  const starts: number[] = [];
+  for (let at = text.indexOf(word); at !== -1; at = text.indexOf(word, at + 1)) {
+    if (!isWordChar(text[at - 1]) && !isWordChar(text[at + word.length])) starts.push(at);
+  }
+  return starts;
+}
+
+/**
+ * Reports whether `text` names `name` as a whole name, ignoring case and
+ * whitespace runs (see {@link normalizeName}). An occurrence inside a
+ * longer name of `known` that `text` names at that spot doesn't count, so
+ * `Light` isn't found in "Level Healing Light" when `known` holds
+ * `Healing Light`.
+ *
+ * @param text - the text to search, e.g. a roadmap item's action
+ * @param name - the name to find
+ * @param known - every name the text might use, to tell longer names apart
+ * @returns `true` when the text names `name`
+ */
+export function mentionsName(text: string, name: string, known: readonly string[] = []): boolean {
+  const haystack = normalizeName(text);
+  const needle = normalizeName(name);
+  if (needle === "") return false;
+  const longer = known
+    .map(normalizeName)
+    .filter((other) => other.length > needle.length && other.includes(needle))
+    .flatMap((other) =>
+      wholeWordStarts(haystack, other).map((at): [number, number] => [at, at + other.length]),
+    );
+  return wholeWordStarts(haystack, needle).some(
+    (at) => !longer.some(([start, end]) => start <= at && at + needle.length <= end),
+  );
+}

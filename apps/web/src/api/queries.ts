@@ -10,7 +10,7 @@
  * describes.
  *
  * A list whose rows belong to a class takes the class: it goes on the
- * request as `?class=` (rows that apply to every class come back too) and
+ * request as `?class=` (class-wide rows of the records that cover it come back too) and
  * in the query key, so each class's lists are cached apart.
  *
  * @module
@@ -109,7 +109,7 @@ export const buildsQuery = (cls: GameClass) =>
   });
 
 /**
- * A class's mechanics writeups, the class-wide ones included.
+ * A class's mechanics writeups, with the class-wide ones of the records that cover it.
  *
  * @param cls - the class
  * @returns the query options
@@ -121,7 +121,8 @@ export const mechanicsQuery = (cls: GameClass) =>
   });
 
 /**
- * A class's ranked takeaways, the class-wide ones included.
+ * A class's ranked takeaways, by record then rank, with the class-wide ones
+ * of the records that cover it.
  *
  * @param cls - the class
  * @returns the query options
@@ -172,15 +173,27 @@ export const syncInfoQuery = () =>
   });
 
 /**
- * Presses the sync button. A failed sync answers 502 with its reason,
- * which resolves like any other outcome rather than throwing.
+ * Presses the sync button. A failed sync answers 502 and a cross-site
+ * press 403, each with its reason, which resolve like any other outcome
+ * rather than throwing.
  *
  * @returns what the press did
- * @throws if the request itself fails
+ * @throws `Error` naming the status for any other answer (a 405 from the
+ *   read-only deployment, a 500, a gateway's page) or for an outcome
+ *   whose body isn't JSON; whatever `fetch` throws if the request itself fails
  */
 export async function startSync() {
   const res = await api.account.sync.$post();
-  return res.json();
+  // Typed from the route's own answers; a gateway or the deployment's guard can answer others.
+  const status: number = res.status;
+  if (status !== 200 && status !== 403 && status !== 502) {
+    throw new Error(`Sync answered ${status}`);
+  }
+  try {
+    return await res.json();
+  } catch {
+    throw new Error(`Sync answered ${status} without a JSON body`);
+  }
 }
 
 /**

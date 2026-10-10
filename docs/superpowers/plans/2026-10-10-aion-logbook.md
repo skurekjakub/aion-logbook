@@ -24,7 +24,7 @@
 - UI rules from crumble `AGENTS.md` § "UI: scannable, not prose" carry over verbatim.
 - The repo is public: captured media (png/jpg/video) stays local under `research/` and `account/snapshots/screens/` (gitignored); Markdown/JSON captures are committed with ledger lines.
 - Game input only drives menus; never during combat; a capture is checked before every next action; no memory reading, no packet capture, no combat macros.
-- Game client: `AION2.exe`, 1920×1080 client area at (0,0). AutoHotkey: `C:\Users\skure\AppData\Local\Programs\AutoHotkey\v2\AutoHotkey64.exe`. ffmpeg on PATH has `gfxcapture`.
+- Game client: `AION2.exe`, 1920×1080 client area at (0,0). AutoHotkey: AutoHotkey v2 on PATH or its default per-user install. ffmpeg on PATH has `gfxcapture`.
 
 ## Review Focus
 

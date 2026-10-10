@@ -36,15 +36,15 @@ const GAME = "packages/game/src";
 const ARMORY = "packages/armory/src";
 
 /**
- * Reports whether a source root exists yet.
+ * Reports whether a source root is on disk.
  *
  * @param root - the root, repo-relative
  * @returns `true` when the folder is on disk
  */
 const present = (root: string) => existsSync(join(repoRoot, root));
 
-/** The source roots the rules cover, repo-relative: those on disk (the web app and the game bridge once they exist). */
-const ROOTS = [SERVER, WEB, SCHEMA, CAPTURE, GAME, ARMORY].filter(present);
+/** The source roots the rules cover, repo-relative; a missing one fails the scan test. */
+const ROOTS = [SERVER, WEB, SCHEMA, CAPTURE, GAME, ARMORY];
 
 /**
  * Lists every `.ts`/`.tsx` file under `dir`, repo-relative with forward slashes.
@@ -334,7 +334,7 @@ function violations(edges: ImportEdge[]): string[] {
   );
 }
 
-const edges = ROOTS.flatMap(sourceFiles).flatMap(importsOf);
+const edges = ROOTS.filter(present).flatMap(sourceFiles).flatMap(importsOf);
 
 /**
  * Builds the edge an import statement in `file` would make, for testing a rule.
@@ -356,9 +356,9 @@ function fake(file: string, specifier: string, typeOnly = false): ImportEdge {
 }
 
 describe("architecture", () => {
-  it("scans every source root on disk and finds their imports", () => {
+  it("scans every source root and finds their imports", () => {
     // Assert
-    expect(ROOTS).toContain(SERVER);
+    expect(ROOTS.filter((root) => !present(root))).toEqual([]);
     for (const root of ROOTS) {
       expect(
         edges.some((edge) => under(edge.file, root)),
@@ -531,7 +531,7 @@ describe("architecture", () => {
     expect(intoArmory).toEqual([]);
   });
 
-  it("holds the web app to types-only server imports, whether or not it exists yet", () => {
+  it("holds the web app to types-only server imports", () => {
     // Arrange
     const view = `${WEB}/views/x.tsx`;
 

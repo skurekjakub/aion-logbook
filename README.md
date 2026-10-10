@@ -2,7 +2,7 @@
 
 A local build logbook for Aion 2 (NCSOFT, the global Steam client): which skills a class should level and to what level, which stigma goes in each slot, and which built-in macro chain to run on which key, for leveling, PvE and PvP. Every recommendation is traced to the guide, video or in-game reading it came from, and a bridge reads the running client and drives its menus to apply a build.
 
-**Status:** the monorepo skeleton, the capture tooling and the agent setup are in place. The schema's tables, the API, the web app and the game bridge land as the plan in `docs/superpowers/plans/` proceeds; `todo.md` says where it stands. The sections below describe the finished layout; a root script whose package isn't there yet matches no workspace package and does nothing.
+**Status:** everything the sections below describe is in place and runs with `pnpm dev`; the read-only site serves the committed snapshot. `todo.md` holds the pending work.
 
 ## What's here
 
@@ -10,7 +10,7 @@ A local build logbook for Aion 2 (NCSOFT, the global Steam client): which skills
 |---|---|
 | `research/` | Research records. Each has a `README.md` (question, verdict, sources) and `evidence/` with verbatim captures (guide pages as Markdown, YouTube digests and frames) and `evidence/captures.jsonl`, the capture ledger (see [Captures](#captures)). A record may also keep a `research-trail.md` (its web search rounds). A record the app can load also has `import.json` (what to import and from where), `curated/` (the curated dataset) and `searches.json`, its saved searches (schema `packages/capture/src/searches.ts`), each dated by rounds the record ran: the day `import.json` says it started, or a `## Refresh <date>` section of its README. |
 | `account/` | The character as read from the client and synced from the official site: `character.json` (which character `pnpm sync` reads), snapshots at `snapshots/<date>.json` (schema `aion-account-snapshot/1`), curated roadmap items ranked against a snapshot (`roadmap-<date>.json`), apply logs, and the screens they were read from under `snapshots/screens/` (gitignored). `account/README.md` says how a read is made. |
-| `packages/schema` | Zod schemas shared by every package: today the capture ledger's line schema; the Drizzle tables and migrations join it. |
+| `packages/schema` | The schemas every package shares: the Drizzle tables and migrations, the Zod inputs, and the capture ledger's line schema. |
 | `packages/capture` | The capture ledger and the scrapers (generic web pages, YouTube, and `yt-dlp`/`ffmpeg` wrappers), run as `pnpm capture`. Pure I/O: nothing from `apps/`. |
 | `packages/game` | The game bridge: window capture of `AION2.exe` and menu input through AutoHotkey, run as `pnpm game`. Pure I/O: nothing on the server imports it. |
 | `packages/armory` | The character sync: fetches the character from the official site's public data and maps it to a snapshot, run as `pnpm sync` (see [Character sync](#character-sync)). Nothing imports it; it reaches the server through its CLIs. |
@@ -67,16 +67,21 @@ Commit `data/snapshot.json` after changing a record's data, built from a fresh i
 
 ### API
 
-Every resource is under `/api` and speaks JSON. Validation failures are 400 with every Zod issue and its path, unknown ids are 404, an unknown cited source is 422 naming the ids, and conflicts are 409. Content rows carry `sources`, the ids of the sources they cite; creating one needs at least one. Every list whose rows belong to a class takes `?class=`, every list whose rows carry the obsolete lifecycle takes `?current=true|false`, and recommendations take `?record=<slug>`.
+Every resource is under `/api` and speaks JSON. Validation failures are 400 with every Zod issue and its path, unknown ids are 404, an unknown cited source is 422 naming the ids, and conflicts are 409. Content rows carry `sources`, the ids of the sources they cite; creating one needs at least one. Every list whose rows belong to a class takes `?class=` (a row that applies to every class comes back when its record covers the class), every list whose rows carry the obsolete lifecycle takes `?current=true|false`, and recommendations take `?record=<slug>`.
 
 | Resource | Verbs | Notes |
 |---|---|---|
-| `/api/skills` | `GET`, `GET /:id`, `POST`, `PATCH /:id`, `DELETE /:id` | A class skill as the game names it: kind, unlock level, cooldown, summary. |
-| `/api/builds` | `GET`, `GET /:id`, `POST`, `PATCH /:id`, `DELETE /:id` | A recommended setup for a class and purpose. `GET /:id` nests its skill priorities (target level and why), its stigma per slot and its macro chains. |
-| `/api/macros` | `GET`, `GET /:id`, `POST`, `PATCH /:id`, `DELETE /:id` | A built-in macro chain: its key, delay and steps in the editor's order. |
+| `/api/skills` | `GET`, `GET /:id`, `POST`, `PATCH /:id`, `DELETE /:id` | A class skill as the game names it: kind, unlock level, cooldown, summary. `?kind=` filters. |
+| `/api/builds` | `GET`, `GET /:id`, `POST`, `PATCH /:id`, `DELETE /:id` | A recommended setup for a class and purpose, listed in import order. `GET /:id` nests its skill priorities (target level and why), its stigma per slot and its macro chains. `?purpose=` filters. |
+| `/api/macros` | `GET`, `GET /:id`, `POST`, `PATCH /:id`, `DELETE /:id` | A built-in macro chain: its key, delay and steps in the editor's order. `?build=<id>` keeps one build's chains. |
+| `/api/mechanics` | `GET`, `GET /:id`, `POST`, `PATCH /:id`, `DELETE /:id` | A game mechanic writeup with its confidence. `?topic=` filters. |
+| `/api/rng-factors` | `GET`, `GET /:id`, `POST`, `PATCH /:id`, `DELETE /:id` | A source of run-to-run randomness, its effect and its mitigation. |
+| `/api/timeline` | `GET`, `GET /:id`, `POST`, `PATCH /:id`, `DELETE /:id` | A dated event on the meta's timeline, by date. |
+| `/api/takeaways` | `GET`, `GET /:id`, `POST`, `PATCH /:id`, `DELETE /:id` | A one-line takeaway, by record, then rank. |
+| `/api/recommendations` | `GET`, `GET /:id`, `POST`, `PATCH /:id`, `DELETE /:id` | A suggested change for the character: a summary and its edits. |
 | `/api/sources` | `GET`, `GET /:id`, `POST`, `PATCH /:id`, `DELETE /:id` | `?site=web\|yt`; `?record=<slug>` keeps the sources a record owns or cites. Each source carries `capture`, its evidence capture's ledger line, or `null`. |
 | `/api/captures` | `GET` | The loaded records' capture ledgers, by record then path. `?record=` and `?path=` filter. Read-only. |
-| `/api/glossary` | `GET`, `POST` | `?kind=` filters. |
+| `/api/glossary` | `GET`, `GET /resolve`, `POST` | `?kind=` filters. `GET /resolve?name=&class=` resolves one name to its English gloss, the class's records' entries winning a contested name. `POST` upserts by `kr`. |
 | `/api/records` | `GET`, `GET /:slug` | Research records and the classes each covers. |
 | `/api/account` | `GET` | The character: the latest snapshot (class, level, gear score, skills with levels and hotbar slots, stigmas, macros), or the one `?snapshot=` names, and every loaded snapshot. Read-only: `pnpm import:account` writes it. |
 | `/api/account/roadmap` | `GET` | The roadmap ranked against the latest snapshot (or `?snapshot=`): `{ snapshotId, curatedFrom, items }`, each item with `rank`, `priority`, `area`, `action`, `why`, `refs` and `derived`. Derived at request time (see [Character sync](#character-sync)), then the curated items. |
@@ -98,7 +103,7 @@ pnpm sync --date 2026-10-12    # file the snapshot under another day
 - **Requests:** a name search only when no `characterId` is cached (or the cached one answers 404), then the info and equipment responses, one at a time, with a User-Agent naming the logbook. A 5xx is retried once after a 2 s pause, a 4xx never; a failure names the request and status, and nothing is written.
 - **Mapping** (`packages/armory/src/map.ts`): name, class, level, item level as `gearScore`, server, every acquired skill and stigma with its level, and the equipped stigmas placed into the slots open at the character's level. Macros, hotbar slots and stigma slot positions aren't published: they carry over from the latest snapshot, and `unread[]` says so.
 - **Writes:** `account/snapshots/<date>.json`, or `<date>-sync.json` when that day's file is a game read (it lists `screens`), so the read stays and the sync sorts after it as the latest; a rerun replaces the synced file. Nothing at all when the character matches the latest snapshot. Before any request it refuses a day that already has a read sorting after the file it would write (`<date>-after.json`), and a database restore from an export that holds no skills; pass `--date` or rename the read. Then `pnpm import:account <file> --replace` and `pnpm db:export` (restoring the database from `data/snapshot.json` first when `data/aion.db` doesn't exist), then a commit of the snapshot and the export alone, and a push. A failed push leaves the commit local and says so.
-- **The sync button:** the home page's "Sync character" button. Locally (`pnpm dev`, the API bound to `localhost`) the server runs the sync's CLI itself, killed after 5 minutes, and the page refetches when it ends. A press another site sends is refused with 403. On the deployment it dispatches `.github/workflows/sync.yml` when the project's `SYNC_GITHUB_TOKEN` environment variable holds a fine-grained token with Actions read and write on this repository, and refuses while a run is in progress or started under 15 minutes ago; without the token it links to the workflow's page, where "Run workflow" starts it. The workflow runs the same sync with `--no-push` and commits as the GitHub Actions bot when anything changed, and that push deploys. It never runs on a schedule.
+- **The sync button:** the home page's "Sync character" button. Locally (`pnpm dev`, the API bound to `localhost`) the server runs the sync's CLI itself, and the page refetches when it ends. Git and Git Credential Manager may not prompt, and a run past 5 minutes is killed with every process it started (`taskkill /T` on Windows, its process group elsewhere) and reported as failed. A press another site sends is refused with 403. On the deployment it dispatches `.github/workflows/sync.yml` when the project's `SYNC_GITHUB_TOKEN` environment variable holds a fine-grained token with Actions read and write on this repository, and refuses while a run is in progress or started under 15 minutes ago; without the token it links to the workflow's page, where "Run workflow" starts it. The workflow runs the same sync with `--no-push` and commits as the GitHub Actions bot when anything changed, and that push deploys. It never runs on a schedule.
 
 **The roadmap** (`GET /api/account/roadmap`, `apps/server/src/services/roadmap.ts`) is derived at request time from the snapshot and the first current build of its class:
 
@@ -106,7 +111,7 @@ pnpm sync --date 2026-10-12    # file the snapshot under another day
 - the stigmas the build wants in the open slots against the stigmas slotted, compared as sets since slot positions aren't readable: swap, slot, or acquire first, due now;
 - macro chains no read chain matches step for step (rebuild or build), or matching ones without a key (bind), due next.
 
-The curated items of the latest snapshot that has a `roadmap-<id>.json` follow (`curatedFrom` names it). Ranked against the snapshot itself, they win every area they cover and the derived items fill the rest; from an older snapshot, every derived item stays and a curated item a derived one already names is dropped. The home and character pages mark each item `auto`, `curated`, or `stale` (curated against an older snapshot).
+The curated items of the latest snapshot that has a `roadmap-<id>.json` follow (`curatedFrom` names it). Ranked against the snapshot itself, they win every area they cover and the derived items fill the rest; from an older snapshot, every derived item stays and a curated item about the same subject as a derived item of its area is dropped: the same skill or stigma, named in its action, or the same macro chain, named in its `refs` or its action. The home and character pages mark each item `auto`, `curated`, or `stale` (curated against an older snapshot).
 
 Skill targets are invested levels while a snapshot's levels include the gear bonus, so the derived skill items flag only skills whose total is below target.
 

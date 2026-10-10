@@ -369,7 +369,7 @@ describe("GET /api/account/roadmap", () => {
     });
   });
 
-  it("merges an older snapshot's curated items after every derived one, dropping a duplicate", async () => {
+  it("merges an older snapshot's curated items after every derived one, dropping those about a derived item's skill", async () => {
     // Arrange
     const store = storeWithSkills();
     importAccount(store, ACCOUNT, { all: true });
@@ -407,8 +407,63 @@ describe("GET /api/account/roadmap", () => {
     expect(got.items.map((i) => [i.action, i.derived])).toEqual([
       ["Ruinous Blow 8 → 10", true],
       ["Build the Main macro", true],
-      ["Level Ruinous Blow to 10", false],
       ["Slot a stigma at 27", false],
+    ]);
+  });
+
+  it("drops an older snapshot's curated item about a derived item's stigma or macro chain, and keeps the rest", async () => {
+    // Arrange
+    const store = storeWithSkills();
+    importAccount(store, ACCOUNT, { all: true });
+    store.repos.account.insertSnapshot({
+      id: "2026-10-09",
+      capturedAt: "2026-10-09T09:00:00+02:00",
+      character: "Fixture",
+      class: "gladiator",
+      level: 34,
+      gearScore: null,
+      server: null,
+      unread: [],
+    });
+    store.repos.account.insertSkills("2026-10-09", [
+      { skillName: "Wrath Wave", skillId: "gladiator-wrath-wave", level: 1, slot: null },
+    ]);
+    store.repos.account.insertStigmas("2026-10-09", [
+      { slotLevel: 22, skillName: null, skillId: null },
+    ]);
+    const item = { priority: "now" as const, why: "w" };
+    store.repos.account.insertRoadmap("2026-10-07", [
+      { ...item, rank: 3, area: "stigmas", action: "Acquire wrath wave", refs: [] },
+      { ...item, rank: 4, area: "skills", action: "Wrath Wave 1 → 5", refs: [] },
+      {
+        ...item,
+        rank: 5,
+        area: "macro",
+        action: "Build the opener chain",
+        refs: [{ record: "900-fixture", id: "gladiator-leveling-main" }],
+      },
+      {
+        ...item,
+        rank: 6,
+        area: "macro",
+        action: "Check the run order",
+        refs: [{ record: "900-fixture" }],
+      },
+    ]);
+    const app = makeTestApp(store);
+
+    // Act
+    const got = await readJson<AccountRoadmap>(await app.request("/api/account/roadmap"));
+
+    // Assert
+    expect(got.curatedFrom).toBe("2026-10-07");
+    expect(got.items.map((i) => [i.area, i.action, i.derived])).toEqual([
+      ["stigmas", "Slot Wrath Wave", true],
+      ["macro", "Build the Main macro", true],
+      ["skills", "Level Ruinous Blow to 10", false],
+      ["stigmas", "Slot a stigma at 27", false],
+      ["skills", "Wrath Wave 1 → 5", false],
+      ["macro", "Check the run order", false],
     ]);
   });
 
