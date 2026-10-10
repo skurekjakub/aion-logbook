@@ -34,6 +34,16 @@ function repo(character: object = BAON): string {
   return root;
 }
 
+/**
+ * Writes `data/snapshot.json` holding the given skill rows and no other table rows.
+ *
+ * @param root - the repo root
+ * @param skills - the skill rows
+ */
+function writeExport(root: string, skills: object[]): void {
+  writeFileSync(join(root, "data", "snapshot.json"), JSON.stringify({ tables: { skills } }));
+}
+
 /** A command the fake runner answered, with the commit message when it was `git commit -F`. */
 interface RunCall {
   line: string;
@@ -127,6 +137,7 @@ describe("runSync", () => {
     const root = repo();
     const sameDay = JSON.parse(fixtureText("snapshot-2026-10-10.json"));
     sameDay.macros = [{ name: "Solo loop", key: "R", steps: ["Condemnation"] }];
+    sameDay.screens = [];
     writeFileSync(join(root, "account", "snapshots", "2026-10-11.json"), JSON.stringify(sameDay));
     const { deps: d } = deps(root);
 
@@ -182,6 +193,7 @@ describe("runSync", () => {
   it("restores the database from the committed export when none exists", async () => {
     // Arrange
     const root = repo();
+    writeExport(root, [{ id: "cleric-bolt" }]);
     const { deps: d, calls } = deps(root, { dbExists: () => false });
 
     // Act
@@ -189,6 +201,54 @@ describe("runSync", () => {
 
     // Assert
     expect(calls[0]?.line).toBe("pnpm db:restore");
+  });
+
+  it("refuses to restore an export that holds no skills, before any request", async () => {
+    // Arrange
+    const root = repo();
+    writeExport(root, []);
+    const site = baonSite();
+    const { deps: d } = deps(root, { dbExists: () => false, http: site.http });
+
+    // Act
+    const run = runSync({ push: false }, d);
+
+    // Assert
+    await expect(run).rejects.toThrow(/data\/snapshot\.json holds no skills/);
+    expect(site.calls).toEqual([]);
+  });
+
+  it("refuses to replace a game read of the same day, before any request", async () => {
+    // Arrange
+    const root = repo();
+    const site = baonSite();
+    const { deps: d } = deps(root, { http: site.http });
+
+    // Act
+    const run = runSync({ push: false, date: "2026-10-10" }, d);
+
+    // Assert
+    await expect(run).rejects.toThrow(SyncError);
+    await expect(run).rejects.toThrow(/2026-10-10\.json is a game read.*--date/s);
+    expect(site.calls).toEqual([]);
+    expect(snapshotAt(root, "2026-10-10").screens).not.toEqual([]);
+  });
+
+  it("refuses a day that already has a later read, which its snapshot would sort before", async () => {
+    // Arrange
+    const root = repo();
+    const after = JSON.parse(fixtureText("snapshot-2026-10-10.json"));
+    writeFileSync(
+      join(root, "account", "snapshots", "2026-10-11-after.json"),
+      JSON.stringify(after),
+    );
+    const { deps: d } = deps(root);
+
+    // Act
+    const run = runSync({ push: false }, d);
+
+    // Assert
+    await expect(run).rejects.toThrow(/2026-10-11-after/);
   });
 
   it("reports a failed push as an outcome, not a throw", async () => {

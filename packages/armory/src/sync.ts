@@ -13,8 +13,11 @@ import { isoLocal } from "@aion/capture/time";
 import type { AccountSnapshotFile } from "@aion/schema";
 import {
   CHARACTER_PATH,
+  exportedSkills,
   latestSnapshot,
   readCharacter,
+  readSnapshot,
+  snapshotPath,
   writeCharacter,
   writeSnapshot,
 } from "./account-files";
@@ -173,11 +176,49 @@ async function commitAndPush(
 }
 
 /**
+ * Checks, before any request, that the sync can file the day's snapshot
+ * without losing a read or exporting an empty database.
+ *
+ * @param deps - the repo root and whether the database exists
+ * @param date - the day the snapshot is filed under
+ * @param previous - the latest snapshot on or before that day, or `null`
+ * @throws {SyncError} if `<date>.json` is a game read (it lists screens),
+ *   if a later read of the day (`<date>-…`) exists, which the day's file
+ *   would sort before, or if the database must be restored from an export
+ *   that holds no skills
+ */
+function assertWritable(
+  deps: SyncDeps,
+  date: string,
+  previous: { id: string; data: AccountSnapshotFile } | null,
+): void {
+  const sameDay = readSnapshot(deps.root, date);
+  if (sameDay && sameDay.data.screens.length > 0) {
+    throw new SyncError(
+      `${snapshotPath(date)} is a game read (it lists screens) and the sync won't replace it:\n` +
+        `pass --date <another day>, or rename the read to ${date}-<name>.json`,
+    );
+  }
+  if (previous && previous.id !== date && previous.id.startsWith(date)) {
+    throw new SyncError(
+      `${snapshotPath(previous.id)} is a later read of ${date}; ${snapshotPath(date)} would sort ` +
+        `before it and never show as the latest: pass --date <another day>`,
+    );
+  }
+  if (!deps.dbExists() && exportedSkills(deps.root, EXPORT_PATH) === 0) {
+    throw new SyncError(
+      `${EXPORT_PATH} holds no skills, so a database restored from it would leave every ` +
+        `skill unresolved: sync once the export carries the research records`,
+    );
+  }
+}
+
+/**
  * Syncs the character: fetches it from the official site, maps it onto
  * the day's snapshot (what the site doesn't publish carried from the
  * latest snapshot on or before that day) and, unless it matches that
- * snapshot, writes `account/snapshots/<day>.json` (replacing a file of the
- * same day), runs `pnpm import:account <file> --replace` and `pnpm
+ * snapshot, writes `account/snapshots/<day>.json` (replacing a synced file
+ * of the same day), runs `pnpm import:account <file> --replace` and `pnpm
  * db:export`, then commits the snapshot and the export and pushes, unless
  * `push` is off. A characterId the search found is saved to
  * `account/character.json` and committed with them.
@@ -185,7 +226,9 @@ async function commitAndPush(
  * @param opts - the day to file under, and whether to commit and push
  * @param deps - the HTTP door, the runner, the clock and the log
  * @returns how the run ended
- * @throws {SyncError} if a command fails
+ * @throws {SyncError} if a command fails, or, before any request, if the
+ *   day's file is a game read, a later read of the day exists, or the
+ *   database would be restored from an export without skills
  * @throws whatever `fetchCharacter`, `toSnapshot` or the account files throw
  */
 export async function runSync(opts: SyncOptions, deps: SyncDeps): Promise<SyncResult> {
@@ -194,6 +237,7 @@ export async function runSync(opts: SyncOptions, deps: SyncDeps): Promise<SyncRe
   const capturedAt = isoLocal(now);
   const date = opts.date ?? capturedAt.slice(0, 10);
   const previous = latestSnapshot(deps.root, date);
+  assertWritable(deps, date, previous);
 
   const data = await fetchCharacter(character, deps.http);
   deps.log(`fetched ${character.name}, ${character.server}`);

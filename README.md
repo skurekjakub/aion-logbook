@@ -79,7 +79,7 @@ Every resource is under `/api` and speaks JSON. Validation failures are 400 with
 | `/api/glossary` | `GET`, `POST` | `?kind=` filters. |
 | `/api/records` | `GET`, `GET /:slug` | Research records and the classes each covers. |
 | `/api/account` | `GET` | The character: the latest snapshot (class, level, gear score, skills with levels and hotbar slots, stigmas, macros), or the one `?snapshot=` names, and every loaded snapshot. Read-only: `pnpm import:account` writes it. |
-| `/api/account/roadmap` | `GET` | The roadmap ranked against the latest snapshot (or `?snapshot=`): `{ snapshotId, items }`, each item with `rank`, `priority`, `area`, `action`, `why`, `refs` and `derived`. Derived at request time (see [Character sync](#character-sync)), then the curated items. |
+| `/api/account/roadmap` | `GET` | The roadmap ranked against the latest snapshot (or `?snapshot=`): `{ snapshotId, curatedFrom, items }`, each item with `rank`, `priority`, `area`, `action`, `why`, `refs` and `derived`. Derived at request time (see [Character sync](#character-sync)), then the curated items. |
 | `/api/export` | `GET` | The full snapshot, the same shape as `data/snapshot.json`. |
 
 **SQLite driver:** Node's built-in `node:sqlite`, through the `drizzle-orm/node-sqlite` driver in drizzle-orm 1.0 beta. It needs no native build. Zod schemas come from `drizzle-orm/zod`.
@@ -94,18 +94,20 @@ pnpm sync --no-push            # stop after the export
 pnpm sync --date 2026-10-12    # file the snapshot under another day
 ```
 
-- **Requests:** a name search only when no `characterId` is cached (or the cached one answers 404), then the info and equipment responses, one at a time, with a User-Agent naming the logbook. A 5xx is retried once, a 4xx never; a failure names the request and status, and nothing is written.
+- **Requests:** a name search only when no `characterId` is cached (or the cached one answers 404), then the info and equipment responses, one at a time, with a User-Agent naming the logbook. A 5xx is retried once after a 2 s pause, a 4xx never; a failure names the request and status, and nothing is written.
 - **Mapping** (`packages/armory/src/map.ts`): name, class, level, item level as `gearScore`, server, every acquired skill and stigma with its level, and the equipped stigmas placed into the slots open at the character's level. Macros, hotbar slots and stigma slot positions aren't published: they carry over from the latest snapshot, and `unread[]` says so.
-- **Writes:** `account/snapshots/<date>.json`, replacing a file of the same day; nothing at all when the character matches the latest snapshot. Then `pnpm import:account <file> --replace` and `pnpm db:export` (restoring the database from `data/snapshot.json` first when `data/aion.db` doesn't exist), then a commit of the snapshot and the export alone, and a push. A failed push leaves the commit local and says so.
+- **Writes:** `account/snapshots/<date>.json`, replacing a synced file of the same day; nothing at all when the character matches the latest snapshot. Before any request it refuses a day whose file is a game read (it lists `screens`) or that already has a later read (`<date>-after.json`), and a database restore from an export that holds no skills; pass `--date` or rename the read. Then `pnpm import:account <file> --replace` and `pnpm db:export` (restoring the database from `data/snapshot.json` first when `data/aion.db` doesn't exist), then a commit of the snapshot and the export alone, and a push. A failed push leaves the commit local and says so.
 - **Scheduled sync:** `.github/workflows/sync.yml` runs the same sync with `--no-push` and commits as the GitHub Actions bot when anything changed. It is manual-trigger only until the question in `OPEN-QUESTIONS.md` § Character sync is settled.
 
 **The roadmap** (`GET /api/account/roadmap`, `apps/server/src/services/roadmap.ts`) is derived at request time from the snapshot and the first current build of its class:
 
 - skills below their target level, in build rank order, the top ones due now and the rest next;
-- stigma slots open at the character's level that are empty or hold another stigma, due now;
+- the stigmas the build wants in the open slots against the stigmas slotted, compared as sets since slot positions aren't readable: swap, slot, or acquire first, due now;
 - macro chains no read chain matches step for step (rebuild or build), or matching ones without a key (bind), due next.
 
-The curated items of the latest snapshot that has a `roadmap-<id>.json` follow, minus any whose action a derived item already names. The home and character pages show both, marked `auto` or `curated`.
+The curated items of the latest snapshot that has a `roadmap-<id>.json` follow (`curatedFrom` names it). Ranked against the snapshot itself, they win every area they cover and the derived items fill the rest; from an older snapshot, every derived item stays and a curated item a derived one already names is dropped. The home and character pages mark each item `auto`, `curated`, or `stale` (curated against an older snapshot).
+
+Skill targets are invested levels while a snapshot's levels include the gear bonus, so the derived skill items flag only skills whose total is below target.
 
 ## Game bridge
 

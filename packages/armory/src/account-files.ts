@@ -134,8 +134,36 @@ export function latestSnapshot(root: string, day: string): StoredSnapshot | null
     .filter((name) => name.slice(0, 10) <= day)
     .sort()
     .at(-1);
-  if (id === undefined) return null;
-  return { id, data: readFile(root, snapshotPath(id), accountSnapshotFile) };
+  return id === undefined ? null : readSnapshot(root, id);
+}
+
+/**
+ * Reads the snapshot with `id`.
+ *
+ * @param root - the repo root
+ * @param id - the snapshot's id
+ * @returns the snapshot, or `null` when there is no file of that id
+ * @throws {AccountFileError} if the file isn't JSON or fails its schema
+ */
+export function readSnapshot(root: string, id: string): StoredSnapshot | null {
+  const path = snapshotPath(id);
+  if (!existsSync(join(root, path))) return null;
+  return { id, data: readFile(root, path, accountSnapshotFile) };
+}
+
+/**
+ * Counts the skill rows of the committed database export.
+ *
+ * @param root - the repo root
+ * @param path - the export, relative to the root
+ * @returns how many skill rows it holds; `0` when the file or its `skills` table is missing
+ * @throws {SyntaxError} if the file isn't JSON
+ */
+export function exportedSkills(root: string, path: string): number {
+  const file = join(root, path);
+  if (!existsSync(file)) return 0;
+  const parsed = JSON.parse(readFileSync(file, "utf-8")) as { tables?: { skills?: unknown[] } };
+  return parsed.tables?.skills?.length ?? 0;
 }
 
 /**

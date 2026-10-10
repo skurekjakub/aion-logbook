@@ -1,6 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { CharacterMatchError, HttpError, fetchCharacter } from "../src/fetch";
+import { CharacterMatchError, HttpError, RETRY_DELAY_MS, fetchCharacter } from "../src/fetch";
 import { BAON, BAON_ID, EQUIPMENT, INFO, SEARCH, fakeHttp, fixtureText, ok } from "./helpers";
+
+/**
+ * A pause that returns at once.
+ *
+ * @returns a settled promise
+ */
+const noWait = () => Promise.resolve();
 
 describe("fetchCharacter", () => {
   it("fetches info and equipment by the cached id, without a search", async () => {
@@ -70,12 +77,18 @@ describe("fetchCharacter", () => {
       [INFO]: [{ status: 503, body: "busy" }, ok("character-info-baon.json")],
       [EQUIPMENT]: [ok("character-equipment-baon.json")],
     });
+    const waits: number[] = [];
 
     // Act
-    const data = await fetchCharacter(BAON, http);
+    const data = await fetchCharacter(BAON, http, (ms) => {
+      waits.push(ms);
+      return Promise.resolve();
+    });
 
     // Assert
     expect(calls.map((c) => c.url.pathname)).toEqual([INFO, INFO, EQUIPMENT]);
+    expect(waits).toEqual([RETRY_DELAY_MS]);
+    expect(RETRY_DELAY_MS).toBe(2000);
     expect(data.info).toMatchObject({ profile: { characterName: "Baon" } });
   });
 
@@ -84,7 +97,7 @@ describe("fetchCharacter", () => {
     const { http, calls } = fakeHttp({ [INFO]: [{ status: 502, body: "bad gateway" }] });
 
     // Act
-    const run = fetchCharacter(BAON, http);
+    const run = fetchCharacter(BAON, http, noWait);
 
     // Assert
     await expect(run).rejects.toThrow(HttpError);
