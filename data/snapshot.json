@@ -1,29 +1,4805 @@
 {
  "version": 1,
  "tables": {
-  "sources": [],
-  "researchRecords": [],
-  "recordClasses": [],
-  "captures": [],
-  "glossary": [],
-  "skills": [],
-  "builds": [],
-  "buildSkills": [],
-  "buildStigmas": [],
-  "macros": [],
-  "macroSteps": [],
-  "mechanics": [],
+  "sources": [
+   {
+    "id": "web:aion2-plaync-api-equipment",
+    "site": "web",
+    "url": "https://aion2.plaync.com/api/character/equipment?region=eu&lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D&serverId=2319",
+    "title": "Official character equipment endpoint",
+    "titleEn": null,
+    "date": "2026-10-10",
+    "relevance": 3,
+    "note": "Unauthenticated JSON: equipped gear, pet and wings, and the full skill list (Active, Passive, Dp = stigma) with levels and an equip flag.",
+    "summaryEn": "Gear per slot with enchant and exceed levels, and every class skill with its level, acquired and equipped flags.",
+    "capturePath": "research/002-character-data-source/evidence/03-api/character-equipment-baon.json",
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": "web:aion2-plaync-api-info",
+    "site": "web",
+    "url": "https://aion2.plaync.com/api/character/info?region=eu&lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D&serverId=2319",
+    "title": "Official character info endpoint",
+    "titleEn": null,
+    "date": "2026-10-10",
+    "relevance": 3,
+    "note": "Unauthenticated JSON: profile, stats (item level is a stat row), titles, ranking, Daevanion boards. 404 without region.",
+    "summaryEn": "Profile (name, class, level, combat power, server), primary and deity stats with item level, titles and Daevanion board progress.",
+    "capturePath": "research/002-character-data-source/evidence/03-api/character-info-baon.json",
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": "web:aion2-plaync-api-search",
+    "site": "web",
+    "url": "https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&page=1&size=40&region=eu&localeInfo=en-US",
+    "title": "Official character search (global)",
+    "titleEn": null,
+    "date": "2026-10-10",
+    "relevance": 3,
+    "note": "Unauthenticated JSON. region and localeInfo are required (400 without). Returns characterId, serverId, pcId, level per match.",
+    "summaryEn": "Name search per region; the EU search lists Baon on Fafnir at level 36 with the Cleric pcId.",
+    "capturePath": "research/002-character-data-source/evidence/03-api/search-baon-eu.json",
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": "web:aion2-plaync-character-baon",
+    "site": "web",
+    "url": "https://aion2.plaync.com/en-us/characters/2319/xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D?region=eu",
+    "title": "Character Info : AION 2-NC (Baon, Fafnir)",
+    "titleEn": null,
+    "date": "2026-10-10",
+    "relevance": 3,
+    "note": "Official global character page, client-rendered; read with agent-browser. Its network log shows the JSON endpoints it calls.",
+    "summaryEn": "The official profile of Baon (Fafnir, EU, Asmodian Cleric, level 36): gear with enchant levels, skills and stigmas with levels, Daevanion boards, titles.",
+    "capturePath": "research/002-character-data-source/evidence/02-browser/aion2-plaync-com-en-us-characters-2319-baon.txt",
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": "web:aion2-plaync-characters-js",
+    "site": "web",
+    "url": "https://assets.playnccdn.com/static-aion2/characters/js/index.js?_=202610061429",
+    "title": "Official character pages' script bundle",
+    "titleEn": null,
+    "date": "2026-10-10",
+    "relevance": 2,
+    "note": "Excerpts only: base hosts, the region and lang params, the search, info, equipment and Daevanion calls.",
+    "summaryEn": "How the official pages build their API calls, global versus KR.",
+    "capturePath": "research/002-character-data-source/evidence/04-site-js/characters-index-js-endpoints.txt",
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": "web:aion2hub-2026-01-28",
+    "site": "web",
+    "url": "https://aion2hub.com/updates/aion-2-update-2026-01-28",
+    "title": "AION 2 Patch Notes — January 28, 2026 (Skill Macro, Character Warehouse)",
+    "titleEn": null,
+    "date": "2026-01-28",
+    "relevance": 2,
+    "note": "Korean service: skill macro added (per-step delays, hold to run, manual input wins); Earth Punishment cooldown 60 → 30 s.",
+    "summaryEn": "KR patch adding the skill macro and cutting Earth Punishment's and Voice of Doom's cooldowns.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/aion2hub-com-updates-aion-2-update-2026-01-28.md",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "web:aion2hub-2026-03-25",
+    "site": "web",
+    "url": "https://aion2hub.com/updates/aion-2-update-2026-03-25",
+    "title": "AION 2 Patch Notes — March 25, 2026 (Kinah Split, Stigma & Block Overhaul)",
+    "titleEn": null,
+    "date": "2026-03-25",
+    "relevance": 1,
+    "note": "Korean service: 5 stigma slots and a new Cleric stigma (Touch of Rebirth) that the global client's list doesn't have.",
+    "summaryEn": "KR patch raising stigma slots to 5 and adding a stigma per class.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/aion2hub-com-updates-aion-2-update-2026-03-25.md",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "web:aion2hub-2026-08-12",
+    "site": "web",
+    "url": "https://aion2hub.com/updates/aion-2-update-2026-08-12",
+    "title": "AION 2 Patch Notes — August 12, 2026",
+    "titleEn": null,
+    "date": "2026-08-12",
+    "relevance": 1,
+    "note": "Korean service healing rework: 40 m heal radius, 20–50% less raw healing, Healing Enhancement scales with Attack.",
+    "summaryEn": "KR healing rework that made Cleric heals scale with Attack.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/aion2hub-com-updates-aion-2-update-2026-08-12.md",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "web:aion2hub-2026-09-04",
+    "site": "web",
+    "url": "https://aion2hub.com/updates/aion-2-update-2026-09-04",
+    "title": "AION 2 Patch Notes — September 4, 2026 (Emergency Maintenance: Class Care)",
+    "titleEn": null,
+    "date": "2026-09-04",
+    "relevance": 1,
+    "note": "Korean service: Bolt +20% PvE damage; Prayer of Amplification rebuilt.",
+    "summaryEn": "KR class-care pass buffing the Cleric's Bolt in PvE.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/aion2hub-com-updates-aion-2-update-2026-09-04.md",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "web:aion2run-cleric",
+    "site": "web",
+    "url": "https://aion2.run/en/classes/clerc",
+    "title": "AION 2 Cleric guide: builds, rotation and stigmas – Aion2 Guide",
+    "titleEn": null,
+    "date": "2026-10-05",
+    "relevance": 3,
+    "note": "Sourced fan guide (global and KR): per-bracket leveling plan, builds per activity, rotations, KR skill names. Server-rendered capture alongside lacks the build lists.",
+    "summaryEn": "Leveling plan by level bracket, solo and dungeon builds with stigmas, rotations, and the global vs Korean differences.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/aion2-run-en-classes-clerc-rendered.md",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "web:allthings-macros",
+    "site": "web",
+    "url": "https://allthings.how/?p=211813",
+    "title": "AION 2: How to Use Macros and Pick the Right Delay",
+    "titleEn": null,
+    "date": "2026-10-05",
+    "relevance": 3,
+    "note": "Most detailed macro-editor description: says 20 entries, each a hotbar column, run top to bottom, 10 ms default, toggles and charged skills out; a short Cleric dummy test.",
+    "summaryEn": "How the built-in macro works: bind, build from hotbar columns, 10 ms delay, what to leave out, presets with their own macros.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/allthings-how-p-211813.md",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "web:eloboost24-cleric-build",
+    "site": "web",
+    "url": "https://eloboost24.eu/blog/aion-2-cleric-build",
+    "title": "AION 2 Cleric Build Guide (Global 2026)",
+    "titleEn": null,
+    "date": "2026-10-06",
+    "relevance": 2,
+    "note": "Written from the global client's skill data, no ranking data. Heal-first; says Earth Punishment beats Light of Protection solo.",
+    "summaryEn": "Heals first, Chain of Torment between heals; stigmas Light of Protection, Absolution, Yustiel's Power, Summon Resurrection; Earth Punishment first when solo.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/eloboost24-eu-blog-aion-2-cleric-build.md",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "web:game-client-skill-window",
+    "site": "web",
+    "url": "https://github.com/skurekjakub/aion-logbook/blob/main/research/001-cleric-build/evidence/03-game/game-client-skill-window-2026-10-10.md",
+    "title": "Global client: the Skill window and the macro editor, read in game",
+    "titleEn": null,
+    "date": "2026-10-10",
+    "relevance": 3,
+    "note": "In-game reading of the global client, transcribed from a local 1 fps recording (frames stay local). The URL is the transcription in this repo; the game has no page of its own.",
+    "summaryEn": "One skill per macro entry with its own 10 ms delay, entries numbered from the top, Add Macro appends Earth's Retribution; hotbar keys hold rows 0–3.",
+    "capturePath": "research/001-cleric-build/evidence/03-game/game-client-skill-window-2026-10-10.md",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "web:gamesfuze-cleric-build",
+    "site": "web",
+    "url": "https://gamesfuze.com/guides/aion-2-cleric-build-best-healer-skills-stigmas-and-gear-dungeons-pvp/",
+    "title": "AION 2 Cleric Build: Best Healer Skills, Stigmas and Gear (Dungeons & PvP)",
+    "titleEn": null,
+    "date": "2026-10-01",
+    "relevance": 2,
+    "note": "Skill-by-skill breakpoints (8/12/16) and a staged level-8 order.",
+    "summaryEn": "Every Cleric skill's specialization breakpoints and a staged skill order for healer and hybrid play.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/gamesfuze-com-guides-aion-2-cleric-build-best-healer-skills-stigmas-and-gear-dungeons-pvp.md",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "web:gamesfuze-macros",
+    "site": "web",
+    "url": "https://gamesfuze.com/guides/aion-2-best-macro-setup-guide/",
+    "title": "AION 2: Best Macro Setup Guide - GamesFuze",
+    "titleEn": null,
+    "date": "2026-09-30",
+    "relevance": 2,
+    "note": "Key path, 10 ms delay, delay is not ping; keep charged skills and toggles out.",
+    "summaryEn": "Built-in macro chains hotbar skills on a held key; 10 ms delay; leave defensive, burst, charged and toggle skills manual.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/gamesfuze-com-guides-aion-2-best-macro-setup-guide.md",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "web:inven-cleric-guide",
+    "site": "web",
+    "url": "https://www.inven.co.kr/board/aion2/6452/657",
+    "title": "(26/01/28 기준) ★ 치유성 가이드 ★ - 아이온2 인벤 치유성 게시판",
+    "titleEn": "Cleric guide (as of 2026-01-28), Inven Cleric board",
+    "date": "2025-12-03",
+    "relevance": 2,
+    "note": "Korean service, a long-time Cleric main; post-cap mastery order, stigma order, a right-click column and a 50 ms macro. Pre-dates KR's May macro rework.",
+    "summaryEn": "Korean Cleric guide: skill masteries, passives and stigmas for PvE and PvP, the author's right-click skill column and in-game macro.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/inven-co-kr-board-aion2-6452-657.md",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "web:keengamer-pve-builds",
+    "site": "web",
+    "url": "https://www.keengamer.com/articles/guides/aion-2-best-pve-builds-for-every-class/",
+    "title": "AION 2 - Best PvE Builds for Every Class",
+    "titleEn": null,
+    "date": "2026-10-06",
+    "relevance": 2,
+    "note": "Hybrid healer section; keeps Resurrection until the group clears mechanics.",
+    "summaryEn": "Cleric hybrid healer: Healing Light, Chain of Torment, Condemnation core; stigmas Earth's Punishment, Light of Protection, Noble Aura, Resurrection.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/keengamer-com-articles-guides-aion-2-best-pve-builds-for-every-class.md",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "web:meinmmo-macros",
+    "site": "web",
+    "url": "https://mein-mmo.de/en/aion-2-macros-for-all-classes-how-to-massively-increase-your-damage-with-just-2-keys,1590032/",
+    "title": "Aion 2: Macros for all classes – How to massively increase your damage with just 2 keys",
+    "titleEn": null,
+    "date": "2026-10-06",
+    "relevance": 2,
+    "note": "Bottom skill has top priority; says the macro also processes 'from the bottom up'. Hold basic attack separately.",
+    "summaryEn": "Stack highest priority at the bottom, never a no-cooldown skill low, hold the macro key plus left mouse for animation cancels.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/mein-mmo-de-en-aion-2-macros-for-all-classes-how-to-massively-increase-your-damage-with-just-2-keys-1590032.md",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "web:metabot-armory",
+    "site": "web",
+    "url": "https://metabot.gg/en/aion-2/armory",
+    "title": "AION 2 Armory: Character Search & Gear Lookup | MetaBot.GG",
+    "titleEn": null,
+    "date": "2026-10-10",
+    "relevance": 1,
+    "note": "Fan armory over the official data, copy refreshed when older than 30 minutes. No public API: /api/ is disallowed in robots.txt and answers curl with 403.",
+    "summaryEn": "Says it reads the public character data the official site publishes; no documented API.",
+    "capturePath": "research/002-character-data-source/evidence/01-pages/metabot-gg-en-aion-2-armory.md",
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": "web:metabot-cleric-build",
+    "site": "web",
+    "url": "https://metabot.gg/en/aion-2/classes/cleric/build",
+    "title": "AION 2 Cleric Build Planner – Top-Player Meta | MetaBot.GG",
+    "titleEn": null,
+    "date": null,
+    "relevance": 3,
+    "note": "Global client data (build 0.0.4387.0): skill list, unlock levels, cooldowns, point costs, stigma slots; top-player usage. Undated, 'updated 7 days ago' on 10-10.",
+    "summaryEn": "Client-read skill and stigma data for the global Cleric, point budgets by level, and what the tracked top level-45 Clerics slot.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/metabot-gg-en-aion-2-classes-cleric-build.md",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "web:plaync-developers",
+    "site": "web",
+    "url": "https://developers.plaync.com/",
+    "title": "PLAYNC Developers",
+    "titleEn": null,
+    "date": "2026-10-10",
+    "relevance": 2,
+    "note": "Client-rendered, read with agent-browser. Documents the Lineage 2M market API only; /apis/aion2 lands on NC's error page.",
+    "summaryEn": "NC's developer center offers a Lineage 2M item and market price API and nothing for Aion 2.",
+    "capturePath": "research/002-character-data-source/evidence/07-nc-open-api/developers-plaync-com-home.txt",
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": "web:plaync-open-api-terms",
+    "site": "web",
+    "url": "https://www.plaync.com/policy/service/developers",
+    "title": "NC OPEN API 서비스 이용약관",
+    "titleEn": "NC OPEN API Service Terms of Use",
+    "date": "2026-10-10",
+    "relevance": 2,
+    "note": "Korean only. API kinds per the developer center (제 4 조); key required (제 6 조 ①); no caching beyond the terms (제 6 조 ⑤); no automated or periodic load (제 6 조 ⑧).",
+    "summaryEn": "NC's published API needs a developer-center key and forbids caching its data or loading its servers with automated access.",
+    "capturePath": "research/002-character-data-source/evidence/07-nc-open-api/plaync-com-policy-service-developers.md",
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": "web:plaync-terms-of-use",
+    "site": "web",
+    "url": "https://www.plaync.com/policy/service/game_en",
+    "title": "Terms of Use (NC, English)",
+    "titleEn": null,
+    "date": "2026-10-10",
+    "relevance": 3,
+    "note": "Section 6 forbids accessing or searching the Services by automated means other than NC's published interfaces, and scraping without NC's consent.",
+    "summaryEn": "NC's game terms: no automated access or scraping outside published interfaces without a separate agreement.",
+    "capturePath": "research/002-character-data-source/evidence/06-terms/plaync-com-policy-service-game-en.md",
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": "web:playnews-macros",
+    "site": "web",
+    "url": "https://www.playnews.gg/en/guides/aion-2-macros-how-to-set-them-up-and-optimize-their-use",
+    "title": "Aion 2 Macros: How to Set Them Up and Optimize Their Use",
+    "titleEn": null,
+    "date": "2026-10-06",
+    "relevance": 2,
+    "note": "Up to 4 skills per hotbar button, lowest tried first; no-cooldown skills on top.",
+    "summaryEn": "Bind the macro key, stack cooldown skills at the bottom and spam skills on top, add hotbar buttons to the macro, hold basic attack.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/playnews-gg-en-guides-aion-2-macros-how-to-set-them-up-and-optimize-their-use.md",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "web:vortex-cleric-guide",
+    "site": "web",
+    "url": "https://vortexgaming.io/en/postdetail/977592",
+    "title": "Aion 2 Cleric, PVE/PVP Skill Tree and Stigma Complete Guide | Vortex Gaming",
+    "titleEn": null,
+    "date": null,
+    "relevance": 1,
+    "note": "Machine-translated summary of a Korean video; several skill names garbled (e.g. 'Troops' for Bolt). Korean original captured beside it.",
+    "summaryEn": "KR specialization picks and stigma sets per dungeon; core PvE stigmas Benevolence, Earth Punishment, Noble Aura, Light of Protection.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/vortexgaming-io-en-postdetail-977592.md",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "yt:WhNIY6j8TRM",
+    "site": "yt",
+    "url": "https://www.youtube.com/watch?v=WhNIY6j8TRM",
+    "title": "[치유성] 쉽고 빠른 2꾹 세팅 방법! 인게임 스킬 매크로가 완전 바뀌었습니다!",
+    "titleEn": "[Cleric] Easy two-button hold setup: the in-game skill macro has completely changed",
+    "date": "2026-05-27",
+    "relevance": 1,
+    "note": "Korean; digest only (no transcript). Comments: Bolt in a macro fires at charge 1; Judgment fires once Bolt is on cooldown.",
+    "summaryEn": "KR Cleric two-key in-game macro setup after the May 2026 macro rework.",
+    "capturePath": "research/001-cleric-build/evidence/02-youtube/yt-WhNIY6j8TRM.txt",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "yt:r4WXaGgKCxw",
+    "site": "yt",
+    "url": "https://www.youtube.com/watch?v=r4WXaGgKCxw",
+    "title": "[아이온2]🔥치유성 편한 사냥 세팅! 지허브+스매 / 인겜스매 / 모바일 매크로까지",
+    "titleEn": "Cleric comfortable hunting setup: G Hub + skill macro / in-game skill macro / mobile",
+    "date": "2026-08-06",
+    "relevance": 1,
+    "note": "Korean; digest only. A comment: with the in-game macro alone, put Judgment Thunder above Light of Regeneration for hunting.",
+    "summaryEn": "KR Cleric hunting setups including an in-game skill macro.",
+    "capturePath": "research/001-cleric-build/evidence/02-youtube/yt-r4WXaGgKCxw.txt",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "yt:v_NuuOGFp_4",
+    "site": "yt",
+    "url": "https://www.youtube.com/watch?v=v_NuuOGFp_4",
+    "title": "아이온2 치유성 인게임 매크로 및 스펙 공유 dps100만",
+    "titleEn": "Cleric in-game macro and spec share, 1M DPS",
+    "date": "2026-05-28",
+    "relevance": 2,
+    "note": "Korean, mobile client. Frames at 0:42–0:45 show the macro editor: numbered entries from the top, 10 ms each, Earth's Retribution interleaved with Divine Aura and Prayer of Amplification.",
+    "summaryEn": "KR Cleric in-game macro run on a training dummy.",
+    "capturePath": "research/001-cleric-build/evidence/02-youtube/yt-v_NuuOGFp_4.txt",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "yt:ymKxcPRDksU",
+    "site": "yt",
+    "url": "https://www.youtube.com/watch?v=ymKxcPRDksU",
+    "title": "[아이온2] 치유성 마매+인게임 매크로 설정 (1분 허수아비)",
+    "titleEn": "Cleric mouse macro + in-game macro setup (1-minute dummy)",
+    "date": "2026-05-29",
+    "relevance": 0,
+    "note": "Korean; digest only. Pairs an external mouse macro with the in-game one; external macros are against the rules.",
+    "summaryEn": "KR Cleric setup combining an external mouse macro with the in-game macro.",
+    "capturePath": "research/001-cleric-build/evidence/02-youtube/yt-ymKxcPRDksU.txt",
+    "recordSlug": "001-cleric-build"
+   }
+  ],
+  "researchRecords": [
+   {
+    "slug": "001-cleric-build",
+    "question": "What skill levels, stigmas and built-in macro chains should a level-36 Cleric on the global client run, for leveling and PvE, and how is the built-in macro editor's priority ordered?",
+    "status": "active",
+    "startedAt": "2026-10-10",
+    "updatedAt": "2026-10-10",
+    "seasonLabel": "Global launch, level cap 45",
+    "lede": "Solo: damage first, Light of Protection → Earth Punishment → Noble Aura. Dungeons: heals to 10, Light of Protection, Resurrection.",
+    "caveat": "Macro entries are single skills (read in game); their run order, top-down or bottom-up, is still unconfirmed."
+   },
+   {
+    "slug": "002-character-data-source",
+    "question": "Where does the official Aion 2 site publish a character's public data, so pnpm sync can fetch it without game input?",
+    "status": "done",
+    "startedAt": "2026-10-10",
+    "updatedAt": "2026-10-10",
+    "seasonLabel": "Global launch, level cap 45",
+    "lede": "aion2.plaync.com serves any character as JSON, no login: search by name, then info + equipment by server and id.",
+    "caveat": "Undocumented endpoints; NC's Open API has nothing for Aion 2 and its Terms forbid other automated access. Macros and keybinds are not published."
+   }
+  ],
+  "recordClasses": [
+   {
+    "recordSlug": "001-cleric-build",
+    "class": "cleric"
+   }
+  ],
+  "captures": [
+   {
+    "id": 1,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/vortexgaming-io-en-postdetail-977592.md",
+    "url": "https://vortexgaming.io/en/postdetail/977592",
+    "capturedAt": "2026-10-10T10:16:43+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "023b96e7dfaf086e4e4f46befc252c4f3744174256fe18861d0d5c49180bca01"
+   },
+   {
+    "id": 2,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/metabot-gg-en-aion-2-classes-cleric-build.md",
+    "url": "https://metabot.gg/en/aion-2/classes/cleric/build",
+    "capturedAt": "2026-10-10T10:16:54+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "88e8882960f6e093ec618f0475495f5526662034aa58eafa14a2bcfaa6efd879"
+   },
+   {
+    "id": 3,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/mein-mmo-de-en-aion-2-macros-for-all-classes-how-to-massively-increase-your-damage-with-just-2-keys-1590032.md",
+    "url": "https://mein-mmo.de/en/aion-2-macros-for-all-classes-how-to-massively-increase-your-damage-with-just-2-keys,1590032/",
+    "capturedAt": "2026-10-10T10:18:06+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "4825bb841014d6c6e4a216acbbc87bd8379a1d52b5683a1ebbaeee7973cf87c0"
+   },
+   {
+    "id": 4,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/eloboost24-eu-blog-aion-2-cleric-build.md",
+    "url": "https://eloboost24.eu/blog/aion-2-cleric-build",
+    "capturedAt": "2026-10-10T10:22:38+02:00",
+    "approx": null,
+    "tool": "agent-browser",
+    "sha256": "19604acafb47550ffc3d9fa28bc2367d32ce630568dcc97d7a9d596f970a74cc"
+   },
+   {
+    "id": 5,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/playnews-gg-en-guides-aion-2-macros-how-to-set-them-up-and-optimize-their-use.md",
+    "url": "https://www.playnews.gg/en/guides/aion-2-macros-how-to-set-them-up-and-optimize-their-use",
+    "capturedAt": "2026-10-10T10:23:56+02:00",
+    "approx": null,
+    "tool": "agent-browser",
+    "sha256": "64cdcd4c00ef8c2c0c6268020a4d67346ae89dc3300d1d42e4d4635497d5c064"
+   },
+   {
+    "id": 6,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/keengamer-com-articles-guides-aion-2-best-pve-builds-for-every-class.md",
+    "url": "https://www.keengamer.com/articles/guides/aion-2-best-pve-builds-for-every-class/",
+    "capturedAt": "2026-10-10T10:23:59+02:00",
+    "approx": null,
+    "tool": "agent-browser",
+    "sha256": "9e8db2ace78496aeed7ae3ee0e72f93ce79873e7c295fe7d3db9889c16ff223a"
+   },
+   {
+    "id": 7,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/gamesfuze-com-guides-aion-2-best-macro-setup-guide.md",
+    "url": "https://gamesfuze.com/guides/aion-2-best-macro-setup-guide/",
+    "capturedAt": "2026-10-10T10:24:44+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "60e58aef99c8a7c720c46fd59dabcc936a2004ab5b1930a697c546c7541e849b"
+   },
+   {
+    "id": 8,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/aion2hub-com-updates-aion-2-update-2026-01-28.md",
+    "url": "https://aion2hub.com/updates/aion-2-update-2026-01-28",
+    "capturedAt": "2026-10-10T10:24:48+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "6971ef9005f783d56c5e72b9a6fb620f9772c862da23b819fc6305895dcfa8e9"
+   },
+   {
+    "id": 9,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/aion2hub-com-updates-aion-2-update-2026-03-25.md",
+    "url": "https://aion2hub.com/updates/aion-2-update-2026-03-25",
+    "capturedAt": "2026-10-10T10:24:51+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "2ef73abc6bc26a89c0d9e10c1f70cceb3d28fb75c61b6e9294941da90e3200b5"
+   },
+   {
+    "id": 10,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/inven-co-kr-board-aion2-6452-657.md",
+    "url": "https://www.inven.co.kr/board/aion2/6452/657",
+    "capturedAt": "2026-10-10T10:25:21+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "102870411c95c05e1fa388d2e510f63401e6f09edba287b8b118880d0a12c471"
+   },
+   {
+    "id": 11,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/gamemeca-com-view-php.md",
+    "url": "https://www.gamemeca.com/view.php?gid=232966",
+    "capturedAt": "2026-10-10T10:25:35+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "cb006eb5eb84b3381617fd726ec8b531e6ce7cdcdc08c191b6e760c8a51d32e9"
+   },
+   {
+    "id": 12,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/vortexgaming-io-postdetail-977592.md",
+    "url": "https://vortexgaming.io/postdetail/977592",
+    "capturedAt": "2026-10-10T10:25:50+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "7d816ee6a5f8d216f06093f33b1c112cf73ccd0f38da99a0ad7565a90e6989fe"
+   },
+   {
+    "id": 13,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/allthings-how-p-211813.md",
+    "url": "https://allthings.how/?p=211813",
+    "capturedAt": "2026-10-10T10:27:27+02:00",
+    "approx": null,
+    "tool": "agent-browser",
+    "sha256": "af51efd7a1c89952f97c0b8bdd3999f4c0421f52a587b0800d9e14611598b04d"
+   },
+   {
+    "id": 14,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/ytq-aion_2_cleric_macro.html",
+    "url": "https://www.youtube.com/results?search_query=aion%202%20cleric%20macro",
+    "capturedAt": "2026-10-10T10:27:30+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "f8b7456f5d4517b6720878172a5771c3e60d9ed05cbc9ab02a41122bf8edc2d3"
+   },
+   {
+    "id": 15,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/ytq-aion_2_cleric_macro-new.html",
+    "url": "https://www.youtube.com/results?search_query=aion%202%20cleric%20macro&sp=CAI%253D",
+    "capturedAt": "2026-10-10T10:27:30+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "0c161cc7e34ed82c28fa804d86ec0051750f56d6799aac41c325d493a5bf09db"
+   },
+   {
+    "id": 16,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/ytq-aion_2_cleric_build_global.html",
+    "url": "https://www.youtube.com/results?search_query=aion%202%20cleric%20build%20global",
+    "capturedAt": "2026-10-10T10:27:31+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "513ec7b3e6658a6b05ce7e24e058250f151cf7ce6672e2b971f9ee300ec971f2"
+   },
+   {
+    "id": 17,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/ytq-aion_2_cleric_build_global-new.html",
+    "url": "https://www.youtube.com/results?search_query=aion%202%20cleric%20build%20global&sp=CAI%253D",
+    "capturedAt": "2026-10-10T10:27:32+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "ef2bbb8e48ded85c9c81953e748c7a802df92c121219bcf442489960474fdbdd"
+   },
+   {
+    "id": 18,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/ytq-아이온2_치유성_매크로.html",
+    "url": "https://www.youtube.com/results?search_query=%EC%95%84%EC%9D%B4%EC%98%A82%20%EC%B9%98%EC%9C%A0%EC%84%B1%20%EB%A7%A4%ED%81%AC%EB%A1%9C",
+    "capturedAt": "2026-10-10T10:27:33+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "c74f1b052d4380747e3f2d403676c128e1ecaea3b0a47960755c85a29f5f1540"
+   },
+   {
+    "id": 19,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/ytq-아이온2_치유성_매크로-new.html",
+    "url": "https://www.youtube.com/results?search_query=%EC%95%84%EC%9D%B4%EC%98%A82%20%EC%B9%98%EC%9C%A0%EC%84%B1%20%EB%A7%A4%ED%81%AC%EB%A1%9C&sp=CAI%253D",
+    "capturedAt": "2026-10-10T10:27:34+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "89388c056d11ce54d2994b43fba88d613b8849288850e2bb4a5dbe7232ba8c70"
+   },
+   {
+    "id": 20,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/yt-WhNIY6j8TRM.html",
+    "url": "https://www.youtube.com/watch?v=WhNIY6j8TRM&hl=ko",
+    "capturedAt": "2026-10-10T10:28:05+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "49f5fcfde94fe271910b613436e727326c7b18a3239790d4473c670a73a0e41c"
+   },
+   {
+    "id": 21,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/yt-WhNIY6j8TRM.txt",
+    "url": "https://www.youtube.com/watch?v=WhNIY6j8TRM",
+    "capturedAt": "2026-10-10T10:28:06+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "e2b4ea519a5e2d6c017947c97a9cee5e647c73713b47c4e2a9697aad556e9f74"
+   },
+   {
+    "id": 22,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/yt-v_NuuOGFp_4.html",
+    "url": "https://www.youtube.com/watch?v=v_NuuOGFp_4&hl=ko",
+    "capturedAt": "2026-10-10T10:28:06+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "77b99fc162de81ab87028a82b0c871d59fb61376b2e2d8975a604c7c45049172"
+   },
+   {
+    "id": 23,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/yt-v_NuuOGFp_4.txt",
+    "url": "https://www.youtube.com/watch?v=v_NuuOGFp_4",
+    "capturedAt": "2026-10-10T10:28:07+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "4e56948c576b21413b80c896bcd28f63dbd5128ab4a9d4e3d213d92f360e5548"
+   },
+   {
+    "id": 24,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/yt-ymKxcPRDksU.html",
+    "url": "https://www.youtube.com/watch?v=ymKxcPRDksU&hl=ko",
+    "capturedAt": "2026-10-10T10:28:08+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "1dd44b6fcde891a4b3b30e524d9fe2702f67212ee4eac84287be8d5a532aa293"
+   },
+   {
+    "id": 25,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/yt-ymKxcPRDksU.txt",
+    "url": "https://www.youtube.com/watch?v=ymKxcPRDksU",
+    "capturedAt": "2026-10-10T10:28:09+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "77f60b6e63bb501a25d19202e68c1d54b1f65cdff880c2ae1bc2ad19875b9604"
+   },
+   {
+    "id": 26,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/yt-r4WXaGgKCxw.html",
+    "url": "https://www.youtube.com/watch?v=r4WXaGgKCxw&hl=ko",
+    "capturedAt": "2026-10-10T10:28:09+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "009c7ae5389b89f87509d059df0a6df7c0b70a2eef52563dd5a395bbd5f9a4c2"
+   },
+   {
+    "id": 27,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/yt-r4WXaGgKCxw.txt",
+    "url": "https://www.youtube.com/watch?v=r4WXaGgKCxw",
+    "capturedAt": "2026-10-10T10:28:10+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "0140860ace1fc76dbb4828642a3cefa95323f069a6d291dd92a3f9693716adc3"
+   },
+   {
+    "id": 28,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/video/v_NuuOGFp_4.webm",
+    "url": "https://www.youtube.com/watch?v=v_NuuOGFp_4",
+    "capturedAt": "2026-10-10T10:28:31+02:00",
+    "approx": null,
+    "tool": "yt-dlp",
+    "sha256": "a864b1c7379e1a3bf3a826b580be680546fcad7929941ea2fdaf0d29cb8d9668"
+   },
+   {
+    "id": 29,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/frames-v_NuuOGFp_4/f-00m00.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T10:28:50+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "739c1e940adcc7893b6763458d9c20af1d6624693c729c63ef0d007434491997"
+   },
+   {
+    "id": 30,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/frames-v_NuuOGFp_4/f-00m03.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T10:28:50+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "8e673a15f060bc0121ddd6b6526bec57ee6002b68ad2b604ab1de281b42562ec"
+   },
+   {
+    "id": 31,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/frames-v_NuuOGFp_4/f-00m09.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T10:28:50+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "42deb727adbc039c80515fa93692f1d8cc50d84394414f7551e37548e855bb3c"
+   },
+   {
+    "id": 32,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/frames-v_NuuOGFp_4/f-00m15.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T10:28:50+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "a41f6edea88709d3a26c5a85c40f324bd5e1f32bae66bbd3980738b5cbd630f4"
+   },
+   {
+    "id": 33,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/frames-v_NuuOGFp_4/f-00m18.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T10:28:50+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "f6e1bf6f7564b010b9c8c82c50ea3997663eb3ef48b5bd1267f2d5c10951ac7f"
+   },
+   {
+    "id": 34,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/frames-v_NuuOGFp_4/f-00m21.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T10:28:50+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "c5c862b7b91ceece542b5f397e8afd16892acb6ef60c301e2fe914506fd8d629"
+   },
+   {
+    "id": 35,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/frames-v_NuuOGFp_4/f-00m42.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T10:28:50+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "3817af9f518008c250b7af5b9332620c72c9142488c06a6974998c147255e5a8"
+   },
+   {
+    "id": 36,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/frames-v_NuuOGFp_4/f-00m45.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T10:28:50+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "e4f56e3f0eeb8fd15ef03fe20dd45aafbbd0a9fcee08c24257639152a04322f0"
+   },
+   {
+    "id": 37,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/frames-v_NuuOGFp_4/f-00m57.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T10:28:50+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "4c4b7f1b13636cbdb6930693d1e71ce2e76d2c2a2ddc513099f1e03c843fa4fa"
+   },
+   {
+    "id": 38,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/02-youtube/frames-v_NuuOGFp_4/f-01m00.0s.jpg",
+    "url": null,
+    "capturedAt": "2026-10-10T10:28:50+02:00",
+    "approx": null,
+    "tool": "capture:youtube",
+    "sha256": "67062628fd7cfe81b56f27073926f209c384c77dbe59b421a25893ba539ecf5b"
+   },
+   {
+    "id": 39,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/gamesfuze-com-guides-aion-2-cleric-build-best-healer-skills-stigmas-and-gear-dungeons-pvp.md",
+    "url": "https://gamesfuze.com/guides/aion-2-cleric-build-best-healer-skills-stigmas-and-gear-dungeons-pvp/",
+    "capturedAt": "2026-10-10T10:29:43+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "45f8fecc84e6e6ad53c52e6dadbcfa5492083e55299612a970596a92edec18d1"
+   },
+   {
+    "id": 40,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/aion2-run.md",
+    "url": "https://aion2.run/",
+    "capturedAt": "2026-10-10T10:29:57+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "cfd3ab812f1ddccfb5958a76692b54d53b813cbae6194733397a841538032c74"
+   },
+   {
+    "id": 41,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/aion2hub-com-updates-aion-2-update-2026-09-04.md",
+    "url": "https://aion2hub.com/updates/aion-2-update-2026-09-04",
+    "capturedAt": "2026-10-10T10:30:03+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "661b23a77e1c3b571d5abb08af4b9cdc2c954b39f482163967dba7df5f1819aa"
+   },
+   {
+    "id": 42,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/aion2hub-com-updates-aion-2-update-2026-08-12.md",
+    "url": "https://aion2hub.com/updates/aion-2-update-2026-08-12",
+    "capturedAt": "2026-10-10T10:30:06+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "93aecff314df8b5f59e39601f50af99683340d93e38a96c6d6fffdbfa9c213c2"
+   },
+   {
+    "id": 43,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/aion2-run-en-classes-clerc.md",
+    "url": "https://aion2.run/en/classes/clerc",
+    "capturedAt": "2026-10-10T10:30:56+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "fc2dbb42fb3c2b7bb0a17c6b691bcbfb8f4fb8a6e6516af9596927812717b008"
+   },
+   {
+    "id": 44,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/01-guides/aion2-run-en-classes-clerc-rendered.md",
+    "url": "https://aion2.run/en/classes/clerc",
+    "capturedAt": "2026-10-10T10:33:38+02:00",
+    "approx": null,
+    "tool": "agent-browser",
+    "sha256": "a7eaa5fff3a8b46612fe587f8f4203562acec2c4add678b34dad13bb2b42e318"
+   },
+   {
+    "id": 45,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/03-game/skill-window-mastery-f-0060.png",
+    "url": null,
+    "capturedAt": "2026-10-10T11:22:20+02:00",
+    "approx": null,
+    "tool": "manual",
+    "sha256": "c016766e572f4479dd2548fdfa101b355da17c3ce0bf754bc3adbdecd84938f2"
+   },
+   {
+    "id": 46,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/03-game/macro-editor-entries-f-0066.png",
+    "url": null,
+    "capturedAt": "2026-10-10T11:22:26+02:00",
+    "approx": null,
+    "tool": "manual",
+    "sha256": "8f567dfeea5622889813864575216c1fcc76e2da711e92fd4d7114d80817acb2"
+   },
+   {
+    "id": 47,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/03-game/macro-editor-empty-f-0068.png",
+    "url": null,
+    "capturedAt": "2026-10-10T11:22:28+02:00",
+    "approx": null,
+    "tool": "manual",
+    "sha256": "be71e901f725838080f877e64dd4110e45b1fa4d672894fe61ce02f4f5d0d026"
+   },
+   {
+    "id": 48,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/03-game/macro-editor-add-f-0069.png",
+    "url": null,
+    "capturedAt": "2026-10-10T11:22:29+02:00",
+    "approx": null,
+    "tool": "manual",
+    "sha256": "7afdc03b9b044a8e0e34da67c366c80ff971dadd49175046d2daa7e4386fbb6e"
+   },
+   {
+    "id": 49,
+    "recordSlug": "001-cleric-build",
+    "path": "evidence/03-game/game-client-skill-window-2026-10-10.md",
+    "url": null,
+    "capturedAt": "2026-10-10T11:54:14+02:00",
+    "approx": null,
+    "tool": "manual",
+    "sha256": "03763f749e20b04bf00b9d5f6237ebc57519d8defa388a587a00b44a733c5443"
+   },
+   {
+    "id": 50,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/01-pages/aion2-plaync-com-en-us-characters-index.md",
+    "url": "https://aion2.plaync.com/en-us/characters/index",
+    "capturedAt": "2026-10-10T11:01:34+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "010ae73181582f226a852797ea73a2818b487aa494bfae3badf70255b672dbcf"
+   },
+   {
+    "id": 51,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/01-pages/metabot-gg-en-aion-2-armory.md",
+    "url": "https://metabot.gg/en/aion-2/armory",
+    "capturedAt": "2026-10-10T11:01:40+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "425c7d95ef3ecbff484af33ae94657a81aa562f552a5728e428f4720e6535f91"
+   },
+   {
+    "id": 52,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/02-browser/aion2-plaync-com-en-us-characters-2319-baon.txt",
+    "url": "https://aion2.plaync.com/en-us/characters/2319/xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D?region=eu",
+    "capturedAt": "2026-10-10T11:08:58+02:00",
+    "approx": null,
+    "tool": "agent-browser",
+    "sha256": "b2dc4771932892d645be53943ea35a12731b91a8bba0430541a187b3ca29a85b"
+   },
+   {
+    "id": 53,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/02-browser/official-character-page-requests.txt",
+    "url": "https://aion2.plaync.com/en-us/characters/2319/xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D?region=eu",
+    "capturedAt": "2026-10-10T11:09:18+02:00",
+    "approx": null,
+    "tool": "agent-browser",
+    "sha256": "5f3ee12fb737ea9f534b84bd49780a64a48360fcb10061909b93f42a1d6023d8"
+   },
+   {
+    "id": 54,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/probe.sh",
+    "url": null,
+    "capturedAt": "2026-10-10T11:10:53+02:00",
+    "approx": null,
+    "tool": "manual",
+    "sha256": "0fe1cae8f331f1e4093315feb48f8e3c4c64a7b64f2d5d5024a0917480689181"
+   },
+   {
+    "id": 55,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/gameinfo-servers-eu.json",
+    "url": "https://aion2.plaync.com/en-us/api/gameinfo/servers?lang=en-US&region=eu",
+    "capturedAt": "2026-10-10T11:11:05+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "24f7f05f790c48a9c9fcb655271e7807bf49d2af01adaaed162d66ccecce8d20"
+   },
+   {
+    "id": 56,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/gameinfo-classes-eu.json",
+    "url": "https://aion2.plaync.com/en-us/api/gameinfo/classes?lang=en-US&region=eu",
+    "capturedAt": "2026-10-10T11:11:07+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "570b822637aa00ca1a6e05c9e73881d77ade6a9ab6e6c01d6489195c162dd54e"
+   },
+   {
+    "id": 57,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/gameinfo-pcdata-eu.json",
+    "url": "https://aion2.plaync.com/en-us/api/gameinfo/pcdata?lang=en-US&region=eu",
+    "capturedAt": "2026-10-10T11:11:09+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "f7325e763ec949b1f4ccdecb791b3af49b907c72fb315ccc598172765da2ba7b"
+   },
+   {
+    "id": 58,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/search-baon-eu.json",
+    "url": "https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&page=1&size=40&region=eu&localeInfo=en-US",
+    "capturedAt": "2026-10-10T11:11:12+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "a3a6fac62e87aa328f2cc29747f54cf41ea6dff2ec50b6866101eb73825797bb"
+   },
+   {
+    "id": 59,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/search-baon-nae.json",
+    "url": "https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&page=1&size=40&region=nae&localeInfo=en-US",
+    "capturedAt": "2026-10-10T11:11:15+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "8bb2c318f4e15566e40924baa366449745e363af87bba9732866621a929eb844"
+   },
+   {
+    "id": 60,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/search-baon-naw.json",
+    "url": "https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&page=1&size=40&region=naw&localeInfo=en-US",
+    "capturedAt": "2026-10-10T11:11:17+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "debbbdc119a5f19cba6e227d09f5aaeab9bbc2df19d86c6e701636f84dedb0a9"
+   },
+   {
+    "id": 61,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/search-baon-as.json",
+    "url": "https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&page=1&size=40&region=as&localeInfo=en-US",
+    "capturedAt": "2026-10-10T11:11:19+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "e782d13c2079aacf13b1a911370765e3e2aa12da943232dc5c47f451c38f57f9"
+   },
+   {
+    "id": 62,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/search-baon-la.json",
+    "url": "https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&page=1&size=40&region=la&localeInfo=en-US",
+    "capturedAt": "2026-10-10T11:11:21+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "b77d461379da246b3e732c28487a7d3a674c5766f2004f87035777fb3b8a0afa"
+   },
+   {
+    "id": 63,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/search-baon-eu-fafnir.json",
+    "url": "https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&serverId=2319&page=1&size=40&region=eu&localeInfo=en-US",
+    "capturedAt": "2026-10-10T11:11:24+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "67691e9fe5751ea48510984d5ff54f0428dc2e53cb1e28eb2cfd48e5fe23bc31"
+   },
+   {
+    "id": 64,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/search-baon-no-locale.json",
+    "url": "https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&serverId=2319&page=1&size=40&region=eu",
+    "capturedAt": "2026-10-10T11:11:26+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "2616e9c05f56007738d0062d5ae84d2afb126d042d8e91a7fefd06b153943512"
+   },
+   {
+    "id": 65,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/character-info-baon.json",
+    "url": "https://aion2.plaync.com/api/character/info?region=eu&lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D&serverId=2319",
+    "capturedAt": "2026-10-10T11:11:30+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "7d15a9c19263e2883031db0387f4591c54cc75ecc317049b07f4d8b1d0bf5655"
+   },
+   {
+    "id": 66,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/character-equipment-baon.json",
+    "url": "https://aion2.plaync.com/api/character/equipment?region=eu&lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D&serverId=2319",
+    "capturedAt": "2026-10-10T11:11:33+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "2aa5c4d86c8240c50c955bb259e1fea2f80b38f8c54a534663ee7a097c100d38"
+   },
+   {
+    "id": 67,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/character-daevanion-71-baon.json",
+    "url": "https://aion2.plaync.com/api/character/daevanion/detail?region=eu&lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D&serverId=2319&boardId=71",
+    "capturedAt": "2026-10-10T11:11:35+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "257f1253ac56f85ef75c3d201bf6411ed3d6259910bef2489cbb328e3b67738e"
+   },
+   {
+    "id": 68,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/character-info-no-region.json",
+    "url": "https://aion2.plaync.com/api/character/info?lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D&serverId=2319",
+    "capturedAt": "2026-10-10T11:11:37+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "5e674f680efa28ea8da608efe64dc0185b8e94573ebb0c49da9531afd6462f6d"
+   },
+   {
+    "id": 69,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/character-info-wrong-server.json",
+    "url": "https://aion2.plaync.com/api/character/info?region=eu&lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D&serverId=2318",
+    "capturedAt": "2026-10-10T11:11:39+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "b2fffa911918e7ef7e1f54a03782935deabdafb1a2b9022dfc207e22f8cabcb0"
+   },
+   {
+    "id": 70,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/character-info-unknown-id.json",
+    "url": "https://aion2.plaync.com/api/character/info?region=eu&lang=en-US&characterId=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA%3D&serverId=2319",
+    "capturedAt": "2026-10-10T11:11:42+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "dd832a16a2545308f91599f4dc24d492a41e8d202be305911422754dd99fe8f0"
+   },
+   {
+    "id": 71,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/search-kr-baon.json",
+    "url": "https://api-search.plaync.com/aion2/search/v2/character?keyword=%EB%B0%94%EC%98%A8&page=1&size=5",
+    "capturedAt": "2026-10-10T11:11:46+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "1678c0b99972206363ee1fe8d1172f99551b60ec790bbf046c36bcd421d45fd1"
+   },
+   {
+    "id": 72,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/probe-table.tsv",
+    "url": null,
+    "capturedAt": "2026-10-10T11:11:48+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "866c1a4ea1df5c51913edbd9da0cacd589c98e0147b2cc1982e05ceb82552328"
+   },
+   {
+    "id": 73,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/03-api/burst-character-info.tsv",
+    "url": null,
+    "capturedAt": "2026-10-10T11:11:50+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "d18ca8fe1b8054f09ad7d75f9f02bb2404e3ade086bb4a97dcf1a67040d0957b"
+   },
+   {
+    "id": 74,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/04-site-js/characters-index-js-endpoints.txt",
+    "url": "https://assets.playnccdn.com/static-aion2/characters/js/index.js?_=202610061429",
+    "capturedAt": "2026-10-10T11:12:31+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "af9ba723daa0552f63fe0d123c6c44e5e5bb49deedf5762eca029a6e959f0af2"
+   },
+   {
+    "id": 75,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/05-metabot/metabot-gg-en-developers.txt",
+    "url": "https://metabot.gg/en/developers",
+    "capturedAt": "2026-10-10T11:14:47+02:00",
+    "approx": null,
+    "tool": "agent-browser",
+    "sha256": "29391d9b26f3f3c0a1b9b76d746174806d08a38cae90a78168411babfe585739"
+   },
+   {
+    "id": 76,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/05-metabot/metabot-gg-robots.txt",
+    "url": "https://metabot.gg/robots.txt",
+    "capturedAt": "2026-10-10T11:14:50+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "79da9783467ff26f29fa76bef3ab2ecc7da933f174263af05be317fc4fe95a22"
+   },
+   {
+    "id": 77,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/05-metabot/metabot-armory-api-curl.tsv",
+    "url": null,
+    "capturedAt": "2026-10-10T11:14:53+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "fd4091a031a01e8fac6a9f836a111bea3caae1b48868777b39613315a0240ace"
+   },
+   {
+    "id": 78,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/05-metabot/metabot-armory-search-baon-eu.txt",
+    "url": "https://metabot.gg/en/aion-2/armory",
+    "capturedAt": "2026-10-10T11:15:31+02:00",
+    "approx": null,
+    "tool": "agent-browser",
+    "sha256": "b42b93b6131f2b5af29091ada67aa5d4a13a948894b82829ef1bd26aba3f85d8"
+   },
+   {
+    "id": 79,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/05-metabot/metabot-armory-search-requests.txt",
+    "url": "https://metabot.gg/en/aion-2/armory",
+    "capturedAt": "2026-10-10T11:15:56+02:00",
+    "approx": null,
+    "tool": "agent-browser",
+    "sha256": "e22791470bcd061f25025a32c3cbad7bf3b209ed4a708ee95e11820d170500b5"
+   },
+   {
+    "id": 80,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/06-terms/plaync-com-policy-service-game-en.md",
+    "url": "https://www.plaync.com/policy/service/game_en",
+    "capturedAt": "2026-10-10T11:16:39+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "67880fdb0c36bf95093aaec1fd99b771eb4330b4d68208c7abeea3892d1b9c3e"
+   },
+   {
+    "id": 81,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/06-terms/aion2-plaync-com-robots.txt",
+    "url": "https://aion2.plaync.com/robots.txt",
+    "capturedAt": "2026-10-10T11:16:51+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "16ceb5ee3e0dc13aa9adf31a3ebbe45a1d965b8c2b9f72eaf84e5911e140ed95"
+   },
+   {
+    "id": 82,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/07-nc-open-api/plaync-com-policy-service-developers.md",
+    "url": "https://www.plaync.com/policy/service/developers",
+    "capturedAt": "2026-10-10T11:48:30+02:00",
+    "approx": null,
+    "tool": "capture:web",
+    "sha256": "7f59c6507e1aac7d67e0e9b15b9ef0decdb2c1e27d9de591bd4159ab1b8cc69e"
+   },
+   {
+    "id": 83,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/07-nc-open-api/developers-plaync-com-home.txt",
+    "url": "https://developers.plaync.com/",
+    "capturedAt": "2026-10-10T11:55:11+02:00",
+    "approx": null,
+    "tool": "agent-browser",
+    "sha256": "59ead5baac4847c2c61b288cd22fefe31e103aacd93a5119c3627e4571e15b17"
+   },
+   {
+    "id": 84,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/07-nc-open-api/developers-plaync-com-apis-l2m.txt",
+    "url": "https://developers.plaync.com/apis/l2m",
+    "capturedAt": "2026-10-10T11:55:13+02:00",
+    "approx": null,
+    "tool": "agent-browser",
+    "sha256": "f1a2d2924d3aa907fc0fe2ec8aa6638d0e6428da7c0b412d53c027bae4bde0a2"
+   },
+   {
+    "id": 85,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/07-nc-open-api/developers-plaync-com-apis-aion2.txt",
+    "url": "https://developers.plaync.com/apis/aion2",
+    "capturedAt": "2026-10-10T11:55:16+02:00",
+    "approx": null,
+    "tool": "agent-browser",
+    "sha256": "916da7ab6d1cf7ad67ab50a63f8f90815cb7003150b01c6825dfc2ed86d4af82"
+   },
+   {
+    "id": 86,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/07-nc-open-api/dev-api-curl.tsv",
+    "url": null,
+    "capturedAt": "2026-10-10T11:55:18+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "f9c96f6f6a57d1bb446a9badd0f604f0a36c8acd85edb5f6b7e10ff93ea6b8a3"
+   },
+   {
+    "id": 87,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/08-browser-recheck/official-info-call-headers.json",
+    "url": "https://aion2.plaync.com/en-us/characters/2319/xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D?region=eu",
+    "capturedAt": "2026-10-10T11:55:21+02:00",
+    "approx": null,
+    "tool": "agent-browser",
+    "sha256": "82d569c0a7833df75c0dc582d8bda104049131cae8a1e1cf89cac14e146ae5b4"
+   },
+   {
+    "id": 88,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/08-browser-recheck/official-profile-footer-links.json",
+    "url": "https://aion2.plaync.com/en-us/characters/2319/xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D?region=eu",
+    "capturedAt": "2026-10-10T11:55:24+02:00",
+    "approx": null,
+    "tool": "agent-browser",
+    "sha256": "04b61c722ad01545fb90ea4c9f5d39a1dd22ae746f816d76f5052edb74d4e9ff"
+   },
+   {
+    "id": 89,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/09-api-recheck/probe-id-forms.sh",
+    "url": null,
+    "capturedAt": "2026-10-10T11:55:27+02:00",
+    "approx": null,
+    "tool": "manual",
+    "sha256": "cf772af5e005490032817c39518ecf14e47280968f5a3b9923e9687c06550ea6"
+   },
+   {
+    "id": 90,
+    "recordSlug": "002-character-data-source",
+    "path": "evidence/09-api-recheck/probe-id-forms.tsv",
+    "url": null,
+    "capturedAt": "2026-10-10T11:55:30+02:00",
+    "approx": null,
+    "tool": "curl",
+    "sha256": "27c1ebe80b2132bbf1a20111f3f03dfb6bec5f5ee88efdf2e26e5e899ad1450e"
+   }
+  ],
+  "glossary": [
+   {
+    "kr": "강습 낙인",
+    "shorthand": [],
+    "en": "Assault Mark",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "고결한 기운",
+    "shorthand": [],
+    "en": "Noble Aura",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "고통의 연쇄",
+    "shorthand": [],
+    "en": "Chain of Torment",
+    "kind": "skill",
+    "extra": {
+     "guideNames": [
+      "Chain of Suffering"
+     ]
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "구원",
+    "shorthand": [],
+    "en": "Salvation",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "권능 폭발",
+    "shorthand": [],
+    "en": "Power Burst",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "단죄",
+    "shorthand": [],
+    "en": "Condemnation",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "대지의 은총",
+    "shorthand": [],
+    "en": "Earth's Grace",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "대지의 응보",
+    "shorthand": [],
+    "en": "Earth's Retribution",
+    "kind": "skill",
+    "extra": {
+     "guideNames": [
+      "Divine Retribution"
+     ]
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "대지의 징벌",
+    "shorthand": [],
+    "en": "Earth Punishment",
+    "kind": "skill",
+    "extra": {
+     "guideNames": [
+      "Earth's Punishment"
+     ]
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "따뜻한 가호",
+    "shorthand": [],
+    "en": "Warm Benediction",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "마우스 매크로",
+    "shorthand": [
+     "마매"
+    ],
+    "en": "External mouse macro",
+    "kind": "term",
+    "extra": {
+     "note": "G Hub or Razer software macros; against the rules."
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "면죄",
+    "shorthand": [],
+    "en": "Absolution",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "방전",
+    "shorthand": [],
+    "en": "Discharge",
+    "kind": "skill",
+    "extra": {
+     "note": "Earth's Retribution's random follow-up; restores 150 MP."
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "벼락 난사",
+    "shorthand": [],
+    "en": "Lightning Strike Scattershot",
+    "kind": "skill",
+    "extra": {
+     "guideNames": [
+      "Lightning Barrage"
+     ]
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "벽력",
+    "shorthand": [],
+    "en": "Bolt",
+    "kind": "skill",
+    "extra": {
+     "guideNames": [
+      "Troops"
+     ],
+     "note": "vortexgaming's Korean text writes 병력, a typo the translation turned into 'Troops'."
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "보호의 빛",
+    "shorthand": [],
+    "en": "Light of Protection",
+    "kind": "skill",
+    "extra": {
+     "guideNames": [
+      "Light of Possession"
+     ],
+     "note": "vortexgaming's Korean text writes 보유의 빛."
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "불사의 장막",
+    "shorthand": [],
+    "en": "Immortal Veil",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "생명의 권능",
+    "shorthand": [],
+    "en": "Benevolence",
+    "kind": "skill",
+    "extra": {
+     "guideNames": [
+      "Power of Life"
+     ],
+     "note": "aion2.run pairs 생명의 권능 with the effect the global client calls Benevolence."
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "생존 의지",
+    "shorthand": [],
+    "en": "Survival Willpower",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "소환 부활",
+    "shorthand": [],
+    "en": "Summon Resurrection",
+    "kind": "skill",
+    "extra": {
+     "guideNames": [
+      "Summoned Hatchling",
+      "Resurrection"
+     ],
+     "note": "vortexgaming's Korean text writes 소환 부화."
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "속박",
+    "shorthand": [],
+    "en": "Root",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "스킬 매크로",
+    "shorthand": [
+     "스매",
+     "인겜스매"
+    ],
+    "en": "Skill Macro",
+    "kind": "term",
+    "extra": {
+     "note": "The built-in macro editor in the Skill window."
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "스티그마",
+    "shorthand": [],
+    "en": "Stigma",
+    "kind": "term",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "신성한 기운",
+    "shorthand": [],
+    "en": "Divine Aura",
+    "kind": "skill",
+    "extra": {
+     "guideNames": [
+      "Sacred Energy"
+     ]
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "심판의 번개",
+    "shorthand": [
+     "심번"
+    ],
+    "en": "Judgment Thunder",
+    "kind": "skill",
+    "extra": {
+     "guideNames": [
+      "Judgment Bolt"
+     ]
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "약화의 낙인",
+    "shorthand": [],
+    "en": "Debilitating Mark",
+    "kind": "skill",
+    "extra": {
+     "guideNames": [
+      "Curse of Weakness"
+     ]
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "유스티엘의 권능",
+    "shorthand": [],
+    "en": "Yustiel's Power",
+    "kind": "skill",
+    "extra": {
+     "guideNames": [
+      "Power of Uriel"
+     ]
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "재생의 빛",
+    "shorthand": [
+     "재빛"
+    ],
+    "en": "Light of Regeneration",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "주신의 가호",
+    "shorthand": [],
+    "en": "Empyrean Lords' Benediction",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "주신의 은총",
+    "shorthand": [],
+    "en": "Empyrean Lord's Grace",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "증폭의 기도",
+    "shorthand": [],
+    "en": "Prayer of Amplification",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "집중의 기도",
+    "shorthand": [],
+    "en": "Prayer of Concentration",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "찬란한 가호",
+    "shorthand": [],
+    "en": "Radiant Benediction",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "천벌",
+    "shorthand": [],
+    "en": "Divine Punishment",
+    "kind": "skill",
+    "extra": {
+     "note": "Judgment Thunder's follow-up hit, not a skill of its own."
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "충격 해제",
+    "shorthand": [],
+    "en": "Defiance",
+    "kind": "skill",
+    "extra": {
+     "guideNames": [
+      "Shock Release"
+     ]
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "치유력 강화",
+    "shorthand": [],
+    "en": "Healing Enhancement",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "치유성",
+    "shorthand": [],
+    "en": "Cleric",
+    "kind": "class",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "치유의 빛",
+    "shorthand": [
+     "치빛"
+    ],
+    "en": "Healing Light",
+    "kind": "skill",
+    "extra": {
+     "guideNames": [
+      "Light of Healing"
+     ]
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "쾌유의 광휘",
+    "shorthand": [],
+    "en": "Radiant Recovery",
+    "kind": "skill",
+    "extra": {
+     "guideNames": [
+      "Radiance of Joy"
+     ]
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "특화",
+    "shorthand": [],
+    "en": "Specialization",
+    "kind": "term",
+    "extra": {
+     "note": "A skill's level-8/12/16 options, also called specialty."
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "파멸의 목소리",
+    "shorthand": [],
+    "en": "Voice of Doom",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "평캔",
+    "shorthand": [],
+    "en": "Animation cancel",
+    "kind": "term",
+    "extra": {
+     "note": "Cutting a skill's recovery with a basic attack."
+    },
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "kr": "회복 차단",
+    "shorthand": [],
+    "en": "Heal Block",
+    "kind": "skill",
+    "extra": {},
+    "recordSlug": "001-cleric-build"
+   }
+  ],
+  "skills": [
+   {
+    "id": "cleric-absolution",
+    "class": "cleric",
+    "name": "Absolution",
+    "nameKr": "면죄",
+    "kind": "stigma",
+    "unlockLevel": 22,
+    "cooldownSec": 90,
+    "summary": "Removes up to 2 debuffs and heals the party within 40 m.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-assault-mark",
+    "class": "cleric",
+    "name": "Assault Mark",
+    "nameKr": "강습 낙인",
+    "kind": "stigma",
+    "unlockLevel": 22,
+    "cooldownSec": 120,
+    "summary": "4-target hit with a root chance and up to +20% Defense.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-benevolence",
+    "class": "cleric",
+    "name": "Benevolence",
+    "nameKr": "생명의 권능",
+    "kind": "stigma",
+    "unlockLevel": 22,
+    "cooldownSec": 90,
+    "summary": "Party heal every 2 s for 20 s within 40 m.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-bolt",
+    "class": "cleric",
+    "name": "Bolt",
+    "nameKr": "벽력",
+    "kind": "active",
+    "unlockLevel": 14,
+    "cooldownSec": 45,
+    "summary": "Charged 4-target nuke, 3 charge levels, 20–35 stagger; charge it by hand, not in a macro.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-chain-of-torment",
+    "class": "cleric",
+    "name": "Chain of Torment",
+    "nameKr": "고통의 연쇄",
+    "kind": "active",
+    "unlockLevel": 4,
+    "cooldownSec": 20,
+    "summary": "4-target DoT that cuts PvE Damage Tolerance 5% (a further 10% with the skill-12 spec); Condemnation needs it on the target.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-condemnation",
+    "class": "cleric",
+    "name": "Condemnation",
+    "nameKr": "단죄",
+    "kind": "active",
+    "unlockLevel": 8,
+    "cooldownSec": 3,
+    "summary": "Core damage: hits Chain of Torment targets only; at skill level 12 a spec resets its cooldown on a crit.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-debilitating-mark",
+    "class": "cleric",
+    "name": "Debilitating Mark",
+    "nameKr": "약화의 낙인",
+    "kind": "active",
+    "unlockLevel": 1,
+    "cooldownSec": 10,
+    "summary": "4-target DoT that cuts enemy PvE Damage Boost 5%; spec 8 adds −15% Defense.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-defiance",
+    "class": "cleric",
+    "name": "Defiance",
+    "nameKr": "충격 해제",
+    "kind": "active",
+    "unlockLevel": 16,
+    "cooldownSec": 60,
+    "summary": "Breaks stun, knockdown, airborne, grab, frost and fear; 5 s Tenacity.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-divine-aura",
+    "class": "cleric",
+    "name": "Divine Aura",
+    "nameKr": "신성한 기운",
+    "kind": "active",
+    "unlockLevel": 3,
+    "cooldownSec": 30,
+    "summary": "Stationary aura that hits your target; spec 8 can make it AoE, spec 16 cuts 10 s of cooldown.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-earth-punishment",
+    "class": "cleric",
+    "name": "Earth Punishment",
+    "nameKr": "대지의 징벌",
+    "kind": "stigma",
+    "unlockLevel": 22,
+    "cooldownSec": 30,
+    "summary": "Hit plus 10 s DoT; from stigma level 5 Condemnation always crits on its target.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-earths-grace",
+    "class": "cleric",
+    "name": "Earth's Grace",
+    "nameKr": "대지의 은총",
+    "kind": "passive",
+    "unlockLevel": 21,
+    "cooldownSec": null,
+    "summary": "+10.5% Critical Damage Boost and +100 Accuracy.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-earths-retribution",
+    "class": "cleric",
+    "name": "Earth's Retribution",
+    "nameKr": "대지의 응보",
+    "kind": "active",
+    "unlockLevel": 1,
+    "cooldownSec": null,
+    "summary": "Left-click basic attack, 20 m; restores 110 MP per hit and can chain into Discharge.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-empyrean-lords-benediction",
+    "class": "cleric",
+    "name": "Empyrean Lords' Benediction",
+    "nameKr": "주신의 가호",
+    "kind": "passive",
+    "unlockLevel": 6,
+    "cooldownSec": 3,
+    "summary": "+200 Block and heals on block.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-empyrean-lords-grace",
+    "class": "cleric",
+    "name": "Empyrean Lord's Grace",
+    "nameKr": "주신의 은총",
+    "kind": "passive",
+    "unlockLevel": 9,
+    "cooldownSec": 1,
+    "summary": "+100 Critical Hit, +0.2% Double Chance and extra damage on hit.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-heal-block",
+    "class": "cleric",
+    "name": "Heal Block",
+    "nameKr": "회복 차단",
+    "kind": "passive",
+    "unlockLevel": 15,
+    "cooldownSec": 5,
+    "summary": "7% chance on hit to cut the target's Incoming Heal 32% for 5 s.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-healing-enhancement",
+    "class": "cleric",
+    "name": "Healing Enhancement",
+    "nameKr": "치유력 강화",
+    "kind": "passive",
+    "unlockLevel": 11,
+    "cooldownSec": null,
+    "summary": "Turns 22.4% of Attack into Heal Boost.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-healing-light",
+    "class": "cleric",
+    "name": "Healing Light",
+    "nameKr": "치유의 빛",
+    "kind": "active",
+    "unlockLevel": 10,
+    "cooldownSec": 6,
+    "summary": "Heals you and the lowest-HP party member within 40 m; spec 8 gives +2 consecutive uses.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-immortal-veil",
+    "class": "cleric",
+    "name": "Immortal Veil",
+    "nameKr": "불사의 장막",
+    "kind": "passive",
+    "unlockLevel": 13,
+    "cooldownSec": null,
+    "summary": "+2% Defense and +100 Critical Hit Resist.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-judgment-thunder",
+    "class": "cleric",
+    "name": "Judgment Thunder",
+    "nameKr": "심판의 번개",
+    "kind": "active",
+    "unlockLevel": 1,
+    "cooldownSec": null,
+    "summary": "No-cooldown filler hitting up to 4 enemies; triggers Divine Punishment (an extra one at skill level 16).",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-light-of-protection",
+    "class": "cleric",
+    "name": "Light of Protection",
+    "nameKr": "보호의 빛",
+    "kind": "stigma",
+    "unlockLevel": 22,
+    "cooldownSec": 5,
+    "summary": "Toggle: +10.5% PvE Damage Boost and Tolerance for you and the party; keep it out of macros.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-light-of-regeneration",
+    "class": "cleric",
+    "name": "Light of Regeneration",
+    "nameKr": "재생의 빛",
+    "kind": "active",
+    "unlockLevel": 7,
+    "cooldownSec": 30,
+    "summary": "Party heal over time, every 2 s for 30 s within 40 m, on a 30 s cooldown.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-lightning-strike-scattershot",
+    "class": "cleric",
+    "name": "Lightning Strike Scattershot",
+    "nameKr": "벼락 난사",
+    "kind": "active",
+    "unlockLevel": 5,
+    "cooldownSec": null,
+    "summary": "Hits only a staggered target; spec 16 takes 1 s off every cooldown per hit.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-noble-aura",
+    "class": "cleric",
+    "name": "Noble Aura",
+    "nameKr": "고결한 기운",
+    "kind": "stigma",
+    "unlockLevel": 22,
+    "cooldownSec": 60,
+    "summary": "300 s aura that follows you and attacks your target every 2 s; recast after death.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-power-burst",
+    "class": "cleric",
+    "name": "Power Burst",
+    "nameKr": "권능 폭발",
+    "kind": "stigma",
+    "unlockLevel": 22,
+    "cooldownSec": 60,
+    "summary": "Single-target Earth hit with 50 stagger.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-prayer-of-amplification",
+    "class": "cleric",
+    "name": "Prayer of Amplification",
+    "nameKr": "증폭의 기도",
+    "kind": "stigma",
+    "unlockLevel": 22,
+    "cooldownSec": 60,
+    "summary": "+20% Attack for 10 s, heals included through Healing Enhancement.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-prayer-of-concentration",
+    "class": "cleric",
+    "name": "Prayer of Concentration",
+    "nameKr": "집중의 기도",
+    "kind": "passive",
+    "unlockLevel": 17,
+    "cooldownSec": 60,
+    "summary": "Under 50% HP: a shield and +20% Heal Boost for 30 s.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-radiant-benediction",
+    "class": "cleric",
+    "name": "Radiant Benediction",
+    "nameKr": "찬란한 가호",
+    "kind": "passive",
+    "unlockLevel": 25,
+    "cooldownSec": 5,
+    "summary": "Heals you and the party within 40 m when you land an attack.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-radiant-recovery",
+    "class": "cleric",
+    "name": "Radiant Recovery",
+    "nameKr": "쾌유의 광휘",
+    "kind": "active",
+    "unlockLevel": 12,
+    "cooldownSec": 12,
+    "summary": "Party heal and cleanse within 40 m; spec 8 removes up to 2 debuffs.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-root",
+    "class": "cleric",
+    "name": "Root",
+    "nameKr": "속박",
+    "kind": "stigma",
+    "unlockLevel": 22,
+    "cooldownSec": 60,
+    "summary": "4-target hit with a 75% chance to root for 10 s.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-salvation",
+    "class": "cleric",
+    "name": "Salvation",
+    "nameKr": "구원",
+    "kind": "stigma",
+    "unlockLevel": 22,
+    "cooldownSec": 150,
+    "summary": "3 s immunity to damage and status effects.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-summon-resurrection",
+    "class": "cleric",
+    "name": "Summon Resurrection",
+    "nameKr": "소환 부활",
+    "kind": "stigma",
+    "unlockLevel": 22,
+    "cooldownSec": 120,
+    "summary": "Revives a fallen party member within 40 m; the only class resurrection.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-survival-willpower",
+    "class": "cleric",
+    "name": "Survival Willpower",
+    "nameKr": "생존 의지",
+    "kind": "passive",
+    "unlockLevel": 23,
+    "cooldownSec": null,
+    "summary": "+17% Status Effect Resist and damage tolerance when crowd-controlled.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-voice-of-doom",
+    "class": "cleric",
+    "name": "Voice of Doom",
+    "nameKr": "파멸의 목소리",
+    "kind": "stigma",
+    "unlockLevel": 22,
+    "cooldownSec": 60,
+    "summary": "4-target Earth DoT that cuts enemy healing and potions 60% for 20 s.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-warm-benediction",
+    "class": "cleric",
+    "name": "Warm Benediction",
+    "nameKr": "따뜻한 가호",
+    "kind": "passive",
+    "unlockLevel": 1,
+    "cooldownSec": null,
+    "summary": "+6% Max HP and +7 Max MP.",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": "cleric-yustiels-power",
+    "class": "cleric",
+    "name": "Yustiel's Power",
+    "nameKr": "유스티엘의 권능",
+    "kind": "stigma",
+    "unlockLevel": 22,
+    "cooldownSec": 60,
+    "summary": "+20% PvE Damage Tolerance for the party for 10 s, before big hits.",
+    "recordSlug": "001-cleric-build"
+   }
+  ],
+  "builds": [
+   {
+    "id": "cleric-leveling",
+    "class": "cleric",
+    "purpose": "leveling",
+    "title": "Solo leveling: damage first, self-sustain built in",
+    "why": "Kill fast alone: the Chain of Torment → Condemnation loop, crit-boosted by Earth Punishment; Radiant Benediction and Light of Regeneration keep you up.",
+    "confidence": "theory",
+    "position": 0,
+    "recordSlug": "001-cleric-build",
+    "obsoleteSince": null,
+    "obsoleteReason": null
+   },
+   {
+    "id": "cleric-pve",
+    "class": "cleric",
+    "purpose": "pve",
+    "title": "Group dungeon healer: heal first, damage between heals",
+    "why": "Party healer that still deals damage: heals maxed, Light of Protection for the party, Chain of Torment on the boss, a resurrection slotted.",
+    "confidence": "theory",
+    "position": 1,
+    "recordSlug": "001-cleric-build",
+    "obsoleteSince": null,
+    "obsoleteReason": null
+   }
+  ],
+  "buildSkills": [
+   {
+    "id": 1,
+    "buildId": "cleric-leveling",
+    "skillId": "cleric-condemnation",
+    "rank": 1,
+    "targetLevel": 10,
+    "why": "Main damage, 3 s cooldown, always crits on Earth Punishment's target; spec: +12% vs fewer targets."
+   },
+   {
+    "id": 2,
+    "buildId": "cleric-leveling",
+    "skillId": "cleric-chain-of-torment",
+    "rank": 2,
+    "targetLevel": 10,
+    "why": "Condemnation only hits targets it marks; 4-target DoT. Spec pick: read in game."
+   },
+   {
+    "id": 3,
+    "buildId": "cleric-leveling",
+    "skillId": "cleric-earths-retribution",
+    "rank": 3,
+    "targetLevel": 10,
+    "why": "Held left click, 110 MP a hit keeps the loop fed; spec: +20% MP restored."
+   },
+   {
+    "id": 4,
+    "buildId": "cleric-leveling",
+    "skillId": "cleric-judgment-thunder",
+    "rank": 4,
+    "targetLevel": 10,
+    "why": "No-cooldown 4-target filler; spec: +12% vs fewer targets (−20% MP if MP runs short)."
+   },
+   {
+    "id": 5,
+    "buildId": "cleric-leveling",
+    "skillId": "cleric-divine-aura",
+    "rank": 5,
+    "targetLevel": 10,
+    "why": "Free damage every 30 s; spec: Changes to AoE Skill, for packs."
+   },
+   {
+    "id": 6,
+    "buildId": "cleric-leveling",
+    "skillId": "cleric-bolt",
+    "rank": 6,
+    "targetLevel": 10,
+    "why": "Biggest hit, fully charged by hand; 8 at 36, 10 at 38; spec: +30% Skill Speed."
+   },
+   {
+    "id": 7,
+    "buildId": "cleric-leveling",
+    "skillId": "cleric-debilitating-mark",
+    "rank": 7,
+    "targetLevel": 8,
+    "why": "10 s 4-target DoT; spec: −15% target Defense."
+   },
+   {
+    "id": 8,
+    "buildId": "cleric-leveling",
+    "skillId": "cleric-healing-light",
+    "rank": 8,
+    "targetLevel": 8,
+    "why": "Manual self-heal on a 6 s cooldown; spec: +2 consecutive uses."
+   },
+   {
+    "id": 9,
+    "buildId": "cleric-leveling",
+    "skillId": "cleric-light-of-regeneration",
+    "rank": 9,
+    "targetLevel": 8,
+    "why": "30 s heal over time in the macro; spec: +20% healed at 50% HP or less."
+   },
+   {
+    "id": 10,
+    "buildId": "cleric-leveling",
+    "skillId": "cleric-radiant-recovery",
+    "rank": 10,
+    "targetLevel": 8,
+    "why": "Burst heal and cleanse for elites; spec: removes up to 2 debuffs."
+   },
+   {
+    "id": 11,
+    "buildId": "cleric-leveling",
+    "skillId": "cleric-empyrean-lords-grace",
+    "rank": 11,
+    "targetLevel": 10,
+    "why": "+100 Crit and extra damage on every hit; the best damage passive."
+   },
+   {
+    "id": 12,
+    "buildId": "cleric-leveling",
+    "skillId": "cleric-earths-grace",
+    "rank": 12,
+    "targetLevel": 10,
+    "why": "+10.5% Crit Damage; finish it with Wisdom Stone points past the 203 from levels."
+   },
+   {
+    "id": 13,
+    "buildId": "cleric-pve",
+    "skillId": "cleric-healing-light",
+    "rank": 1,
+    "targetLevel": 10,
+    "why": "Workhorse heal on the lowest ally every 6 s; spec: +2 consecutive uses."
+   },
+   {
+    "id": 14,
+    "buildId": "cleric-pve",
+    "skillId": "cleric-radiant-recovery",
+    "rank": 2,
+    "targetLevel": 10,
+    "why": "Party heal and cleanse every 12 s; spec: removes up to 2 debuffs."
+   },
+   {
+    "id": 15,
+    "buildId": "cleric-pve",
+    "skillId": "cleric-light-of-regeneration",
+    "rank": 3,
+    "targetLevel": 10,
+    "why": "30 s party heal over time in the macro; spec: +20% healed at 50% HP or less."
+   },
+   {
+    "id": 16,
+    "buildId": "cleric-pve",
+    "skillId": "cleric-chain-of-torment",
+    "rank": 4,
+    "targetLevel": 10,
+    "why": "Boss −5% Tolerance for the party (−10% more needs skill 12); enables Condemnation."
+   },
+   {
+    "id": 17,
+    "buildId": "cleric-pve",
+    "skillId": "cleric-condemnation",
+    "rank": 5,
+    "targetLevel": 10,
+    "why": "Damage between heals, which chests also count; spec: +12% vs fewer targets."
+   },
+   {
+    "id": 18,
+    "buildId": "cleric-pve",
+    "skillId": "cleric-earths-retribution",
+    "rank": 6,
+    "targetLevel": 10,
+    "why": "Left-click MP source for long fights; spec: +20% MP restored."
+   },
+   {
+    "id": 19,
+    "buildId": "cleric-pve",
+    "skillId": "cleric-judgment-thunder",
+    "rank": 7,
+    "targetLevel": 10,
+    "why": "No-cooldown filler on the boss and adds; spec: +12% vs fewer targets."
+   },
+   {
+    "id": 20,
+    "buildId": "cleric-pve",
+    "skillId": "cleric-debilitating-mark",
+    "rank": 8,
+    "targetLevel": 8,
+    "why": "Cuts the boss's damage 5%; spec: −15% target Defense."
+   },
+   {
+    "id": 21,
+    "buildId": "cleric-pve",
+    "skillId": "cleric-divine-aura",
+    "rank": 9,
+    "targetLevel": 8,
+    "why": "Free damage every 30 s within 20 m of the boss; spec pick: read in game."
+   },
+   {
+    "id": 22,
+    "buildId": "cleric-pve",
+    "skillId": "cleric-healing-enhancement",
+    "rank": 10,
+    "targetLevel": 10,
+    "why": "Turns Attack into Heal Boost, so every Attack stat also heals."
+   },
+   {
+    "id": 23,
+    "buildId": "cleric-pve",
+    "skillId": "cleric-bolt",
+    "rank": 11,
+    "targetLevel": 7,
+    "why": "Charged by hand in safe windows for stagger; low priority for a healer."
+   }
+  ],
+  "buildStigmas": [
+   {
+    "id": 1,
+    "buildId": "cleric-leveling",
+    "slotLevel": 22,
+    "skillId": "cleric-light-of-protection",
+    "why": "Toggle on yourself: +10.5% damage and tolerance for 1 point; keep it out of the macro."
+   },
+   {
+    "id": 2,
+    "buildId": "cleric-leveling",
+    "slotLevel": 27,
+    "skillId": "cleric-earth-punishment",
+    "why": "30 s DoT nuke; from stigma level 5 Condemnation always crits on its target."
+   },
+   {
+    "id": 3,
+    "buildId": "cleric-leveling",
+    "slotLevel": 32,
+    "skillId": "cleric-noble-aura",
+    "why": "300 s pet aura that attacks with you; recast after each death or teleport."
+   },
+   {
+    "id": 4,
+    "buildId": "cleric-leveling",
+    "slotLevel": 37,
+    "skillId": "cleric-prayer-of-amplification",
+    "why": "+20% Attack for 10 s on elites and big pulls; press it by hand."
+   },
+   {
+    "id": 5,
+    "buildId": "cleric-pve",
+    "slotLevel": 22,
+    "skillId": "cleric-light-of-protection",
+    "why": "+10.5% PvE damage and tolerance for the whole party; 87% of top Clerics run it."
+   },
+   {
+    "id": 6,
+    "buildId": "cleric-pve",
+    "slotLevel": 27,
+    "skillId": "cleric-earth-punishment",
+    "why": "Guaranteed-crit Condemnations on the boss from stigma level 5, plus Earth's Blessing for the party."
+   },
+   {
+    "id": 7,
+    "buildId": "cleric-pve",
+    "slotLevel": 32,
+    "skillId": "cleric-summon-resurrection",
+    "why": "Only class resurrection; hold it until the group clears mechanics cleanly."
+   },
+   {
+    "id": 8,
+    "buildId": "cleric-pve",
+    "slotLevel": 37,
+    "skillId": "cleric-noble-aura",
+    "why": "Free damage for 300 s; swap Resurrection for Prayer of Amplification once nobody dies."
+   }
+  ],
+  "macros": [
+   {
+    "id": "cleric-leveling-solo",
+    "buildId": "cleric-leveling",
+    "position": 1,
+    "name": "Solo loop",
+    "key": "Right Mouse Button (hold with Left Mouse)",
+    "delayMs": 10,
+    "why": "Hold both mouse buttons: cooldowns fire as they come up, Judgment Thunder fills, left click weaves Earth's Retribution for MP."
+   },
+   {
+    "id": "cleric-pve-dungeon",
+    "buildId": "cleric-pve",
+    "position": 1,
+    "name": "Dungeon loop",
+    "key": "Right Mouse Button (hold with Left Mouse)",
+    "delayMs": 10,
+    "why": "Keeps the party HoT and boss debuffs rolling while you hold it; release to cast Healing Light or Radiant Recovery by hand."
+   }
+  ],
+  "macroSteps": [
+   {
+    "id": 1,
+    "macroId": "cleric-leveling-solo",
+    "position": 1,
+    "skillId": "cleric-earth-punishment",
+    "note": "Entry 1: 30 s DoT that makes Condemnation crit"
+   },
+   {
+    "id": 2,
+    "macroId": "cleric-leveling-solo",
+    "position": 2,
+    "skillId": "cleric-divine-aura",
+    "note": "Entry 2: free damage every 30 s"
+   },
+   {
+    "id": 3,
+    "macroId": "cleric-leveling-solo",
+    "position": 3,
+    "skillId": "cleric-light-of-regeneration",
+    "note": "Entry 3: self-heal over time on cooldown"
+   },
+   {
+    "id": 4,
+    "macroId": "cleric-leveling-solo",
+    "position": 4,
+    "skillId": "cleric-chain-of-torment",
+    "note": "Entry 4: marks the target; Condemnation needs it"
+   },
+   {
+    "id": 5,
+    "macroId": "cleric-leveling-solo",
+    "position": 5,
+    "skillId": "cleric-debilitating-mark",
+    "note": "Entry 5: 10 s DoT, cuts Defense with its spec"
+   },
+   {
+    "id": 6,
+    "macroId": "cleric-leveling-solo",
+    "position": 6,
+    "skillId": "cleric-condemnation",
+    "note": "Entry 6: main hit, lands only on a marked target"
+   },
+   {
+    "id": 7,
+    "macroId": "cleric-leveling-solo",
+    "position": 7,
+    "skillId": "cleric-judgment-thunder",
+    "note": "Entry 7: no-cooldown filler, last so it never starves the rest"
+   },
+   {
+    "id": 8,
+    "macroId": "cleric-pve-dungeon",
+    "position": 1,
+    "skillId": "cleric-light-of-regeneration",
+    "note": "Entry 1: party HoT on every cooldown"
+   },
+   {
+    "id": 9,
+    "macroId": "cleric-pve-dungeon",
+    "position": 2,
+    "skillId": "cleric-earth-punishment",
+    "note": "Entry 2: 30 s DoT, Condemnation crits on its target"
+   },
+   {
+    "id": 10,
+    "macroId": "cleric-pve-dungeon",
+    "position": 3,
+    "skillId": "cleric-divine-aura",
+    "note": "Entry 3: free damage every 30 s near the boss"
+   },
+   {
+    "id": 11,
+    "macroId": "cleric-pve-dungeon",
+    "position": 4,
+    "skillId": "cleric-chain-of-torment",
+    "note": "Entry 4: boss Tolerance debuff; Condemnation needs it"
+   },
+   {
+    "id": 12,
+    "macroId": "cleric-pve-dungeon",
+    "position": 5,
+    "skillId": "cleric-debilitating-mark",
+    "note": "Entry 5: cuts the boss's damage"
+   },
+   {
+    "id": 13,
+    "macroId": "cleric-pve-dungeon",
+    "position": 6,
+    "skillId": "cleric-condemnation",
+    "note": "Entry 6: damage between heals, on a marked target"
+   },
+   {
+    "id": 14,
+    "macroId": "cleric-pve-dungeon",
+    "position": 7,
+    "skillId": "cleric-judgment-thunder",
+    "note": "Entry 7: filler, last so it never starves the rest"
+   }
+  ],
+  "mechanics": [
+   {
+    "id": 1,
+    "title": "Hotbar column: the bottom skill is tried first",
+    "body": "Each hotbar key holds a column of up to 4 skills; a press tries the bottom one, then moves up past anything on cooldown or unusable.",
+    "confidence": "posted",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": [
+     "hotbar"
+    ],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 2,
+    "title": "Conflict: what sits at the bottom of a column",
+    "body": "Cooldown skills at the bottom, filler on top (mein-mmo, playnews). allthings.how says both: no-cooldown attack at the bottom, and zero-cooldown skills high.",
+    "confidence": "theory",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": [
+     "conflicts"
+    ],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 3,
+    "title": "A macro entry is one skill, not a hotbar column",
+    "body": "Read in the global client: each entry holds one skill and its own delay. Settles the conflict: allthings.how and playnews said whole columns; the KR frame showed single skills.",
+    "confidence": "tested",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": [
+     "conflicts"
+    ],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 4,
+    "title": "Conflict: the order the editor runs its entries",
+    "body": "Likely top to bottom (allthings.how); the editor's top-down numbering fits it. mein-mmo's 'bottom up' may mean the column. Not yet seen in game.",
+    "confidence": "theory",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": [
+     "conflicts"
+    ],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 5,
+    "title": "The editor numbers its entries from the top",
+    "body": "Entries run 1, 2, 3… downward, each with a trash can; Add Macro appends an Earth's Retribution entry below. Display order, not run order.",
+    "confidence": "tested",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": [],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 6,
+    "title": "Conflict: the basic attack inside the macro",
+    "body": "KR Clerics interleave Earth's Retribution entries (Inven, a May 2026 video); mein-mmo and playnews keep it out and hold left click. Verdict on PC: keep it out.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "macros",
+    "alsoTopics": [
+     "conflicts"
+    ],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 7,
+    "title": "How long a chain can be",
+    "body": "A hotbar key holds rows 0–3, so 4 skills (read in game, as playnews says). Entries per macro: up to 20 (allthings.how), not yet seen in game.",
+    "confidence": "theory",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": [
+     "hotbar"
+    ],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 8,
+    "title": "Bind the macro key first; hold it to run",
+    "body": "Unbound by default: Settings > Key Settings > General > Gameplay > Macro. Hold, don't tap; any manual input takes priority over the running macro.",
+    "confidence": "posted",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": [],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 9,
+    "title": "Delay: 10 ms, raise only if skills drop",
+    "body": "Each entry has a delay; the default fell from 50 to 10 ms (10 in the global client). Try 40–50 ms only if skills fail to fire. It is input spacing, not ping.",
+    "confidence": "posted",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": [],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 10,
+    "title": "Keep toggles, charged skills and long cooldowns out",
+    "body": "A loop switches a toggle off (Light of Protection) and fires charged skills at charge 1 (Bolt); 45–60 s skills stall a fast loop.",
+    "confidence": "posted",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": [],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 11,
+    "title": "Hold the basic attack beside the macro",
+    "body": "Hold left click with the macro key: basic attacks cancel animations and restore MP. Whether it also belongs inside the macro is its own conflict entry.",
+    "confidence": "posted",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": [
+     "rotation"
+    ],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 12,
+    "title": "Each skill preset has its own macro",
+    "body": "Presets 1–3 each keep a macro, so a solo preset and a dungeon preset can carry different chains.",
+    "confidence": "posted",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": [
+     "presets"
+    ],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 13,
+    "title": "Stigma slots on global: 22, 27, 32, 37",
+    "body": "Four slots at levels 22, 27, 32 and 37; stigma level cap 20; stigma points start at 23 and reach about 14 by level 36.",
+    "confidence": "theory",
+    "class": null,
+    "topic": "stigmas",
+    "alsoTopics": [],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 14,
+    "title": "Conflict: Korea's and Taiwan's stigma slot count",
+    "body": "Global has 4. KR went to 5 on 2026-03-25 (aion2hub), 6 at level 50 (aion2.run); allthings.how says Taiwan has 6. Don't copy KR stigma sets.",
+    "confidence": "theory",
+    "class": null,
+    "topic": "stigmas",
+    "alsoTopics": [
+     "conflicts",
+     "kr-global"
+    ],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 15,
+    "title": "Skill points: 21 to reach level 10",
+    "body": "Level 1 is free; levels 2–4 cost 1, 5–7 cost 2, 8–10 cost 4. 203 points by 45 (about 147 at 36); Wisdom Stones add more.",
+    "confidence": "theory",
+    "class": null,
+    "topic": "skills",
+    "alsoTopics": [],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 16,
+    "title": "Specializations at skill levels 8, 12, 16 and 20",
+    "body": "A skill at 10 holds one pick from its level-8 options; slots open at 8, 12 and 20. Past 10 only Daevanion, gear and Arcana raise a skill.",
+    "confidence": "theory",
+    "class": null,
+    "topic": "skills",
+    "alsoTopics": [],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 17,
+    "title": "Skill level gate: one level per 3 character levels",
+    "body": "A skill gains at most one level every 3 character levels; at 36 that holds Bolt (learned at 14) at 8, and aion2maps' plan has it at 10 by 38.",
+    "confidence": "theory",
+    "class": null,
+    "topic": "skills",
+    "alsoTopics": [],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 18,
+    "title": "Condemnation needs Chain of Torment; Earth Punishment makes it crit",
+    "body": "Condemnation hits only Chain of Torment targets; Earth Punishment level 5 makes it crit. Cooldown-free only at Condemnation 12 (Daevanion or gear past 10).",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "rotation",
+    "alsoTopics": [
+     "macros"
+    ],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 19,
+    "title": "Light of Protection and Chain of Torment overlap with a Chanter",
+    "body": "Light of Protection doesn't stack with Undefeated Mantra; Chain of Torment doesn't apply with Earth's Promise. With a Chanter, swap Light of Protection for Absolution.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "stigmas",
+    "alsoTopics": [
+     "party"
+    ],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 20,
+    "title": "Conflict: the first solo stigma",
+    "body": "Light of Protection at 22 (metabot and aion2.run, the client-data sources) vs Earth Punishment first (eloboost24, on paper). Verdict: Light of Protection, Earth Punishment at 27.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "stigmas",
+    "alsoTopics": [
+     "conflicts"
+    ],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 21,
+    "title": "Conflict: Resurrection or Noble Aura in group stigmas",
+    "body": "Top level-45 Clerics favour Noble Aura (79%) over Summon Resurrection (64%); keengamer keeps Resurrection until mechanics are clean. Verdict: Resurrection first at 32–36.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "stigmas",
+    "alsoTopics": [
+     "conflicts"
+    ],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 22,
+    "title": "Conflict: heals or damage first in skill points",
+    "body": "eloboost24 levels Healing Light and Radiant Recovery first; aion2.run keeps heals at 1 until 34 while leveling. Verdict: damage first solo, heals first for dungeons.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "skills",
+    "alsoTopics": [
+     "conflicts"
+    ],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 23,
+    "title": "Chests need the Cleric's damage too",
+    "body": "Dungeon chest contribution counts damage (about 5% of the boss's HP) or healing; a Cleric who only heals can leave with nothing.",
+    "confidence": "posted",
+    "class": "cleric",
+    "topic": "rotation",
+    "alsoTopics": [],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 24,
+    "title": "Korean guides run a later version",
+    "body": "KR: level 50, stigma level 25, extra slots, a ninth class, a reworked macro (May 2026). Use KR guides for class logic, not numbers.",
+    "confidence": "posted",
+    "class": null,
+    "topic": "kr-global",
+    "alsoTopics": [],
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 25,
+    "title": "Lookup: search by name, then fetch by server and character id",
+    "body": "GET api-search.plaync.com/aion2global/search/v2/character?keyword=&region=&localeInfo= (optional serverId) returns characterId, serverId, pcId, level. Both params required: 400 without localeInfo.",
+    "confidence": "tested",
+    "class": null,
+    "topic": "character-data",
+    "alsoTopics": [
+     "sync"
+    ],
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": 26,
+    "title": "Character info: profile, stats, item level, titles, Daevanion",
+    "body": "GET aion2.plaync.com/api/character/info?region=&lang=&characterId=&serverId=. profile has name, className, characterLevel, combatPower, serverName; item level is the stat row of type ItemLevel. 404 without region.",
+    "confidence": "tested",
+    "class": null,
+    "topic": "character-data",
+    "alsoTopics": [
+     "sync"
+    ],
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": 27,
+    "title": "Character equipment: gear, skills with levels, stigmas",
+    "body": "GET aion2.plaync.com/api/character/equipment, same params. skill.skillList has every class skill: category Active, Passive or Dp (stigma), skillLevel, acquired, equip. Stigmas carry no slot position.",
+    "confidence": "tested",
+    "class": null,
+    "topic": "character-data",
+    "alsoTopics": [
+     "sync",
+     "stigmas"
+    ],
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": 28,
+    "title": "No auth, no cookies, no rate-limit headers seen",
+    "body": "Plain curl with its default User-Agent gets 200 and no Set-Cookie. 20 back-to-back info calls all answered 200; responses are no-store, live calls take about 1.8 s and repeats inside a few seconds about 0.24 s.",
+    "confidence": "tested",
+    "class": null,
+    "topic": "character-data",
+    "alsoTopics": [
+     "sync"
+    ],
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": 29,
+    "title": "Errors: unknown id, wrong server and missing region are all 404",
+    "body": "info answers 404 application/problem+json with code resource.not_found for a wrong serverId, an unknown characterId and a missing region alike, so a 404 does not say which.",
+    "confidence": "tested",
+    "class": null,
+    "topic": "character-data",
+    "alsoTopics": [
+     "sync"
+    ],
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": 30,
+    "title": "Terms of Use forbid automated access outside published interfaces",
+    "body": "NC's Terms § 6, linked from the profile page's footer, bar automated access other than published interfaces, and scraping without consent. The character endpoints are unpublished; a scheduled fetch runs against that.",
+    "confidence": "posted",
+    "class": null,
+    "topic": "character-data",
+    "alsoTopics": [
+     "sync"
+    ],
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": 31,
+    "title": "NC's published Open API has no Aion 2 character data",
+    "body": "The NC OPEN API at developers.plaync.com documents Lineage 2M market data only, needs a key, and forbids caching its data; /apis/aion2 lands on an error page. Nothing published covers Aion 2, global or KR.",
+    "confidence": "tested",
+    "class": null,
+    "topic": "character-data",
+    "alsoTopics": [
+     "sync"
+    ],
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": 32,
+    "title": "Name search is case-insensitive: match case-sensitively, by server",
+    "body": "The search returns substring matches in any case with <strong> markup (\"BAon\" for \"Baon\"). Strip the markup, keep the configured serverId, compare the name exactly; info accepts the id with %3D or =.",
+    "confidence": "tested",
+    "class": null,
+    "topic": "character-data",
+    "alsoTopics": [
+     "sync"
+    ],
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": 33,
+    "title": "Fan armory: no public API",
+    "body": "metabot.gg reads the same official data and refreshes a copy older than 30 minutes, but its /api/ is disallowed in robots.txt, answers curl with 403 and has no developer page.",
+    "confidence": "tested",
+    "class": null,
+    "topic": "character-data",
+    "alsoTopics": [],
+    "recordSlug": "002-character-data-source"
+   }
+  ],
   "rngFactors": [],
-  "timeline": [],
-  "takeaways": [],
+  "timeline": [
+   {
+    "id": 1,
+    "date": "2026-01-28",
+    "event": "KR: skill macro added (per-step delays, hold to run); Earth Punishment cooldown 60 → 30 s.",
+    "class": null,
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 2,
+    "date": "2026-03-25",
+    "event": "KR: stigma slots raised to 5 and a new Cleric stigma, Touch of Rebirth, not in the global client.",
+    "class": null,
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 3,
+    "date": "2026-05-27",
+    "event": "KR: the in-game skill macro is reworked; Korean Cleric macro videos from here on use the new editor.",
+    "class": null,
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 4,
+    "date": "2026-08-12",
+    "event": "KR: healing rework; Cleric heals reach 40 m, heal less, and scale with Attack.",
+    "class": "cleric",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 5,
+    "date": "2026-09-04",
+    "event": "KR: Bolt +20% PvE damage; Prayer of Amplification rebuilt.",
+    "class": "cleric",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 6,
+    "date": "2026-10-05",
+    "event": "Global launch: level 45 cap, 4 stigma slots at 22/27/32/37, stigma level 20.",
+    "class": null,
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 7,
+    "date": "2026-10-06",
+    "event": "First global Cleric and macro guides published (eloboost24, keengamer, playnews, mein-mmo).",
+    "class": "cleric",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 8,
+    "date": "2026-10-10",
+    "event": "Global client read in game: the macro editor takes one skill per entry, 10 ms default delay.",
+    "class": null,
+    "recordSlug": "001-cleric-build"
+   }
+  ],
+  "takeaways": [
+   {
+    "id": 1,
+    "position": 0,
+    "text": "Solo: Condemnation, Chain of Torment, Earth's Retribution, Judgment Thunder, Divine Aura and Bolt to 10, damage before heals.",
+    "detail": "At 36 (about 147 points): those at 10 with Bolt at 8, Debilitating Mark 8, the rest in Healing Light.",
+    "class": "cleric",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 2,
+    "position": 1,
+    "text": "Solo stigmas: Light of Protection, Earth Punishment, Noble Aura now; Prayer of Amplification at 37.",
+    "detail": "Earth Punishment level 5 makes Condemnation crit; the cooldown reset also needs Condemnation at 12.",
+    "class": "cleric",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 3,
+    "position": 2,
+    "text": "Dungeons: heals to 10 first, Light of Protection and Earth Punishment, Summon Resurrection until the group stops dying.",
+    "detail": "Swap Light of Protection for Absolution when a Chanter brings Undefeated Mantra.",
+    "class": "cleric",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 4,
+    "position": 3,
+    "text": "Macro: one skill per entry, cooldowns first, Judgment Thunder last, 10 ms each; bind it and hold it with left click.",
+    "detail": "Read in the global client: an entry holds one skill and its own delay, numbered from the top.",
+    "class": null,
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 5,
+    "position": 4,
+    "text": "Never macro Light of Protection or Bolt: the loop turns the toggle off and fires Bolt uncharged.",
+    "detail": null,
+    "class": "cleric",
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 6,
+    "position": 5,
+    "text": "Unconfirmed: whether the editor runs its entries top-down or bottom-up. Check in game before trusting step order.",
+    "detail": "allthings.how says top to bottom; mein-mmo's 'bottom up' may describe the column instead.",
+    "class": null,
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 7,
+    "position": 6,
+    "text": "Korean guides assume 5–6 stigma slots and level 50: take their logic, not their numbers.",
+    "detail": null,
+    "class": null,
+    "recordSlug": "001-cleric-build"
+   },
+   {
+    "id": 8,
+    "position": 0,
+    "text": "The official site serves any character as JSON without login: sync can read level, gear, skills and stigmas.",
+    "detail": "Search by name and region, then info and equipment by serverId and characterId on aion2.plaync.com.",
+    "class": null,
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": 9,
+    "position": 1,
+    "text": "The character is Baon on Fafnir (EU, serverId 2319), Asmodian Cleric, level 36.",
+    "detail": "The only level-36 Cleric named Baon in any global region's search on 2026-10-10.",
+    "class": null,
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": 10,
+    "position": 2,
+    "text": "Macros, keybinds and stigma slot positions are not published: those still come from the game read.",
+    "detail": null,
+    "class": null,
+    "recordSlug": "002-character-data-source"
+   },
+   {
+    "id": 11,
+    "position": 3,
+    "text": "No published NC API covers Aion 2, and the Terms forbid automated access elsewhere: keep sync on demand, decide the daily job.",
+    "detail": "NC's Open API documents Lineage 2M only. The scheduled GitHub Actions sync is the part the Terms bear on most.",
+    "class": null,
+    "recordSlug": "002-character-data-source"
+   }
+  ],
   "recommendations": [],
-  "citations": [],
+  "citations": [
+   {
+    "id": 1,
+    "entity": "skill",
+    "entityId": "cleric-earths-retribution",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 2,
+    "entity": "skill",
+    "entityId": "cleric-earths-retribution",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 3,
+    "entity": "skill",
+    "entityId": "cleric-judgment-thunder",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 4,
+    "entity": "skill",
+    "entityId": "cleric-judgment-thunder",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 5,
+    "entity": "skill",
+    "entityId": "cleric-debilitating-mark",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 6,
+    "entity": "skill",
+    "entityId": "cleric-debilitating-mark",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 7,
+    "entity": "skill",
+    "entityId": "cleric-divine-aura",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 8,
+    "entity": "skill",
+    "entityId": "cleric-divine-aura",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 9,
+    "entity": "skill",
+    "entityId": "cleric-chain-of-torment",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 10,
+    "entity": "skill",
+    "entityId": "cleric-chain-of-torment",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 11,
+    "entity": "skill",
+    "entityId": "cleric-lightning-strike-scattershot",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 12,
+    "entity": "skill",
+    "entityId": "cleric-lightning-strike-scattershot",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 13,
+    "entity": "skill",
+    "entityId": "cleric-light-of-regeneration",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 14,
+    "entity": "skill",
+    "entityId": "cleric-light-of-regeneration",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 15,
+    "entity": "skill",
+    "entityId": "cleric-condemnation",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 16,
+    "entity": "skill",
+    "entityId": "cleric-condemnation",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 17,
+    "entity": "skill",
+    "entityId": "cleric-condemnation",
+    "sourceId": "web:gamesfuze-cleric-build"
+   },
+   {
+    "id": 18,
+    "entity": "skill",
+    "entityId": "cleric-healing-light",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 19,
+    "entity": "skill",
+    "entityId": "cleric-healing-light",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 20,
+    "entity": "skill",
+    "entityId": "cleric-radiant-recovery",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 21,
+    "entity": "skill",
+    "entityId": "cleric-radiant-recovery",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 22,
+    "entity": "skill",
+    "entityId": "cleric-bolt",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 23,
+    "entity": "skill",
+    "entityId": "cleric-bolt",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 24,
+    "entity": "skill",
+    "entityId": "cleric-bolt",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 25,
+    "entity": "skill",
+    "entityId": "cleric-defiance",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 26,
+    "entity": "skill",
+    "entityId": "cleric-defiance",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 27,
+    "entity": "skill",
+    "entityId": "cleric-warm-benediction",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 28,
+    "entity": "skill",
+    "entityId": "cleric-warm-benediction",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 29,
+    "entity": "skill",
+    "entityId": "cleric-empyrean-lords-benediction",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 30,
+    "entity": "skill",
+    "entityId": "cleric-empyrean-lords-benediction",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 31,
+    "entity": "skill",
+    "entityId": "cleric-empyrean-lords-grace",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 32,
+    "entity": "skill",
+    "entityId": "cleric-empyrean-lords-grace",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 33,
+    "entity": "skill",
+    "entityId": "cleric-healing-enhancement",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 34,
+    "entity": "skill",
+    "entityId": "cleric-healing-enhancement",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 35,
+    "entity": "skill",
+    "entityId": "cleric-immortal-veil",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 36,
+    "entity": "skill",
+    "entityId": "cleric-immortal-veil",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 37,
+    "entity": "skill",
+    "entityId": "cleric-heal-block",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 38,
+    "entity": "skill",
+    "entityId": "cleric-heal-block",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 39,
+    "entity": "skill",
+    "entityId": "cleric-prayer-of-concentration",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 40,
+    "entity": "skill",
+    "entityId": "cleric-prayer-of-concentration",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 41,
+    "entity": "skill",
+    "entityId": "cleric-earths-grace",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 42,
+    "entity": "skill",
+    "entityId": "cleric-earths-grace",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 43,
+    "entity": "skill",
+    "entityId": "cleric-survival-willpower",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 44,
+    "entity": "skill",
+    "entityId": "cleric-survival-willpower",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 45,
+    "entity": "skill",
+    "entityId": "cleric-radiant-benediction",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 46,
+    "entity": "skill",
+    "entityId": "cleric-radiant-benediction",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 47,
+    "entity": "skill",
+    "entityId": "cleric-voice-of-doom",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 48,
+    "entity": "skill",
+    "entityId": "cleric-voice-of-doom",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 49,
+    "entity": "skill",
+    "entityId": "cleric-earth-punishment",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 50,
+    "entity": "skill",
+    "entityId": "cleric-earth-punishment",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 51,
+    "entity": "skill",
+    "entityId": "cleric-power-burst",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 52,
+    "entity": "skill",
+    "entityId": "cleric-power-burst",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 53,
+    "entity": "skill",
+    "entityId": "cleric-absolution",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 54,
+    "entity": "skill",
+    "entityId": "cleric-absolution",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 55,
+    "entity": "skill",
+    "entityId": "cleric-salvation",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 56,
+    "entity": "skill",
+    "entityId": "cleric-salvation",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 57,
+    "entity": "skill",
+    "entityId": "cleric-assault-mark",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 58,
+    "entity": "skill",
+    "entityId": "cleric-assault-mark",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 59,
+    "entity": "skill",
+    "entityId": "cleric-noble-aura",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 60,
+    "entity": "skill",
+    "entityId": "cleric-noble-aura",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 61,
+    "entity": "skill",
+    "entityId": "cleric-benevolence",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 62,
+    "entity": "skill",
+    "entityId": "cleric-benevolence",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 63,
+    "entity": "skill",
+    "entityId": "cleric-root",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 64,
+    "entity": "skill",
+    "entityId": "cleric-root",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 65,
+    "entity": "skill",
+    "entityId": "cleric-prayer-of-amplification",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 66,
+    "entity": "skill",
+    "entityId": "cleric-prayer-of-amplification",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 67,
+    "entity": "skill",
+    "entityId": "cleric-light-of-protection",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 68,
+    "entity": "skill",
+    "entityId": "cleric-light-of-protection",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 69,
+    "entity": "skill",
+    "entityId": "cleric-light-of-protection",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 70,
+    "entity": "skill",
+    "entityId": "cleric-yustiels-power",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 71,
+    "entity": "skill",
+    "entityId": "cleric-yustiels-power",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 72,
+    "entity": "skill",
+    "entityId": "cleric-summon-resurrection",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 73,
+    "entity": "skill",
+    "entityId": "cleric-summon-resurrection",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 74,
+    "entity": "build",
+    "entityId": "cleric-leveling",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 75,
+    "entity": "build",
+    "entityId": "cleric-leveling",
+    "sourceId": "web:eloboost24-cleric-build"
+   },
+   {
+    "id": 76,
+    "entity": "build",
+    "entityId": "cleric-leveling",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 77,
+    "entity": "build",
+    "entityId": "cleric-leveling",
+    "sourceId": "web:gamesfuze-cleric-build"
+   },
+   {
+    "id": 78,
+    "entity": "build",
+    "entityId": "cleric-leveling",
+    "sourceId": "web:aion2hub-2026-08-12"
+   },
+   {
+    "id": 79,
+    "entity": "build",
+    "entityId": "cleric-leveling",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 80,
+    "entity": "build",
+    "entityId": "cleric-leveling",
+    "sourceId": "web:playnews-macros"
+   },
+   {
+    "id": 81,
+    "entity": "build",
+    "entityId": "cleric-leveling",
+    "sourceId": "web:meinmmo-macros"
+   },
+   {
+    "id": 82,
+    "entity": "build",
+    "entityId": "cleric-leveling",
+    "sourceId": "web:inven-cleric-guide"
+   },
+   {
+    "id": 83,
+    "entity": "build",
+    "entityId": "cleric-leveling",
+    "sourceId": "web:game-client-skill-window"
+   },
+   {
+    "id": 84,
+    "entity": "build",
+    "entityId": "cleric-pve",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 85,
+    "entity": "build",
+    "entityId": "cleric-pve",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 86,
+    "entity": "build",
+    "entityId": "cleric-pve",
+    "sourceId": "web:keengamer-pve-builds"
+   },
+   {
+    "id": 87,
+    "entity": "build",
+    "entityId": "cleric-pve",
+    "sourceId": "web:eloboost24-cleric-build"
+   },
+   {
+    "id": 88,
+    "entity": "build",
+    "entityId": "cleric-pve",
+    "sourceId": "web:gamesfuze-cleric-build"
+   },
+   {
+    "id": 89,
+    "entity": "build",
+    "entityId": "cleric-pve",
+    "sourceId": "web:inven-cleric-guide"
+   },
+   {
+    "id": 90,
+    "entity": "build",
+    "entityId": "cleric-pve",
+    "sourceId": "web:vortex-cleric-guide"
+   },
+   {
+    "id": 91,
+    "entity": "build",
+    "entityId": "cleric-pve",
+    "sourceId": "web:aion2hub-2026-08-12"
+   },
+   {
+    "id": 92,
+    "entity": "build",
+    "entityId": "cleric-pve",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 93,
+    "entity": "build",
+    "entityId": "cleric-pve",
+    "sourceId": "web:game-client-skill-window"
+   },
+   {
+    "id": 94,
+    "entity": "mechanic",
+    "entityId": "1",
+    "sourceId": "web:playnews-macros"
+   },
+   {
+    "id": 95,
+    "entity": "mechanic",
+    "entityId": "1",
+    "sourceId": "web:meinmmo-macros"
+   },
+   {
+    "id": 96,
+    "entity": "mechanic",
+    "entityId": "1",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 97,
+    "entity": "mechanic",
+    "entityId": "2",
+    "sourceId": "web:meinmmo-macros"
+   },
+   {
+    "id": 98,
+    "entity": "mechanic",
+    "entityId": "2",
+    "sourceId": "web:playnews-macros"
+   },
+   {
+    "id": 99,
+    "entity": "mechanic",
+    "entityId": "2",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 100,
+    "entity": "mechanic",
+    "entityId": "3",
+    "sourceId": "web:game-client-skill-window"
+   },
+   {
+    "id": 101,
+    "entity": "mechanic",
+    "entityId": "3",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 102,
+    "entity": "mechanic",
+    "entityId": "3",
+    "sourceId": "web:playnews-macros"
+   },
+   {
+    "id": 103,
+    "entity": "mechanic",
+    "entityId": "3",
+    "sourceId": "yt:v_NuuOGFp_4"
+   },
+   {
+    "id": 104,
+    "entity": "mechanic",
+    "entityId": "4",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 105,
+    "entity": "mechanic",
+    "entityId": "4",
+    "sourceId": "web:meinmmo-macros"
+   },
+   {
+    "id": 106,
+    "entity": "mechanic",
+    "entityId": "4",
+    "sourceId": "web:game-client-skill-window"
+   },
+   {
+    "id": 107,
+    "entity": "mechanic",
+    "entityId": "5",
+    "sourceId": "web:game-client-skill-window"
+   },
+   {
+    "id": 108,
+    "entity": "mechanic",
+    "entityId": "5",
+    "sourceId": "yt:v_NuuOGFp_4"
+   },
+   {
+    "id": 109,
+    "entity": "mechanic",
+    "entityId": "6",
+    "sourceId": "web:inven-cleric-guide"
+   },
+   {
+    "id": 110,
+    "entity": "mechanic",
+    "entityId": "6",
+    "sourceId": "yt:v_NuuOGFp_4"
+   },
+   {
+    "id": 111,
+    "entity": "mechanic",
+    "entityId": "6",
+    "sourceId": "web:meinmmo-macros"
+   },
+   {
+    "id": 112,
+    "entity": "mechanic",
+    "entityId": "6",
+    "sourceId": "web:playnews-macros"
+   },
+   {
+    "id": 113,
+    "entity": "mechanic",
+    "entityId": "7",
+    "sourceId": "web:game-client-skill-window"
+   },
+   {
+    "id": 114,
+    "entity": "mechanic",
+    "entityId": "7",
+    "sourceId": "web:playnews-macros"
+   },
+   {
+    "id": 115,
+    "entity": "mechanic",
+    "entityId": "7",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 116,
+    "entity": "mechanic",
+    "entityId": "8",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 117,
+    "entity": "mechanic",
+    "entityId": "8",
+    "sourceId": "web:playnews-macros"
+   },
+   {
+    "id": 118,
+    "entity": "mechanic",
+    "entityId": "8",
+    "sourceId": "web:gamesfuze-macros"
+   },
+   {
+    "id": 119,
+    "entity": "mechanic",
+    "entityId": "8",
+    "sourceId": "web:meinmmo-macros"
+   },
+   {
+    "id": 120,
+    "entity": "mechanic",
+    "entityId": "8",
+    "sourceId": "web:aion2hub-2026-01-28"
+   },
+   {
+    "id": 121,
+    "entity": "mechanic",
+    "entityId": "9",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 122,
+    "entity": "mechanic",
+    "entityId": "9",
+    "sourceId": "web:gamesfuze-macros"
+   },
+   {
+    "id": 123,
+    "entity": "mechanic",
+    "entityId": "9",
+    "sourceId": "web:inven-cleric-guide"
+   },
+   {
+    "id": 124,
+    "entity": "mechanic",
+    "entityId": "9",
+    "sourceId": "web:game-client-skill-window"
+   },
+   {
+    "id": 125,
+    "entity": "mechanic",
+    "entityId": "10",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 126,
+    "entity": "mechanic",
+    "entityId": "10",
+    "sourceId": "web:gamesfuze-macros"
+   },
+   {
+    "id": 127,
+    "entity": "mechanic",
+    "entityId": "10",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 128,
+    "entity": "mechanic",
+    "entityId": "10",
+    "sourceId": "yt:WhNIY6j8TRM"
+   },
+   {
+    "id": 129,
+    "entity": "mechanic",
+    "entityId": "11",
+    "sourceId": "web:meinmmo-macros"
+   },
+   {
+    "id": 130,
+    "entity": "mechanic",
+    "entityId": "11",
+    "sourceId": "web:playnews-macros"
+   },
+   {
+    "id": 131,
+    "entity": "mechanic",
+    "entityId": "11",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 132,
+    "entity": "mechanic",
+    "entityId": "12",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 133,
+    "entity": "mechanic",
+    "entityId": "12",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 134,
+    "entity": "mechanic",
+    "entityId": "13",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 135,
+    "entity": "mechanic",
+    "entityId": "13",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 136,
+    "entity": "mechanic",
+    "entityId": "13",
+    "sourceId": "web:eloboost24-cleric-build"
+   },
+   {
+    "id": 137,
+    "entity": "mechanic",
+    "entityId": "14",
+    "sourceId": "web:aion2hub-2026-03-25"
+   },
+   {
+    "id": 138,
+    "entity": "mechanic",
+    "entityId": "14",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 139,
+    "entity": "mechanic",
+    "entityId": "14",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 140,
+    "entity": "mechanic",
+    "entityId": "14",
+    "sourceId": "web:eloboost24-cleric-build"
+   },
+   {
+    "id": 141,
+    "entity": "mechanic",
+    "entityId": "15",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 142,
+    "entity": "mechanic",
+    "entityId": "15",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 143,
+    "entity": "mechanic",
+    "entityId": "16",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 144,
+    "entity": "mechanic",
+    "entityId": "16",
+    "sourceId": "web:inven-cleric-guide"
+   },
+   {
+    "id": 145,
+    "entity": "mechanic",
+    "entityId": "16",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 146,
+    "entity": "mechanic",
+    "entityId": "17",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 147,
+    "entity": "mechanic",
+    "entityId": "18",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 148,
+    "entity": "mechanic",
+    "entityId": "18",
+    "sourceId": "web:gamesfuze-cleric-build"
+   },
+   {
+    "id": 149,
+    "entity": "mechanic",
+    "entityId": "18",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 150,
+    "entity": "mechanic",
+    "entityId": "19",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 151,
+    "entity": "mechanic",
+    "entityId": "19",
+    "sourceId": "web:eloboost24-cleric-build"
+   },
+   {
+    "id": 152,
+    "entity": "mechanic",
+    "entityId": "20",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 153,
+    "entity": "mechanic",
+    "entityId": "20",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 154,
+    "entity": "mechanic",
+    "entityId": "20",
+    "sourceId": "web:eloboost24-cleric-build"
+   },
+   {
+    "id": 155,
+    "entity": "mechanic",
+    "entityId": "21",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 156,
+    "entity": "mechanic",
+    "entityId": "21",
+    "sourceId": "web:keengamer-pve-builds"
+   },
+   {
+    "id": 157,
+    "entity": "mechanic",
+    "entityId": "21",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 158,
+    "entity": "mechanic",
+    "entityId": "22",
+    "sourceId": "web:eloboost24-cleric-build"
+   },
+   {
+    "id": 159,
+    "entity": "mechanic",
+    "entityId": "22",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 160,
+    "entity": "mechanic",
+    "entityId": "22",
+    "sourceId": "web:gamesfuze-cleric-build"
+   },
+   {
+    "id": 161,
+    "entity": "mechanic",
+    "entityId": "23",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 162,
+    "entity": "mechanic",
+    "entityId": "24",
+    "sourceId": "web:eloboost24-cleric-build"
+   },
+   {
+    "id": 163,
+    "entity": "mechanic",
+    "entityId": "24",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 164,
+    "entity": "mechanic",
+    "entityId": "24",
+    "sourceId": "yt:WhNIY6j8TRM"
+   },
+   {
+    "id": 165,
+    "entity": "timeline_event",
+    "entityId": "1",
+    "sourceId": "web:aion2hub-2026-01-28"
+   },
+   {
+    "id": 166,
+    "entity": "timeline_event",
+    "entityId": "2",
+    "sourceId": "web:aion2hub-2026-03-25"
+   },
+   {
+    "id": 167,
+    "entity": "timeline_event",
+    "entityId": "3",
+    "sourceId": "yt:WhNIY6j8TRM"
+   },
+   {
+    "id": 168,
+    "entity": "timeline_event",
+    "entityId": "3",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 169,
+    "entity": "timeline_event",
+    "entityId": "4",
+    "sourceId": "web:aion2hub-2026-08-12"
+   },
+   {
+    "id": 170,
+    "entity": "timeline_event",
+    "entityId": "5",
+    "sourceId": "web:aion2hub-2026-09-04"
+   },
+   {
+    "id": 171,
+    "entity": "timeline_event",
+    "entityId": "6",
+    "sourceId": "web:eloboost24-cleric-build"
+   },
+   {
+    "id": 172,
+    "entity": "timeline_event",
+    "entityId": "6",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 173,
+    "entity": "timeline_event",
+    "entityId": "7",
+    "sourceId": "web:eloboost24-cleric-build"
+   },
+   {
+    "id": 174,
+    "entity": "timeline_event",
+    "entityId": "7",
+    "sourceId": "web:keengamer-pve-builds"
+   },
+   {
+    "id": 175,
+    "entity": "timeline_event",
+    "entityId": "7",
+    "sourceId": "web:playnews-macros"
+   },
+   {
+    "id": 176,
+    "entity": "timeline_event",
+    "entityId": "7",
+    "sourceId": "web:meinmmo-macros"
+   },
+   {
+    "id": 177,
+    "entity": "timeline_event",
+    "entityId": "8",
+    "sourceId": "web:game-client-skill-window"
+   },
+   {
+    "id": 178,
+    "entity": "takeaway",
+    "entityId": "1",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 179,
+    "entity": "takeaway",
+    "entityId": "1",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 180,
+    "entity": "takeaway",
+    "entityId": "2",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 181,
+    "entity": "takeaway",
+    "entityId": "2",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 182,
+    "entity": "takeaway",
+    "entityId": "3",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 183,
+    "entity": "takeaway",
+    "entityId": "3",
+    "sourceId": "web:metabot-cleric-build"
+   },
+   {
+    "id": 184,
+    "entity": "takeaway",
+    "entityId": "3",
+    "sourceId": "web:keengamer-pve-builds"
+   },
+   {
+    "id": 185,
+    "entity": "takeaway",
+    "entityId": "4",
+    "sourceId": "web:game-client-skill-window"
+   },
+   {
+    "id": 186,
+    "entity": "takeaway",
+    "entityId": "4",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 187,
+    "entity": "takeaway",
+    "entityId": "4",
+    "sourceId": "web:playnews-macros"
+   },
+   {
+    "id": 188,
+    "entity": "takeaway",
+    "entityId": "4",
+    "sourceId": "web:meinmmo-macros"
+   },
+   {
+    "id": 189,
+    "entity": "takeaway",
+    "entityId": "5",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 190,
+    "entity": "takeaway",
+    "entityId": "5",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 191,
+    "entity": "takeaway",
+    "entityId": "6",
+    "sourceId": "web:allthings-macros"
+   },
+   {
+    "id": 192,
+    "entity": "takeaway",
+    "entityId": "6",
+    "sourceId": "web:meinmmo-macros"
+   },
+   {
+    "id": 193,
+    "entity": "takeaway",
+    "entityId": "7",
+    "sourceId": "web:eloboost24-cleric-build"
+   },
+   {
+    "id": 194,
+    "entity": "takeaway",
+    "entityId": "7",
+    "sourceId": "web:aion2hub-2026-03-25"
+   },
+   {
+    "id": 195,
+    "entity": "takeaway",
+    "entityId": "7",
+    "sourceId": "web:aion2run-cleric"
+   },
+   {
+    "id": 196,
+    "entity": "mechanic",
+    "entityId": "25",
+    "sourceId": "web:aion2-plaync-api-search"
+   },
+   {
+    "id": 197,
+    "entity": "mechanic",
+    "entityId": "25",
+    "sourceId": "web:aion2-plaync-characters-js"
+   },
+   {
+    "id": 198,
+    "entity": "mechanic",
+    "entityId": "26",
+    "sourceId": "web:aion2-plaync-api-info"
+   },
+   {
+    "id": 199,
+    "entity": "mechanic",
+    "entityId": "26",
+    "sourceId": "web:aion2-plaync-characters-js"
+   },
+   {
+    "id": 200,
+    "entity": "mechanic",
+    "entityId": "27",
+    "sourceId": "web:aion2-plaync-api-equipment"
+   },
+   {
+    "id": 201,
+    "entity": "mechanic",
+    "entityId": "27",
+    "sourceId": "web:aion2-plaync-character-baon"
+   },
+   {
+    "id": 202,
+    "entity": "mechanic",
+    "entityId": "28",
+    "sourceId": "web:aion2-plaync-api-info"
+   },
+   {
+    "id": 203,
+    "entity": "mechanic",
+    "entityId": "29",
+    "sourceId": "web:aion2-plaync-api-info"
+   },
+   {
+    "id": 204,
+    "entity": "mechanic",
+    "entityId": "30",
+    "sourceId": "web:plaync-terms-of-use"
+   },
+   {
+    "id": 205,
+    "entity": "mechanic",
+    "entityId": "30",
+    "sourceId": "web:aion2-plaync-character-baon"
+   },
+   {
+    "id": 206,
+    "entity": "mechanic",
+    "entityId": "31",
+    "sourceId": "web:plaync-developers"
+   },
+   {
+    "id": 207,
+    "entity": "mechanic",
+    "entityId": "31",
+    "sourceId": "web:plaync-open-api-terms"
+   },
+   {
+    "id": 208,
+    "entity": "mechanic",
+    "entityId": "32",
+    "sourceId": "web:aion2-plaync-api-search"
+   },
+   {
+    "id": 209,
+    "entity": "mechanic",
+    "entityId": "32",
+    "sourceId": "web:aion2-plaync-api-info"
+   },
+   {
+    "id": 210,
+    "entity": "mechanic",
+    "entityId": "33",
+    "sourceId": "web:metabot-armory"
+   },
+   {
+    "id": 211,
+    "entity": "takeaway",
+    "entityId": "8",
+    "sourceId": "web:aion2-plaync-api-search"
+   },
+   {
+    "id": 212,
+    "entity": "takeaway",
+    "entityId": "8",
+    "sourceId": "web:aion2-plaync-api-info"
+   },
+   {
+    "id": 213,
+    "entity": "takeaway",
+    "entityId": "8",
+    "sourceId": "web:aion2-plaync-api-equipment"
+   },
+   {
+    "id": 214,
+    "entity": "takeaway",
+    "entityId": "9",
+    "sourceId": "web:aion2-plaync-api-search"
+   },
+   {
+    "id": 215,
+    "entity": "takeaway",
+    "entityId": "9",
+    "sourceId": "web:aion2-plaync-character-baon"
+   },
+   {
+    "id": 216,
+    "entity": "takeaway",
+    "entityId": "10",
+    "sourceId": "web:aion2-plaync-api-equipment"
+   },
+   {
+    "id": 217,
+    "entity": "takeaway",
+    "entityId": "11",
+    "sourceId": "web:plaync-terms-of-use"
+   },
+   {
+    "id": 218,
+    "entity": "takeaway",
+    "entityId": "11",
+    "sourceId": "web:plaync-developers"
+   }
+  ],
   "factClaims": [],
-  "accountSnapshots": [],
-  "accountSkills": [],
-  "accountStigmas": [],
+  "accountSnapshots": [
+   {
+    "id": "2026-10-10",
+    "capturedAt": "2026-10-10T11:21:20+02:00",
+    "character": "Baon",
+    "class": "cleric",
+    "level": 36,
+    "gearScore": 749,
+    "server": "Fafnir (EU)",
+    "unread": [
+     "Macro key: Settings not opened",
+     "Invested levels: totals only; gear bonus per skill in account/README",
+     "Stigma slot levels: mapped from hotbar keys 4, 5, 6",
+     "Voice of Doom: padlocked in game, flagged equipped at Lv 0 in official data",
+     "Specialization picks",
+     "Whether acquiring a stigma needs a free slot",
+     "Presets 2 and 3",
+     "Character window: name, level, gear from official data"
+    ]
+   }
+  ],
+  "accountSkills": [
+   {
+    "id": 1,
+    "snapshotId": "2026-10-10",
+    "skillName": "Earth's Retribution",
+    "skillId": "cleric-earths-retribution",
+    "level": 10,
+    "slot": "R"
+   },
+   {
+    "id": 2,
+    "snapshotId": "2026-10-10",
+    "skillName": "Judgment Thunder",
+    "skillId": "cleric-judgment-thunder",
+    "level": 11,
+    "slot": "T·3"
+   },
+   {
+    "id": 3,
+    "snapshotId": "2026-10-10",
+    "skillName": "Debilitating Mark",
+    "skillId": "cleric-debilitating-mark",
+    "level": 12,
+    "slot": "T·1"
+   },
+   {
+    "id": 4,
+    "snapshotId": "2026-10-10",
+    "skillName": "Divine Aura",
+    "skillId": "cleric-divine-aura",
+    "level": 11,
+    "slot": "2"
+   },
+   {
+    "id": 5,
+    "snapshotId": "2026-10-10",
+    "skillName": "Chain of Torment",
+    "skillId": "cleric-chain-of-torment",
+    "level": 12,
+    "slot": "T·0"
+   },
+   {
+    "id": 6,
+    "snapshotId": "2026-10-10",
+    "skillName": "Lightning Strike Scattershot",
+    "skillId": "cleric-lightning-strike-scattershot",
+    "level": 11,
+    "slot": "E"
+   },
+   {
+    "id": 7,
+    "snapshotId": "2026-10-10",
+    "skillName": "Light of Regeneration",
+    "skillId": "cleric-light-of-regeneration",
+    "level": 9,
+    "slot": "Q·0"
+   },
+   {
+    "id": 8,
+    "snapshotId": "2026-10-10",
+    "skillName": "Condemnation",
+    "skillId": "cleric-condemnation",
+    "level": 10,
+    "slot": "T·2"
+   },
+   {
+    "id": 9,
+    "snapshotId": "2026-10-10",
+    "skillName": "Healing Light",
+    "skillId": "cleric-healing-light",
+    "level": 10,
+    "slot": "Q·1"
+   },
+   {
+    "id": 10,
+    "snapshotId": "2026-10-10",
+    "skillName": "Radiant Recovery",
+    "skillId": "cleric-radiant-recovery",
+    "level": 7,
+    "slot": "3"
+   },
+   {
+    "id": 11,
+    "snapshotId": "2026-10-10",
+    "skillName": "Bolt",
+    "skillId": "cleric-bolt",
+    "level": 9,
+    "slot": "1"
+   },
+   {
+    "id": 12,
+    "snapshotId": "2026-10-10",
+    "skillName": "Defiance",
+    "skillId": "cleric-defiance",
+    "level": 2,
+    "slot": "Space"
+   },
+   {
+    "id": 13,
+    "snapshotId": "2026-10-10",
+    "skillName": "Warm Benediction",
+    "skillId": "cleric-warm-benediction",
+    "level": 3,
+    "slot": null
+   },
+   {
+    "id": 14,
+    "snapshotId": "2026-10-10",
+    "skillName": "Empyrean Lords' Benediction",
+    "skillId": "cleric-empyrean-lords-benediction",
+    "level": 2,
+    "slot": null
+   },
+   {
+    "id": 15,
+    "snapshotId": "2026-10-10",
+    "skillName": "Empyrean Lord's Grace",
+    "skillId": "cleric-empyrean-lords-grace",
+    "level": 12,
+    "slot": null
+   },
+   {
+    "id": 16,
+    "snapshotId": "2026-10-10",
+    "skillName": "Healing Enhancement",
+    "skillId": "cleric-healing-enhancement",
+    "level": 2,
+    "slot": null
+   },
+   {
+    "id": 17,
+    "snapshotId": "2026-10-10",
+    "skillName": "Immortal Veil",
+    "skillId": "cleric-immortal-veil",
+    "level": 2,
+    "slot": null
+   },
+   {
+    "id": 18,
+    "snapshotId": "2026-10-10",
+    "skillName": "Heal Block",
+    "skillId": "cleric-heal-block",
+    "level": 2,
+    "slot": null
+   },
+   {
+    "id": 19,
+    "snapshotId": "2026-10-10",
+    "skillName": "Prayer of Concentration",
+    "skillId": "cleric-prayer-of-concentration",
+    "level": 2,
+    "slot": null
+   },
+   {
+    "id": 20,
+    "snapshotId": "2026-10-10",
+    "skillName": "Earth's Grace",
+    "skillId": "cleric-earths-grace",
+    "level": 11,
+    "slot": null
+   },
+   {
+    "id": 21,
+    "snapshotId": "2026-10-10",
+    "skillName": "Survival Willpower",
+    "skillId": "cleric-survival-willpower",
+    "level": 2,
+    "slot": null
+   },
+   {
+    "id": 22,
+    "snapshotId": "2026-10-10",
+    "skillName": "Radiant Benediction",
+    "skillId": "cleric-radiant-benediction",
+    "level": 3,
+    "slot": null
+   }
+  ],
+  "accountStigmas": [
+   {
+    "id": 1,
+    "snapshotId": "2026-10-10",
+    "slotLevel": 22,
+    "skillName": "Prayer of Amplification",
+    "skillId": "cleric-prayer-of-amplification"
+   },
+   {
+    "id": 2,
+    "snapshotId": "2026-10-10",
+    "slotLevel": 27,
+    "skillName": "Earth Punishment",
+    "skillId": "cleric-earth-punishment"
+   },
+   {
+    "id": 3,
+    "snapshotId": "2026-10-10",
+    "slotLevel": 32,
+    "skillName": "Noble Aura",
+    "skillId": "cleric-noble-aura"
+   },
+   {
+    "id": 4,
+    "snapshotId": "2026-10-10",
+    "slotLevel": 37,
+    "skillName": null,
+    "skillId": null
+   }
+  ],
   "accountMacros": [],
   "accountMacroSteps": [],
-  "accountRoadmapItems": []
+  "accountRoadmapItems": [
+   {
+    "id": 1,
+    "snapshotId": "2026-10-10",
+    "rank": 1,
+    "priority": "now",
+    "area": "skills",
+    "action": "Condemnation 9 → 10: save points (costs 4, 2 held)",
+    "why": "Rank 1 of the build and one level short; keep the 2 points for it instead of Radiant Recovery.",
+    "refs": [
+     {
+      "record": "001-cleric-build",
+      "id": "cleric-leveling"
+     }
+    ]
+   },
+   {
+    "id": 2,
+    "snapshotId": "2026-10-10",
+    "rank": 2,
+    "priority": "now",
+    "area": "stigmas",
+    "action": "Acquire Light of Protection (costs 1, 1 held)",
+    "why": "Best first stigma: +10.5% PvE damage and tolerance, a toggle, switch it on by hand (f-0021); whether it needs a free slot is unread.",
+    "refs": [
+     {
+      "record": "001-cleric-build",
+      "id": "cleric-leveling"
+     }
+    ]
+   },
+   {
+    "id": 3,
+    "snapshotId": "2026-10-10",
+    "rank": 3,
+    "priority": "now",
+    "area": "macro",
+    "action": "Build the solo macro, one skill per entry",
+    "why": "Editor is empty; the entries and order are the 001 solo macro.",
+    "refs": [
+     {
+      "record": "001-cleric-build",
+      "id": "cleric-leveling-solo"
+     }
+    ]
+   },
+   {
+    "id": 4,
+    "snapshotId": "2026-10-10",
+    "rank": 4,
+    "priority": "now",
+    "area": "macro",
+    "action": "Bind the macro key",
+    "why": "Key not read; bind it under Settings > Key Settings > General > Gameplay > Macro.",
+    "refs": [
+     {
+      "record": "001-cleric-build",
+      "id": "cleric-leveling-solo"
+     }
+    ]
+   },
+   {
+    "id": 5,
+    "snapshotId": "2026-10-10",
+    "rank": 5,
+    "priority": "next",
+    "area": "macro",
+    "action": "Check the macro's run order",
+    "why": "Unconfirmed top-down or bottom-up; if holding it only fires Judgment Thunder, reverse the list.",
+    "refs": [
+     {
+      "record": "001-cleric-build"
+     }
+    ]
+   },
+   {
+    "id": 6,
+    "snapshotId": "2026-10-10",
+    "rank": 6,
+    "priority": "next",
+    "area": "skills",
+    "action": "Bolt 8 → 10",
+    "why": "Rank 6; costs 4 a level, and the level gate may hold it at 8 until about 38.",
+    "refs": [
+     {
+      "record": "001-cleric-build",
+      "id": "cleric-leveling"
+     }
+    ]
+   },
+   {
+    "id": 7,
+    "snapshotId": "2026-10-10",
+    "rank": 7,
+    "priority": "next",
+    "area": "skills",
+    "action": "Healing Light 7 → 8",
+    "why": "Rank 8; invested 7, shown as 10 with +3 gear; costs 4.",
+    "refs": [
+     {
+      "record": "001-cleric-build",
+      "id": "cleric-leveling"
+     }
+    ]
+   },
+   {
+    "id": 8,
+    "snapshotId": "2026-10-10",
+    "rank": 8,
+    "priority": "next",
+    "area": "stigmas",
+    "action": "Earth Punishment 4 → 5",
+    "why": "Takes the next stigma point (costs 1, f-0016); from level 5 Condemnation always crits on its target.",
+    "refs": [
+     {
+      "record": "001-cleric-build",
+      "id": "cleric-leveling"
+     }
+    ]
+   },
+   {
+    "id": 9,
+    "snapshotId": "2026-10-10",
+    "rank": 9,
+    "priority": "next",
+    "area": "stigmas",
+    "action": "Check Voice of Doom in the Stigma tab",
+    "why": "Padlocked in game, flagged equipped at Lv 0 in the official data; check whether it takes a slot.",
+    "refs": [
+     {
+      "record": "002-character-data-source"
+     }
+    ]
+   },
+   {
+    "id": 10,
+    "snapshotId": "2026-10-10",
+    "rank": 10,
+    "priority": "later",
+    "area": "skills",
+    "action": "Light of Regeneration 7 → 8",
+    "why": "Rank 9; invested 7, shown as 9 with +2 gear; costs 4.",
+    "refs": [
+     {
+      "record": "001-cleric-build",
+      "id": "cleric-leveling"
+     }
+    ]
+   },
+   {
+    "id": 11,
+    "snapshotId": "2026-10-10",
+    "rank": 11,
+    "priority": "later",
+    "area": "skills",
+    "action": "Radiant Recovery 6 → 8",
+    "why": "Rank 10; invested 6, shown as 7 with +1 gear; costs 2 then 4; level 8 cleanses 2 debuffs.",
+    "refs": [
+     {
+      "record": "001-cleric-build",
+      "id": "cleric-leveling"
+     }
+    ]
+   },
+   {
+    "id": 12,
+    "snapshotId": "2026-10-10",
+    "rank": 12,
+    "priority": "later",
+    "area": "skills",
+    "action": "Empyrean Lord's Grace 9 → 10",
+    "why": "Rank 11; invested 9, shown as 12 with +3 gear; costs 4.",
+    "refs": [
+     {
+      "record": "001-cleric-build",
+      "id": "cleric-leveling"
+     }
+    ]
+   },
+   {
+    "id": 13,
+    "snapshotId": "2026-10-10",
+    "rank": 13,
+    "priority": "later",
+    "area": "skills",
+    "action": "Earth's Grace 9 → 10",
+    "why": "Rank 12; invested 9, shown as 11 with +2 gear; costs 4.",
+    "refs": [
+     {
+      "record": "001-cleric-build",
+      "id": "cleric-leveling"
+     }
+    ]
+   },
+   {
+    "id": 14,
+    "snapshotId": "2026-10-10",
+    "rank": 14,
+    "priority": "later",
+    "area": "skills",
+    "action": "Read and set the specialization picks",
+    "why": "Not opened in the read; the build names a pick for each skill at 8 or more.",
+    "refs": [
+     {
+      "record": "001-cleric-build",
+      "id": "cleric-leveling"
+     }
+    ]
+   }
+  ]
  }
 }
