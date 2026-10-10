@@ -1,0 +1,207 @@
+[
+  {
+    "title": "Hotbar column: the bottom skill is tried first",
+    "body": "Each hotbar key holds a column of up to 4 skills; a press tries the bottom one, then moves up past anything on cooldown or unusable.",
+    "confidence": "posted",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": ["hotbar"],
+    "sources": ["web:playnews-macros", "web:meinmmo-macros", "web:allthings-macros"]
+  },
+  {
+    "title": "Conflict: what sits at the bottom of a column",
+    "body": "Cooldown skills at the bottom, no-cooldown filler on top (mein-mmo, playnews). allthings.how says put the no-cooldown attack at the bottom, which would starve the rest.",
+    "confidence": "theory",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": ["conflicts"],
+    "sources": ["web:meinmmo-macros", "web:playnews-macros", "web:allthings-macros"]
+  },
+  {
+    "title": "Macro entries point at hotbar slots, not skills",
+    "body": "Each entry registers a whole hotbar column; changing the skills in that slot changes the macro.",
+    "confidence": "posted",
+    "class": null,
+    "topic": "macros",
+    "sources": ["web:allthings-macros", "web:playnews-macros"]
+  },
+  {
+    "title": "Conflict: the order the editor runs its entries",
+    "body": "Likely top to bottom: allthings.how says so and a KR editor frame numbers entries 1… from the top. mein-mmo says bottom up. Confirm in game.",
+    "confidence": "theory",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": ["conflicts"],
+    "sources": ["web:allthings-macros", "web:meinmmo-macros", "yt:v_NuuOGFp_4"]
+  },
+  {
+    "title": "The editor numbers its entries from the top",
+    "body": "A KR Cleric's editor (May 2026) lists entries 1, 2, 3… downward, each with its own delay (10 ms); 'Add Macro' appends below.",
+    "confidence": "posted",
+    "class": null,
+    "topic": "macros",
+    "sources": ["yt:v_NuuOGFp_4", "web:allthings-macros"]
+  },
+  {
+    "title": "Conflict: the basic attack inside the macro",
+    "body": "KR Clerics interleave Earth's Retribution entries (Inven, a May 2026 video); mein-mmo and playnews keep it out and hold left click. Verdict on PC: keep it out.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "macros",
+    "alsoTopics": ["conflicts"],
+    "sources": ["web:inven-cleric-guide", "yt:v_NuuOGFp_4", "web:meinmmo-macros", "web:playnews-macros"]
+  },
+  {
+    "title": "Conflict: how long a chain can be",
+    "body": "4 skills per hotbar button (playnews) and up to 20 entries per macro (allthings.how); likely both, at different layers. Confirm in game.",
+    "confidence": "theory",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": ["conflicts"],
+    "sources": ["web:playnews-macros", "web:allthings-macros"]
+  },
+  {
+    "title": "Bind the macro key first; hold it to run",
+    "body": "Unbound by default: Settings > Key Settings > General > Gameplay > Macro. Hold, don't tap; any manual input takes priority over the running macro.",
+    "confidence": "posted",
+    "class": null,
+    "topic": "macros",
+    "sources": ["web:allthings-macros", "web:playnews-macros", "web:gamesfuze-macros", "web:meinmmo-macros", "web:aion2hub-2026-01-28"]
+  },
+  {
+    "title": "Delay: 10 ms, raise only if skills drop",
+    "body": "Each entry has a delay; the default fell from 50 to 10 ms. Try 40–50 ms only if skills fail to fire. It is input spacing, not ping.",
+    "confidence": "posted",
+    "class": null,
+    "topic": "macros",
+    "sources": ["web:allthings-macros", "web:gamesfuze-macros", "web:inven-cleric-guide"]
+  },
+  {
+    "title": "Keep toggles, charged skills and long cooldowns out",
+    "body": "A loop switches a toggle off (Light of Protection) and fires charged skills at charge 1 (Bolt); 45–60 s skills stall a fast loop.",
+    "confidence": "posted",
+    "class": null,
+    "topic": "macros",
+    "sources": ["web:allthings-macros", "web:gamesfuze-macros", "web:aion2run-cleric", "yt:WhNIY6j8TRM"]
+  },
+  {
+    "title": "Hold the basic attack beside the macro",
+    "body": "Hold left click with the macro key: basic attacks cancel animations and restore MP. Putting the basic attack inside the macro loses damage.",
+    "confidence": "posted",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": ["rotation"],
+    "sources": ["web:meinmmo-macros", "web:playnews-macros", "web:allthings-macros"]
+  },
+  {
+    "title": "Each skill preset has its own macro",
+    "body": "Presets 1–3 each keep a macro, so a solo preset and a dungeon preset can carry different chains.",
+    "confidence": "posted",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": ["presets"],
+    "sources": ["web:allthings-macros", "web:aion2run-cleric"]
+  },
+  {
+    "title": "Stigma slots on global: 22, 27, 32, 37",
+    "body": "Four slots at levels 22, 27, 32 and 37; stigma level cap 20; stigma points start at 23 and reach about 14 by level 36.",
+    "confidence": "theory",
+    "class": null,
+    "topic": "stigmas",
+    "sources": ["web:metabot-cleric-build", "web:aion2run-cleric", "web:eloboost24-cleric-build"]
+  },
+  {
+    "title": "Conflict: Korea's and Taiwan's stigma slot count",
+    "body": "Global has 4. KR went to 5 on 2026-03-25 (aion2hub), 6 at level 50 (aion2.run); allthings.how says Taiwan has 6. Don't copy KR stigma sets.",
+    "confidence": "theory",
+    "class": null,
+    "topic": "stigmas",
+    "alsoTopics": ["conflicts", "kr-global"],
+    "sources": ["web:aion2hub-2026-03-25", "web:aion2run-cleric", "web:allthings-macros", "web:eloboost24-cleric-build"]
+  },
+  {
+    "title": "Skill points: 21 to reach level 10",
+    "body": "Level 1 is free; levels 2–4 cost 1, 5–7 cost 2, 8–10 cost 4. 203 points by 45 (about 147 at 36); Wisdom Stones add more.",
+    "confidence": "theory",
+    "class": null,
+    "topic": "skills",
+    "sources": ["web:metabot-cleric-build", "web:aion2run-cleric"]
+  },
+  {
+    "title": "Specializations at skill levels 8, 12, 16 and 20",
+    "body": "Options unlock at 8, 12 and 16; slots open at 8, 12 and 20. Past 10 only Daevanion, gear and Arcana raise a skill.",
+    "confidence": "theory",
+    "class": null,
+    "topic": "skills",
+    "sources": ["web:metabot-cleric-build", "web:inven-cleric-guide", "web:aion2run-cleric"]
+  },
+  {
+    "title": "Skill level gate: one level per 3 character levels",
+    "body": "A skill gains at most one level every 3 character levels on global, so at 36 nothing is capped below 10.",
+    "confidence": "theory",
+    "class": null,
+    "topic": "skills",
+    "sources": ["web:aion2run-cleric"]
+  },
+  {
+    "title": "Condemnation needs Chain of Torment; Earth Punishment removes its cooldown",
+    "body": "Condemnation hits only Chain of Torment targets. From stigma level 5 Earth Punishment makes it crit, and its spec-12 crit reset makes it cooldown-free.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "rotation",
+    "alsoTopics": ["macros"],
+    "sources": ["web:aion2run-cleric", "web:gamesfuze-cleric-build", "web:metabot-cleric-build"]
+  },
+  {
+    "title": "Light of Protection and Chain of Torment overlap with a Chanter",
+    "body": "Light of Protection doesn't stack with Undefeated Mantra; Chain of Torment doesn't apply with Earth's Promise. With a Chanter, swap Light of Protection for Absolution.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "stigmas",
+    "alsoTopics": ["party"],
+    "sources": ["web:aion2run-cleric", "web:eloboost24-cleric-build"]
+  },
+  {
+    "title": "Conflict: the first solo stigma",
+    "body": "Earth Punishment first (eloboost24: Light of Protection is a solo mistake) vs Light of Protection first (aion2.run). Verdict: Earth Punishment, then Light of Protection.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "stigmas",
+    "alsoTopics": ["conflicts"],
+    "sources": ["web:eloboost24-cleric-build", "web:aion2run-cleric"]
+  },
+  {
+    "title": "Conflict: Resurrection or Noble Aura in group stigmas",
+    "body": "Top level-45 Clerics favour Noble Aura (79%) over Summon Resurrection (64%); keengamer keeps Resurrection until mechanics are clean. Verdict: Resurrection first at 32–36.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "stigmas",
+    "alsoTopics": ["conflicts"],
+    "sources": ["web:metabot-cleric-build", "web:keengamer-pve-builds", "web:aion2run-cleric"]
+  },
+  {
+    "title": "Conflict: heals or damage first in skill points",
+    "body": "eloboost24 levels Healing Light and Radiant Recovery first; aion2.run keeps heals at 1 until 34 while leveling. Verdict: damage first solo, heals first for dungeons.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "skills",
+    "alsoTopics": ["conflicts"],
+    "sources": ["web:eloboost24-cleric-build", "web:aion2run-cleric", "web:gamesfuze-cleric-build"]
+  },
+  {
+    "title": "Chests need the Cleric's damage too",
+    "body": "Dungeon chest contribution counts damage (about 5% of the boss's HP) or healing; a Cleric who only heals can leave with nothing.",
+    "confidence": "posted",
+    "class": "cleric",
+    "topic": "rotation",
+    "sources": ["web:aion2run-cleric"]
+  },
+  {
+    "title": "Korean guides run a later version",
+    "body": "KR: level 50, stigma level 25, extra slots, a ninth class, a reworked macro (May 2026). Use KR guides for class logic, not numbers.",
+    "confidence": "posted",
+    "class": null,
+    "topic": "kr-global",
+    "sources": ["web:eloboost24-cleric-build", "web:aion2run-cleric", "yt:WhNIY6j8TRM"]
+  }
+]

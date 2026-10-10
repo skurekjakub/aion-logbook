@@ -1,0 +1,11 @@
+{
+  "record": {
+    "slug": "001-cleric-build",
+    "question": "What skill levels, stigmas and built-in macro chains should a level-36 Cleric on the global client run, for leveling and PvE, and how is the built-in macro editor's priority ordered?",
+    "status": "active",
+    "startedAt": "2026-10-10",
+    "classes": ["cleric"]
+  },
+  "curated": "curated",
+  "ledger": { "file": "evidence/captures.jsonl" }
+}

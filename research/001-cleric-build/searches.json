@@ -1,0 +1,74 @@
+[
+  {
+    "id": "yt-cleric-macro",
+    "kind": "youtube",
+    "query": "aion 2 cleric macro",
+    "why": "English Cleric macro videos for the global client's editor.",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  },
+  {
+    "id": "yt-cleric-build-global",
+    "kind": "youtube",
+    "query": "aion 2 cleric build global",
+    "why": "Global Cleric build videos as the global meta forms.",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  },
+  {
+    "id": "yt-kr-cleric-macro",
+    "kind": "youtube",
+    "query": "아이온2 치유성 매크로",
+    "why": "Korean Cleric macro videos: the mature source for chains and column order.",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  },
+  {
+    "id": "web-metabot-cleric-build",
+    "kind": "web",
+    "url": "https://metabot.gg/en/aion-2/classes/cleric/build",
+    "why": "Client-read skill data and top-player stigma and skill usage; rerun for meta drift.",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  },
+  {
+    "id": "web-aion2run-cleric",
+    "kind": "web",
+    "url": "https://aion2.run/en/classes/clerc",
+    "why": "Sourced global and KR Cleric guide with per-bracket leveling and rotations; client-rendered, capture with agent-browser.",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  },
+  {
+    "id": "web-eloboost24-cleric-build",
+    "kind": "web",
+    "url": "https://eloboost24.eu/blog/aion-2-cleric-build",
+    "why": "Global-client Cleric guide; refuses scripted fetches, capture with agent-browser.",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  },
+  {
+    "id": "web-allthings-macros",
+    "kind": "web",
+    "url": "https://allthings.how/?p=211813",
+    "why": "The most detailed description of the macro editor; watch for corrections on entry order.",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  },
+  {
+    "id": "web-playnews-macros",
+    "kind": "web",
+    "url": "https://www.playnews.gg/en/guides/aion-2-macros-how-to-set-them-up-and-optimize-their-use",
+    "why": "Macro guide stating the 4-skill column and bottom-first priority.",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  },
+  {
+    "id": "web-inven-cleric-guide",
+    "kind": "web",
+    "url": "https://www.inven.co.kr/board/aion2/6452/657",
+    "why": "Long-running Korean Cleric guide, updated by its author after patches.",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  }
+]

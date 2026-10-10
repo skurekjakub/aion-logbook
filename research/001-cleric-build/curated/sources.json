@@ -1,0 +1,197 @@
+[
+  {
+    "id": "web:metabot-cleric-build",
+    "url": "https://metabot.gg/en/aion-2/classes/cleric/build",
+    "title": "AION 2 Cleric Build Planner – Top-Player Meta | MetaBot.GG",
+    "date": null,
+    "relevance": 3,
+    "note": "Global client data (build 0.0.4387.0): skill list, unlock levels, cooldowns, point costs, stigma slots; top-player usage. Undated, 'updated 7 days ago' on 10-10.",
+    "summaryEn": "Client-read skill and stigma data for the global Cleric, point budgets by level, and what the tracked top level-45 Clerics slot.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/metabot-gg-en-aion-2-classes-cleric-build.md"
+  },
+  {
+    "id": "web:aion2run-cleric",
+    "url": "https://aion2.run/en/classes/clerc",
+    "title": "AION 2 Cleric guide: builds, rotation and stigmas – Aion2 Guide",
+    "date": "2026-10-05",
+    "relevance": 3,
+    "note": "Sourced fan guide (global and KR): per-bracket leveling plan, builds per activity, rotations, KR skill names. Server-rendered capture alongside lacks the build lists.",
+    "summaryEn": "Leveling plan by level bracket, solo and dungeon builds with stigmas, rotations, and the global vs Korean differences.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/aion2-run-en-classes-clerc-rendered.md"
+  },
+  {
+    "id": "web:eloboost24-cleric-build",
+    "url": "https://eloboost24.eu/blog/aion-2-cleric-build",
+    "title": "AION 2 Cleric Build Guide (Global 2026)",
+    "date": "2026-10-06",
+    "relevance": 2,
+    "note": "Written from the global client's skill data, no ranking data. Heal-first; says Earth Punishment beats Light of Protection solo.",
+    "summaryEn": "Heals first, Chain of Torment between heals; stigmas Light of Protection, Absolution, Yustiel's Power, Summon Resurrection; Earth Punishment first when solo.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/eloboost24-eu-blog-aion-2-cleric-build.md"
+  },
+  {
+    "id": "web:keengamer-pve-builds",
+    "url": "https://www.keengamer.com/articles/guides/aion-2-best-pve-builds-for-every-class/",
+    "title": "AION 2 - Best PvE Builds for Every Class",
+    "date": "2026-10-06",
+    "relevance": 2,
+    "note": "Hybrid healer section; keeps Resurrection until the group clears mechanics.",
+    "summaryEn": "Cleric hybrid healer: Healing Light, Chain of Torment, Condemnation core; stigmas Earth's Punishment, Light of Protection, Noble Aura, Resurrection.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/keengamer-com-articles-guides-aion-2-best-pve-builds-for-every-class.md"
+  },
+  {
+    "id": "web:gamesfuze-cleric-build",
+    "url": "https://gamesfuze.com/guides/aion-2-cleric-build-best-healer-skills-stigmas-and-gear-dungeons-pvp/",
+    "title": "AION 2 Cleric Build: Best Healer Skills, Stigmas and Gear (Dungeons & PvP)",
+    "date": "2026-10-01",
+    "relevance": 2,
+    "note": "Skill-by-skill breakpoints (8/12/16) and a staged level-8 order.",
+    "summaryEn": "Every Cleric skill's specialization breakpoints and a staged skill order for healer and hybrid play.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/gamesfuze-com-guides-aion-2-cleric-build-best-healer-skills-stigmas-and-gear-dungeons-pvp.md"
+  },
+  {
+    "id": "web:inven-cleric-guide",
+    "url": "https://www.inven.co.kr/board/aion2/6452/657",
+    "title": "(26/01/28 기준) ★ 치유성 가이드 ★ - 아이온2 인벤 치유성 게시판",
+    "titleEn": "Cleric guide (as of 2026-01-28), Inven Cleric board",
+    "date": "2025-12-03",
+    "relevance": 2,
+    "note": "Korean service, a long-time Cleric main; post-cap mastery order, stigma order, a right-click column and a 50 ms macro. Pre-dates KR's May macro rework.",
+    "summaryEn": "Korean Cleric guide: skill masteries, passives and stigmas for PvE and PvP, the author's right-click skill column and in-game macro.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/inven-co-kr-board-aion2-6452-657.md"
+  },
+  {
+    "id": "web:vortex-cleric-guide",
+    "url": "https://vortexgaming.io/en/postdetail/977592",
+    "title": "Aion 2 Cleric, PVE/PVP Skill Tree and Stigma Complete Guide | Vortex Gaming",
+    "date": null,
+    "relevance": 1,
+    "note": "Machine-translated summary of a Korean video; several skill names garbled (e.g. 'Troops' for Bolt). Korean original captured beside it.",
+    "summaryEn": "KR specialization picks and stigma sets per dungeon; core PvE stigmas Benevolence, Earth Punishment, Noble Aura, Light of Protection.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/vortexgaming-io-en-postdetail-977592.md"
+  },
+  {
+    "id": "web:allthings-macros",
+    "url": "https://allthings.how/?p=211813",
+    "title": "AION 2: How to Use Macros and Pick the Right Delay",
+    "date": "2026-10-05",
+    "relevance": 3,
+    "note": "Most detailed macro-editor description: 20 entries, entries are hotbar columns, run top to bottom, 10 ms default, toggles and charged skills out; a short Cleric dummy test.",
+    "summaryEn": "How the built-in macro works: bind, build from hotbar columns, 10 ms delay, what to leave out, presets with their own macros.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/allthings-how-p-211813.md"
+  },
+  {
+    "id": "web:playnews-macros",
+    "url": "https://www.playnews.gg/en/guides/aion-2-macros-how-to-set-them-up-and-optimize-their-use",
+    "title": "Aion 2 Macros: How to Set Them Up and Optimize Their Use",
+    "date": "2026-10-06",
+    "relevance": 2,
+    "note": "Up to 4 skills per hotbar button, lowest tried first; no-cooldown skills on top.",
+    "summaryEn": "Bind the macro key, stack cooldown skills at the bottom and spam skills on top, add hotbar buttons to the macro, hold basic attack.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/playnews-gg-en-guides-aion-2-macros-how-to-set-them-up-and-optimize-their-use.md"
+  },
+  {
+    "id": "web:meinmmo-macros",
+    "url": "https://mein-mmo.de/en/aion-2-macros-for-all-classes-how-to-massively-increase-your-damage-with-just-2-keys,1590032/",
+    "title": "Aion 2: Macros for all classes – How to massively increase your damage with just 2 keys",
+    "date": "2026-10-06",
+    "relevance": 2,
+    "note": "Bottom skill has top priority; says the macro also processes 'from the bottom up'. Hold basic attack separately.",
+    "summaryEn": "Stack highest priority at the bottom, never a no-cooldown skill low, hold the macro key plus left mouse for animation cancels.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/mein-mmo-de-en-aion-2-macros-for-all-classes-how-to-massively-increase-your-damage-with-just-2-keys-1590032.md"
+  },
+  {
+    "id": "web:gamesfuze-macros",
+    "url": "https://gamesfuze.com/guides/aion-2-best-macro-setup-guide/",
+    "title": "AION 2: Best Macro Setup Guide - GamesFuze",
+    "date": "2026-09-30",
+    "relevance": 2,
+    "note": "Key path, 10 ms delay, delay is not ping; keep charged skills and toggles out.",
+    "summaryEn": "Built-in macro chains hotbar skills on a held key; 10 ms delay; leave defensive, burst, charged and toggle skills manual.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/gamesfuze-com-guides-aion-2-best-macro-setup-guide.md"
+  },
+  {
+    "id": "web:aion2hub-2026-01-28",
+    "url": "https://aion2hub.com/updates/aion-2-update-2026-01-28",
+    "title": "AION 2 Patch Notes — January 28, 2026 (Skill Macro, Character Warehouse)",
+    "date": "2026-01-28",
+    "relevance": 2,
+    "note": "Korean service: skill macro added (per-step delays, hold to run, manual input wins); Earth Punishment cooldown 60 → 30 s.",
+    "summaryEn": "KR patch adding the skill macro and cutting Earth Punishment's and Voice of Doom's cooldowns.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/aion2hub-com-updates-aion-2-update-2026-01-28.md"
+  },
+  {
+    "id": "web:aion2hub-2026-03-25",
+    "url": "https://aion2hub.com/updates/aion-2-update-2026-03-25",
+    "title": "AION 2 Patch Notes — March 25, 2026 (Kinah Split, Stigma & Block Overhaul)",
+    "date": "2026-03-25",
+    "relevance": 1,
+    "note": "Korean service: 5 stigma slots and a new Cleric stigma (Touch of Rebirth) that the global client's list doesn't have.",
+    "summaryEn": "KR patch raising stigma slots to 5 and adding a stigma per class.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/aion2hub-com-updates-aion-2-update-2026-03-25.md"
+  },
+  {
+    "id": "web:aion2hub-2026-08-12",
+    "url": "https://aion2hub.com/updates/aion-2-update-2026-08-12",
+    "title": "AION 2 Patch Notes — August 12, 2026",
+    "date": "2026-08-12",
+    "relevance": 1,
+    "note": "Korean service healing rework: 40 m heal radius, 20–50% less raw healing, Healing Enhancement scales with Attack.",
+    "summaryEn": "KR healing rework that made Cleric heals scale with Attack.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/aion2hub-com-updates-aion-2-update-2026-08-12.md"
+  },
+  {
+    "id": "web:aion2hub-2026-09-04",
+    "url": "https://aion2hub.com/updates/aion-2-update-2026-09-04",
+    "title": "AION 2 Patch Notes — September 4, 2026 (Emergency Maintenance: Class Care)",
+    "date": "2026-09-04",
+    "relevance": 1,
+    "note": "Korean service: Bolt +20% PvE damage; Prayer of Amplification rebuilt.",
+    "summaryEn": "KR class-care pass buffing the Cleric's Bolt in PvE.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/aion2hub-com-updates-aion-2-update-2026-09-04.md"
+  },
+  {
+    "id": "yt:WhNIY6j8TRM",
+    "url": "https://www.youtube.com/watch?v=WhNIY6j8TRM",
+    "title": "[치유성] 쉽고 빠른 2꾹 세팅 방법! 인게임 스킬 매크로가 완전 바뀌었습니다!",
+    "titleEn": "[Cleric] Easy two-button hold setup: the in-game skill macro has completely changed",
+    "date": "2026-05-27",
+    "relevance": 1,
+    "note": "Korean; digest only (no transcript). Comments: Bolt in a macro fires at charge 1; Judgment fires once Bolt is on cooldown.",
+    "summaryEn": "KR Cleric two-key in-game macro setup after the May 2026 macro rework.",
+    "capturePath": "research/001-cleric-build/evidence/02-youtube/yt-WhNIY6j8TRM.txt"
+  },
+  {
+    "id": "yt:r4WXaGgKCxw",
+    "url": "https://www.youtube.com/watch?v=r4WXaGgKCxw",
+    "title": "[아이온2]🔥치유성 편한 사냥 세팅! 지허브+스매 / 인겜스매 / 모바일 매크로까지",
+    "titleEn": "Cleric comfortable hunting setup: G Hub + skill macro / in-game skill macro / mobile",
+    "date": "2026-08-06",
+    "relevance": 1,
+    "note": "Korean; digest only. A comment: with the in-game macro alone, put Judgment Thunder above Light of Regeneration for hunting.",
+    "summaryEn": "KR Cleric hunting setups including an in-game skill macro.",
+    "capturePath": "research/001-cleric-build/evidence/02-youtube/yt-r4WXaGgKCxw.txt"
+  },
+  {
+    "id": "yt:v_NuuOGFp_4",
+    "url": "https://www.youtube.com/watch?v=v_NuuOGFp_4",
+    "title": "아이온2 치유성 인게임 매크로 및 스펙 공유 dps100만",
+    "titleEn": "Cleric in-game macro and spec share, 1M DPS",
+    "date": "2026-05-28",
+    "relevance": 2,
+    "note": "Korean, mobile client. Frames at 0:42–0:45 show the macro editor: numbered entries from the top, 10 ms each, Earth's Retribution interleaved with Divine Aura and Prayer of Amplification.",
+    "summaryEn": "KR Cleric in-game macro run on a training dummy.",
+    "capturePath": "research/001-cleric-build/evidence/02-youtube/yt-v_NuuOGFp_4.txt"
+  },
+  {
+    "id": "yt:ymKxcPRDksU",
+    "url": "https://www.youtube.com/watch?v=ymKxcPRDksU",
+    "title": "[아이온2] 치유성 마매+인게임 매크로 설정 (1분 허수아비)",
+    "titleEn": "Cleric mouse macro + in-game macro setup (1-minute dummy)",
+    "date": "2026-05-29",
+    "relevance": 0,
+    "note": "Korean; digest only. Pairs an external mouse macro with the in-game one; external macros are against the rules.",
+    "summaryEn": "KR Cleric setup combining an external mouse macro with the in-game macro.",
+    "capturePath": "research/001-cleric-build/evidence/02-youtube/yt-ymKxcPRDksU.txt"
+  }
+]

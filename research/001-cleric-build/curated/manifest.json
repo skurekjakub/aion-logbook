@@ -1,0 +1,12 @@
+{
+  "collections": {
+    "meta": "meta.json",
+    "sources": "sources.json",
+    "glossary": "glossary.json",
+    "skills": "skills.json",
+    "builds": "builds.json",
+    "mechanics": "mechanics.json",
+    "timeline": "timeline.json",
+    "takeaways": "takeaways.json"
+  }
+}

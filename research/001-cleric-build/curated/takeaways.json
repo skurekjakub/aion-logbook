@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Solo: Condemnation, Chain of Torment, Earth's Retribution, Judgment Thunder, Divine Aura and Bolt to 10, damage before heals.",
+    "detail": "At 36 (about 147 points): those at 10 with Bolt at 8, Debilitating Mark 8, the rest in Healing Light.",
+    "class": "cleric",
+    "sources": ["web:aion2run-cleric", "web:metabot-cleric-build"]
+  },
+  {
+    "text": "Solo stigmas: Earth Punishment, Light of Protection, Noble Aura now; Prayer of Amplification at 37.",
+    "detail": "Earth Punishment level 5 first: it makes Condemnation crit and lose its cooldown.",
+    "class": "cleric",
+    "sources": ["web:eloboost24-cleric-build", "web:aion2run-cleric"]
+  },
+  {
+    "text": "Dungeons: heals to 10 first, Light of Protection and Earth Punishment, Summon Resurrection until the group stops dying.",
+    "detail": "Swap Light of Protection for Absolution when a Chanter brings Undefeated Mantra.",
+    "class": "cleric",
+    "sources": ["web:aion2run-cleric", "web:metabot-cleric-build", "web:keengamer-pve-builds"]
+  },
+  {
+    "text": "Macro: bind it, hold it with left click, 10 ms delay; cooldown skills at the bottom of each column.",
+    "detail": "Entries are hotbar columns; the bottom skill of a column is tried first.",
+    "class": null,
+    "sources": ["web:allthings-macros", "web:playnews-macros", "web:meinmmo-macros"]
+  },
+  {
+    "text": "Never macro Light of Protection or Bolt: the loop turns the toggle off and fires Bolt uncharged.",
+    "class": "cleric",
+    "sources": ["web:allthings-macros", "web:aion2run-cleric"]
+  },
+  {
+    "text": "Unconfirmed: whether the editor runs its entries top-down or bottom-up. Check in game before trusting step order.",
+    "detail": "allthings.how says top to bottom; mein-mmo says bottom up.",
+    "class": null,
+    "sources": ["web:allthings-macros", "web:meinmmo-macros"]
+  },
+  {
+    "text": "Korean guides assume 5–6 stigma slots and level 50: take their logic, not their numbers.",
+    "class": null,
+    "sources": ["web:eloboost24-cleric-build", "web:aion2hub-2026-03-25", "web:aion2run-cleric"]
+  }
+]
