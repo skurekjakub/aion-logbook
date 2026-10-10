@@ -1,0 +1,159 @@
+[
+  {
+    "id": "cleric-pve-dps-offheal",
+    "class": "cleric",
+    "purpose": "pve",
+    "title": "Dungeon DPS with off-heal: Condemnation engine, heals on demand",
+    "why": "Damage first in farmed or geared groups: Condemnation loop, damage stigmas, heals at 8 pressed by hand. Healer build again after a wipe.",
+    "confidence": "theory",
+    "skills": [
+      {
+        "skillId": "cleric-condemnation",
+        "rank": 1,
+        "targetLevel": 10,
+        "why": "The engine: half the damage on a KR meter, crits on Earth Punishment's target; spec +12% vs fewer targets, reset at 12."
+      },
+      {
+        "skillId": "cleric-chain-of-torment",
+        "rank": 2,
+        "targetLevel": 10,
+        "why": "Condemnation only hits its target, and it cuts boss Tolerance 5% for the party; spec +3 s DoT."
+      },
+      {
+        "skillId": "cleric-earths-retribution",
+        "rank": 3,
+        "targetLevel": 10,
+        "why": "Held left click feeds MP for the loop; spec +20% Discharge trigger, Bolt −7 s at 12."
+      },
+      {
+        "skillId": "cleric-divine-aura",
+        "rank": 4,
+        "targetLevel": 10,
+        "why": "Free boss damage every 30 s; spec +50% attack speed for single targets, AoE only for trash."
+      },
+      {
+        "skillId": "cleric-bolt",
+        "rank": 5,
+        "targetLevel": 10,
+        "why": "Biggest hit, fully charged by hand inside Prayer of Amplification and stagger windows; spec +30% Skill Speed."
+      },
+      {
+        "skillId": "cleric-judgment-thunder",
+        "rank": 6,
+        "targetLevel": 10,
+        "why": "No-cooldown filler, last in the macro; some testers drop it on bosses. Spec +12% vs fewer targets."
+      },
+      {
+        "skillId": "cleric-healing-light",
+        "rank": 7,
+        "targetLevel": 8,
+        "why": "The off-heal on the lowest ally, pressed by hand; spec +2 consecutive uses."
+      },
+      {
+        "skillId": "cleric-radiant-recovery",
+        "rank": 8,
+        "targetLevel": 8,
+        "why": "Party heal and cleanse for raid-wide hits, by hand; spec removes up to 2 debuffs."
+      },
+      {
+        "skillId": "cleric-light-of-regeneration",
+        "rank": 9,
+        "targetLevel": 8,
+        "why": "Party HoT that runs in the macro, the healing you don't press; spec +20% healed at 50% HP or less."
+      },
+      {
+        "skillId": "cleric-empyrean-lords-grace",
+        "rank": 10,
+        "targetLevel": 10,
+        "why": "+100 Crit and extra damage on every hit; the passive top Clerics raise first."
+      },
+      {
+        "skillId": "cleric-earths-grace",
+        "rank": 11,
+        "targetLevel": 10,
+        "why": "+10.5% Crit Damage, which every guaranteed Condemnation crit uses; finish with Wisdom Stones."
+      },
+      {
+        "skillId": "cleric-debilitating-mark",
+        "rank": 12,
+        "targetLevel": 8,
+        "why": "Contested: a global dummy tester gains with it, KR rankers barely raise it; −15% Defense spec, late in the macro."
+      }
+    ],
+    "stigmas": [
+      {
+        "slotLevel": 22,
+        "skillId": "cleric-light-of-protection",
+        "why": "+10.5% party PvE damage and tolerance; 87% of top Clerics. Swap for Absolution when a Chanter runs Undefeated Mantra."
+      },
+      {
+        "slotLevel": 27,
+        "skillId": "cleric-earth-punishment",
+        "why": "Level 5 first: Condemnation always crits on its target. Then toward 15 and 20 for uptime."
+      },
+      {
+        "slotLevel": 32,
+        "skillId": "cleric-noble-aura",
+        "why": "300 s aura that attacks your target; 79% of top Clerics. Recast after deaths and teleports."
+      },
+      {
+        "slotLevel": 37,
+        "skillId": "cleric-prayer-of-amplification",
+        "why": "+20% Attack for 10 s, heals included; line up charged Bolt. Summon Resurrection instead while the group still dies."
+      }
+    ],
+    "macros": [
+      {
+        "id": "cleric-dungeon-dps-loop",
+        "name": "Dungeon DPS loop",
+        "key": "Right Mouse Button (hold with Left Mouse)",
+        "delayMs": 10,
+        "why": "Hold both buttons on the boss: Earth Punishment then Chain set up Condemnation, the HoT rolls, filler last. Release to heal by hand.",
+        "steps": [
+          {
+            "skillId": "cleric-earth-punishment",
+            "note": "Entry 1: opens the crit window before every Condemnation"
+          },
+          {
+            "skillId": "cleric-chain-of-torment",
+            "note": "Entry 2: marks the boss; Condemnation needs it"
+          },
+          {
+            "skillId": "cleric-condemnation",
+            "note": "Entry 3: the main hit, a guaranteed crit inside Earth Punishment"
+          },
+          {
+            "skillId": "cleric-divine-aura",
+            "note": "Entry 4: free boss damage every 30 s"
+          },
+          {
+            "skillId": "cleric-light-of-regeneration",
+            "note": "Entry 5: party HoT on cooldown, the off-heal that runs itself"
+          },
+          {
+            "skillId": "cleric-debilitating-mark",
+            "note": "Entry 6: contested; delete it if the meter drops"
+          },
+          {
+            "skillId": "cleric-judgment-thunder",
+            "note": "Entry 7: no-cooldown filler, last so it never starves the rest"
+          }
+        ]
+      }
+    ],
+    "sources": [
+      "web:expcarry-cleric-guide",
+      "web:playhub-builds",
+      "web:gameoverdrive-builds",
+      "web:aion2run-cleric",
+      "web:metabot-cleric-build",
+      "web:keengamer-pve-builds",
+      "yt:-86sdRZ4SX4",
+      "yt:5Dy9OA_NEzs",
+      "yt:tYxkzfd_9-A",
+      "web:vortex-ranker-skills",
+      "web:allthings-macros",
+      "web:game-client-skill-window"
+    ]
+  }
+]

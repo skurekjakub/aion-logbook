@@ -1,0 +1,74 @@
+# AION 2: Cleric Macro Guide - 2 Button Gameplay
+- url: https://www.youtube.com/watch?v=tYxkzfd_9-A
+- channel: BoredAF
+- published: 2026-10-05T05:00:21-07:00
+- views: 72479
+- length_s: 514
+- captions: []
+
+## Description
+In this video I showcase my Cleric Macro and explain some skill synergy.
+
+TIMESTAMPS
+0:00 Intro
+0:32 PvE Dungeon / Boss Macro
+3:10 PvP / Pet Farming Macro
+5:20 DPS With Judgment
+6:58 Dps Without Judgment
+
+📢 FOLLOW ME HERE 📢
+► Twitch:    https://www.twitch.tv/boredaf
+► Discord:  https://discord.gg/RK3YtFTDxh
+
+#mmorgp   #mmo   #aion2   #aion   #aion2global
+
+## Top comments (20)
+- @Bored_AF_ [8]: *Turn skill queue off so Condemnation goes out properly. Keep in mind that I'm only 2k gearscore here with all manastones and soulstones set for block and crit hit resist. If rolled out for PvE stats like Attack and Crit damage would be even higher. Also this if for in game macro set up only. If you decide to do something more involving mouse software that’s on you I can’t help with that. *
+- @boatguy_ [9]: Your videos have been extremely helpful in explaining basic cleric concepts (and the game in general).
+
+I'm very new but I have some opinions. I'm only at 1200 ilvl so all of this is just off the dummy damage, but I want to share them in case it helps you and others.
+
+1. I really do think having auto-attack on its own key (e.g. LMB) and not part of your macro (e.g. RMB) improves your DPS. I think this game animation cancels and weaves auto-attacks in between your macro executions, but for some reason only if you are also holding down Auto-attack on its own button. My evidence for this that, on the DPS meter, I see both higher DPS if I do this and it is explained by seeing more number of auto-attack casts within the 2min window while still seeing an equivalent number of the big damage casts (Condemnation, Bolt, Divine Aura).
+
+2. I think Bolt at 3 charges is worth it versus Bolt at 1 charge. Whether I take Bolt to 1 or 3 charges, I can fit 7 casts of it in a 2min window, but at 3 charges it does double damage and becomes my #2 highest damage contributor. The terrible part is that, if you make Bolt part of your macro key, it always clips at 1 charge. The best I can do is make Bolt its own key, and hold down 3 buttons. But that really feels shit.
+
+So tl;dr the best setup I have found for me is:
+
+LMB: Earth's Retribution
+RMB: Macro
+Side-button: Bolt
+
+Macro:
+1. Debuff/Condemnation: Debilitating Mark > Chain of Torment > Earth Punishment > Condemnation (10ms)
+2. Divine Aura (and Bolt if you are okay with it clipping at 1 charge)
+
+For comparison, DPS comparisons (again I remind you I'm only 1200 gearscore/58k combat power), within a 2min window on the dummy:
+
+1. 3-button setup (Bolt at 3 charges): 9.6k DPS
+2. 2-button setup (Bolt clipped at 1 charge): 9.1k dps
+3. Your setup (Earth Retribution part of macro): 8.6k dps
+
+I wish I could figure out how do this with just two buttons (without an external macro) because holding down three buttons is really cramp-inducing.
+
+I'll re-test this once I have real gear and have actually completed some proper dungeon content to see if this changes.
+- @RavenARPG [ ]: Dude your guides are carrying me to success. THANK YOU
+- @akirajoey8245 [ ]: This guide is super clear and easy to follow. Thanks for taking the time to make it!
+- @matadot671 [ ]: Tysm you explained this way better than these other people
+- @officialzachj [19]: can you upload a video on your daevanion board/all your skill specialtys please!
+- @GoldenRiceball [15]: Bruh this guide is somehow more detailed than other channel's 20+ minute cleric build yap videos. Thank you. 
+
+Made a cleric alt and just wanted a quick rundown of skillbar setups
+- @irvinreyes1787 [ ]: thank you i needed help
+- @cacapipitalisme [ ]: 800th like :), great video, the best on cleric
+- @kavkasaurus [2]: Best cleric guide so far.
+- @drezclaw [2]: been waiting for this
+- @majkimajk6185 [ ]: Thanks, mate. I was playing a Gladiator and switched to a Cleric... It's a whole new world.👍
+- @BaronBacon [1]: What is that hairstyle?
+- @Ryn__98 [ ]: So simple. Thank youu
+- @curtiswilliams779 [ ]: thank you was about to give up on this class you saved it
+- @Jelly_Fish_0 [ ]: 日本より愛を込めて<3
+- @darcusplays [ ]: waiting for the chanter macro build guide also TIA
+- @B.Nicolas [2]: Bonjour :)
+Merci :)  / Thank you :)
+- @AstroP3n3 [1]: what if i have my maro set up to right click ?
+- @user-ho9xh9uo7d [1]: Bro I decided to follow u. The reason behind it ? Youre a top cleric player

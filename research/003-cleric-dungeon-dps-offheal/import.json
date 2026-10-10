@@ -1,0 +1,11 @@
+{
+  "record": {
+    "slug": "003-cleric-dungeon-dps-offheal",
+    "question": "Which skill levels, stigmas and built-in macro chain make a level-38 global Cleric a damage-first dungeon player that heals the party on the side?",
+    "status": "active",
+    "startedAt": "2026-10-10",
+    "classes": ["cleric"]
+  },
+  "curated": "curated",
+  "ledger": { "file": "evidence/captures.jsonl" }
+}

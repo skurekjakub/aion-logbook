@@ -1,0 +1,184 @@
+[
+  {
+    "id": "web:expcarry-cleric-guide",
+    "url": "https://expcarry.com/aion-2-cleric-guide",
+    "title": "AION 2 Cleric Guide: Best Build & Skills",
+    "date": "2026-10-06",
+    "relevance": 3,
+    "note": "Global guide from a boost service: 'Standard Boss Healer' hybrid with skill targets, stigma upgrade order and macro templates that repeat Condemnation.",
+    "summaryEn": "Hybrid boss healer: Condemnation engine first, heals kept reliable; Light of Protection, Earth Punishment, Noble Aura, Prayer of Amplification; heals stay manual.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/01-guides/expcarry-com-aion-2-cleric-guide.md"
+  },
+  {
+    "id": "web:playhub-builds",
+    "url": "https://playhub.com/blog/aion-2/best-builds-for-each-class-978315",
+    "title": "Best Builds for Each Class in AION 2 - Stats, Gear, Stigmas",
+    "date": "2026-10-06",
+    "relevance": 2,
+    "note": "Cleric 'Group-Healing Build': just enough healing, then as much damage as possible; all four stigmas to 5, then Light of Protection to 20.",
+    "summaryEn": "Healer that maximises damage: Light of Protection, Noble Aura, Earth Punishment, Prayer of Amplification; damage macro Chain of Torment, Debilitating Mark, Condemnation, Judgment Thunder.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/01-guides/playhub-com-blog-aion-2-best-builds-for-each-class-978315.md"
+  },
+  {
+    "id": "web:gameoverdrive-builds",
+    "url": "https://gameoverdrive.com.br/aion-2-builds-cleric-ranger-assassin/",
+    "title": "Aion 2: guia de builds de Cleric, Ranger e Assassin para PvE e PvP",
+    "titleEn": "Aion 2: Cleric, Ranger and Assassin build guide for PvE and PvP",
+    "date": "2026-10-05",
+    "relevance": 2,
+    "note": "Portuguese, global version, built on Aion 2 Maps' Cleric plan: stigma levels 10/5/5/5 (30 points at 45) and an opener.",
+    "summaryEn": "Healing with offensive participation: Light of Protection 10, Earth Punishment, Noble Aura, Prayer of Amplification 5; the six damage skills to 10.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/01-guides/gameoverdrive-com-br-aion-2-builds-cleric-ranger-assassin.md"
+  },
+  {
+    "id": "web:gamerblurb-cleric-build",
+    "url": "https://gamerblurb.com/guides/aion-2-cleric-build-guide-pve-pvp-leveling-global",
+    "title": "AION 2 Cleric Build Guide: PvE, PvP, & Leveling (Global)",
+    "date": "2026-10-06",
+    "relevance": 2,
+    "note": "The defensive view: group stigmas Absolution, Salvation, Yustiel's Power, Summon Resurrection, with Light of Protection only as an alternate.",
+    "summaryEn": "Heal-first group Cleric with no damage stigma; damage only fills stable windows. Leveling stigmas Noble Aura, Prayer of Amplification, Earth Punishment, Voice of Doom.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/01-guides/gamerblurb-com-guides-aion-2-cleric-build-guide-pve-pvp-leveling-global.md"
+  },
+  {
+    "id": "web:pixelnitro-cleric-build",
+    "url": "https://pixelnitro.com/?p=20616",
+    "title": "Aion 2 Cleric Build Guide: Best PvP and PvE Skills, Stigmas, and Skill Boost Priorities (2026)",
+    "date": "2026-09-27",
+    "relevance": 0,
+    "note": "Pre-launch and generic; its macro puts Lightning Strike Scattershot in a boss loop, which only hits staggered targets.",
+    "summaryEn": "Generic Cleric guide; 'if nobody needs healing, you should be attacking'.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/01-guides/pixelnitro-com.md"
+  },
+  {
+    "id": "web:oslink-cleric-build",
+    "url": "https://www.oslink.io/blog/guide/aion-2-cleric-build-guide.html",
+    "title": "AION 2 Cleric Build Guide and Best Builds",
+    "date": "2026-10-01",
+    "relevance": 1,
+    "note": "Remote-play vendor blog; damage priority list but a heal-first PvE stigma set (Summon Resurrection, Earth Punishment, Salvation).",
+    "summaryEn": "Heal-first PvE Cleric; keep Debilitating Mark and Chain of Torment on the boss, Condemnation when Chain is up.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/01-guides/oslink-io-blog-guide-aion-2-cleric-build-guide-html.md"
+  },
+  {
+    "id": "web:vortex-ranker-skills",
+    "url": "https://vortexgaming.io/postdetail/730212",
+    "title": "아이온2 치유성, TOP 랭커들이 선택한 최신 스킬트리 완벽 공략 | Vortex Gaming",
+    "titleEn": "Aion 2 Cleric: the latest skill tree the top rankers chose",
+    "date": null,
+    "relevance": 1,
+    "note": "Korean service, top-100 ranker statistics after the skill rework; levels past 10 and five-plus stigma slots, so logic only.",
+    "summaryEn": "KR rankers: Condemnation wins single-target, Debilitating Mark barely raised, Light of Protection on every ranker, Earth Punishment's numbers rising.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/01-guides/vortexgaming-io-postdetail-730212.md"
+  },
+  {
+    "id": "web:aion2hub-2026-08-26",
+    "url": "https://aion2hub.com/updates/aion-2-update-2026-08-26",
+    "title": "AION 2 Patch Notes — August 26, 2026",
+    "date": "2026-08-26",
+    "relevance": 1,
+    "note": "Korean service: support party synergy softened; Earth Punishment's party share cut to 5%, Prayer of Amplification and Earth's Grace raised.",
+    "summaryEn": "KR class patch moving the Cleric's party buffs into its own damage.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/01-guides/aion2hub-com-updates-aion-2-update-2026-08-26.md"
+  },
+  {
+    "id": "yt:-86sdRZ4SX4",
+    "url": "https://www.youtube.com/watch?v=-86sdRZ4SX4",
+    "title": "Aion 2 Cleric PvE DPS Guide - Korean Macro Setup for Global",
+    "date": "2026-10-07",
+    "relevance": 2,
+    "note": "Digest only (no captions). Korean meta mapped onto global: Condemnation 51% of damage, one stacked column as the macro step, Earth Punishment and Yustiel's Power.",
+    "summaryEn": "Condemnation engine with Earth Punishment; macro is one stacked column; Bolt, heals and shields by hand.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/02-youtube/yt--86sdRZ4SX4.txt"
+  },
+  {
+    "id": "yt:5Dy9OA_NEzs",
+    "url": "https://www.youtube.com/watch?v=5Dy9OA_NEzs",
+    "title": "The ONLY AION 2 Cleric Macro Guide You Need | PvE & PvP",
+    "date": "2026-10-09",
+    "relevance": 2,
+    "note": "Frames transcribed: entries Light of Regeneration, Earth Punishment, Bolt, each drawn as a stacked column's row-0 skill.",
+    "summaryEn": "Global Cleric macro: spammable last, Light of Regeneration kept in, left click woven beside the macro.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/02-youtube/yt-5Dy9OA_NEzs.txt"
+  },
+  {
+    "id": "yt:tYxkzfd_9-A",
+    "url": "https://www.youtube.com/watch?v=tYxkzfd_9-A",
+    "title": "AION 2: Cleric Macro Guide - 2 Button Gameplay",
+    "date": "2026-10-05",
+    "relevance": 2,
+    "note": "Frames transcribed: dungeon macro entries Earth Punishment, Divine Aura, Earth's Retribution at 10 ms; Condemnation and Bolt stacked in one column.",
+    "summaryEn": "Global PvE dungeon and boss macro on two buttons; turn Skill Queue off so Condemnation fires.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/02-youtube/yt-tYxkzfd_9-A.txt"
+  },
+  {
+    "id": "yt:KptUtnv35vk",
+    "url": "https://www.youtube.com/watch?v=KptUtnv35vk",
+    "title": "Aion 2 Cleric Guide from a Worlds 1st Rank 1",
+    "date": "2026-10-04",
+    "relevance": 1,
+    "note": "Digest only; a TW guide updated for global. A tested comment says the macro alternates one skill per column.",
+    "summaryEn": "Rank-1 Cleric's skill specs, stigmas, macro and gear, carried from Taiwan to global.",
+    "capturePath": "research/003-cleric-dungeon-dps-offheal/evidence/02-youtube/yt-KptUtnv35vk.txt"
+  },
+  {
+    "id": "web:metabot-cleric-build",
+    "url": "https://metabot.gg/en/aion-2/classes/cleric/build",
+    "title": "AION 2 Cleric Build Planner – Top-Player Meta | MetaBot.GG",
+    "date": null,
+    "relevance": 3,
+    "note": "Global client data (build 0.0.4387.0): skill list, unlock levels, cooldowns, point costs, stigma slots; top-player usage. Undated, 'updated 7 days ago' on 10-10.",
+    "summaryEn": "Client-read skill and stigma data for the global Cleric, point budgets by level, and what the tracked top level-45 Clerics slot.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/metabot-gg-en-aion-2-classes-cleric-build.md"
+  },
+  {
+    "id": "web:aion2run-cleric",
+    "url": "https://aion2.run/en/classes/clerc",
+    "title": "AION 2 Cleric guide: builds, rotation and stigmas – Aion2 Guide",
+    "date": "2026-10-05",
+    "relevance": 3,
+    "note": "Sourced fan guide (global and KR): per-bracket leveling plan, builds per activity, rotations, KR skill names. Server-rendered capture alongside lacks the build lists.",
+    "summaryEn": "Leveling plan by level bracket, solo and dungeon builds with stigmas, rotations, and the global vs Korean differences.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/aion2-run-en-classes-clerc-rendered.md"
+  },
+  {
+    "id": "web:keengamer-pve-builds",
+    "url": "https://www.keengamer.com/articles/guides/aion-2-best-pve-builds-for-every-class/",
+    "title": "AION 2 - Best PvE Builds for Every Class",
+    "date": "2026-10-06",
+    "relevance": 2,
+    "note": "Hybrid healer section; keeps Resurrection until the group clears mechanics.",
+    "summaryEn": "Cleric hybrid healer: Healing Light, Chain of Torment, Condemnation core; stigmas Earth's Punishment, Light of Protection, Noble Aura, Resurrection.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/keengamer-com-articles-guides-aion-2-best-pve-builds-for-every-class.md"
+  },
+  {
+    "id": "web:allthings-macros",
+    "url": "https://allthings.how/?p=211813",
+    "title": "AION 2: How to Use Macros and Pick the Right Delay",
+    "date": "2026-10-05",
+    "relevance": 3,
+    "note": "Most detailed macro-editor description: says 20 entries, each a hotbar column, run top to bottom, 10 ms default, toggles and charged skills out; a short Cleric dummy test.",
+    "summaryEn": "How the built-in macro works: bind, build from hotbar columns, 10 ms delay, what to leave out, presets with their own macros.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/allthings-how-p-211813.md"
+  },
+  {
+    "id": "web:playnews-macros",
+    "url": "https://www.playnews.gg/en/guides/aion-2-macros-how-to-set-them-up-and-optimize-their-use",
+    "title": "Aion 2 Macros: How to Set Them Up and Optimize Their Use",
+    "date": "2026-10-06",
+    "relevance": 2,
+    "note": "Up to 4 skills per hotbar button, lowest tried first; no-cooldown skills on top.",
+    "summaryEn": "Bind the macro key, stack cooldown skills at the bottom and spam skills on top, add hotbar buttons to the macro, hold basic attack.",
+    "capturePath": "research/001-cleric-build/evidence/01-guides/playnews-gg-en-guides-aion-2-macros-how-to-set-them-up-and-optimize-their-use.md"
+  },
+  {
+    "id": "web:game-client-skill-window",
+    "url": "https://github.com/skurekjakub/aion-logbook/blob/main/research/001-cleric-build/evidence/03-game/game-client-skill-window-2026-10-10.md",
+    "title": "Global client: the Skill window and the macro editor, read in game",
+    "date": "2026-10-10",
+    "relevance": 3,
+    "note": "In-game reading of the global client, transcribed from a local 1 fps recording (frames stay local). The URL is the transcription in this repo; the game has no page of its own.",
+    "summaryEn": "One skill per macro entry with its own 10 ms delay, entries numbered from the top, Add Macro appends Earth's Retribution; hotbar keys hold rows 0–3.",
+    "capturePath": "research/001-cleric-build/evidence/03-game/game-client-skill-window-2026-10-10.md"
+  }
+]

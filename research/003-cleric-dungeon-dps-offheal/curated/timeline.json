@@ -1,0 +1,26 @@
+[
+  {
+    "date": "2026-08-26",
+    "event": "KR: support party synergy softened; Earth Punishment's party share cut to 5%, Prayer of Amplification and Earth's Grace raised.",
+    "class": "cleric",
+    "sources": ["web:aion2hub-2026-08-26"]
+  },
+  {
+    "date": "2026-10-05",
+    "event": "Global: first hybrid Cleric builds pair Light of Protection with Earth Punishment, Noble Aura and Prayer of Amplification.",
+    "class": "cleric",
+    "sources": ["web:gameoverdrive-builds", "web:aion2run-cleric", "yt:tYxkzfd_9-A"]
+  },
+  {
+    "date": "2026-10-06",
+    "event": "Global: expcarry and playhub publish the damage-leaning boss healer; gamerblurb keeps a stigma set with no damage slot.",
+    "class": "cleric",
+    "sources": ["web:expcarry-cleric-guide", "web:playhub-builds", "web:gamerblurb-cleric-build"]
+  },
+  {
+    "date": "2026-10-07",
+    "event": "Global: Antochi maps the Korean Condemnation macro onto global's four stigma slots.",
+    "class": "cleric",
+    "sources": ["yt:-86sdRZ4SX4"]
+  }
+]
