@@ -44,7 +44,7 @@ ESLint runs typescript-eslint's strict type-checked rules, React's hook rules on
 
 ### Deployment
 
-The app is published read-only on Vercel (project `aion-logbook`). `pnpm build:vercel` builds the web app and writes `.vercel/output` in Vercel's Build Output API layout: the web app as static files, and the server's Vercel entry bundled as the function behind `/api`. That function seeds an in-memory database from `data/snapshot.json` on every cold start and answers anything but `GET` and `HEAD` with 405, so the site shows the committed snapshot and nothing else. The project is connected to the GitHub repo: a push to `main` deploys to production, and that is the only way it deploys. Vercel runs the build with pnpm from `packageManager` through corepack.
+The app is published read-only at <https://aion-logbook.vercel.app> (Vercel project `aion-logbook`). `pnpm build:vercel` builds the web app and writes `.vercel/output` in Vercel's Build Output API layout: the web app as static files, and the server's Vercel entry bundled as the function behind `/api`. That function seeds an in-memory database from `data/snapshot.json` on every cold start and answers anything but `GET` and `HEAD` with 405, so the site shows the committed snapshot and nothing else. The project is connected to the GitHub repo: a push to `main` deploys to production, and that is the only way it deploys. Vercel runs the build with pnpm from `packageManager` through corepack.
 
 ### The database
 
