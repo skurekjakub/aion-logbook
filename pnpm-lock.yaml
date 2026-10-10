@@ -265,6 +265,18 @@ importers:
         specifier: ^8.3.1
         version: 8.3.1(@types/node@24.19.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)
 
+  packages/armory:
+    dependencies:
+      '@aion/capture':
+        specifier: workspace:*
+        version: link:../capture
+      '@aion/schema':
+        specifier: workspace:*
+        version: link:../schema
+      zod:
+        specifier: ^4.6.5
+        version: 4.6.5
+
   packages/capture:
     dependencies:
       '@aion/schema':

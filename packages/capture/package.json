@@ -5,7 +5,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./ledger": "./src/ledger.ts"
+    "./ledger": "./src/ledger.ts",
+    "./time": "./src/time.ts"
   },
   "scripts": {
     "typecheck": "tsc -p .",

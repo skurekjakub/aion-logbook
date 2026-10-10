@@ -33,6 +33,7 @@ const WEB = "apps/web/src";
 const SCHEMA = "packages/schema/src";
 const CAPTURE = "packages/capture/src";
 const GAME = "packages/game/src";
+const ARMORY = "packages/armory/src";
 
 /**
  * Reports whether a source root exists yet.
@@ -43,7 +44,7 @@ const GAME = "packages/game/src";
 const present = (root: string) => existsSync(join(repoRoot, root));
 
 /** The source roots the rules cover, repo-relative: those on disk (the web app and the game bridge once they exist). */
-const ROOTS = [SERVER, WEB, SCHEMA, CAPTURE, GAME].filter(present);
+const ROOTS = [SERVER, WEB, SCHEMA, CAPTURE, GAME, ARMORY].filter(present);
 
 /**
  * Lists every `.ts`/`.tsx` file under `dir`, repo-relative with forward slashes.
@@ -248,11 +249,29 @@ const RULES: Rule[] = [
       ),
   },
   {
-    name: "only the importers use @aion/capture, and only its ledger",
+    name: "only the importers use @aion/capture's ledger, and only packages/armory its clock",
     covers: (file) => !under(file, CAPTURE),
     forbids: (edge) =>
       isPackage(edge.specifier, "@aion/capture") &&
-      !(under(edge.file, `${SERVER}/importers`) && edge.specifier === "@aion/capture/ledger"),
+      !(under(edge.file, `${SERVER}/importers`) && edge.specifier === "@aion/capture/ledger") &&
+      !(under(edge.file, ARMORY) && edge.specifier === "@aion/capture/time"),
+  },
+  {
+    name: "packages/armory is the sync's own I/O: its own files, @aion/schema, @aion/capture/time, zod and node builtins",
+    covers: (file) => under(file, ARMORY),
+    forbids: (edge) =>
+      !(
+        under(edge.target, ARMORY) ||
+        isPackage(edge.specifier, "@aion/schema") ||
+        edge.specifier === "@aion/capture/time" ||
+        isPackage(edge.specifier, "zod") ||
+        edge.specifier.startsWith("node:")
+      ),
+  },
+  {
+    name: "nothing imports packages/armory: the sync reaches the server through its CLIs",
+    covers: (file) => !under(file, ARMORY),
+    forbids: (edge) => isPackage(edge.specifier, "@aion/armory") || under(edge.target, ARMORY),
   },
   {
     name: "only repos/ and db/ import drizzle-orm values",
@@ -488,6 +507,28 @@ describe("architecture", () => {
     expect(unpure).toEqual([]);
     expect(ledger).toEqual([]);
     expect(outsideLedger).toEqual([]);
+  });
+
+  it("keeps packages/armory to its own I/O and the capture clock, and out of the apps", () => {
+    // Arrange
+    const sync = `${ARMORY}/sync.ts`;
+    const allowed = ["./fetch", "@aion/schema", "@aion/capture/time", "zod", "node:fs"];
+
+    // Act
+    const pure = violations(allowed.map((s) => fake(sync, s)));
+    const unpure = ["../../../apps/server/src/repos", "@aion/capture", "@aion/game", "hono"]
+      .map((specifier) => fake(sync, specifier))
+      .filter((edge) => violations([edge]).length === 0);
+    const intoArmory = [
+      fake(`${SERVER}/services/x.ts`, "@aion/armory", true),
+      fake(`${WEB}/views/x.tsx`, "../../../../packages/armory/src/map"),
+      fake(`${SERVER}/cli/x.ts`, "@aion/capture/time"),
+    ].filter((edge) => violations([edge]).length === 0);
+
+    // Assert
+    expect(pure).toEqual([]);
+    expect(unpure).toEqual([]);
+    expect(intoArmory).toEqual([]);
   });
 
   it("holds the web app to types-only server imports, whether or not it exists yet", () => {

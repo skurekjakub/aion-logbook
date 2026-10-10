@@ -3,6 +3,7 @@ research/
 account/
 # verbatim captures, kept byte for byte
 packages/capture/test/fixtures/
+packages/armory/test/fixtures/
 docs/
 data/
 .claude/

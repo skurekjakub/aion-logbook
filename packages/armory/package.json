@@ -1,0 +1,16 @@
+{
+  "name": "@aion/armory",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc -p .",
+    "test": "vitest run",
+    "sync": "tsx src/cli.ts"
+  },
+  "dependencies": {
+    "@aion/capture": "workspace:*",
+    "@aion/schema": "workspace:*",
+    "zod": "^4.6.5"
+  }
+}
