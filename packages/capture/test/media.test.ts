@@ -44,9 +44,10 @@ describe("yt-dlp downloads", () => {
     writeFileSync(join(dir, "abc.mp4.part"), "partial");
     writeFileSync(join(dir, "abc.f137.mp4"), "stream");
     const { ytDlp } = fakeYtDlp(["mp4", "mp4.ytdl"]);
-    // Act & Assert
-    expect(downloadVideos(context, "evidence/yt", ["abc"], ytDlp)).toEqual(["evidence/yt/abc.mp4"]);
+    // Act
+    const downloaded = downloadVideos(context, "evidence/yt", ["abc"], ytDlp);
     // Assert
+    expect(downloaded).toEqual(["evidence/yt/abc.mp4"]);
     expect(readdirSync(dir)).toEqual(["abc.mp4"]);
     expect(readLedger(context.recordDir)[0]!.line).toMatchObject({
       url: "https://www.youtube.com/watch?v=abc",
@@ -56,9 +57,10 @@ describe("yt-dlp downloads", () => {
 
     // Arrange
     const again = fakeYtDlp(["mp4"]);
-    // Act & Assert
-    expect(downloadVideos(context, "evidence/yt", ["abc"], again.ytDlp)).toEqual([]);
+    // Act
+    const repeated = downloadVideos(context, "evidence/yt", ["abc"], again.ytDlp);
     // Assert
+    expect(repeated).toEqual([]);
     expect(again.calls).toEqual([]);
   });
 
@@ -76,10 +78,14 @@ describe("yt-dlp downloads", () => {
 
 describe("yt-dlp and ffmpeg wrappers", () => {
   it("names frames as frames.py did", () => {
-    // Act & Assert
-    expect(frameName("p", 65)).toBe("p-01m05.0s.jpg");
-    expect(frameName("run", 5.26)).toBe("run-00m05.3s.jpg");
-    expect(frameName("run", 600.5)).toBe("run-10m00.5s.jpg");
+    // Act
+    const minutes = frameName("p", 65);
+    const rounded = frameName("run", 5.26);
+    const tenMinutes = frameName("run", 600.5);
+    // Assert
+    expect(minutes).toBe("p-01m05.0s.jpg");
+    expect(rounded).toBe("run-00m05.3s.jpg");
+    expect(tenMinutes).toBe("run-10m00.5s.jpg");
   });
 
   it("reads kept frames' times from showinfo", () => {
@@ -88,13 +94,17 @@ describe("yt-dlp and ffmpeg wrappers", () => {
       "[Parsed_showinfo_2 @ 0x1] n:   0 pts:      0 pts_time:0       duration:1",
       "[Parsed_showinfo_2 @ 0x1] n:   1 pts:     12 pts_time:6.5     duration:1",
     ].join("\n");
-    // Act & Assert
-    expect(showinfoTimes(log)).toEqual([0, 6.5]);
+    // Act
+    const times = showinfoTimes(log);
+    // Assert
+    expect(times).toEqual([0, 6.5]);
   });
 
   it("builds the ffmpeg and yt-dlp command lines", () => {
-    // Act & Assert
-    expect(ytDlpArgs("https://www.youtube.com/watch?v=x", "d/x.%(ext)s")).toEqual([
+    // Act
+    const download = ytDlpArgs("https://www.youtube.com/watch?v=x", "d/x.%(ext)s");
+    // Assert
+    expect(download).toEqual([
       "--no-playlist",
       "--no-progress",
       "-o",

@@ -41,12 +41,14 @@ describe.skipIf(!hasResearch)("every record's capture ledger", () => {
     const manifests = records.filter((record) =>
       existsSync(join(researchDir, record, "import.json")),
     );
-    // Act & Assert
+    // Assert
     expect(manifests.length).toBeGreaterThan(0);
     for (const record of manifests) {
+      // Act
       const manifest = JSON.parse(
         readFileSync(join(researchDir, record, "import.json"), "utf-8"),
       ) as { ledger?: unknown };
+      // Assert
       expect(manifest.ledger, record).toEqual({ file: LEDGER_FILE });
     }
   });
@@ -56,8 +58,10 @@ describe.skipIf(!hasResearch)("every record's capture ledger", () => {
       `${record}: every evidence file has its line, and every present file its hash`,
       COLD_VERIFY,
       () => {
-        // Act & Assert
-        expect(verifyLedger(join(researchDir, record)).map(describeProblem)).toEqual([]);
+        // Act
+        const problems = verifyLedger(join(researchDir, record)).map(describeProblem);
+        // Assert
+        expect(problems).toEqual([]);
       },
     );
   }
@@ -84,7 +88,10 @@ describe.skipIf(!hasResearch)("every area's saved searches", () => {
       const searches = readSearches(dir);
       // Assert
       expect(searches, `${area} has no ${SEARCHES_FILE}`).not.toBeNull();
-      expect(searchRoundProblems(searches ?? [], recordRounds(dir))).toEqual([]);
+      // Act
+      const problems = searchRoundProblems(searches ?? [], recordRounds(dir));
+      // Assert
+      expect(problems).toEqual([]);
     });
   }
 });

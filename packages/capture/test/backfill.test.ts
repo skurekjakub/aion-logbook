@@ -93,20 +93,25 @@ const allCommitted = () =>
 
 describe("backfill", () => {
   it("reads capture headers and the images a post embeds", () => {
-    // Act & Assert
-    expect(readHeader(FORUM_POST)).toEqual({
+    // Act
+    const forum = readHeader(FORUM_POST);
+    const unstamped = readHeader("# 1\n\n- url: https://board.example.test/1\n\nno stamp\n");
+    const zulu = readHeader("- url: https://x.test\n- captured: 2026-09-27T08:00:00Z\n");
+    const images = embeddedImages(FORUM_POST);
+    // Assert
+    expect(forum).toEqual({
       url: "https://forum.example.test/t/100",
       capturedAt: "2026-09-27T16:41:31+02:00",
     });
-    expect(readHeader("# 1\n\n- url: https://board.example.test/1\n\nno stamp\n")).toEqual({
+    expect(unstamped).toEqual({
       url: "https://board.example.test/1",
       capturedAt: null,
     });
-    expect(readHeader("- url: https://x.test\n- captured: 2026-09-27T08:00:00Z\n")).toEqual({
+    expect(zulu).toEqual({
       url: "https://x.test",
       capturedAt: "2026-09-27T08:00:00+00:00",
     });
-    expect(embeddedImages(FORUM_POST)).toEqual(["100-1.jpg"]);
+    expect(images).toEqual(["100-1.jpg"]);
   });
 
   it("dates posts by header, images by their post, and the rest by git, with sibling URLs", () => {
@@ -115,6 +120,7 @@ describe("backfill", () => {
     // Act
     const lines = backfillLines(dir, { from, commitTimes: allCommitted });
     const byPath = Object.fromEntries(lines.map((l) => [l.path, l]));
+    const unlistedSibling = siblingUrl(dir, "evidence/sites/other.json");
     // Assert
     expect(Object.keys(byPath)).toEqual([
       "evidence/board/b-5.md",
@@ -152,7 +158,7 @@ describe("backfill", () => {
     expect(byPath["evidence/yt/yt-a.txt"]!.url).toBe("https://www.youtube.com/watch?v=a");
     expect(byPath["evidence/notes.md"]!.url).toBeNull();
     expect(byPath["evidence/frames/f-00m01.0s.jpg"]).toMatchObject({ url: null, approx: "git" });
-    expect(siblingUrl(dir, "evidence/sites/other.json")).toBeNull();
+    expect(unlistedSibling).toBeNull();
   });
 
   it("writes the ledger once, which then verifies, with the other copy's media absent", () => {
@@ -164,6 +170,7 @@ describe("backfill", () => {
     expect(hasLedger(dir)).toBe(true);
     expect(readLedger(dir).length).toBe(9);
     expect(verifyLedger(dir)).toEqual([]);
+    // Act & Assert
     expect(() => backfill(dir, { from, commitTimes: allCommitted })).toThrow(
       /already has a ledger/,
     );

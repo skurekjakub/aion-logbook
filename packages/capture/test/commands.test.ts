@@ -91,13 +91,17 @@ describe("pnpm capture", () => {
       ["log", "r1", "evidence/page.html", "--url", "https://x.test", "--tool", "curl"],
       e,
     );
-    // Act & Assert
-    expect(await runCli(["verify"], e)).toBe(0);
+    // Act
+    const held = await runCli(["verify"], e);
+    // Assert
+    expect(held).toBe(0);
     expect(out).toContain("r1: ok");
     // Arrange
     writeFileSync(join(record, "evidence", "late.md"), "x");
-    // Act & Assert
-    expect(await runCli(["verify", "r1"], e)).toBe(1);
+    // Act
+    const gap = await runCli(["verify", "r1"], e);
+    // Assert
+    expect(gap).toBe(1);
     expect(err).toContain("r1: evidence/late.md has no ledger line");
   });
 
@@ -111,8 +115,10 @@ describe("pnpm capture", () => {
     mkdirSync(join(researchDir, "r0", "evidence"), { recursive: true });
     writeFileSync(join(researchDir, "r0", "evidence", "captures.jsonl"), "{not json\n");
     out.length = 0;
-    // Act & Assert
-    expect(await runCli(["verify"], e)).toBe(1);
+    // Act
+    const code = await runCli(["verify"], e);
+    // Assert
+    expect(code).toBe(1);
     expect(out).toEqual(["r0: FAILED", "r1: ok"]);
     expect(err).toEqual([expect.stringMatching(/^r0: evidence\/captures\.jsonl \[line 1\]: /)]);
   });
@@ -132,7 +138,7 @@ describe("pnpm capture", () => {
     const { env: e, out } = env();
     // Act & Assert
     await expect(runCli(["backfill", "r1"], e)).rejects.toThrow(/git|no commit/);
-    // Act
+    // Arrange
     await runCli(
       ["log", "r1", "evidence/page.html", "--url", "https://x.test", "--tool", "curl"],
       e,
@@ -150,9 +156,10 @@ describe("pnpm capture", () => {
       fetch: fakeFetch([["https://guide.test/a", { body: "<h1>A</h1>" }]]),
       sleep: () => Promise.resolve(),
     };
-    // Act & Assert
-    expect(await runCli(["web", "fetch", "r1", "https://guide.test/a", "evidence/web"], e)).toBe(0);
+    // Act
+    const code = await runCli(["web", "fetch", "r1", "https://guide.test/a", "evidence/web"], e);
     // Assert
+    expect(code).toBe(0);
     expect(readLedger(record)[0]!.line).toMatchObject({
       path: "evidence/web/guide-test-a.md",
       tool: "capture:web",

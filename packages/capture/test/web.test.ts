@@ -29,16 +29,19 @@ describe("web capture", () => {
   });
 
   it("slugs a URL into a stable file name", () => {
-    // Act & Assert
-    expect(slugOfUrl("https://eloboost24.eu/blog/aion-2-gladiator-build?x=1")).toBe(
-      "eloboost24-eu-blog-aion-2-gladiator-build",
-    );
+    // Act
+    const slug = slugOfUrl("https://eloboost24.eu/blog/aion-2-gladiator-build?x=1");
+    // Assert
+    expect(slug).toBe("eloboost24-eu-blog-aion-2-gladiator-build");
   });
 
   it("slugs a bare host, drops www. and the fragment, and caps the length", () => {
-    // Act & Assert
-    expect(slugOfUrl("https://www.Aion2.run/#top")).toBe("aion2-run");
-    expect(slugOfUrl(`https://a.test/${"x".repeat(300)}`).length).toBeLessThanOrEqual(120);
+    // Act
+    const bareHost = slugOfUrl("https://www.Aion2.run/#top");
+    const long = slugOfUrl(`https://a.test/${"x".repeat(300)}`);
+    // Assert
+    expect(bareHost).toBe("aion2-run");
+    expect(long.length).toBeLessThanOrEqual(120);
   });
 
   it("writes paragraphs with collapsed whitespace, nested and ordered lists, header rows and code", () => {
@@ -50,8 +53,10 @@ describe("web capture", () => {
       <tbody><tr><td>27</td><td>A | B</td></tr></tbody></table>
       <pre>keep   this
   layout</pre><blockquote><p>quoted</p></blockquote><div>loose <i>text</i></div></body>`;
-    // Act & Assert
-    expect(htmlToText(html)).toBe(
+    // Act
+    const text = htmlToText(html);
+    // Assert
+    expect(text).toBe(
       [
         "one two three\nfour",
         "1. first\n  - inner\n2. second",
@@ -64,10 +69,14 @@ describe("web capture", () => {
   });
 
   it("reads the page title, else its first heading", () => {
-    // Act & Assert
-    expect(pageTitle(GUIDE_HTML)).toBe("Gladiator Build");
-    expect(pageTitle("<body><h1>Only <b>heading</b></h1></body>")).toBe("Only heading");
-    expect(pageTitle("<body><p>none</p></body>")).toBe("");
+    // Act
+    const titled = pageTitle(GUIDE_HTML);
+    const headingOnly = pageTitle("<body><h1>Only <b>heading</b></h1></body>");
+    const untitled = pageTitle("<body><p>none</p></body>");
+    // Assert
+    expect(titled).toBe("Gladiator Build");
+    expect(headingOnly).toBe("Only heading");
+    expect(untitled).toBe("");
   });
 
   it("writes the page as Markdown with front matter, and its ledger line", async () => {
@@ -77,9 +86,10 @@ describe("web capture", () => {
       fakeFetch([[GUIDE_URL, { body: GUIDE_HTML }]], seen),
       "capture:web",
     );
-    // Act & Assert
-    expect(await webCapture(context, "evidence/01-guides", GUIDE_URL)).toBe(GUIDE_PATH);
+    // Act
+    const written = await webCapture(context, "evidence/01-guides", GUIDE_URL);
     // Assert
+    expect(written).toBe(GUIDE_PATH);
     expect(readFileSync(join(context.recordDir, GUIDE_PATH), "utf-8")).toBe(
       [
         "---",
@@ -114,9 +124,10 @@ describe("web capture", () => {
       "capture:web",
     );
     await webCapture(context, "evidence/01-guides", GUIDE_URL);
-    // Act & Assert
-    expect(await webCapture(context, "evidence/01-guides", GUIDE_URL)).toBeNull();
+    // Act
+    const again = await webCapture(context, "evidence/01-guides", GUIDE_URL);
     // Assert
+    expect(again).toBeNull();
     expect(seen).toHaveLength(1);
     expect(readLedger(context.recordDir)).toHaveLength(1);
     expect(logs).toContain(`  ${GUIDE_PATH}: already captured`);
@@ -153,8 +164,10 @@ describe("web capture", () => {
       "capture:web",
     );
     await webCapture(context, "evidence/01-guides", GUIDE_URL);
-    // Act & Assert
-    expect(await webCapture(context, "evidence/01-guides", GUIDE_URL)).toBeNull();
+    // Act
+    const again = await webCapture(context, "evidence/01-guides", GUIDE_URL);
+    // Assert
+    expect(again).toBeNull();
     // Act
     const refusal = webCapture(context, "evidence/01-guides", other);
     // Assert

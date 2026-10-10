@@ -11,22 +11,34 @@ const line = {
 
 describe("captureLine", () => {
   it("accepts a line with and without approx, and a null url", () => {
-    // Act & Assert
-    expect(captureLine.parse(line)).toEqual(line);
-    expect(captureLine.parse({ ...line, approx: "git", url: null }).approx).toBe("git");
+    // Act
+    const parsed = captureLine.parse(line);
+    const withApprox = captureLine.parse({ ...line, approx: "git", url: null });
+
+    // Assert
+    expect(parsed).toEqual(line);
+    expect(withApprox.approx).toBe("git");
   });
 
   it("rejects an unknown key, a bad hash and an unknown approx", () => {
-    // Act & Assert
-    expect(captureLine.safeParse({ ...line, extra: 1 }).success).toBe(false);
-    expect(captureLine.safeParse({ ...line, sha256: "AB".repeat(32) }).success).toBe(false);
-    expect(captureLine.safeParse({ ...line, approx: "mtime" }).success).toBe(false);
+    // Act
+    const extraKey = captureLine.safeParse({ ...line, extra: 1 });
+    const upperHash = captureLine.safeParse({ ...line, sha256: "AB".repeat(32) });
+    const unknownApprox = captureLine.safeParse({ ...line, approx: "mtime" });
+
+    // Assert
+    expect(extraKey.success).toBe(false);
+    expect(upperHash.success).toBe(false);
+    expect(unknownApprox.success).toBe(false);
   });
 
   it("takes only record-relative paths under evidence/", () => {
-    // Act & Assert
     for (const ok of ["evidence/a.md", "evidence/14-global/yt/yt-x.html"]) {
-      expect(evidencePath.safeParse(ok).success, ok).toBe(true);
+      // Act
+      const result = evidencePath.safeParse(ok);
+
+      // Assert
+      expect(result.success, ok).toBe(true);
     }
     for (const bad of [
       "curated/builds.json",
@@ -38,26 +50,36 @@ describe("captureLine", () => {
       "evidence\\a.md",
       "/evidence/a.md",
     ]) {
-      expect(evidencePath.safeParse(bad).success, bad).toBe(false);
+      // Act
+      const result = evidencePath.safeParse(bad);
+
+      // Assert
+      expect(result.success, bad).toBe(false);
     }
   });
 
   it("takes timestamps with an offset only", () => {
-    // Act & Assert
     for (const ok of [
       "2026-09-27T10:39:53+02:00",
       "2026-09-27T08:39:53Z",
       "2026-09-27T08:39:53.5Z",
     ]) {
-      expect(isoDateTime.safeParse(ok).success, ok).toBe(true);
+      // Act
+      const result = isoDateTime.safeParse(ok);
+
+      // Assert
+      expect(result.success, ok).toBe(true);
     }
     for (const bad of ["2026-09-27T10:39:53", "2026-09-27T10:39:53+0200", "2026-09-27"]) {
-      expect(isoDateTime.safeParse(bad).success, bad).toBe(false);
+      // Act
+      const result = isoDateTime.safeParse(bad);
+
+      // Assert
+      expect(result.success, bad).toBe(false);
     }
   });
 
   it("names the tool from the ledger's vocabulary", () => {
-    // Act & Assert
     for (const ok of [
       "agent-browser",
       "curl",
@@ -67,10 +89,18 @@ describe("captureLine", () => {
       "capture:youtube",
       "capture:web",
     ]) {
-      expect(captureTool.safeParse(ok).success, ok).toBe(true);
+      // Act
+      const result = captureTool.safeParse(ok);
+
+      // Assert
+      expect(result.success, ok).toBe(true);
     }
     for (const bad of ["wget", "capture:", "capture:dc", "python:dc_scrape", "capture:Web"]) {
-      expect(captureTool.safeParse(bad).success, bad).toBe(false);
+      // Act
+      const result = captureTool.safeParse(bad);
+
+      // Assert
+      expect(result.success, bad).toBe(false);
     }
   });
 });

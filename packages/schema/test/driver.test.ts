@@ -43,6 +43,8 @@ describe("node:sqlite through drizzle", () => {
         throw new Error("abort");
       }),
     ).toThrow("abort");
+
+    // Assert
     expect(db.select().from(probe).all()).toEqual([]);
   });
 });

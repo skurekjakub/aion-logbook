@@ -36,25 +36,32 @@ describe("the hash cache", () => {
     const file = join(root, "a.md");
     put(file, "one\n", 1_700_000_000);
     const first = new HashCache(cacheFile, root);
-    // Act & Assert
-    expect(fileHashes(file, first)).toEqual([sha("one\n")]);
     // Act
+    const hashed = fileHashes(file, first);
+    // Assert
+    expect(hashed).toEqual([sha("one\n")]);
+    // Arrange
     first.save();
 
-    // Arrange
     put(file, "two\n", 1_700_000_000);
     const second = new HashCache(cacheFile, root);
-    // Act & Assert
-    expect(fileHashes(file, second)).toEqual([sha("one\n")]);
+    // Act
+    const served = fileHashes(file, second);
+    // Assert
+    expect(served).toEqual([sha("one\n")]);
 
     // Arrange
     utimesSync(file, 1_700_000_100, 1_700_000_100);
-    // Act & Assert
-    expect(fileHashes(file, second)).toEqual([sha("two\n")]);
+    // Act
+    const touched = fileHashes(file, second);
+    // Assert
+    expect(touched).toEqual([sha("two\n")]);
     // Arrange
     put(file, "three\n", 1_700_000_100);
-    // Act & Assert
-    expect(fileHashes(file, second)).toEqual([sha("three\n")]);
+    // Act
+    const rewritten = fileHashes(file, second);
+    // Assert
+    expect(rewritten).toEqual([sha("three\n")]);
   });
 
   it("keeps on disk only files under its root, and reads a broken cache file as empty", () => {
@@ -76,8 +83,10 @@ describe("the hash cache", () => {
 
     // Arrange
     writeFileSync(cacheFile, "{not json");
-    // Act & Assert
-    expect(fileHashes(join(root, "in.md"), new HashCache(cacheFile, root))).toEqual([sha("in")]);
+    // Act
+    const fromBroken = fileHashes(join(root, "in.md"), new HashCache(cacheFile, root));
+    // Assert
+    expect(fromBroken).toEqual([sha("in")]);
   });
 
   it("is saved by a verification, so the next process's verification rehashes nothing unchanged", () => {
@@ -97,9 +106,10 @@ describe("the hash cache", () => {
         sha256: sha("a"),
       })}\n`,
     );
-    // Act & Assert
-    expect(verifyLedger(record, new HashCache(cacheFile, root))).toEqual([]);
+    // Act
+    const problems = verifyLedger(record, new HashCache(cacheFile, root));
     // Assert
+    expect(problems).toEqual([]);
     const saved = JSON.parse(readFileSync(cacheFile, "utf-8")) as Record<string, unknown>;
     expect(saved[join(record, "evidence", "a.md")]).toMatchObject({ hashes: [sha("a")] });
   });

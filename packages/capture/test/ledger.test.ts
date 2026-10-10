@@ -135,6 +135,7 @@ describe("the ledger", () => {
     appendFileSync(join(dir, LEDGER_FILE), `${JSON.stringify(orphan)}\n${JSON.stringify(dup)}\n`);
     // Act
     const problems = verifyLedger(dir);
+    const described = describeProblem(problems[0]!);
     // Assert
     expect(problems).toEqual([
       { kind: "hash-mismatch", path: "evidence/a.md", lineNo: 1 },
@@ -142,9 +143,7 @@ describe("the ledger", () => {
       { kind: "missing-file", path: "evidence/gone.md", lineNo: 3 },
       { kind: "missing-line", path: "evidence/new.md", lineNo: null },
     ]);
-    expect(describeProblem(problems[0]!)).toBe(
-      "evidence/a.md (line 1) differs from its ledger hash",
-    );
+    expect(described).toBe("evidence/a.md (line 1) differs from its ledger hash");
   });
 
   it("passes a missing media file, and fails a present media file whose bytes changed", () => {
@@ -157,12 +156,16 @@ describe("the ledger", () => {
     const lines = readFileSync(join(dir, LEDGER_FILE), "utf-8");
     const fresh = record();
     put(fresh, LEDGER_FILE, lines);
-    // Act & Assert
-    expect(verifyLedger(fresh)).toEqual([]);
+    // Act
+    const mediaAbsent = verifyLedger(fresh);
+    // Assert
+    expect(mediaAbsent).toEqual([]);
     // Arrange
     put(fresh, "evidence/img/a.png", new Uint8Array([9]));
-    // Act & Assert
-    expect(verifyLedger(fresh)).toEqual([
+    // Act
+    const mediaChanged = verifyLedger(fresh);
+    // Assert
+    expect(mediaChanged).toEqual([
       { kind: "hash-mismatch", path: "evidence/img/a.png", lineNo: 1 },
     ]);
   });
@@ -176,14 +179,16 @@ describe("the ledger", () => {
     appendCapture(dir, "evidence/b.png", META);
     put(dir, "evidence/a.md", "one\r\ntwo\r\n");
     put(dir, "evidence/b.png", "x\r\ny\r\n");
-    // Act & Assert
-    expect(verifyLedger(dir)).toEqual([
-      { kind: "hash-mismatch", path: "evidence/b.png", lineNo: 2 },
-    ]);
+    // Act
+    const lineEndings = verifyLedger(dir);
+    // Assert
+    expect(lineEndings).toEqual([{ kind: "hash-mismatch", path: "evidence/b.png", lineNo: 2 }]);
     // Arrange
     put(dir, "evidence/a.md", "one\r\nthree\r\n");
-    // Act & Assert
-    expect(verifyLedger(dir).map((p) => p.path)).toEqual(["evidence/a.md", "evidence/b.png"]);
+    // Act
+    const realEdit = verifyLedger(dir);
+    // Assert
+    expect(realEdit.map((p) => p.path)).toEqual(["evidence/a.md", "evidence/b.png"]);
   });
 
   it("hashes a CRLF text file as git stores it, so its LF checkout verifies, and keeps -text bytes", () => {
@@ -192,21 +197,30 @@ describe("the ledger", () => {
     put(dir, "evidence/a.md", "one\r\ntwo\r\n");
     put(dir, "evidence/raw/b.csv", "x\r\ny\r\n");
     put(dir, "evidence/c.txt", "lone\rcr\r\n");
-    // Act & Assert
-    expect(appendCapture(dir, "evidence/a.md", META).sha256).toBe(sha("one\ntwo\n"));
-    expect(appendCapture(dir, "evidence/raw/b.csv", META).sha256).toBe(sha("x\r\ny\r\n"));
-    expect(appendCapture(dir, "evidence/c.txt", META).sha256).toBe(sha("lone\rcr\r\n"));
-    expect(verifyLedger(dir)).toEqual([]);
+    // Act
+    const crlfText = appendCapture(dir, "evidence/a.md", META);
+    const binaryCsv = appendCapture(dir, "evidence/raw/b.csv", META);
+    const loneCr = appendCapture(dir, "evidence/c.txt", META);
+    const problems = verifyLedger(dir);
+    // Assert
+    expect(crlfText.sha256).toBe(sha("one\ntwo\n"));
+    expect(binaryCsv.sha256).toBe(sha("x\r\ny\r\n"));
+    expect(loneCr.sha256).toBe(sha("lone\rcr\r\n"));
+    expect(problems).toEqual([]);
     // Arrange
     put(dir, "evidence/a.md", "one\ntwo\n");
-    // Act & Assert
-    expect(verifyLedger(dir)).toEqual([]);
+    // Act
+    const lfCheckout = verifyLedger(dir);
+    // Assert
+    expect(lfCheckout).toEqual([]);
 
     // Arrange
     const plain = record();
     put(plain, "evidence/a.md", "one\r\ntwo\r\n");
-    // Act & Assert
-    expect(appendCapture(plain, "evidence/a.md", META).sha256).toBe(sha("one\r\ntwo\r\n"));
+    // Act
+    const outsideGit = appendCapture(plain, "evidence/a.md", META);
+    // Assert
+    expect(outsideGit.sha256).toBe(sha("one\r\ntwo\r\n"));
   });
 
   it("lists evidence without the ledger and local by-products", () => {
@@ -223,9 +237,12 @@ describe("the ledger", () => {
       put(dir, path);
     }
     put(dir, "curated/builds.json");
-    // Act & Assert
-    expect(listEvidence(dir)).toEqual(["evidence/a.md", "evidence/sub/b.json"]);
-    expect(isIgnored("evidence/.DS_Store")).toBe(true);
+    // Act
+    const listed = listEvidence(dir);
+    const dsStoreIgnored = isIgnored("evidence/.DS_Store");
+    // Assert
+    expect(listed).toEqual(["evidence/a.md", "evidence/sub/b.json"]);
+    expect(dsStoreIgnored).toBe(true);
   });
 
   it("keeps the media extensions and the ignored by-products in step with .gitignore", () => {
@@ -233,14 +250,20 @@ describe("the ledger", () => {
     const gitignore = readFileSync(join(findRepoRoot(import.meta.dirname), ".gitignore"), "utf-8")
       .split("\n")
       .map((line) => line.trim());
-    // Act
     const ignoredMedia = gitignore
       .filter((line) => line.startsWith("research/**/*."))
       .map((line) => line.slice("research/**/*".length))
       .sort();
+    // Act
+    const extensions = [...MEDIA_EXTENSIONS].sort();
     // Assert
-    expect([...MEDIA_EXTENSIONS].sort()).toEqual(ignoredMedia);
-    for (const ext of MEDIA_EXTENSIONS) expect(isMedia(`a${ext.toUpperCase()}`)).toBe(true);
+    expect(extensions).toEqual(ignoredMedia);
+    for (const ext of MEDIA_EXTENSIONS) {
+      // Act
+      const media = isMedia(`a${ext.toUpperCase()}`);
+      // Assert
+      expect(media).toBe(true);
+    }
   });
 
   it("skips every file .gitignore excludes outside research/, so no line names a file git never stores", () => {
@@ -250,17 +273,28 @@ describe("the ledger", () => {
       .map((line) => line.trim())
       .filter((line) => line !== "" && !line.startsWith("#") && !line.startsWith("research/"));
     const floating = patterns.filter((line) => !line.slice(0, -1).includes("/"));
-    // Act & Assert
+    // Assert
     expect(floating.length).toBeGreaterThan(0);
     for (const pattern of floating) {
+      // Arrange
       const name = pattern.replace(/\/$/, "").replaceAll("*", "x");
       if (pattern.endsWith("/")) {
-        expect(isIgnored(`evidence/sub/${name}/f.md`), pattern).toBe(true);
-        expect(isIgnored(`evidence/sub/${name}`), pattern).toBe(false);
+        // Act
+        const inside = isIgnored(`evidence/sub/${name}/f.md`);
+        const itself = isIgnored(`evidence/sub/${name}`);
+        // Assert
+        expect(inside, pattern).toBe(true);
+        expect(itself, pattern).toBe(false);
       } else {
-        expect(isIgnored(`evidence/sub/${name}`), pattern).toBe(true);
+        // Act
+        const file = isIgnored(`evidence/sub/${name}`);
+        // Assert
+        expect(file, pattern).toBe(true);
       }
     }
-    expect(isIgnored("evidence/notes.md")).toBe(false);
+    // Act
+    const notes = isIgnored("evidence/notes.md");
+    // Assert
+    expect(notes).toBe(false);
   });
 });

@@ -22,16 +22,20 @@ describe("youtube watch digests", () => {
   it("reads the page's embedded player response", () => {
     // Act
     const player = pageGlobal(fixture(`youtube/yt-${VID}.html`), "ytInitialPlayerResponse");
+    const videoIds = findKey(player, "videoId");
+    const missing = pageGlobal("<html></html>", "ytInitialData");
     // Assert
-    expect(findKey(player, "videoId")[0]).toBe(VID);
-    expect(pageGlobal("<html></html>", "ytInitialData")).toEqual({});
+    expect(videoIds[0]).toBe(VID);
+    expect(missing).toEqual({});
   });
 
   it("writes the digest byte for byte as ytv.py did", () => {
     // Arrange
     const html = fixture(`youtube/yt-${VID}.html`);
-    // Act & Assert
-    expect(renderDigest(VID, html, [])).toBe(fixture(`youtube/yt-${VID}.txt`));
+    // Act
+    const digest = renderDigest(VID, html, []);
+    // Assert
+    expect(digest).toBe(fixture(`youtube/yt-${VID}.txt`));
   });
 
   it("formats comments and a failed comment fetch as ytv.py's lines", () => {
@@ -63,8 +67,10 @@ describe("youtube watch digests", () => {
         ],
       },
     };
-    // Act & Assert
-    expect(parseCommentPayloads(body)).toEqual([["@x", "좋아요", "5"]]);
+    // Act
+    const comments = parseCommentPayloads(body);
+    // Assert
+    expect(comments).toEqual([["@x", "좋아요", "5"]]);
     // Arrange
     const data = {
       a: { itemSectionRenderer: { sectionIdentifier: "other", token: "no" } },
@@ -72,8 +78,10 @@ describe("youtube watch digests", () => {
         itemSectionRenderer: { sectionIdentifier: "comment-item-section", x: { token: "yes" } },
       },
     };
-    // Act & Assert
-    expect(commentToken(data)).toBe("yes");
+    // Act
+    const token = commentToken(data);
+    // Assert
+    expect(token).toBe("yes");
   });
 
   it("saves the page and its digest with their ledger lines, and skips a captured video", async () => {
@@ -102,8 +110,10 @@ describe("youtube watch digests", () => {
       [`evidence/yt/yt-${VID}.txt`, `https://www.youtube.com/watch?v=${VID}`],
     ]);
     expect(verifyLedger(context.recordDir)).toEqual([]);
-    // Act & Assert
-    expect(await youtubeWatch(context, "evidence/yt", [VID])).toEqual([]);
+    // Act
+    const repeated = await youtubeWatch(context, "evidence/yt", [VID]);
+    // Assert
+    expect(repeated).toEqual([]);
   });
 
   it("digests a page saved earlier without fetching it again", async () => {
@@ -127,10 +137,14 @@ describe("youtube watch digests", () => {
 
 describe("youtube searches", () => {
   it("names result pages as ytall.py did", () => {
-    // Act & Assert
-    expect(searchFile("아이온2 검성 스킬", false)).toBe("ytq-아이온2_검성_스킬.html");
-    expect(searchFile("aion 2: gladiator!", true)).toBe("ytq-aion_2_gladiator_-new.html");
-    expect(searchFile("x".repeat(50), false)).toBe(`ytq-${"x".repeat(40)}.html`);
+    // Act
+    const hangul = searchFile("아이온2 검성 스킬", false);
+    const punctuated = searchFile("aion 2: gladiator!", true);
+    const long = searchFile("x".repeat(50), false);
+    // Assert
+    expect(hangul).toBe("ytq-아이온2_검성_스킬.html");
+    expect(punctuated).toBe("ytq-aion_2_gladiator_-new.html");
+    expect(long).toBe(`ytq-${"x".repeat(40)}.html`);
   });
 
   it("finds every hit ytall.py listed for a saved result page", () => {
