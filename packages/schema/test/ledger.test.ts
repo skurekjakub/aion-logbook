@@ -11,17 +11,20 @@ const line = {
 
 describe("captureLine", () => {
   it("accepts a line with and without approx, and a null url", () => {
+    // Act & Assert
     expect(captureLine.parse(line)).toEqual(line);
     expect(captureLine.parse({ ...line, approx: "git", url: null }).approx).toBe("git");
   });
 
   it("rejects an unknown key, a bad hash and an unknown approx", () => {
+    // Act & Assert
     expect(captureLine.safeParse({ ...line, extra: 1 }).success).toBe(false);
     expect(captureLine.safeParse({ ...line, sha256: "AB".repeat(32) }).success).toBe(false);
     expect(captureLine.safeParse({ ...line, approx: "mtime" }).success).toBe(false);
   });
 
   it("takes only record-relative paths under evidence/", () => {
+    // Act & Assert
     for (const ok of ["evidence/a.md", "evidence/14-global/yt/yt-x.html"]) {
       expect(evidencePath.safeParse(ok).success, ok).toBe(true);
     }
@@ -40,6 +43,7 @@ describe("captureLine", () => {
   });
 
   it("takes timestamps with an offset only", () => {
+    // Act & Assert
     for (const ok of [
       "2026-09-27T10:39:53+02:00",
       "2026-09-27T08:39:53Z",
@@ -53,6 +57,7 @@ describe("captureLine", () => {
   });
 
   it("names the tool from the ledger's vocabulary", () => {
+    // Act & Assert
     for (const ok of [
       "agent-browser",
       "curl",

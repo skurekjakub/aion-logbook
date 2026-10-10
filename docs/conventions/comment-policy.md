@@ -47,5 +47,7 @@ way. No "replaces X", "now uses Y", "kept for compatibility with the old…".
 
 ## Tests
 
-Test bodies are plain `it()` bodies with no phase-label comments. The test
-name carries the behaviour; don't restate it in a comment.
+Test bodies are labelled by phase — `// Arrange`, `// Act`, `// Assert`
+(`// Act & Assert` for a one-line throw/reject assertion; no label for a
+genuinely empty phase). The test name carries the behaviour; don't restate it
+in a comment.

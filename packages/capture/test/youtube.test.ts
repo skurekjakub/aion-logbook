@@ -20,26 +20,34 @@ const VID = "EW6DgdBiIoo";
 
 describe("youtube watch digests", () => {
   it("reads the page's embedded player response", () => {
+    // Act
     const player = pageGlobal(fixture(`youtube/yt-${VID}.html`), "ytInitialPlayerResponse");
+    // Assert
     expect(findKey(player, "videoId")[0]).toBe(VID);
     expect(pageGlobal("<html></html>", "ytInitialData")).toEqual({});
   });
 
   it("writes the digest byte for byte as ytv.py did", () => {
+    // Arrange
     const html = fixture(`youtube/yt-${VID}.html`);
+    // Act & Assert
     expect(renderDigest(VID, html, [])).toBe(fixture(`youtube/yt-${VID}.txt`));
   });
 
   it("formats comments and a failed comment fetch as ytv.py's lines", () => {
+    // Arrange
     const html = fixture(`youtube/yt-${VID}.html`);
+    // Act
     const digest = renderDigest(VID, html, [
       ["@a", "hello", "2"],
       ["ERR", "boom", ""],
     ]);
+    // Assert
     expect(digest.endsWith("## Top comments (2)\n- @a [2]: hello\n- ERR []: boom\n")).toBe(true);
   });
 
   it("reads comment payloads and the comment section's token", () => {
+    // Arrange
     const body = {
       frameworkUpdates: {
         mutations: [
@@ -55,17 +63,21 @@ describe("youtube watch digests", () => {
         ],
       },
     };
+    // Act & Assert
     expect(parseCommentPayloads(body)).toEqual([["@x", "좋아요", "5"]]);
+    // Arrange
     const data = {
       a: { itemSectionRenderer: { sectionIdentifier: "other", token: "no" } },
       b: {
         itemSectionRenderer: { sectionIdentifier: "comment-item-section", x: { token: "yes" } },
       },
     };
+    // Act & Assert
     expect(commentToken(data)).toBe("yes");
   });
 
   it("saves the page and its digest with their ledger lines, and skips a captured video", async () => {
+    // Arrange
     const seen: SeenRequest[] = [];
     const { context } = testContext(
       fakeFetch(
@@ -80,7 +92,9 @@ describe("youtube watch digests", () => {
       ),
       "capture:youtube",
     );
+    // Act
     const [digest] = await youtubeWatch(context, "evidence/yt", [VID]);
+    // Assert
     expect(digest).toBe(fixture(`youtube/yt-${VID}.txt`));
     const lines = readLedger(context.recordDir).map((e) => e.line);
     expect(lines.map((l) => [l.path, l.url])).toEqual([
@@ -88,10 +102,12 @@ describe("youtube watch digests", () => {
       [`evidence/yt/yt-${VID}.txt`, `https://www.youtube.com/watch?v=${VID}`],
     ]);
     expect(verifyLedger(context.recordDir)).toEqual([]);
+    // Act & Assert
     expect(await youtubeWatch(context, "evidence/yt", [VID])).toEqual([]);
   });
 
   it("digests a page saved earlier without fetching it again", async () => {
+    // Arrange
     const seen: SeenRequest[] = [];
     const { context } = testContext(fakeFetch([], seen), "capture:youtube");
     mkdirSync(join(context.recordDir, "evidence/yt"), { recursive: true });
@@ -99,7 +115,9 @@ describe("youtube watch digests", () => {
       join(context.recordDir, `evidence/yt/yt-${VID}.html`),
       fixture(`youtube/yt-${VID}.html`),
     );
+    // Act
     await youtubeWatch(context, "evidence/yt", [VID]);
+    // Assert
     expect(seen.some((r) => r.url.includes("/watch"))).toBe(false);
     expect(readLedger(context.recordDir).map((e) => e.line.path)).toEqual([
       `evidence/yt/yt-${VID}.txt`,
@@ -109,15 +127,19 @@ describe("youtube watch digests", () => {
 
 describe("youtube searches", () => {
   it("names result pages as ytall.py did", () => {
+    // Act & Assert
     expect(searchFile("아이온2 검성 스킬", false)).toBe("ytq-아이온2_검성_스킬.html");
     expect(searchFile("aion 2: gladiator!", true)).toBe("ytq-aion_2_gladiator_-new.html");
     expect(searchFile("x".repeat(50), false)).toBe(`ytq-${"x".repeat(40)}.html`);
   });
 
   it("finds every hit ytall.py listed for a saved result page", () => {
+    // Arrange
     const html = fixture("youtube/search-rumble.html");
     const data = JSON.parse(/var ytInitialData = (\{[^\n]*?\});<\/script>/.exec(html)![1]!);
+    // Act
     const hits = searchHits(data).map((h) => h.join("\t"));
+    // Assert
     expect(hits.length).toBeGreaterThan(5);
     const listed = new Set(
       [fixture("youtube/_hits.tsv"), fixture("youtube/_hits2.tsv")].flatMap((t) => t.split("\n")),
@@ -127,13 +149,16 @@ describe("youtube searches", () => {
   });
 
   it("saves both orderings of each query with their ledger lines", async () => {
+    // Arrange
     const { context } = testContext(
       fakeFetch([
         ["https://www.youtube.com/results", { body: fixture("youtube/search-rumble.html") }],
       ]),
       "capture:youtube",
     );
+    // Act
     const lines = await youtubeSearch(context, "evidence/ytq", ["크럼블 와글와글 아레나"]);
+    // Assert
     expect(lines.length).toBeGreaterThan(5);
     const ledger = readLedger(context.recordDir).map((e) => e.line);
     expect(ledger.map((l) => l.path)).toEqual([

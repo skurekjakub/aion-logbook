@@ -3,6 +3,7 @@ import { isoDate } from "../src/zod";
 
 describe("isoDate", () => {
   it("takes only dates on the calendar", () => {
+    // Act & Assert
     for (const ok of ["2026-10-12", "2024-02-29", "2026-12-31"]) {
       expect(isoDate.safeParse(ok).success, ok).toBe(true);
     }

@@ -93,6 +93,7 @@ const allCommitted = () =>
 
 describe("backfill", () => {
   it("reads capture headers and the images a post embeds", () => {
+    // Act & Assert
     expect(readHeader(FORUM_POST)).toEqual({
       url: "https://forum.example.test/t/100",
       capturedAt: "2026-09-27T16:41:31+02:00",
@@ -109,9 +110,12 @@ describe("backfill", () => {
   });
 
   it("dates posts by header, images by their post, and the rest by git, with sibling URLs", () => {
+    // Arrange
     const { dir, from } = fixtureRecord();
+    // Act
     const lines = backfillLines(dir, { from, commitTimes: allCommitted });
     const byPath = Object.fromEntries(lines.map((l) => [l.path, l]));
+    // Assert
     expect(Object.keys(byPath)).toEqual([
       "evidence/board/b-5.md",
       "evidence/board/img/b-5-1.png",
@@ -152,8 +156,11 @@ describe("backfill", () => {
   });
 
   it("writes the ledger once, which then verifies, with the other copy's media absent", () => {
+    // Arrange
     const { dir, from } = fixtureRecord();
+    // Act
     backfill(dir, { from, commitTimes: allCommitted });
+    // Assert
     expect(hasLedger(dir)).toBe(true);
     expect(readLedger(dir).length).toBe(9);
     expect(verifyLedger(dir)).toEqual([]);
@@ -163,9 +170,11 @@ describe("backfill", () => {
   });
 
   it("hashes a CRLF text file as git stores it", () => {
+    // Arrange
     const dir = gitRecord();
     put(dir, "evidence/a.md", "one\r\ntwo\r\n");
     put(dir, "evidence/raw/b.csv", "x\r\ny\r\n");
+    // Act
     const lines = backfillLines(dir, {
       commitTimes: () =>
         new Map([
@@ -173,6 +182,7 @@ describe("backfill", () => {
           ["evidence/raw/b.csv", GIT_TIME],
         ]),
     });
+    // Assert
     expect(lines.map((l) => l.sha256)).toEqual([
       createHash("sha256").update("one\ntwo\n").digest("hex"),
       createHash("sha256").update("x\r\ny\r\n").digest("hex"),
@@ -180,13 +190,16 @@ describe("backfill", () => {
   });
 
   it("fails a file neither a header nor a commit dates", () => {
+    // Arrange
     const { dir } = fixtureRecord();
+    // Act & Assert
     expect(() => backfillLines(dir, { commitTimes: () => new Map() })).toThrow(
       /evidence\/notes\.md: no commit adds it/,
     );
   });
 
   it("reads each file's first-add time from git", () => {
+    // Arrange
     const repo = mkdtempSync(join(tmpdir(), "aion-git-"));
     /**
      * Runs git in the temp repo with a fixed author and dates.
@@ -224,7 +237,9 @@ describe("backfill", () => {
     git(["commit", "-q", "--no-verify", "-m", "b"], "2026-09-28T09:30:00+02:00");
     git(["mv", "research/r/evidence/a.md", "research/r/evidence/c.md"]);
     git(["commit", "-q", "--no-verify", "-m", "c"], "2026-09-28T11:00:00+02:00");
+    // Act
     const times = gitCommitTimes(join(repo, "research", "r"));
+    // Assert
     expect(Object.fromEntries(times)).toEqual({
       "evidence/a.md": "2026-09-27T10:00:00+02:00",
       "evidence/c.md": "2026-09-28T11:00:00+02:00",

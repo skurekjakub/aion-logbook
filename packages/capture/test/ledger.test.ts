@@ -58,9 +58,12 @@ function put(dir: string, path: string, content: string | Uint8Array = "x"): voi
 
 describe("the ledger", () => {
   it("appends a hashed line per file, in the ledger's key order", () => {
+    // Arrange
     const dir = record();
     put(dir, "evidence/a.md", "hello\n");
+    // Act
     const line = appendCapture(dir, "evidence/a.md", META);
+    // Assert
     expect(Object.keys(line)).toEqual(["path", "url", "captured_at", "tool", "sha256"]);
     expect(line.sha256).toBe(sha256File(join(dir, "evidence/a.md")));
     expect(readFileSync(join(dir, LEDGER_FILE), "utf-8")).toBe(`${JSON.stringify(line)}\n`);
@@ -69,36 +72,48 @@ describe("the ledger", () => {
   });
 
   it("refuses a path already in the ledger, a missing file and an invalid line", () => {
+    // Arrange
     const dir = record();
     put(dir, "evidence/a.md");
     appendCapture(dir, "evidence/a.md", META);
+    // Act & Assert
     expect(() => appendCapture(dir, "evidence/a.md", META)).toThrow(/already has a ledger line/);
     expect(() => appendCapture(dir, "evidence/b.md", META)).toThrow(/file not found/);
+    // Arrange
     put(dir, "evidence/c.md");
+    // Act & Assert
     expect(() => appendCapture(dir, "evidence/c.md", { ...META, tool: "wget" })).toThrow(
       LedgerError,
     );
+    // Assert
     expect(readLedger(dir)).toHaveLength(1);
   });
 
   it("fails a line that isn't JSON or breaks the schema, naming its line number", () => {
+    // Arrange
     const dir = record();
     put(dir, "evidence/a.md");
     appendCapture(dir, "evidence/a.md", META);
     appendFileSync(join(dir, LEDGER_FILE), "\n{not json}\n");
+    // Act & Assert
     expect(() => readLedger(dir)).toThrow(/\[line 3\]/);
+    // Arrange
     writeFileSync(join(dir, LEDGER_FILE), '{"path":"evidence/a.md"}\r\n');
+    // Act & Assert
     expect(() => readLedger(dir)).toThrow(/\[line 1\].*url/);
   });
 
   it("appends after a last line saved without its newline, and reads past a byte-order mark", () => {
+    // Arrange
     const dir = record();
     put(dir, "evidence/a.md", "a");
     put(dir, "evidence/b.md", "b");
     const first = appendCapture(dir, "evidence/a.md", META);
     const bom = String.fromCharCode(0xfeff);
     writeFileSync(join(dir, LEDGER_FILE), `${bom}${JSON.stringify(first)}`);
+    // Act
     appendCapture(dir, "evidence/b.md", META);
+    // Assert
     expect(readLedger(dir).map((e) => [e.line.path, e.lineNo])).toEqual([
       ["evidence/a.md", 1],
       ["evidence/b.md", 2],
@@ -107,6 +122,7 @@ describe("the ledger", () => {
   });
 
   it("reports a hash mismatch, a missing line, an orphan line and a duplicate", () => {
+    // Arrange
     const dir = record();
     put(dir, "evidence/a.md", "one");
     put(dir, "evidence/b.md", "two");
@@ -117,7 +133,9 @@ describe("the ledger", () => {
     const orphan = { ...readLedger(dir)[1]!.line, path: "evidence/gone.md" };
     const dup = readLedger(dir)[1]!.line;
     appendFileSync(join(dir, LEDGER_FILE), `${JSON.stringify(orphan)}\n${JSON.stringify(dup)}\n`);
+    // Act
     const problems = verifyLedger(dir);
+    // Assert
     expect(problems).toEqual([
       { kind: "hash-mismatch", path: "evidence/a.md", lineNo: 1 },
       { kind: "duplicate", path: "evidence/b.md", lineNo: 4 },
@@ -130,6 +148,7 @@ describe("the ledger", () => {
   });
 
   it("passes a missing media file, and fails a present media file whose bytes changed", () => {
+    // Arrange
     const dir = record();
     put(dir, "evidence/img/a.png", new Uint8Array([1, 2, 3]));
     put(dir, "evidence/img/b.JPG", new Uint8Array([4]));
@@ -138,14 +157,18 @@ describe("the ledger", () => {
     const lines = readFileSync(join(dir, LEDGER_FILE), "utf-8");
     const fresh = record();
     put(fresh, LEDGER_FILE, lines);
+    // Act & Assert
     expect(verifyLedger(fresh)).toEqual([]);
+    // Arrange
     put(fresh, "evidence/img/a.png", new Uint8Array([9]));
+    // Act & Assert
     expect(verifyLedger(fresh)).toEqual([
       { kind: "hash-mismatch", path: "evidence/img/a.png", lineNo: 1 },
     ]);
   });
 
   it("matches a text file written with CRLF against its LF hash, but not media or a real edit", () => {
+    // Arrange
     const dir = record();
     put(dir, "evidence/a.md", "one\ntwo\n");
     put(dir, "evidence/b.png", "x\ny\n");
@@ -153,31 +176,41 @@ describe("the ledger", () => {
     appendCapture(dir, "evidence/b.png", META);
     put(dir, "evidence/a.md", "one\r\ntwo\r\n");
     put(dir, "evidence/b.png", "x\r\ny\r\n");
+    // Act & Assert
     expect(verifyLedger(dir)).toEqual([
       { kind: "hash-mismatch", path: "evidence/b.png", lineNo: 2 },
     ]);
+    // Arrange
     put(dir, "evidence/a.md", "one\r\nthree\r\n");
+    // Act & Assert
     expect(verifyLedger(dir).map((p) => p.path)).toEqual(["evidence/a.md", "evidence/b.png"]);
   });
 
   it("hashes a CRLF text file as git stores it, so its LF checkout verifies, and keeps -text bytes", () => {
+    // Arrange
     const dir = gitRecord();
     put(dir, "evidence/a.md", "one\r\ntwo\r\n");
     put(dir, "evidence/raw/b.csv", "x\r\ny\r\n");
     put(dir, "evidence/c.txt", "lone\rcr\r\n");
+    // Act & Assert
     expect(appendCapture(dir, "evidence/a.md", META).sha256).toBe(sha("one\ntwo\n"));
     expect(appendCapture(dir, "evidence/raw/b.csv", META).sha256).toBe(sha("x\r\ny\r\n"));
     expect(appendCapture(dir, "evidence/c.txt", META).sha256).toBe(sha("lone\rcr\r\n"));
     expect(verifyLedger(dir)).toEqual([]);
+    // Arrange
     put(dir, "evidence/a.md", "one\ntwo\n");
+    // Act & Assert
     expect(verifyLedger(dir)).toEqual([]);
 
+    // Arrange
     const plain = record();
     put(plain, "evidence/a.md", "one\r\ntwo\r\n");
+    // Act & Assert
     expect(appendCapture(plain, "evidence/a.md", META).sha256).toBe(sha("one\r\ntwo\r\n"));
   });
 
   it("lists evidence without the ledger and local by-products", () => {
+    // Arrange
     const dir = record();
     for (const path of [
       "evidence/a.md",
@@ -190,28 +223,34 @@ describe("the ledger", () => {
       put(dir, path);
     }
     put(dir, "curated/builds.json");
+    // Act & Assert
     expect(listEvidence(dir)).toEqual(["evidence/a.md", "evidence/sub/b.json"]);
     expect(isIgnored("evidence/.DS_Store")).toBe(true);
   });
 
   it("keeps the media extensions and the ignored by-products in step with .gitignore", () => {
+    // Arrange
     const gitignore = readFileSync(join(findRepoRoot(import.meta.dirname), ".gitignore"), "utf-8")
       .split("\n")
       .map((line) => line.trim());
+    // Act
     const ignoredMedia = gitignore
       .filter((line) => line.startsWith("research/**/*."))
       .map((line) => line.slice("research/**/*".length))
       .sort();
+    // Assert
     expect([...MEDIA_EXTENSIONS].sort()).toEqual(ignoredMedia);
     for (const ext of MEDIA_EXTENSIONS) expect(isMedia(`a${ext.toUpperCase()}`)).toBe(true);
   });
 
   it("skips every file .gitignore excludes outside research/, so no line names a file git never stores", () => {
+    // Arrange
     const patterns = readFileSync(join(findRepoRoot(import.meta.dirname), ".gitignore"), "utf-8")
       .split("\n")
       .map((line) => line.trim())
       .filter((line) => line !== "" && !line.startsWith("#") && !line.startsWith("research/"));
     const floating = patterns.filter((line) => !line.slice(0, -1).includes("/"));
+    // Act & Assert
     expect(floating.length).toBeGreaterThan(0);
     for (const pattern of floating) {
       const name = pattern.replace(/\/$/, "").replaceAll("*", "x");

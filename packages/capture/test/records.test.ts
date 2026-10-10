@@ -25,19 +25,23 @@ const records = entries
 
 describe.skipIf(!hasResearch)("every record's capture ledger", () => {
   it("finds a ledger in every record that has evidence", () => {
+    // Act
     const withEvidence = entries
       .filter(
         (entry) => entry.isDirectory() && existsSync(join(researchDir, entry.name, "evidence")),
       )
       .map((entry) => entry.name);
+    // Assert
     expect(withEvidence.length).toBeGreaterThan(0);
     expect(records).toEqual(withEvidence);
   });
 
   it("names the ledger in every importable record's manifest, so an import verifies it", () => {
+    // Arrange
     const manifests = records.filter((record) =>
       existsSync(join(researchDir, record, "import.json")),
     );
+    // Act & Assert
     expect(manifests.length).toBeGreaterThan(0);
     for (const record of manifests) {
       const manifest = JSON.parse(
@@ -52,6 +56,7 @@ describe.skipIf(!hasResearch)("every record's capture ledger", () => {
       `${record}: every evidence file has its line, and every present file its hash`,
       COLD_VERIFY,
       () => {
+        // Act & Assert
         expect(verifyLedger(join(researchDir, record)).map(describeProblem)).toEqual([]);
       },
     );
@@ -67,13 +72,17 @@ const areas = entries
 
 describe.skipIf(!hasResearch)("every area's saved searches", () => {
   it("finds the areas", () => {
+    // Assert
     expect(areas.length).toBeGreaterThan(0);
   });
 
   for (const area of areas) {
     it(`${area}: has a valid searches.json, dated by rounds the record ran`, () => {
+      // Arrange
       const dir = join(researchDir, area);
+      // Act
       const searches = readSearches(dir);
+      // Assert
       expect(searches, `${area} has no ${SEARCHES_FILE}`).not.toBeNull();
       expect(searchRoundProblems(searches ?? [], recordRounds(dir))).toEqual([]);
     });

@@ -30,7 +30,7 @@ You own **/*.test.*. **End-to-end tests are out of scope** — say "e2e is a sep
 - **P3 No brittle assertions** — no config-value asserts, no full-DOM/string snapshot as the primary assertion, no class/style literals, no real dates, absolute paths or map iteration order.
 - **P4 Mutation-resistant** — the north-star as a rule. Banned sole assertions: `toBeDefined`, `toBeTruthy`, `not.toThrow`, `toHaveLength(n)` on shape, `typeof x === 'function'`. A bare `toThrow()` only when "it throws" is the whole contract — and then assert the error type/message.
 - **P5 Isolated & deterministic** — no shared mutable state without reset, no order dependence, no real clock, no live network, fixtures instead of live trees, cleanup for temp dirs.
-- **P6 Hygiene** — one behaviour per test (plain `it()` bodies; never flag missing Arrange/Act/Assert labels), no leftover `.only`/`.skip`, behaviour-describing names.
+- **P6 Hygiene** — Arrange/Act/Assert labelled in every test body (flag a missing label; see `docs/conventions/comment-policy.md` § Tests), one behaviour per test, no leftover `.only`/`.skip`, behaviour-describing names.
 
 ## What to mock
 network / fs / clock / randomness / framework guards → fake at the boundary (in-memory > mock function). Internal helper / unit under test / child → do NOT mock; if that's hard, the design is too coupled — say so.
@@ -52,7 +52,7 @@ expect((await searchFor(query)).results.map((r) => r.id)).toEqual(['a', 'b']);
 A unit flipped from sync to async is not a test finding — the tests `await`. A test-only sync accessor or snapshot added to dodge the `await` is.
 
 ## WRITE process
-Read the brief + source end to end + a sibling test. Place the file per `docs/conventions/test-layout.md`. Write the smallest behaviour-pinning test (boundary-only mocks). **Prove mutation resistance (mandatory):** run green, break the unit under test on a scratch edit, confirm red, restore — state this in the report. Verify by running the single file with the test runner (`pnpm test` scoped to the file) — run it bare, never piped to head/tail/grep; typecheck if types changed. Report tersely: files, what each test pins, mutation evidence, command + result.
+Read the brief + source end to end + a sibling test. Place the file per `docs/conventions/test-layout.md`. Write the smallest behaviour-pinning test (AAA, labelled; boundary-only mocks). **Prove mutation resistance (mandatory):** run green, break the unit under test on a scratch edit, confirm red, restore — state this in the report. Verify by running the single file with the test runner (`pnpm test` scoped to the file) — run it bare, never piped to head/tail/grep; typecheck if types changed. Report tersely: files, what each test pins, mutation evidence, command + result.
 
 ## AUDIT output
 Read-only, `rubber-duk-review` tone, scoped to test quality. Cite `file:line` + principle.

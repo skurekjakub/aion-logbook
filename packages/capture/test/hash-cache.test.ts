@@ -30,43 +30,58 @@ function put(file: string, content: string, mtime: number): void {
 
 describe("the hash cache", () => {
   it("serves a later process the hashes an earlier one saved, until the file's size or mtime changes", () => {
+    // Arrange
     const root = mkdtempSync(join(tmpdir(), "aion-hash-cache-"));
     const cacheFile = join(root, "cache", "hashes.json");
     const file = join(root, "a.md");
     put(file, "one\n", 1_700_000_000);
     const first = new HashCache(cacheFile, root);
+    // Act & Assert
     expect(fileHashes(file, first)).toEqual([sha("one\n")]);
+    // Act
     first.save();
 
+    // Arrange
     put(file, "two\n", 1_700_000_000);
     const second = new HashCache(cacheFile, root);
+    // Act & Assert
     expect(fileHashes(file, second)).toEqual([sha("one\n")]);
 
+    // Arrange
     utimesSync(file, 1_700_000_100, 1_700_000_100);
+    // Act & Assert
     expect(fileHashes(file, second)).toEqual([sha("two\n")]);
+    // Arrange
     put(file, "three\n", 1_700_000_100);
+    // Act & Assert
     expect(fileHashes(file, second)).toEqual([sha("three\n")]);
   });
 
   it("keeps on disk only files under its root, and reads a broken cache file as empty", () => {
+    // Arrange
     const root = mkdtempSync(join(tmpdir(), "aion-hash-cache-"));
     const outside = mkdtempSync(join(tmpdir(), "aion-hash-outside-"));
     const cacheFile = join(root, "hashes.json");
     put(join(root, "in.md"), "in", 1_700_000_000);
     put(join(outside, "out.md"), "out", 1_700_000_000);
     const cache = new HashCache(cacheFile, root);
+    // Act
     fileHashes(join(root, "in.md"), cache);
     fileHashes(join(outside, "out.md"), cache);
     cache.save();
+    // Assert
     expect(Object.keys(JSON.parse(readFileSync(cacheFile, "utf-8")) as object)).toEqual([
       join(root, "in.md"),
     ]);
 
+    // Arrange
     writeFileSync(cacheFile, "{not json");
+    // Act & Assert
     expect(fileHashes(join(root, "in.md"), new HashCache(cacheFile, root))).toEqual([sha("in")]);
   });
 
   it("is saved by a verification, so the next process's verification rehashes nothing unchanged", () => {
+    // Arrange
     const root = mkdtempSync(join(tmpdir(), "aion-hash-cache-"));
     const cacheFile = join(root, "hashes.json");
     const record = join(root, "r1");
@@ -82,7 +97,9 @@ describe("the hash cache", () => {
         sha256: sha("a"),
       })}\n`,
     );
+    // Act & Assert
     expect(verifyLedger(record, new HashCache(cacheFile, root))).toEqual([]);
+    // Assert
     const saved = JSON.parse(readFileSync(cacheFile, "utf-8")) as Record<string, unknown>;
     expect(saved[join(record, "evidence", "a.md")]).toMatchObject({ hashes: [sha("a")] });
   });
