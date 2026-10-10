@@ -1,5 +1,6 @@
 import type { AccountItem } from "../api/types";
 import { Clamp } from "../components/Clamp";
+import { Pill } from "../components/Pill";
 
 /** When a roadmap item is due. */
 export type Priority = "now" | "next" | "later";
@@ -27,8 +28,28 @@ function RefChip({ target }: { target: AccountItem["refs"][number] }) {
 }
 
 /**
- * One roadmap row: the action in a line with its area chip; beneath, the
- * why cut to a line and the references as chips at the end.
+ * Where a roadmap item came from, as a badge: `auto` when derived from the
+ * snapshot and the build, `curated` when written by hand.
+ *
+ * @param props - whether the item was derived
+ * @returns the badge
+ */
+function OriginBadge({ derived }: { derived: boolean }) {
+  return derived ? (
+    <span title="Derived from the snapshot and the build">
+      <Pill kind="info">auto</Pill>
+    </span>
+  ) : (
+    <span title="Curated by hand">
+      <Pill kind="quiet">curated</Pill>
+    </span>
+  );
+}
+
+/**
+ * One roadmap row: the action in a line with its area chip and origin
+ * badge; beneath, the why cut to a line and the references as chips at
+ * the end.
  *
  * @param props - the item
  * @returns the row
@@ -40,6 +61,7 @@ function RoadmapRow({ item }: { item: AccountItem }) {
         <span className="road-action">{item.action}</span>
         <span className="road-badges">
           <span className="chip area">{item.area}</span>
+          <OriginBadge derived={item.derived} />
         </span>
       </div>
       <div className="road-foot">
@@ -89,7 +111,7 @@ export function AccountRoadmap({ items, priorities = PRIORITIES }: AccountRoadma
           </h4>
           <ol>
             {group.items.map((item) => (
-              <RoadmapRow key={item.id} item={item} />
+              <RoadmapRow key={item.rank} item={item} />
             ))}
           </ol>
         </section>

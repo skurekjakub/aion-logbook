@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import { accountQuery, recordsQuery } from "../api/queries";
+import { accountQuery, recordsQuery, roadmapQuery } from "../api/queries";
 import type { AccountOverview, AccountSnapshot } from "../api/types";
 import { CLASS_LABELS, classSectionsWithContent } from "../app/classes";
 import { EmptyState } from "../components/EmptyState";
@@ -56,6 +56,35 @@ function CharacterCard({
 }
 
 /**
+ * What to do now and next, from the roadmap ranked against the latest
+ * snapshot: derived and curated items alike.
+ *
+ * @returns the section
+ */
+function HomeNext() {
+  const roadmap = useQuery(roadmapQuery());
+  return (
+    <section className="home-next" aria-labelledby="home-next">
+      <div className="acct-section-head">
+        <h3 id="home-next">Do next</h3>
+        <Link to="/account" className="more-link">
+          Full roadmap
+        </Link>
+      </div>
+      <QueryResult query={roadmap} resource="roadmap">
+        {({ items }) =>
+          items.some((item) => DUE.includes(item.priority)) ? (
+            <AccountRoadmap items={items} priorities={DUE} />
+          ) : (
+            <EmptyState>Nothing due now or next.</EmptyState>
+          )
+        }
+      </QueryResult>
+    </section>
+  );
+}
+
+/**
  * The home page's body: the character card and what to do now and next,
  * or how to load a character when none is.
  *
@@ -63,7 +92,7 @@ function CharacterCard({
  * @returns the body
  */
 function HomeBody({ data, covered }: { data: AccountOverview; covered: ReadonlySet<string> }) {
-  const { snapshot, roadmap } = data;
+  const { snapshot } = data;
   if (!snapshot) {
     return (
       <EmptyState>
@@ -71,23 +100,10 @@ function HomeBody({ data, covered }: { data: AccountOverview; covered: ReadonlyS
       </EmptyState>
     );
   }
-  const anyDue = roadmap.some((item) => DUE.includes(item.priority));
   return (
     <>
       <CharacterCard snapshot={snapshot} covered={covered} />
-      <section className="home-next" aria-labelledby="home-next">
-        <div className="acct-section-head">
-          <h3 id="home-next">Do next</h3>
-          <Link to="/account" className="more-link">
-            Full roadmap
-          </Link>
-        </div>
-        {anyDue ? (
-          <AccountRoadmap items={roadmap} priorities={DUE} />
-        ) : (
-          <EmptyState>Nothing due now or next.</EmptyState>
-        )}
-      </section>
+      <HomeNext />
     </>
   );
 }

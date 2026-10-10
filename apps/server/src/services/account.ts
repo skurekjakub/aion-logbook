@@ -1,6 +1,6 @@
 import { NotFoundError } from "../errors";
 import type { Repos, Store } from "../repos";
-import type { AccountRoadmapItemRow, AccountSnapshotRow } from "../repos/account";
+import type { AccountSnapshotRow } from "../repos/account";
 
 /** A skill as read in a snapshot: its name as read, the skill it resolved to, its level and hotbar slot. */
 export interface AccountSkillView {
@@ -43,9 +43,6 @@ export type AccountSnapshotView = AccountSnapshotRow & {
   macros: AccountMacroView[];
 };
 
-/** A roadmap item as returned to callers. */
-export type AccountItemView = Omit<AccountRoadmapItemRow, "snapshotId">;
-
 /** One loaded snapshot, as the overview lists it. */
 export interface AccountEntry {
   /** The snapshot's id. */
@@ -56,14 +53,12 @@ export interface AccountEntry {
   level: number;
 }
 
-/** The character: the chosen snapshot, its roadmap, and every snapshot loaded. */
+/** The character: the chosen snapshot and every snapshot loaded. */
 export interface AccountOverview {
   /** Every loaded snapshot, oldest id first. */
   snapshots: AccountEntry[];
   /** The chosen snapshot, or `null` when none is loaded. */
   snapshot: AccountSnapshotView | null;
-  /** The roadmap ranked against the chosen snapshot, by rank; `[]` without one. */
-  roadmap: AccountItemView[];
 }
 
 /** Read access to the character. */
@@ -130,11 +125,8 @@ export function createAccountService(store: Store): AccountService {
       if (choice.snapshot !== undefined && !chosen) {
         throw new NotFoundError("account snapshot", choice.snapshot);
       }
-      if (!chosen) return { snapshots, snapshot: null, roadmap: [] };
-      const roadmap = repos.account
-        .roadmap(chosen.id)
-        .map(({ snapshotId: _snapshotId, ...item }) => item);
-      return { snapshots, snapshot: snapshotView(repos, chosen), roadmap };
+      if (!chosen) return { snapshots, snapshot: null };
+      return { snapshots, snapshot: snapshotView(repos, chosen) };
     },
   };
 }

@@ -43,8 +43,11 @@ export type Takeaway = InferResponseType<typeof api.takeaways.$get, 200>[number]
 /** A "for your character" recommendation. */
 export type Recommendation = InferResponseType<typeof api.recommendations.$get, 200>[number];
 
-/** The character: the chosen snapshot, its roadmap, and every loaded snapshot. */
+/** The character: the chosen snapshot and every loaded snapshot. */
 export type AccountOverview = InferResponseType<typeof api.account.$get, 200>;
+
+/** The roadmap ranked against a snapshot: its id and the items, derived first, then curated. */
+export type AccountRoadmapData = InferResponseType<typeof api.account.roadmap.$get, 200>;
 
 /** A character snapshot: its row, the skills read in it, its stigma slots and its macro chains. */
 export type AccountSnapshot = NonNullable<AccountOverview["snapshot"]>;
@@ -58,5 +61,5 @@ export type AccountStigma = AccountSnapshot["stigmas"][number];
 /** A macro chain as read from the client's editor: position, name, key (`null` when unbound) and steps. */
 export type AccountMacro = AccountSnapshot["macros"][number];
 
-/** One roadmap item: rank, priority, area, action, why and refs. */
-export type AccountItem = AccountOverview["roadmap"][number];
+/** One roadmap item: rank, priority, area, action, why, refs, and whether it was derived. */
+export type AccountItem = AccountRoadmapData["items"][number];

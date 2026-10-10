@@ -19,7 +19,8 @@ describe("HomeView", () => {
       "/gladiator",
     );
     const next = screen.getByRole("region", { name: "Do next" });
-    expect(within(next).getByText("Level Ruinous Blow to 10")).toBeInTheDocument();
+    expect(await within(next).findByText("Ruinous Blow 8 → 10")).toBeInTheDocument();
+    expect(within(next).getByText("Rebuild Opener as Main")).toBeInTheDocument();
     expect(within(next).queryByText("Slot a stigma at 27")).not.toBeInTheDocument();
   });
 

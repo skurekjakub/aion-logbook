@@ -43,7 +43,7 @@ export function createApp(services: Services) {
     .route(R.glossary.path, glossaryRouter(services.glossary))
     .route(R.researchRecords.path, recordsRouter(services.records))
     .route(R.captures.path, capturesRouter(services.captures))
-    .route("/account", accountRouter(services.account))
+    .route("/account", accountRouter(services.account, services.roadmap))
     .route("/export", exportRouter(services.export))
     .onError((err, c) => {
       const known = httpStatus(err);
