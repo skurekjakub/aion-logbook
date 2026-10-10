@@ -4,7 +4,7 @@ import { sourceLabel } from "../lib/sources";
 
 /** Props for {@link SourceChips}. */
 export interface SourceChipsProps {
-  /** Source ids to show, e.g. `["dc:76135", "nv:43653"]`. Null or empty renders nothing. */
+  /** Source ids to show, e.g. `["web:eloboost24-gladiator", "yt:dQw4w9WgXcQ"]`. Null or empty renders nothing. */
   ids: readonly string[] | null | undefined;
   /** Id → URL/title, from one `/api/sources` query (see `useSourceIndex`). */
   sources: SourceIndex;

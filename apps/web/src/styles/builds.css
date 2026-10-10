@@ -50,6 +50,16 @@
   font-size: var(--fs-2xs);
   color: var(--ink-3);
 }
+/* A name read from the client that matched no loaded skill: outlined, flagged after the name. */
+.skill-chip.unresolved {
+  background: transparent;
+  border: 1px dashed var(--ink-3);
+  padding: 1px 7px 1px 1px;
+}
+.skill-flag {
+  font: 500 var(--fs-2xs) / 1.2 var(--body);
+  color: var(--ink-3);
+}
 
 /* The build switch: a segmented row of builds; the one shown is filled. */
 .build-switch {

@@ -1,7 +1,8 @@
 /**
  * One TanStack Query options factory per API resource. Use them with
  * `useQuery(buildsQuery("gladiator"))` in components, or
- * `context.queryClient.ensureQueryData(recordsQuery())` in route loaders.
+ * `context.queryClient.query({ ...recordsQuery(), staleTime: "static" })` in
+ * a route's `beforeLoad` or `loader`.
  *
  * Every `queryFn` goes through hono's `parseResponse`: it resolves to the
  * route's success body, typed from the server, and throws a `DetailedError`

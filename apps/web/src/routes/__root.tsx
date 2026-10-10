@@ -25,7 +25,6 @@ const NAV_ID = "site-nav";
 /** Stamp labels, per stat. */
 const STAT_LABEL: Record<StampStat, string> = {
   updated: "Updated",
-  season: "Season",
   sources: "Sources",
 };
 
@@ -55,7 +54,6 @@ function RootLayout() {
 
   const values: Record<StampStat, string | number | null | undefined> = {
     updated: record.data?.updatedAt,
-    season: record.data?.seasonLabel,
     sources: sources.data?.length,
   };
   const lede = record.isError ? (
@@ -94,7 +92,6 @@ function RootLayout() {
       <div className="page">
         {records.isError ? <ErrorBox resource="research records" error={records.error} /> : null}
         <PageHeader
-          context={null}
           title={section?.title ?? APP_TITLE}
           // The record's lede introduces a class, so it shows on the landing page only; a failure shows everywhere.
           lede={landing || record.isError ? lede : ""}

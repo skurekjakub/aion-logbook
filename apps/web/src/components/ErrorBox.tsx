@@ -2,7 +2,7 @@ import { DetailedError } from "hono/client";
 
 /** Props for {@link ErrorBox}. */
 export interface ErrorBoxProps {
-  /** What failed to load, in words: "decks", "research record". */
+  /** What failed to load, in words: "builds", "research record". */
   resource: string;
   /** The error a query or render threw. */
   error: unknown;

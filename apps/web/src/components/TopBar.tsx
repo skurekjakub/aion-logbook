@@ -4,7 +4,7 @@ import { Fragment } from "react";
 export interface TopBarProps {
   /** The id of the popover navigation the menu button opens. */
   navId: string;
-  /** Where the reader is, outermost first, e.g. `["Guild Conquest", "Decks"]`. */
+  /** Where the reader is, outermost first, e.g. `["Gladiator", "Stigmas"]`. */
   trail: readonly string[];
 }
 

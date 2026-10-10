@@ -6,10 +6,11 @@ import { CLASS_LABELS, classSectionsWithContent } from "../app/classes";
 import { EmptyState } from "../components/EmptyState";
 import { QueryResult } from "../components/QueryResult";
 import { ViewHeader } from "../components/ViewHeader";
+import type { Priority } from "./AccountRoadmap";
 import { AccountRoadmap } from "./AccountRoadmap";
 
 /** The roadmap priorities the home page shows; the rest wait on the character page. */
-const DUE = ["now", "next"] as const;
+const DUE: readonly Priority[] = ["now", "next"];
 
 /**
  * The character card: name, class (linking to its builds when a record
@@ -70,7 +71,7 @@ function HomeBody({ data, covered }: { data: AccountOverview; covered: ReadonlyS
       </EmptyState>
     );
   }
-  const due = roadmap.filter((item) => item.priority !== "later");
+  const anyDue = roadmap.some((item) => DUE.includes(item.priority));
   return (
     <>
       <CharacterCard snapshot={snapshot} covered={covered} />
@@ -81,8 +82,8 @@ function HomeBody({ data, covered }: { data: AccountOverview; covered: ReadonlyS
             Full roadmap
           </Link>
         </div>
-        {due.length ? (
-          <AccountRoadmap items={due} priorities={DUE} />
+        {anyDue ? (
+          <AccountRoadmap items={roadmap} priorities={DUE} />
         ) : (
           <EmptyState>Nothing due now or next.</EmptyState>
         )}

@@ -36,19 +36,14 @@ export interface AccountViewProps {
 }
 
 /**
- * A skill as read: its chip when the name resolved to a loaded skill,
- * else the name as read with an "unresolved" badge.
+ * A skill as read, as a chip: flagged unresolved when the name matched no
+ * loaded skill.
  *
- * @param props - the name as read and the skill id it resolved to
- * @returns the name
+ * @param props - the name as read and the skill id it resolved to, if any
+ * @returns the chip
  */
 function ReadName({ name, skillId }: { name: string; skillId: string | null }) {
-  if (skillId) return <SkillChip skill={{ id: skillId, name }} />;
-  return (
-    <span className="read-name">
-      {name} <Pill kind="quiet">unresolved</Pill>
-    </span>
-  );
+  return <SkillChip skill={{ name }} unresolved={skillId === null} />;
 }
 
 const SKILL_COLUMNS: Column<AccountSkill>[] = [

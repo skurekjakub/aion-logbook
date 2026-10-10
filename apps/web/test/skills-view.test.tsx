@@ -17,6 +17,17 @@ async function priorityRows(): Promise<HTMLElement[]> {
 }
 
 describe("SkillsView", () => {
+  it("says so in an empty state when the build sets no skill levels", async () => {
+    // Arrange
+    const api = { "/api/builds?class=gladiator": { body: [{ ...LEVELING, skills: [] }] } };
+
+    // Act
+    await renderRoute("/gladiator/skills", api);
+
+    // Assert
+    expect(await screen.findByText("This build sets no skill levels.")).toHaveClass("empty");
+  });
+
   it("lists the build's skills by rank, each with its target level", async () => {
     // Arrange
     const path = "/gladiator/skills";

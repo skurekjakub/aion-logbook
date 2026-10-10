@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import type { MouseEvent } from "react";
 import type { LinkTarget } from "../app/classes";
+import { APP_TITLE } from "../app/classes";
 import { ThemeToggle } from "./ThemeToggle";
 
 /** One page link under the current section of a {@link SideNav}. */
@@ -74,7 +75,7 @@ export function SideNav({ id, label, sections }: SideNavProps) {
   return (
     <nav id={id} className="sidenav" aria-label={label} popover="auto" onClick={closeAfterFollow}>
       <div className="brand">
-        <span className="brand-name">Aion Logbook</span>
+        <span className="brand-name">{APP_TITLE}</span>
         <span className="brand-game">Aion 2 · global client</span>
         <ThemeToggle />
       </div>

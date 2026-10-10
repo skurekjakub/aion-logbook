@@ -100,7 +100,11 @@ export const LEVELING = {
   ],
 } satisfies Build;
 
-/** A gladiator character at level 34, Ruinous Blow read at 8 and Sever at 5. */
+/**
+ * A gladiator character at level 34, Ruinous Blow read at 8 and Sever at 5:
+ * Wrath Wave slotted at 22 and the 27 slot empty, a chain bound to R, and
+ * an unbound chain whose step matched no skill.
+ */
 export const ACCOUNT = {
   snapshots: [{ id: "2026-10-07", capturedAt: "2026-10-07T21:30:00+02:00", level: 34 }],
   snapshot: {
@@ -121,7 +125,23 @@ export const ACCOUNT = {
       { slotLevel: 22, name: "Wrath Wave", skillId: SKILLS.wrath.id },
       { slotLevel: 27, name: null, skillId: null },
     ],
-    macros: [],
+    macros: [
+      {
+        position: 1,
+        name: "Opener",
+        key: "R",
+        steps: [
+          { position: 2, name: "Sever", skillId: SKILLS.sever.id },
+          { position: 1, name: "Ruinous Blow", skillId: SKILLS.ruinous.id },
+        ],
+      },
+      {
+        position: 2,
+        name: "Pull",
+        key: null,
+        steps: [{ position: 1, name: "Mystery Pull", skillId: null }],
+      },
+    ],
   },
   roadmap: [
     {

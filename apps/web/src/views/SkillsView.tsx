@@ -1,5 +1,6 @@
 import type { BuildSkill } from "../api/types";
 import { Clamp } from "../components/Clamp";
+import { EmptyState } from "../components/EmptyState";
 import { Pill } from "../components/Pill";
 import { SkillChip } from "../components/SkillChip";
 import type { CharacterReading } from "../lib/builds";
@@ -52,9 +53,7 @@ export function SkillsView(props: BuildPageProps) {
               .sort((a, b) => a.rank - b.rank)
               .map((p) => (
                 <li key={p.rank} className="priority-row">
-                  <span className="rank mono" aria-label={`Rank ${p.rank}`}>
-                    {p.rank}
-                  </span>
+                  <span className="rank mono">{p.rank}</span>
                   <span className="priority-main">
                     <SkillChip skill={p.skill} />
                     <span className="target mono" title="Target level">
@@ -69,7 +68,7 @@ export function SkillsView(props: BuildPageProps) {
               ))}
           </ol>
         ) : (
-          <p className="muted">This build sets no skill levels.</p>
+          <EmptyState>This build sets no skill levels.</EmptyState>
         )
       }
     </BuildPage>

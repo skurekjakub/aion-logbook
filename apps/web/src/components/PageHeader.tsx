@@ -3,8 +3,6 @@ import { Clamp } from "./Clamp";
 
 /** Props for {@link PageHeader}. */
 export interface PageHeaderProps {
-  /** A tag after the title, e.g. the mode's Korean name; omitted when null. */
-  context: ReactNode;
   /** The `<h1>`. */
   title: string;
   /** The lede under the title: text (none when empty; clamped when long), or an error box in its place. */
@@ -14,21 +12,18 @@ export interface PageHeaderProps {
 }
 
 /**
- * The page header: the title with its tag, the lede cut to two lines (it
- * expands on demand), and the stat stamp on the right.
+ * The page header: the title, the lede cut to two lines (it expands on
+ * demand), and the stat stamp on the right.
  *
- * @param props - the title's tag, the title, the lede and the stats
+ * @param props - the title, the lede and the stats
  * @returns the header
  */
-export function PageHeader({ context, title, lede, stats }: PageHeaderProps) {
+export function PageHeader({ title, lede, stats }: PageHeaderProps) {
   const shown = stats.filter(([, v]) => v != null && v !== "");
   return (
     <header className="top">
       <div className="page-title-block">
-        <h1>
-          {title}
-          {context != null ? <span className="title-tag">{context}</span> : null}
-        </h1>
+        <h1>{title}</h1>
         {typeof lede !== "string" ? (
           lede
         ) : lede.trim() ? (

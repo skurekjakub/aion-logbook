@@ -8,7 +8,7 @@ export interface ObsoleteSectionProps {
   /** The most recent `obsoleteSince` among its items; null renders nothing. */
   latest: string | null;
   /**
-   * The element id the address names, e.g. `deck-<id>`: when an item in
+   * The element id the address names, e.g. `build-<id>`: when an item in
    * the section has it, the section opens and scrolls it into view.
    */
   reveal?: string;

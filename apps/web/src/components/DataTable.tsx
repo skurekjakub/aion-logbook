@@ -28,9 +28,9 @@ export interface TableFilter<T> {
 
 /** A select filter whose value the caller owns. */
 export interface TableSelect<T> {
-  /** The select's accessible name, e.g. "Deck". */
+  /** The select's accessible name, e.g. "Kind". */
   name: string;
-  /** The label of the "all" option (value ""), e.g. "All decks". */
+  /** The label of the "all" option (value ""), e.g. "All kinds". */
   label: string;
   /** `[value, label]` pairs. */
   options: ReadonlyArray<readonly [value: string, label: string]>;

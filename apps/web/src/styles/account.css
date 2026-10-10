@@ -97,12 +97,6 @@
   color: var(--ink);
   max-width: 100%;
 }
-.read-name {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
-}
 ul.unread {
   margin: 0;
   padding: 0;

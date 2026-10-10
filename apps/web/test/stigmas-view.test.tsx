@@ -1,6 +1,8 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { StigmaSlots } from "../src/components/StigmaSlots";
+import { LEVELING, SKILLS } from "./fixtures";
+import { renderRoute } from "./view-harness";
 
 /**
  * A stigma slot of a build, slotting a skill named after its level.
@@ -70,5 +72,28 @@ describe("StigmaSlots", () => {
     expect(slots[0]).toContain("slotted");
     expect(slots[1]).toContain("swap");
     expect(slots[2]).toContain("slot it");
+  });
+});
+
+describe("StigmasView", () => {
+  it("marks the build's slots against the character's stigmas as the API sends them", async () => {
+    // Arrange
+    const build = {
+      ...LEVELING,
+      stigmas: [
+        ...LEVELING.stigmas,
+        { slotLevel: 27, why: "Single-target burst.", skill: SKILLS.sever },
+      ],
+    };
+    const api = { "/api/builds?class=gladiator": { body: [build] } };
+
+    // Act
+    await renderRoute("/gladiator/stigmas", api);
+
+    // Assert
+    const track = await screen.findByRole("list", { name: "Stigma slots" });
+    const [at22, at27] = within(track).getAllByRole("listitem");
+    expect(await within(at22!).findByText("slotted")).toBeInTheDocument();
+    expect(within(at27!).getByText("slot it")).toBeInTheDocument();
   });
 });

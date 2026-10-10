@@ -1,7 +1,6 @@
 /**
  * Pure helpers that pull the verdict out of curated text, so a row can show
- * it first: a finding's lead sentence, and whether a recommendation says
- * what to take or what to avoid.
+ * it first: a finding's lead sentence.
  *
  * @module
  */
@@ -26,22 +25,4 @@ export function leadSentence(text: string): { lead: string; rest: string } {
     return { lead: t.slice(0, m.index + 1), rest: t.slice(m.index + 1).trim() };
   }
   return { lead: t, rest: "" };
-}
-
-/** Whether a recommendation says to take something or to stay away from it. */
-export type Stance = "recommended" | "avoid";
-
-/** A recommendation that opens with one of these words says what to avoid. */
-const AVOID = /^(?:no|not|never|avoid|don't|do not|skip|without)\b/i;
-
-/**
- * Reads a recommendation's stance from its wording: one that opens with a
- * negation ("No move speed, accuracy or focus", "Avoid crit resist") says
- * what to avoid; anything else says what to take.
- *
- * @param text - the recommendation, e.g. a gear substat line or rune lines
- * @returns `avoid` for a negated recommendation, else `recommended`
- */
-export function stance(text: string): Stance {
-  return AVOID.test(text.trim()) ? "avoid" : "recommended";
 }

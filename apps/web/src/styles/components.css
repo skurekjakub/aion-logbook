@@ -18,12 +18,6 @@ ol.take li + li{border-top:1px solid var(--line)}
 ol.take li::before{content:counter(t);font:700 var(--fs-l)/1.25 var(--display);color:var(--candy);text-align:center}
 ol.take li > div{display:flex;flex-direction:column;gap:var(--sp-1);min-width:0}
 
-/* Kv */
-dl.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:0;font-size:var(--fs-s)}
-dl.kv dt{color:var(--ink-3);font:600 var(--fs-xs)/1.6 var(--body)}
-dl.kv dd{margin:0;min-width:0}
-@media (max-width:520px){dl.kv{grid-template-columns:1fr;gap:0} dl.kv dt{line-height:1.3} dl.kv dd + dt{margin-top:var(--sp-2)}}
-
 /* DataTable */
 .tools{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
 .tools input,.tools select{font:var(--fs-s) var(--body);padding:6px 9px;border:1px solid var(--line);border-radius:var(--radius-s);background:var(--surface);color:var(--ink);min-width:0}

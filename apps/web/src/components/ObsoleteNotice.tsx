@@ -14,7 +14,7 @@ export interface ObsoleteNoticeProps {
   sources: readonly string[];
   /** Id → URL/title for the source chips. */
   sourceIndex: SourceIndex;
-  /** What superseded the item, e.g. a link to the deck that did. */
+  /** What superseded the item, e.g. a link to the build that did. */
   superseded?: ReactNode;
   /** Names the item, where the notice stands apart from it: "<subject> is obsolete since …". */
   subject?: string;

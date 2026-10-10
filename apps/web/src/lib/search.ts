@@ -1,7 +1,7 @@
 /**
  * Parsers for typed search params. The router JSON-decodes each query value
- * before `validateSearch` sees it, so `?q=123` arrives as the number 123 and
- * `?season=5` as 5; these parsers accept that and drop anything unusable.
+ * before `validateSearch` sees it, so `?q=123` arrives as the number 123;
+ * these parsers accept that and drop anything unusable.
  */
 
 /**
@@ -14,18 +14,6 @@
 export function optionalText(v: unknown): string | undefined {
   if (typeof v === "number" && Number.isFinite(v)) return String(v);
   return typeof v === "string" && v !== "" ? v : undefined;
-}
-
-/**
- * Reads an integer search param.
- *
- * @param v - the decoded query value
- * @returns the integer (numeric strings are accepted), or undefined when
- *   missing or not an integer
- */
-export function optionalInt(v: unknown): number | undefined {
-  const n = typeof v === "string" && v.trim() !== "" ? Number(v) : v;
-  return typeof n === "number" && Number.isInteger(n) ? n : undefined;
 }
 
 /**

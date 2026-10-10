@@ -27,7 +27,7 @@ export type LinkTarget =
   { to: ClassRoutePath; params: { class: string } } | { to: SharedRoutePath; params?: undefined };
 
 /** A figure the header's stamp can show. */
-export type StampStat = "updated" | "season" | "sources";
+export type StampStat = "updated" | "sources";
 
 /** A sub-tab within a section. */
 export interface SectionTab {
@@ -73,7 +73,7 @@ interface SectionBase {
   to: AppPath;
   /** The section's landing route, for a link. */
   link: LinkTarget;
-  /** The research record whose lede, season and update date fill the header; null for none. */
+  /** The research record whose lede and update date fill the header; null for none. */
   recordSlug: string | null;
   /** Header lede when there's no record, or the record has none. */
   lede: string | null;

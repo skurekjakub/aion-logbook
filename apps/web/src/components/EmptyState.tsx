@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 
 /** Props for {@link EmptyState}. */
 export interface EmptyStateProps {
-  /** The message, e.g. "No decks recorded yet." */
+  /** The message, e.g. "No stigmas read." */
   children: ReactNode;
 }
 

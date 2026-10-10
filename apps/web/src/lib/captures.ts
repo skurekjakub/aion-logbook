@@ -32,8 +32,8 @@ export function captureTime(capturedAt: string): string {
  * Splits a capture's path into its folder and its file name, so a list can
  * lead with the name.
  *
- * @param path - a record-relative path, e.g. `evidence/03-dc-posts/img/1-1.jpg`
- * @returns e.g. `{ dir: "evidence/03-dc-posts/img/", name: "1-1.jpg" }`; `dir` is
+ * @param path - a record-relative path, e.g. `evidence/02-youtube/video/frame-01.jpg`
+ * @returns e.g. `{ dir: "evidence/02-youtube/video/", name: "frame-01.jpg" }`; `dir` is
  *   empty for a bare name
  */
 export function splitPath(path: string): { dir: string; name: string } {
@@ -44,8 +44,8 @@ export function splitPath(path: string): { dir: string; name: string } {
 /**
  * Names the evidence folder a capture sits in: its path's first folder under `evidence/`.
  *
- * @param path - a record-relative path, e.g. `evidence/03-dc-posts/img/1-1.jpg`
- * @returns e.g. `evidence/03-dc-posts`, or `evidence` for a file at its top
+ * @param path - a record-relative path, e.g. `evidence/02-youtube/video/frame-01.jpg`
+ * @returns e.g. `evidence/02-youtube`, or `evidence` for a file at its top
  */
 export function evidenceFolder(path: string): string {
   const parts = path.split("/");
