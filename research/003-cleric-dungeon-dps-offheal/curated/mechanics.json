@@ -1,0 +1,80 @@
+[
+  {
+    "title": "Condemnation is the damage engine",
+    "body": "Hits only Chain of Torment targets; Earth Punishment at stigma 5 makes it always crit; at skill 12 a crit resets its cooldown. Half the damage on a KR meter.",
+    "confidence": "posted",
+    "class": "cleric",
+    "topic": "rotation",
+    "alsoTopics": ["skills"],
+    "sources": ["yt:-86sdRZ4SX4", "web:gameoverdrive-builds", "web:expcarry-cleric-guide", "web:metabot-cleric-build"]
+  },
+  {
+    "title": "A damage Cleric still owes the chest contribution",
+    "body": "Chest needs 5% of the final boss's HP in damage or 20% of party damage healed (aion2.run, citing GamersTogether); a pure healer can leave with nothing.",
+    "confidence": "posted",
+    "class": "cleric",
+    "topic": "dungeons",
+    "sources": ["web:aion2run-cleric"]
+  },
+  {
+    "title": "Light of Protection doesn't stack with Undefeated Mantra",
+    "body": "Only the stronger applies and the Chanter's Mantra wins a tie; with a Chanter in the group, slot Absolution instead.",
+    "confidence": "posted",
+    "class": "cleric",
+    "topic": "stigmas",
+    "sources": ["web:gameoverdrive-builds", "web:expcarry-cleric-guide", "web:aion2run-cleric"]
+  },
+  {
+    "title": "Conflict: the fourth stigma for a damage Cleric",
+    "body": "Prayer of Amplification (expcarry, playhub, aion2maps, aion2.run offensive) against Summon Resurrection (64% of top Clerics vs 50%) or Yustiel's Power (Antochi).",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "stigmas",
+    "alsoTopics": ["conflicts"],
+    "sources": ["web:expcarry-cleric-guide", "web:playhub-builds", "web:gameoverdrive-builds", "web:aion2run-cleric", "web:metabot-cleric-build", "yt:-86sdRZ4SX4"]
+  },
+  {
+    "title": "Conflict: Debilitating Mark in the damage loop",
+    "body": "In the macro per playhub and expcarry, and a global dummy tester gains with it; Antochi and KR ranker data call casting it on cooldown a damage loss.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "rotation",
+    "alsoTopics": ["conflicts", "macros"],
+    "sources": ["web:playhub-builds", "web:expcarry-cleric-guide", "yt:-86sdRZ4SX4", "web:vortex-ranker-skills"]
+  },
+  {
+    "title": "Conflict: does a macro entry fire a whole hotbar column?",
+    "body": "Creators stack skills in one column and register only its row-0 skill (Antochi: 'one step, that column'); the 2026-10-10 in-game read took an entry as one skill.",
+    "confidence": "theory",
+    "class": null,
+    "topic": "macros",
+    "alsoTopics": ["conflicts", "hotbar"],
+    "sources": ["yt:-86sdRZ4SX4", "yt:5Dy9OA_NEzs", "yt:tYxkzfd_9-A", "yt:KptUtnv35vk", "web:playnews-macros", "web:game-client-skill-window"]
+  },
+  {
+    "title": "Conflict: Bolt inside the macro",
+    "body": "Th3Ruthless registers Bolt as an entry; Antochi, allthings.how and a BoredAF commenter keep it manual, since the macro fires it at charge 1.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "macros",
+    "alsoTopics": ["conflicts"],
+    "sources": ["yt:5Dy9OA_NEzs", "yt:-86sdRZ4SX4", "web:allthings-macros", "yt:tYxkzfd_9-A"]
+  },
+  {
+    "title": "Repeat Condemnation once the reset is live",
+    "body": "Expcarry lists Condemnation several times in its boss macro to catch crit resets; worth it only once Condemnation reaches 12 with the reset spec.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "macros",
+    "sources": ["web:expcarry-cleric-guide", "web:metabot-cleric-build"]
+  },
+  {
+    "title": "Turn Skill Queue off for the Condemnation macro",
+    "body": "BoredAF: with Skill Queue on, Condemnation doesn't go out properly; Antochi and expcarry say turn it on. Test both on the dummy.",
+    "confidence": "theory",
+    "class": "cleric",
+    "topic": "macros",
+    "alsoTopics": ["conflicts"],
+    "sources": ["yt:tYxkzfd_9-A", "yt:-86sdRZ4SX4", "web:expcarry-cleric-guide"]
+  }
+]

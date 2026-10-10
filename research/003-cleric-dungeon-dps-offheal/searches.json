@@ -1,0 +1,50 @@
+[
+  {
+    "id": "yt-cleric-dps-build",
+    "kind": "youtube",
+    "query": "aion 2 cleric dps build",
+    "why": "Global Cleric damage and macro videos; the hybrid dungeon setups surface here first.",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  },
+  {
+    "id": "yt-cleric-dungeon-guide",
+    "kind": "youtube",
+    "query": "aion 2 cleric dungeon guide",
+    "why": "Cleric dungeon POVs and guides, for how much healing a damage Cleric still owes the party.",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  },
+  {
+    "id": "web-expcarry-cleric",
+    "kind": "web",
+    "url": "https://expcarry.com/aion-2-cleric-guide",
+    "why": "Global guide with a boss-healer hybrid build, stigma upgrade order and macro templates; rerun for updates.",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  },
+  {
+    "id": "web-playhub-builds",
+    "kind": "web",
+    "url": "https://playhub.com/blog/aion-2/best-builds-for-each-class-978315",
+    "why": "Per-class global builds; its Cleric is the healer that takes as much damage as the fight allows.",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  },
+  {
+    "id": "web-metabot-cleric-build",
+    "kind": "web",
+    "url": "https://metabot.gg/en/aion-2/classes/cleric/build",
+    "why": "Top-player stigma pick rates: watch Prayer of Amplification against Summon Resurrection in the fourth slot.",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  },
+  {
+    "id": "web-gamerblurb-cleric",
+    "kind": "web",
+    "url": "https://gamerblurb.com/guides/aion-2-cleric-build-guide-pve-pvp-leveling-global",
+    "why": "The defensive counter-view: group stigmas with no damage slot; rerun to see whether it moves.",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  }
+]

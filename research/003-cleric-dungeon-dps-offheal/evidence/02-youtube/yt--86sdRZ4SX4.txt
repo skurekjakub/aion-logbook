@@ -1,0 +1,76 @@
+# Aion 2 Cleric PvE DPS Guide - Korean Macro Setup for Global
+- url: https://www.youtube.com/watch?v=-86sdRZ4SX4
+- channel: Antochi
+- published: 2026-10-07T15:49:40-07:00
+- views: 22801
+- length_s: 438
+- captions: []
+
+## Description
+Global players just got the Cleric. Korea has had it for ten and a half months - so this guide uses the Korean meta as the map, and sets it up for a global character: four stigma slots and low skill levels.
+
+Sources: 50 official Korean patch notes (Nov 2025 - Oct 2026), about 36 posts on the Inven Cleric (치유성) board and balance board, Korean creators 빵호빵, 두만옥, 강코딩, 치키챠, 리엔TV and 분탕러, and the global client's own skill text.
+
+WHERE IT STANDS
+Ninth of nine on the Korean boss boards, at about half the top class's damage; last of eight on global's week-one chart. That's a healer on a damage chart - but Korean parties count the Cleric's damage, and the most-viewed Korean guide found gearing for damage cost no healing.
+
+THE ENGINE
+Condemnation was 51% of the damage on a Korean meter. It needs Chain of Torment on the target, and spec 4 resets its cooldown on a critical hit. Earth Punishment makes every Condemnation crit - so every Condemnation resets itself.
+
+THE SETUP
+- Left click: Earth's Retribution. Right click: the Macro (Settings → Key Settings → General → Macro). Skill Queue on (Settings → Combat → Controls).
+- One column, row 0 first: Earth Punishment → Divine Aura → Condemnation → Chain of Torment
+- Macro: one step, that column, 10 ms (17 ms measured slightly better; 50 if your keys lag).
+- By hand: Bolt (the Macro fires it uncharged), Healing Light, Radiant Recovery, and your party shield on the pull and before the big hit.
+
+BUILD
+Condemnation 20 (specs 2/4/5), Bolt 20 (3/4/5), Divine Aura 20 (3/4/5), Earth's Retribution 16-20, Chain of Torment 10-16, Healing Light 16-20 (1/4), Radiant Recovery 16-20 (2/5).
+Passives: Earth's Grace → Empyrean Lord's Grace. Combat speed stops helping at 94.4%; keep cooldown reduction near 33%.
+
+GLOBAL: FOUR STIGMAS
+Earth Punishment and Yustiel's Power, then by party: Light of Protection with no Chanter (it doesn't stack with Undefeated Mantra), Prayer of Amplification for damage, or Salvation for raid bosses that wipe parties.
+Fresh character: level Condemnation → Bolt and Divine Aura.
+Earth's Blessing blocks the Chanter's Power of the Storm - agree who buffs speed.
+
+CHAPTERS
+0:00 Where the Cleric stands, and both halves of the job
+0:56 The engine: Condemnation and Earth Punishment
+1:42 The build
+2:41 What changes on global: four stigmas
+3:44 The in-game Macro, and what it looks like
+4:25 The setup: one column, one step
+5:31 Bolt, heals and the buttons you still press
+6:33 Five mistakes
+
+Footage: AION2 (official); screenshots: 분탕러검열단 on Inven - credited on screen.
+Music: AION 2 OST (NCSOUND).
+
+If this helped, like the video and subscribe.
+
+## Top comments (18)
+- @fedrick1connery607 [2]: this video save my life
+- @osssiae [11]: the most clear and understandable guide for newbies like me, thank you!
+- @Kre-chan [1]: Haven’t seen this good guide in a while, ty
+- @Edzharid [ ]: Nice guide thank you
+- @xotoexmw715 [1]: goated guide thx
+- @AZodiacCancer [2]: According to other guide makers who actually use global numbers one of those stigmas are bad. What about Raise and the other 2 stigmas that heal? The big burst heal can heal upwards of 25k with a 1m cool down. The other one is a HoT that's good too. I know this is mostly focused on damage but a dead party can't do damage.
+- @potatmcnuggets6959 [ ]: so, am i supposed to just hold down the macro the entire fight? it works great in the opener but since cooldowns for earth punishment and chain of torment arent the same, they misalign leading to sub-par uses of the condemnation loop. they eventually line back up together but my question is, would your dps be higher if you held chain of torment for 10s every time you use it to align it with condemnation or is that not a thing to even think about
+- @y_c317 [ ]: I want to play normal supp cleric but hate the pve overworld playstyle, i can just use this for exploration and quest etc right?
+- @SolaceLiSa [ ]: Sorry for being obtuse, but why do I need to bind RMB to macro? I mean the Condemnation macro is already on E right? So isn't it better to leave Thunder on RMB?
+- @Tom67Slick [ ]: Can you explain the debilitating strike again, when are we supposed to use it if it's not in the macro?
+
+And why no prayer of amplification in the macro?
+- @TheEdanmer [ ]: is there a pvp version of this?
+- @Solitariss [ ]: Condemnation will only be trigger if target have Chain of Torment, so why do they put Chain of Torment after?
+What is the specs of Earth's Retribution and Chain of Torment :( ?, it was not mentioned in the video. Thank you
+- @benni3119 [ ]: So, we’re not using Judgment Thunder then, since it doesn’t appear in the video?
+- @SanityPotion776 [ ]: This seems like quite a huge DPS loss compared to some of the popular macros/skill setups in Global rn. Testing other macros which include Debilitating Mark yield much higher results. 
+
+At 2544/115k I'm losing almost 7-8k DPS on a 1 minute window on the dummy.
+
+Edit: I see in a comment you replied to that most KR players don't cast Debilitating Mark on cooldown because its debuff is too small to matter. So does that mean you don't click it at all or...when do people fit it in if at all? I think this is a very important piece of information that should be covered seeing as in your mistakes section  you list that casting it every cooldown is a DPS loss.
+You also mention that if players take Prayer of Amplification it slots into row 0 but then don't mention anything about where Divine Aura will go as a result? Does it become a skill you manually press on CD?
+- @WyrmHeroBlade [ ]: so where is the macro? and judgement thunder? how about lightningstrike scattershot too?
+- @ΒασιληςΘ [ ]: The only problem I see for now using it , is that  Earth punishment is for 20 seconds into cooldown and i dont know what to do at that time Any suggestions?
+- @leehongzi [2]: why none is making lvl12~ skill version ,do u guys really expect normal ppl hitting 1600gs on week 1?
+- @nitrogenetica [2]: you miss completly judegement thunder. i think the macro setup is incomplete

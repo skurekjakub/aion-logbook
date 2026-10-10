@@ -1,0 +1,78 @@
+# The ONLY AION 2 Cleric Macro Guide You Need | PvE & PvP
+- url: https://www.youtube.com/watch?v=5Dy9OA_NEzs
+- channel: Th3Ruthless
+- published: 2026-10-09T09:00:03-07:00
+- views: 22158
+- length_s: 551
+- captions: []
+
+## Description
+Learn how to set up your AION 2 Cleric macro, arrange your skill priority, and weave left-click attacks to improve your damage and manage your mana.
+
+In this guide, I walk you through the in-game macro system before showing my Cleric setup and explaining why the order matters. You’ll learn how to bind your macro button, keep regeneration active, and adjust the sequence when changing between damage and healing-focused setups.
+
+If you’ve been copying macros without understanding how they work, this breakdown will help you understand what each part does and how to adapt it.
+
+🔴 WATCH ME LIVE ON TWITCH
+Join me for AION 2 gameplay, Cleric testing and discussions. Got a question about your setup? Come by the stream!
+[https://www.twitch.tv/th3ruthless](https://www.twitch.tv/th3ruthless)
+
+▶️ MORE AION 2 GUIDES
+Find more class guides, progression tips and AION 2 coverage in my playlist:
+[https://www.youtube.com/playlist?list=PLkUGvLWSGgI8lNskqvijrsDHQhcm6Sfxm](https://www.youtube.com/playlist?list=PLkUGvLWSGgI8lNskqvijrsDHQhcm6Sfxm)
+CHAPTERS
+00:00 Introduction
+00:28 How the macro system works
+02:08 Skill priority: put your spammable last
+02:32 Setting your macro keybind
+02:59 Left-click weaving, cooldowns and mana
+03:50 My Cleric macro sequence explained
+05:18 Light of Regeneration and buff uptime
+06:23 Adjusting your macro for different builds
+08:04 Remember to use your left click
+08:26 Final tips and questions
+
+Have a question about your Cleric macro? Drop it in the comments and tell me which part you’re struggling with.
+
+💬 JOIN THE DISCORD COMMUNITY
+Chat with the community, share your setup and discuss AION 2:
+[https://discord.com/invite/5J7eG4ukSP](https://discord.com/invite/5J7eG4ukSP)
+
+🔔 SUBSCRIBE FOR MORE
+AION 2 guides, Cleric tips and gameplay:
+[https://www.youtube.com/@Th3Ruthless/?sub_confirmation=1](https://www.youtube.com/@Th3Ruthless/?sub_confirmation=1)
+
+📩 BUSINESS INQUIRIES
+th3ruthless@gmail.com
+
+#AION2 #Cleric #AION2Guide
+
+## Top comments (18)
+- @xAgainst [1]: Nice Video
+Try to remove Judgment Thunder for bossing you get more dps like that :)
+- @clintdegen [ ]: Great video!
+- @botanicalb0b [ ]: This is a game changer! Great vid! Thank you sir~
+- @KlopsKopp [ ]: Thank You
+- @cbfsgaming7870 [1]: Can you do a pvp guide? Like what stats to go for and dps macros for it
+- @Dartagiann [ ]: Do you have skill queue on or off?
+- @Xaaaaaeji [ ]: do you need to do macro + autoattack button if you're using AION1 combat mode? It seems to hold autoattack automatically by the setting
+- @Shivers777 [ ]: Hey man. Good stuff! Just wondering why aren't you using bolt in the macro? is it because of the 45s CD?
+- @Mazovian2 [ ]: Doesent the macro cast the full skilllines? It doesent jump between macroed lines, does it?
+- @thagift84 [ ]: Why not do a showcase on the dummy?
+- @yannybee3707 [ ]: I still don't understand why you have to repeat the macro.
+- @CostumerSuport [ ]: why add a skill on macro when it has 30secs cooldown?
+- @Parkkid [ ]: I must be doing something wrong here. I set it up but it never casts condemnation this way.
+- @tiedudtv [ ]: When I test it in training dummy my starting dps is at 20k and it starts declining to settle somewhere around 12 - 14k! Is this normal? I am doing exactly what you showed!
+- @nicolaflagothier4916 [3]: Hey thanks for sharing.
+
+I guess I'm missing something, but why is the macro:
+2A > 1B > 4A > 1B > 2A
+
+And not simply:
+2A > 1B > 2A ?
+
+Those will both produce the same 2A > 1B > 4A > 1B > 4A ... cycle, no ?
+What Am I missing ?
+- @alimy1119 [ ]: I have watched guides that claim top Koreans do somthing different, sonce tye topic is complicated its hard to say whats best to follow
+- @chickensh8tbullsh8t71 [ ]: nice guide but this should be a micro guide xD
+- @ChadMustang [ ]: This is horrible lol
