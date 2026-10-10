@@ -1,0 +1,9 @@
+[41296.433] GET https://aion2.plaync.com/en-us/api/gameinfo/servers?lang=en-US&region=naw (XHR) 200
+[41296.434] GET https://aion2.plaync.com/en-us/api/gameinfo/classes?lang=en-US&region=naw (XHR) 200
+[41296.435] GET https://aion2.plaync.com/en-us/api/gameinfo/pcdata?lang=en-US&region=naw (XHR) 200
+[41296.474] GET https://aion2.plaync.com/en-us/api/gameinfo/servers?lang=en-US&region=eu (XHR) 200
+[41296.477] GET https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&serverId=&page=1&size=30&region=eu&localeInfo=en-US (XHR) 200
+[41296.493] GET https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&serverId=&page=1&size=40&region=eu&localeInfo=en-US (XHR) 200
+[41296.494] GET https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&serverId=&page=1&size=30&region=eu&localeInfo=en-US (XHR) 200
+[41296.522] GET https://aion2.plaync.com/api/character/info?region=eu&lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D&serverId=2319 (XHR) 200
+[41296.523] GET https://aion2.plaync.com/api/character/equipment?region=eu&lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D&serverId=2319 (XHR) 200

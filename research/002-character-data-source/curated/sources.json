@@ -1,0 +1,72 @@
+[
+  {
+    "id": "web:aion2-plaync-character-baon",
+    "url": "https://aion2.plaync.com/en-us/characters/2319/xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D?region=eu",
+    "title": "Character Info : AION 2-NC (Baon, Fafnir)",
+    "date": "2026-10-10",
+    "relevance": 3,
+    "note": "Official global character page, client-rendered; read with agent-browser. Its network log shows the JSON endpoints it calls.",
+    "summaryEn": "The official profile of Baon (Fafnir, EU, Asmodian Cleric, level 36): gear with enchant levels, skills and stigmas with levels, Daevanion boards, titles.",
+    "capturePath": "research/002-character-data-source/evidence/02-browser/aion2-plaync-com-en-us-characters-2319-baon.txt"
+  },
+  {
+    "id": "web:aion2-plaync-api-search",
+    "url": "https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&page=1&size=40&region=eu&localeInfo=en-US",
+    "title": "Official character search (global)",
+    "date": "2026-10-10",
+    "relevance": 3,
+    "note": "Unauthenticated JSON. region and localeInfo are required (400 without). Returns characterId, serverId, pcId, level per match.",
+    "summaryEn": "Name search per region; the EU search lists Baon on Fafnir at level 36 with the Cleric pcId.",
+    "capturePath": "research/002-character-data-source/evidence/03-api/search-baon-eu.json"
+  },
+  {
+    "id": "web:aion2-plaync-api-info",
+    "url": "https://aion2.plaync.com/api/character/info?region=eu&lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D&serverId=2319",
+    "title": "Official character info endpoint",
+    "date": "2026-10-10",
+    "relevance": 3,
+    "note": "Unauthenticated JSON: profile, stats (item level is a stat row), titles, ranking, Daevanion boards. 404 without region.",
+    "summaryEn": "Profile (name, class, level, combat power, server), primary and deity stats with item level, titles and Daevanion board progress.",
+    "capturePath": "research/002-character-data-source/evidence/03-api/character-info-baon.json"
+  },
+  {
+    "id": "web:aion2-plaync-api-equipment",
+    "url": "https://aion2.plaync.com/api/character/equipment?region=eu&lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D&serverId=2319",
+    "title": "Official character equipment endpoint",
+    "date": "2026-10-10",
+    "relevance": 3,
+    "note": "Unauthenticated JSON: equipped gear, pet and wings, and the full skill list (Active, Passive, Dp = stigma) with levels and an equip flag.",
+    "summaryEn": "Gear per slot with enchant and exceed levels, and every class skill with its level, acquired and equipped flags.",
+    "capturePath": "research/002-character-data-source/evidence/03-api/character-equipment-baon.json"
+  },
+  {
+    "id": "web:aion2-plaync-characters-js",
+    "url": "https://assets.playnccdn.com/static-aion2/characters/js/index.js?_=202610061429",
+    "title": "Official character pages' script bundle",
+    "date": "2026-10-10",
+    "relevance": 2,
+    "note": "Excerpts only: base hosts, the region and lang params, the search, info, equipment and Daevanion calls.",
+    "summaryEn": "How the official pages build their API calls, global versus KR.",
+    "capturePath": "research/002-character-data-source/evidence/04-site-js/characters-index-js-endpoints.txt"
+  },
+  {
+    "id": "web:metabot-armory",
+    "url": "https://metabot.gg/en/aion-2/armory",
+    "title": "AION 2 Armory: Character Search & Gear Lookup | MetaBot.GG",
+    "date": "2026-10-10",
+    "relevance": 1,
+    "note": "Fan armory over the official data, copy refreshed when older than 30 minutes. No public API: /api/ is disallowed in robots.txt and answers curl with 403.",
+    "summaryEn": "Says it reads the public character data the official site publishes; no documented API.",
+    "capturePath": "research/002-character-data-source/evidence/01-pages/metabot-gg-en-aion-2-armory.md"
+  },
+  {
+    "id": "web:plaync-terms-of-use",
+    "url": "https://www.plaync.com/policy/service/game_en",
+    "title": "Terms of Use (NC, English)",
+    "date": "2026-10-10",
+    "relevance": 3,
+    "note": "Section 6 forbids accessing or searching the Services by automated means other than NC's published interfaces, and scraping without NC's consent.",
+    "summaryEn": "NC's game terms: no automated access or scraping outside published interfaces without a separate agreement.",
+    "capturePath": "research/002-character-data-source/evidence/06-terms/plaync-com-policy-service-game-en.md"
+  }
+]

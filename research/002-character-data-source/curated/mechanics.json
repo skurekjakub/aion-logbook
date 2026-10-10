@@ -1,0 +1,65 @@
+[
+  {
+    "title": "Lookup: search by name, then fetch by server and character id",
+    "body": "GET api-search.plaync.com/aion2global/search/v2/character?keyword=&region=&localeInfo= (optional serverId) returns characterId, serverId, pcId, level. Both params required: 400 without localeInfo.",
+    "confidence": "tested",
+    "class": null,
+    "topic": "character-data",
+    "alsoTopics": ["sync"],
+    "sources": ["web:aion2-plaync-api-search", "web:aion2-plaync-characters-js"]
+  },
+  {
+    "title": "Character info: profile, stats, item level, titles, Daevanion",
+    "body": "GET aion2.plaync.com/api/character/info?region=&lang=&characterId=&serverId=. profile has name, className, characterLevel, combatPower, serverName; item level is the stat row of type ItemLevel. 404 without region.",
+    "confidence": "tested",
+    "class": null,
+    "topic": "character-data",
+    "alsoTopics": ["sync"],
+    "sources": ["web:aion2-plaync-api-info", "web:aion2-plaync-characters-js"]
+  },
+  {
+    "title": "Character equipment: gear, skills with levels, stigmas",
+    "body": "GET aion2.plaync.com/api/character/equipment, same params. skill.skillList has every class skill: category Active, Passive or Dp (stigma), skillLevel, acquired, equip. Stigmas carry no slot position.",
+    "confidence": "tested",
+    "class": null,
+    "topic": "character-data",
+    "alsoTopics": ["sync", "stigmas"],
+    "sources": ["web:aion2-plaync-api-equipment", "web:aion2-plaync-character-baon"]
+  },
+  {
+    "title": "No auth, no cookies, no rate-limit headers seen",
+    "body": "Plain curl with its default User-Agent gets 200 and no Set-Cookie. 20 back-to-back info calls all answered 200; responses are no-store, live calls take about 1.8 s and repeats inside a few seconds about 0.24 s.",
+    "confidence": "tested",
+    "class": null,
+    "topic": "character-data",
+    "alsoTopics": ["sync"],
+    "sources": ["web:aion2-plaync-api-info"]
+  },
+  {
+    "title": "Errors: unknown id, wrong server and missing region are all 404",
+    "body": "info answers 404 application/problem+json with code resource.not_found for a wrong serverId, an unknown characterId and a missing region alike, so a 404 does not say which.",
+    "confidence": "tested",
+    "class": null,
+    "topic": "character-data",
+    "alsoTopics": ["sync"],
+    "sources": ["web:aion2-plaync-api-info"]
+  },
+  {
+    "title": "Terms of Use forbid automated access outside published interfaces",
+    "body": "NC's Terms § 6 bar accessing or searching the Services by automated means other than published interfaces, and scraping without consent. These endpoints are unpublished; a scheduled fetch runs against that.",
+    "confidence": "posted",
+    "class": null,
+    "topic": "character-data",
+    "alsoTopics": ["sync"],
+    "sources": ["web:plaync-terms-of-use"]
+  },
+  {
+    "title": "Fan armory: no public API",
+    "body": "metabot.gg reads the same official data and refreshes a copy older than 30 minutes, but its /api/ is disallowed in robots.txt, answers curl with 403 and has no developer page.",
+    "confidence": "tested",
+    "class": null,
+    "topic": "character-data",
+    "alsoTopics": [],
+    "sources": ["web:metabot-armory"]
+  }
+]

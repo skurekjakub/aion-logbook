@@ -1,0 +1,11 @@
+{
+  "record": {
+    "slug": "002-character-data-source",
+    "question": "Where does the official Aion 2 site publish a character's public data, so pnpm sync can fetch it without game input?",
+    "status": "done",
+    "startedAt": "2026-10-10",
+    "classes": []
+  },
+  "curated": "curated",
+  "ledger": { "file": "evidence/captures.jsonl" }
+}

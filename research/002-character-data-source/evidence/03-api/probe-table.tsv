@@ -1,0 +1,19 @@
+name	status	content_type	cache_control	set_cookie	bytes	seconds	url
+gameinfo-servers-eu	200	application/json	no-cache, no-store, max-age=0, must-revalidate	no	3484	1.265500	https://aion2.plaync.com/en-us/api/gameinfo/servers?lang=en-US&region=eu
+gameinfo-classes-eu	200	application/json	no-cache, no-store, max-age=0, must-revalidate	no	373	0.244485	https://aion2.plaync.com/en-us/api/gameinfo/classes?lang=en-US&region=eu
+gameinfo-pcdata-eu	200	application/json	no-cache, no-store, max-age=0, must-revalidate	no	3059	0.258957	https://aion2.plaync.com/en-us/api/gameinfo/pcdata?lang=en-US&region=eu
+gameinfo-servers-no-locale-path	302		no-cache, no-store, max-age=0, must-revalidate	no	0	0.258088	https://aion2.plaync.com/api/gameinfo/servers?lang=en-US&region=eu
+search-baon-eu	200	application/json	-	no	2645	0.814255	https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&page=1&size=40&region=eu&localeInfo=en-US
+search-baon-nae	200	application/json	-	no	649	0.453900	https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&page=1&size=40&region=nae&localeInfo=en-US
+search-baon-naw	200	application/json	-	no	2082	0.466522	https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&page=1&size=40&region=naw&localeInfo=en-US
+search-baon-as	200	application/json	-	no	3226	0.439434	https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&page=1&size=40&region=as&localeInfo=en-US
+search-baon-la	200	application/json	-	no	356	0.768406	https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&page=1&size=40&region=la&localeInfo=en-US
+search-baon-eu-fafnir	200	application/json	-	no	638	0.457087	https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&serverId=2319&page=1&size=40&region=eu&localeInfo=en-US
+search-baon-no-locale	400	application/problem+json	-	no	418	0.439405	https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&serverId=2319&page=1&size=40&region=eu
+character-info-baon	200	application/json	no-cache, no-store, max-age=0, must-revalidate	no	4049	1.788040	https://aion2.plaync.com/api/character/info?region=eu&lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D&serverId=2319
+character-equipment-baon	200	application/json	no-cache, no-store, max-age=0, must-revalidate	no	11974	2.181224	https://aion2.plaync.com/api/character/equipment?region=eu&lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D&serverId=2319
+character-daevanion-71-baon	200	application/json	no-cache, no-store, max-age=0, must-revalidate	no	41234	0.742439	https://aion2.plaync.com/api/character/daevanion/detail?region=eu&lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D&serverId=2319&boardId=71
+character-info-no-region	404	application/problem+json	no-cache, no-store, max-age=0, must-revalidate	no	232	0.470228	https://aion2.plaync.com/api/character/info?lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D&serverId=2319
+character-info-wrong-server	404	application/problem+json	no-cache, no-store, max-age=0, must-revalidate	no	232	0.236150	https://aion2.plaync.com/api/character/info?region=eu&lang=en-US&characterId=xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D&serverId=2318
+character-info-unknown-id	404	application/problem+json	no-cache, no-store, max-age=0, must-revalidate	no	232	0.229338	https://aion2.plaync.com/api/character/info?region=eu&lang=en-US&characterId=AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA%3D&serverId=2319
+search-kr-baon	200	application/json	-	no	1493	0.452508	https://api-search.plaync.com/aion2/search/v2/character?keyword=%EB%B0%94%EC%98%A8&page=1&size=5

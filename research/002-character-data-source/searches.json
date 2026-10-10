@@ -1,0 +1,26 @@
+[
+  {
+    "id": "web-official-search-baon-eu",
+    "kind": "web",
+    "url": "https://api-search.plaync.com/aion2global/search/v2/character?keyword=Baon&page=1&size=40&region=eu&localeInfo=en-US",
+    "why": "The official name search: re-finds the character's id and server if either changes (server transfer, rename).",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  },
+  {
+    "id": "web-official-character-page-baon",
+    "kind": "web",
+    "url": "https://aion2.plaync.com/en-us/characters/2319/xzsyGd6XtPyctmj9TJwqU2r8vtL-V3jn_EWQe1YEXwo%3D?region=eu",
+    "why": "The official profile; its network log shows whether the endpoints or params moved. Client-rendered, read with agent-browser.",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  },
+  {
+    "id": "web-metabot-armory",
+    "kind": "web",
+    "url": "https://metabot.gg/en/aion-2/armory",
+    "why": "Fan armory over the official data; recheck whether it ever offers a documented public API.",
+    "added": "2026-10-10",
+    "lastHit": "2026-10-10"
+  }
+]

@@ -1,0 +1,2 @@
+[43308.292] GET https://metabot.gg/api/aion-2/armory/search?q=Baon&region=eu (Fetch) 200
+[43308.294] GET https://metabot.gg/api/aion-2/armory/search?q=Baon&region=eu&mode=nc (Fetch) 403

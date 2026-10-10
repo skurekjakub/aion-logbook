@@ -1,0 +1,26 @@
+[
+  {
+    "text": "The official site serves any character as JSON without login: sync can read level, gear, skills and stigmas.",
+    "detail": "Search by name and region, then info and equipment by serverId and characterId on aion2.plaync.com.",
+    "class": null,
+    "sources": ["web:aion2-plaync-api-search", "web:aion2-plaync-api-info", "web:aion2-plaync-api-equipment"]
+  },
+  {
+    "text": "The character is Baon on Fafnir (EU, serverId 2319), Asmodian Cleric, level 36.",
+    "detail": "The only level-36 Cleric named Baon in any global region's search on 2026-10-10.",
+    "class": null,
+    "sources": ["web:aion2-plaync-api-search", "web:aion2-plaync-character-baon"]
+  },
+  {
+    "text": "Macros, keybinds and stigma slot positions are not published: those still come from the game read.",
+    "detail": null,
+    "class": null,
+    "sources": ["web:aion2-plaync-api-equipment"]
+  },
+  {
+    "text": "Unpublished endpoints under Terms that forbid automated access: keep sync on demand and gentle, decide the daily job.",
+    "detail": "OPEN-QUESTIONS candidate: the scheduled GitHub Actions sync is the part the Terms bear on most.",
+    "class": null,
+    "sources": ["web:plaync-terms-of-use"]
+  }
+]

@@ -1,0 +1,35 @@
+# Excerpts of https://assets.playnccdn.com/static-aion2/characters/js/index.js?_=202610061429
+# bundle sha256 60c7c5b88ed47ffd0bbed02ffced476a951c23668aba6eecd9161d02b16702a2, 835725 chars; each block is the bundle text around the needle, verbatim.
+
+## search base hosts — needle "XP={" at offset 394514
+XP={[Ie.LOCAL]:"https://api-search.sb.plaync.com",[Ie.SB]:"https://api-search.sb.plaync.com",[Ie.RC]:"https://rc-api-search.plaync.com",[Ie.STAGE]:"https://api-search.plaync.com",[Ie.LIVE]:"https://api-search.plaync.com"},tv={[Ie.LOCAL]:"https://sb-api-goats.p
+
+## site base hosts — needle "GP={" at offset 393815
+GP={[Ie.LOCAL]:"https://aion2.sb.plaync.com",[Ie.SB]:"https://aion2.sb.plaync.com",[Ie.RC]:"https://rc-aion2.plaync.com",[Ie.STAGE]:"https://aion2.plaync.com",[Ie.LIVE]:"https://aion2.plaync.com"},ZP={[Ie.LOCAL]:"https:/
+
+## character api path prefix per language — needle "Il={" at offset 393399
+Il={ko:"",zh:"/aion2",en:"",de:"",fr:"",es:"",ja:"",pt:""},Ji={en:"en-US",de:"de-DE",fr:"fr-FR",es:"es-ES",ja:"ja-JP",pt:"pt-BR"},ev=e=>dt()?Ji[e]??Ji[e.split("-")[0]]??e:e,YP="aion2global",va="all",mC={[Ie.LOCAL]:"https
+
+## region param — needle "md=()=>" at offset 513526
+md=()=>{if(!dt())return{};const e=new URLSearchParams(window.location.search).get("region");if(mn(e))return{region:e};const t=Gt.getState().region;return t?{region:t}:{}},q3=({characterProfile:e,statList:t})=>{const{t:n}=Et(),{isP
+
+## global detection — needle "dt=()=>" at offset 393088
+dt=()=>(document.documentElement.getAttribute("data-service")?.toLowerCase()??"").includes("global"),VP=()=>dt()?"global":"domestic",td=()=>
+
+## character search — needle "search/v2/character" at offset 524566
+게임 리전 코드")});ct(xT);const n4=He({list:ct(xT).describe("캐릭터 목록"),pagination:He({page:ye().describe("현재 페이지"),size:ye().describe("페이지 크기"),total:ye().describe("전체 개수"),endPage:ye().describe("마지막 페이지")}).describe("페이지네이션 정보")}),_T=async(e,t)=>{const n=dt(),r=ln()===Ie.LOCAL?"":XP[ln()],s=n?`${r}/${YP}/search/v2/character`:`/${t==="ko"?"api":"aion2/api"}/search/character`,o=Gt.getState().pcDataMap,c=e.className&&o?o[e.className.toUpperCase()]:void 0,u=Gt.getState().region,f=Ji[t]??Ji[t.split("-")[0]],h=n?{...u?{region:u}:{},...f?{localeInfo:f}:{}}:{},m=(await ET.get(s,{params:{keyword:e.keyword,pcId:c?.join(","),race:e.race===va?void 0:e.race,serverId:e.serverId,sort:e.sort,page:e.page,size:e.size||40,...h}})).data;return n4.parse(m)},r4=async(e,t,n)=>{const r=await ii.get(`${Il[n]}/api/character/equipment`,{para
+
+## character info — needle "/api/character/info" at offset 769286
+목록")}),c8=He({profile:e8,stat:n8,title:a8,ranking:s8,daevanion:l8}),u8=async(e,t,n)=>{try{const r=await ii.get(`${Il[n]}/api/character/info`,{params:{...md(),lang:ev(n),characterId:t,serverId:e}}),s=Ev({schema:c8,rawData:r.data,onError:o=>{console.error("Zod 에러 상세:",o.issues)}});if(!s.ok)throw new Error(`스키마 검증 실패: ${s.error.message}`);return s.data}catch(r){throw r}},f8=(e,t)=
+
+## character equipment — needle "/api/character/equipment`" at offset 525055
+rt:e.sort,page:e.page,size:e.size||40,...h}})).data;return n4.parse(m)},r4=async(e,t,n)=>{const r=await ii.get(`${Il[n]}/api/character/equipment`,{params:{...md(),lang:ev(n),characterId:e,serverId:t}}),s=Ev({schema:W3,rawData:r.data,onError:o=>{console.error("Zod 에러 상세:",o.issues)}});if(!s.ok)throw new Error(`스키마 검증 실패: ${s.error.message}`);return s.data},CT=(e,t)=>{const{lang:
+
+## daevanion board detail — needle "/api/character/daevanion/detail" at offset 729470
+"오픈한 스탯 효과 목록"),openSkillEffectList:ct(Mg).describe("오픈한 스킬 효과 목록")}),P6=async(e,t,n,r)=>{const s=await ii.get(`${Il[r]}/api/character/daevanion/detail`,{params:{...md(),lang:ev(r),characterId:e,serverId:t,boardId:n}}),o=Ev({schema:D6,rawData:s.data,onError:c=>{console.error("Zod 에러 상세:",c.issues)}});if(!o.ok)throw new Error(`스키마 검증 실패: ${o.error.message}`);return o.data},j6=(e
+
+## item level stat — needle "p.type===\"ItemLevel\"" at offset 513951
+className.toLowerCase()}.png`,"characters"):""},f=t.find(p=>p.type==="ItemLevel")?.value||0,h=p=>{if(!p)return"-";const m=Math.abs(p);let b="K",y=p/1e3;m>=1e6&&(b="M",y=p/1e6);cons
+
+## search level note — needle "emptyDescription" at offset 375212
+emptyDescription:"・캐릭터 검색은 45레벨 이상의 캐릭터만 제공됩니다.",myCharacter:"내 캐릭터 검색",norecentsearchhistory:"최근 검색어 내역이 없습니다.",deletea

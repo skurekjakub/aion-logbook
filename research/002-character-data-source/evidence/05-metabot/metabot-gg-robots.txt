@@ -1,0 +1,15 @@
+User-Agent: *
+Allow: /
+Disallow: /api/
+Disallow: /private/
+Disallow: /*/league/profile/
+Disallow: /*/TFT/profile/
+Disallow: /*/valorant/profile/
+Disallow: /*/deadlock/profile/
+Disallow: /*/marvelrivals/profile/
+Disallow: /*/cs2/profile/
+Disallow: /*/slay-the-spire-2/profile/
+Disallow: /*/aion-2/profile/
+
+Host: https://metabot.gg
+Sitemap: https://metabot.gg/sitemap.xml
