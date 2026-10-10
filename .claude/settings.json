@@ -1,0 +1,9 @@
+{
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "setup-ai@giga-marketplace": true,
+    "research-planning@giga-marketplace": true,
+    "agent-architecture@giga-marketplace": true
+  }
+}
