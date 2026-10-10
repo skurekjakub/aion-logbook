@@ -1,0 +1,47 @@
+/* Design tokens. Components read only these; each theme block redefines them. */
+:root{
+  --bg:#eef4f2; --surface:#fbfdfc; --surface-2:#e2ecea; --line:#c9d9d6;
+  --ink:#10302f; --ink-2:#3d5957; --ink-3:#6a8482;
+  --accent:#0e7a7e; --accent-ink:#ffffff; --accent-soft:#d3ebea;
+  --candy:#f07a1a; --candy-soft:#fde6d2; --candy-ink:#8a3d00;
+  --good:#1f7a3a; --warn:#9a6400; --bad:#b3261e;
+  /* verdict tints: a badge's or a row's background behind --good/--warn/--bad text */
+  --good-soft:#dcf0e2; --warn-soft:#f7ecd4; --bad-soft:#f8dfdc;
+  /* skill kinds, for the skill chip's badge */
+  --k-active:#2a78d6; --k-passive:#3b9147; --k-stigma:#6c4fb0;
+  /* categorical series, fixed order (validated: dataviz validate_palette.js, light + dark) */
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4; --s0:#7f8f8d;
+  --radius:10px; --radius-s:6px;
+  /* type scale (px, on a 14px body) and spacing steps */
+  --fs-2xs:11px; --fs-xs:12px; --fs-s:13px; --fs-base:14px; --fs-m:15px; --fs-l:18px; --fs-xl:21px; --fs-2xl:26px;
+  --sp-1:4px; --sp-2:6px; --sp-3:10px; --sp-4:16px; --sp-5:24px; --sp-6:32px;
+  /* shell: the sidebar's width and the phone top bar's height */
+  --nav-w:208px; --bar-h:48px;
+  --display:"IBM Plex Sans",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0c1a1b; --surface:#132628; --surface-2:#1a3234; --line:#2a4648;
+    --ink:#e4f1ef; --ink-2:#a9c2bf; --ink-3:#7b9794;
+    --accent:#4fb8bb; --accent-ink:#06201f; --accent-soft:#173f41;
+    --candy:#ff9a45; --candy-soft:#3a2614; --candy-ink:#ffc48f;
+    --good:#5cc27a; --warn:#e0a53a; --bad:#ff7a6e;
+    --good-soft:#163524; --warn-soft:#352a12; --bad-soft:#3d1d1b;
+    --k-active:#4a90e8; --k-passive:#55ad62; --k-stigma:#8f74d6;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s0:#8aa09d;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0c1a1b; --surface:#132628; --surface-2:#1a3234; --line:#2a4648;
+  --ink:#e4f1ef; --ink-2:#a9c2bf; --ink-3:#7b9794;
+  --accent:#4fb8bb; --accent-ink:#06201f; --accent-soft:#173f41;
+  --candy:#ff9a45; --candy-soft:#3a2614; --candy-ink:#ffc48f;
+  --good:#5cc27a; --warn:#e0a53a; --bad:#ff7a6e;
+  --good-soft:#163524; --warn-soft:#352a12; --bad-soft:#3d1d1b;
+  --k-active:#4a90e8; --k-passive:#55ad62; --k-stigma:#8f74d6;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s0:#8aa09d;
+}

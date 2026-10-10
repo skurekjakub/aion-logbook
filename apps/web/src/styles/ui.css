@@ -1,0 +1,234 @@
+/* The shared building blocks of the scannable UI (AGENTS.md: UI, scannable, not prose): verdict
+   pills, clamped text, bullet explainers, callouts, quiet source chips, the page and view headers
+   and the theme toggle. Loaded after components.css, whose older rules for the same classes these
+   refine. Colours come from tokens.css only. */
+
+/* A name over its alternative (the glossary's client name over a guide's name). */
+.name-stack {
+  display: inline-flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.25;
+}
+.name-stack .en {
+  font-weight: 600;
+}
+.name-stack .kr {
+  font-size: var(--fs-2xs);
+}
+
+/* Pill: a tinted badge; its glyph (from data-glyph) gives the verdict without colour. */
+.pill {
+  gap: 4px;
+  padding: 3px 8px 3px 6px;
+  border: 0;
+  font: 600 var(--fs-2xs) / 1.1 var(--body);
+  letter-spacing: 0.01em;
+}
+.pill::before {
+  content: attr(data-glyph);
+  font-size: 0.95em;
+  line-height: 1;
+}
+.pill.t-good {
+  color: var(--good);
+  background: var(--good-soft);
+}
+.pill.t-info {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+.pill.t-warn {
+  color: var(--warn);
+  background: var(--warn-soft);
+}
+.pill.t-bad {
+  color: var(--bad);
+  background: var(--bad-soft);
+}
+.pill.t-quiet {
+  color: var(--ink-3);
+  background: var(--surface-2);
+}
+
+/* Clamp: the collapsed text shows --clamp lines; "More" sits on the last line, over a fade. */
+.clamp {
+  position: relative;
+  display: block;
+  --clamp-bg: var(--surface);
+}
+.clamp-text[style] {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--clamp);
+  line-clamp: var(--clamp);
+  overflow: hidden;
+}
+.more {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: 600 var(--fs-xs) / inherit var(--body);
+  cursor: pointer;
+}
+.more:hover {
+  text-decoration: underline;
+}
+.clamp:not(.open) > .more {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding-left: 2.5em;
+  background: linear-gradient(90deg, transparent, var(--clamp-bg) 2em);
+}
+.clamp.open > .more {
+  margin-left: 0.4em;
+}
+.clamp.open > .clamp-text {
+  display: inline;
+}
+:is(header.top, .view-head) .clamp {
+  --clamp-bg: var(--bg);
+}
+
+/* Points: a view's explainer as short bullets. */
+ul.points {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: var(--sp-2) 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--ink-2);
+  max-width: 72ch;
+}
+ul.points li {
+  position: relative;
+  padding-left: 16px;
+}
+ul.points li::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--candy);
+}
+
+/* Callout: a cited mechanic under a view's heading, verdict first, sources last. */
+.callout {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2) var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--candy);
+  border-radius: var(--radius-s);
+  background: var(--surface);
+  font-size: var(--fs-s);
+}
+.callout > .pill,
+.callout > span > .pill {
+  margin-top: 1px;
+}
+.callout-body {
+  flex: 1;
+  min-width: 0;
+}
+@media (max-width: 640px) {
+  .callout {
+    flex-wrap: wrap;
+  }
+  .callout-body {
+    flex-basis: 100%;
+    order: 1;
+  }
+}
+
+/* Notes elsewhere: quiet blocks with a candy edge, not loud fills. */
+.note {
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--candy);
+  border-radius: var(--radius-s);
+  background: var(--surface);
+  color: var(--ink);
+}
+
+/* SourceChips: small, quiet, at the end of a row; "+N" unfolds the rest. */
+.chips.src {
+  gap: 3px;
+}
+.chips.src .chip {
+  padding: 2px 5px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-3);
+  font: 500 10px / 1.2 var(--body);
+}
+.chips.src a.chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: transparent;
+}
+.chips.src .more-chips {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* PageHeader: the title with its tag, the clamped lede, the stamp. */
+header.top {
+  padding-bottom: var(--sp-4);
+}
+.page-title-block {
+  min-width: 0;
+  flex: 1 1 420px;
+}
+.title-tag {
+  margin-left: 10px;
+  font: 500 var(--fs-s) / 1 var(--body);
+  color: var(--ink-3);
+  letter-spacing: 0;
+  vertical-align: middle;
+}
+header.top .lede {
+  margin-top: var(--sp-1);
+  max-width: 72ch;
+}
+
+/* ViewHeader */
+.view-head h2 {
+  margin-bottom: 2px;
+}
+.view-head .lede {
+  max-width: 72ch;
+}
+
+/* A card's foot: its sources, right-aligned. */
+.card-foot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+}
+
+/* ThemeToggle: a small button under the brand. */
+.theme-toggle {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: var(--sp-2);
+  padding: 3px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-2);
+  font: 500 var(--fs-xs) / 1.2 var(--body);
+  cursor: pointer;
+}
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--ink);
+}
