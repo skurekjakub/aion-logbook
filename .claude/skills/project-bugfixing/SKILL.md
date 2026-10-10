@@ -166,9 +166,12 @@ Every bugfix leaves a written trail under `.ai/bugfixes/NNN-<slug>/`:
 .ai/bugfixes/NNN-<slug>/
   root-cause.md          # what breaks, where, why — written BEFORE the fix
   explainer.html         # published artifact: the shipped fix, for the user
-  <surface>-before.png   # one capture pair per affected surface
+  <surface>-before.png   # one capture pair per affected surface (local, gitignored)
   <surface>-after.png
 ```
+
+The Markdown notes are committed; the captures stay local. `.gitignore`
+excludes media under `.ai/`, because the repo is public (`AGENTS.md`).
 
 Two documents, not three. There is no `design.md` and no `plan.md`: a bugfix
 that needs a plan is a feature.
@@ -226,7 +229,8 @@ Name them for the surface so the pairing is unambiguous
 `cart-badge-after.png`). Both shots of a pair are the same route, same scroll
 position, same viewport — a "before" at the top of the page and an "after"
 at the block proves nothing. They live in the bugfix directory next to
-`root-cause.md`; a screenshot in `/tmp` is gone by the next session.
+`root-cause.md`, gitignored and never committed; a screenshot in `/tmp` is
+gone by the next session.
 
 ### `explainer.html` — the contract
 
@@ -328,7 +332,8 @@ agent-browser screenshot before.png
 ```
 
 Copy each capture into the bugfix directory as
-`.ai/bugfixes/NNN-<slug>/<surface>-before.png`, per the journal section.
+`.ai/bugfixes/NNN-<slug>/<surface>-before.png`, per the journal section; it
+stays local (gitignored).
 Where the defect is textual, also record the
 measured value — `agent-browser eval` reading the DOM is stronger evidence
 than a picture of it, and diffable.
@@ -473,7 +478,7 @@ the PR body.
 
 ### Phase 11 — Commit and finish
 
-Bundle the fix, tests, artifacts, captures and doc updates into a single
+Bundle the fix, tests, artifacts and doc updates (captures stay local) into a single
 commit, branch, and PR so the change can be cleanly reverted as a single
 unit. Review-finding commits from Phase 8
 sit on top of it and are exempt — they answer a reviewer, so each stays

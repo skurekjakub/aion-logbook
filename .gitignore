@@ -36,6 +36,19 @@ research/**/*.webm
 research/**/*.mkv
 research/**/*.mov
 
+# workflow captures (bugfix before/after shots) stay local; the Markdown notes are committed
+.ai/**/*.png
+.ai/**/*.jpg
+.ai/**/*.jpeg
+.ai/**/*.gif
+.ai/**/*.webp
+.ai/**/*.avif
+.ai/**/*.bmp
+.ai/**/*.mp4
+.ai/**/*.webm
+.ai/**/*.mkv
+.ai/**/*.mov
+
 # macro logs, and the screens a macro stopped on
 tools/**/*.log
 tools/**/stops/

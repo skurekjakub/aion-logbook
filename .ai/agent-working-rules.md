@@ -74,9 +74,6 @@ enforced on top of it:
   annotations marking where something was deleted. When ripping out X, delete
   every comment mentioning X and describe the current state as if the code had
   always been this way.
-- **Test phases are labelled.** Each test body gets `// Arrange`, `// Act`,
-  `// Assert` above the first statement of each phase (`// Act & Assert` when
-  one expression; absent phase, no label; the label is the whole comment).
 - **Comment audits fix comments only.** Naming, fixture and structure
   findings are reported and filed in one batch; the audit never fixes them.
 
