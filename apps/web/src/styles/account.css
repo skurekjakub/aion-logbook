@@ -1,0 +1,219 @@
+/* The character: the home page's card, the profile tiles, the roadmap's priority groups and rows,
+   and the snapshot's sections. Priority colours: now candy, next accent, later quiet. */
+
+/* The character card on the home page: name and level badge, then class, gear score and server. */
+.char-card {
+  gap: var(--sp-3);
+  border-left: 3px solid var(--candy);
+}
+.char-top {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+}
+.char-top h3 {
+  font-size: var(--fs-xl);
+}
+.char-level {
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--candy-soft);
+  color: var(--candy-ink);
+  font-weight: 700;
+}
+.char-facts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.char-read {
+  margin-left: auto;
+  font-size: var(--fs-xs);
+}
+.home-next,
+.acct-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin-top: var(--sp-4);
+}
+.acct-section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-3);
+}
+.more-link {
+  margin-left: auto;
+  font: 600 var(--fs-xs) / 1.2 var(--body);
+}
+
+/* The profile tiles, and the snapshot picker beside them. */
+.acct-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--sp-3);
+}
+.acct-profile {
+  flex: 1 1 420px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: var(--sp-2);
+  margin: 0;
+}
+.acct-profile > div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--radius-s);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  min-width: 0;
+}
+.acct-profile dt {
+  font: 600 var(--fs-2xs) / 1.2 var(--body);
+  color: var(--ink-3);
+}
+.acct-profile dd {
+  margin: 0;
+  font: 700 var(--fs-m) / 1.2 var(--body);
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.acct-pick {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.acct-pick select {
+  font: var(--fs-s) var(--body);
+  padding: 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-s);
+  background: var(--surface);
+  color: var(--ink);
+  max-width: 100%;
+}
+ul.unread {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+ul.unread .chip {
+  background: transparent;
+  border: 1px dashed var(--line);
+  color: var(--ink-3);
+  white-space: normal;
+}
+
+/* Roadmap: a group per priority under its badge; each row edged in the priority's colour. */
+.road {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+.road-group {
+  --prio: var(--ink-3);
+  --prio-soft: var(--surface-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.road-group.prio-now {
+  --prio: var(--candy);
+  --prio-soft: var(--candy-soft);
+}
+.road-group.prio-next {
+  --prio: var(--accent);
+  --prio-soft: var(--accent-soft);
+}
+.prio {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--prio-soft);
+  color: var(--prio);
+  font: 700 var(--fs-xs) / 1.2 var(--body);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.prio::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--prio);
+}
+.road-group.prio-now .prio {
+  color: var(--candy-ink);
+}
+.road-group ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--prio);
+  border-radius: var(--radius);
+}
+.road-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  padding: var(--sp-3) var(--sp-4);
+  min-width: 0;
+}
+.road-item + .road-item {
+  border-top: 1px solid var(--line);
+}
+.road-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2) var(--sp-3);
+}
+.road-action {
+  font: 700 var(--fs-base) / 1.35 var(--body);
+  min-width: 0;
+}
+.road-badges {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+.chip.area {
+  background: var(--prio-soft);
+  color: var(--ink-2);
+}
+.road-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-1) var(--sp-3);
+  font-size: var(--fs-s);
+  color: var(--ink-2);
+}
+.road-why {
+  flex: 1 1 18em;
+  min-width: 0;
+}
+.chips.refs {
+  margin-left: auto;
+}
+.chip.ref {
+  color: var(--accent);
+  background: var(--accent-soft);
+  max-width: 20em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

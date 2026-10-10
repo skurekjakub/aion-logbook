@@ -1,0 +1,186 @@
+/* Styles the base sheets don't cover: the navigation (sidebar, phone top bar and drawer), the
+   "On this page" list. tokens.css, base.css and
+   components.css are kept unformatted (see .prettierignore). The 960px breakpoint matches the
+   shell grid in base.css. */
+
+/* SideNav: the logbook index. The current section carries a candy spine; the current page is filled. */
+.sidenav {
+  font-size: var(--fs-base);
+}
+.brand {
+  display: grid;
+  padding: 0 10px var(--sp-4);
+}
+.brand-name {
+  font: 700 var(--fs-l) / 1.1 var(--display);
+  color: var(--ink);
+}
+.brand-game {
+  font-size: var(--fs-2xs);
+  color: var(--ink-3);
+}
+.nav-sections,
+.nav-pages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-section.group {
+  margin-top: var(--sp-3);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--line);
+}
+.nav-section-link {
+  display: grid;
+  padding: 5px 10px;
+  border-radius: var(--radius-s);
+  color: var(--ink-2);
+  text-decoration: none;
+  line-height: 1.25;
+}
+.nav-section-link .nav-en {
+  font-weight: 600;
+}
+.nav-section-link .kr {
+  font-size: var(--fs-2xs);
+}
+.nav-section-link:hover {
+  background: var(--surface-2);
+  color: var(--ink);
+}
+.nav-section-link[aria-current] {
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: inset 3px 0 0 var(--candy);
+}
+.nav-pages {
+  margin: 2px 0 var(--sp-2) 14px;
+  padding-left: var(--sp-2);
+  border-left: 1px solid var(--line);
+}
+.nav-pages a {
+  display: block;
+  padding: 3px 8px;
+  border-radius: var(--radius-s);
+  color: var(--ink-2);
+  font-size: var(--fs-s);
+  text-decoration: none;
+}
+.nav-pages a:hover {
+  background: var(--surface-2);
+  color: var(--ink);
+}
+.nav-pages a[aria-current="page"] {
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+
+/* Wide screens: the popover is laid out in the page as a sticky sidebar, never in the top layer. */
+@media (min-width: 960px) {
+  .sidenav {
+    display: block;
+    position: sticky;
+    inset: auto;
+    top: 0;
+    width: auto;
+    height: auto;
+    max-height: 100vh;
+    margin: 0;
+    padding: var(--sp-5) 0 var(--sp-5);
+    overflow-y: auto;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    scrollbar-width: thin;
+  }
+}
+
+/* Phones: a drawer from the left edge, over a dimmed page. */
+@media (max-width: 959px) {
+  .sidenav:popover-open {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: min(300px, 86vw);
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: var(--sp-4) var(--sp-3) var(--sp-5);
+    overflow-y: auto;
+    border: 0;
+    border-right: 1px solid var(--line);
+    background: var(--bg);
+    color: var(--ink);
+  }
+  .sidenav::backdrop {
+    background: color-mix(in srgb, var(--ink) 40%, transparent);
+  }
+  .nav-section-link,
+  .nav-pages a {
+    padding-block: 7px;
+  }
+}
+
+/* TopBar: the phone's sticky bar with the menu button that opens the drawer. */
+.topbar {
+  display: none;
+}
+@media (max-width: 959px) {
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    height: var(--bar-h);
+    margin-inline: -16px;
+    padding-inline: 10px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+  }
+}
+.menu-btn {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--sp-3);
+  min-width: 0;
+  height: 36px;
+  padding: 0 var(--sp-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font: 500 var(--fs-base) / 1 var(--body);
+  text-align: left;
+  cursor: pointer;
+}
+.menu-icon {
+  flex: none;
+  width: 16px;
+  height: 2px;
+  border-radius: 1px;
+  background: currentColor;
+  box-shadow:
+    0 -5px 0 currentColor,
+    0 5px 0 currentColor;
+}
+.trail {
+  display: flex;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.trail > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.trail-sep {
+  flex: none;
+  color: var(--ink-3);
+  white-space: pre;
+}
+.trail-here {
+  flex: none;
+  font-weight: 700;
+}

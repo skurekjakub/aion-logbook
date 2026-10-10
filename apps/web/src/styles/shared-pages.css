@@ -1,0 +1,238 @@
+/* The pages outside any class: the research index, a record's capture ledger, the sources
+   table and the glossary. Colours come from tokens.css only. */
+
+/* Research index: compact record cards, two up on wide screens. */
+.record-grid {
+  display: grid;
+  gap: var(--sp-3);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr));
+}
+.record-card {
+  gap: var(--sp-2);
+}
+.record-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  font-size: var(--fs-xs);
+}
+.record-no {
+  font-size: var(--fs-2xs);
+  color: var(--ink-3);
+}
+.record-updated {
+  margin-left: auto;
+  white-space: nowrap;
+}
+.record-classes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+}
+/* A class as a pill: on record cards and the character card, linking to its builds when it has them. */
+.class-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--ink);
+  font: 700 var(--fs-m) / 1.2 var(--body);
+  text-decoration: none;
+}
+a.class-chip:hover,
+a.class-chip:focus-visible {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.record-lede {
+  color: var(--ink-2);
+  font-size: var(--fs-s);
+}
+.record-q {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+  font-size: var(--fs-xs);
+}
+.record-q .label {
+  flex: none;
+}
+.record-q .clamp,
+.record-q > :last-child {
+  flex: 1;
+  min-width: 0;
+}
+.record-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px 12px;
+  margin-top: auto;
+  padding-top: var(--sp-2);
+  border-top: 1px solid var(--line);
+}
+.record-foot .chip.season {
+  max-width: 30ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ledger-link {
+  font: 600 var(--fs-xs) / 1.2 var(--body);
+  white-space: nowrap;
+}
+
+/* Capture ledger: a breadcrumb back to the index, files led by their name. */
+nav.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: baseline;
+  font-size: var(--fs-xs);
+  color: var(--ink-3);
+}
+.capture-file {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0;
+  min-width: 0;
+  font-size: var(--fs-2xs);
+}
+.capture-dir {
+  color: var(--ink-3);
+}
+.capture-name {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Sources: a quiet table; the title leads, ids and records are small chips. */
+td.source-id {
+  width: 1%;
+  white-space: nowrap;
+}
+td.source-id a.source-link {
+  display: inline-block;
+  max-width: 14ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: bottom;
+  font: 600 var(--fs-xs) / 1.3 var(--body);
+  white-space: nowrap;
+}
+td.source-title {
+  min-width: 18em;
+}
+.source-title-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.source-title-text .en {
+  color: var(--ink);
+}
+.source-title-text .kr {
+  font-size: var(--fs-2xs);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 60ch;
+}
+td.source-rel {
+  white-space: nowrap;
+}
+.relevance {
+  display: inline-flex;
+  gap: 3px;
+  vertical-align: middle;
+}
+.relevance i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.relevance i.on {
+  background: var(--accent);
+  box-shadow: none;
+}
+td.source-records .chips {
+  flex-wrap: nowrap;
+}
+td.source-captured {
+  white-space: nowrap;
+}
+.source-capture-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.source-capture-cell .capture {
+  max-width: 24ch;
+}
+@media (max-width: 640px) {
+  /* Stacked on a phone: the title leads the block, the capture closes it. */
+  table.stack td.source-id {
+    width: auto;
+  }
+  table.stack td.source-title {
+    order: -1;
+    min-width: 0;
+  }
+  table.stack td.source-captured {
+    order: 2;
+    flex-basis: 100%;
+  }
+  table.stack td.source-rel:empty,
+  table.stack td.source-captured:has(.source-capture-cell:empty) {
+    display: none;
+  }
+  td.source-records .chips {
+    flex-wrap: wrap;
+  }
+}
+
+/* Glossary: the client's name over the guide's, shorthand as chips, the kind as a quiet tag. */
+td.gloss-name {
+  min-width: 16em;
+}
+.name-stack.term .en {
+  font-weight: 600;
+}
+td.gloss-short .chips {
+  max-width: none;
+}
+.kind {
+  display: inline-block;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font: 500 var(--fs-2xs) / 1.2 var(--body);
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+.kind.k-class {
+  border-color: transparent;
+  background: var(--candy-soft);
+  color: var(--candy-ink);
+}
+.kind.k-skill {
+  border-color: transparent;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+@media (max-width: 640px) {
+  /* Stacked on a phone: the name leads; an entry with no shorthand drops the empty field. */
+  table.stack td.gloss-name {
+    order: -1;
+    min-width: 0;
+  }
+  table.stack td.gloss-short:empty {
+    display: none;
+  }
+}

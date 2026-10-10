@@ -1,0 +1,77 @@
+/* Styles for src/components. One block per component, named after its module. */
+
+/* card, note, flag */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:var(--sp-3) var(--sp-4);display:flex;flex-direction:column;gap:var(--sp-2);min-width:0}
+.card-head{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;justify-content:space-between}
+.note{background:var(--candy-soft);color:var(--candy-ink);border-radius:var(--radius);padding:var(--sp-2) var(--sp-3);font-size:var(--fs-s)}
+
+/* chips, pills */
+.chip{display:inline-flex;align-items:center;gap:4px;font:500 var(--fs-2xs)/1.2 var(--body);padding:3px 6px;border-radius:var(--radius-s);background:var(--surface-2);color:var(--ink-2);text-decoration:none;white-space:nowrap}
+a.chip:hover{background:var(--accent-soft);color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:4px}
+.pill{display:inline-flex;align-items:center;gap:5px;font:600 var(--fs-2xs)/1 var(--body);letter-spacing:.02em;padding:3px 7px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+
+/* takeaways (class overview): one ruled list, not a card per finding */
+ol.take{counter-reset:t;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius)}
+ol.take li{counter-increment:t;display:grid;grid-template-columns:26px 1fr;gap:var(--sp-2);padding:var(--sp-3) var(--sp-4) var(--sp-3) var(--sp-3)}
+ol.take li + li{border-top:1px solid var(--line)}
+ol.take li::before{content:counter(t);font:700 var(--fs-l)/1.25 var(--display);color:var(--candy);text-align:center}
+ol.take li > div{display:flex;flex-direction:column;gap:var(--sp-1);min-width:0}
+
+/* DataTable */
+.tools{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
+.tools input,.tools select{font:var(--fs-s) var(--body);padding:6px 9px;border:1px solid var(--line);border-radius:var(--radius-s);background:var(--surface);color:var(--ink);min-width:0}
+.tools input{flex:1 1 220px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:var(--fs-s);line-height:1.4}
+th,td{text-align:left;padding:6px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:600 var(--fs-xs)/1.3 var(--body);color:var(--ink-3);background:var(--surface-2);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+@media (min-width:641px){td.wide{width:40%}}
+td > .chips{max-width:13em}
+td .chip{white-space:normal;overflow-wrap:break-word}
+/* Phones: a scrolling table pins its first column; a stacked table turns each row into a block, the
+   header kept for screen readers, narrow cells labelled inline and wide cells on lines of their own. */
+@media (max-width:640px){
+  table.scroll :is(th,td):first-child{position:sticky;left:0;z-index:1;background:var(--surface);box-shadow:inset -1px 0 0 var(--line)}
+  table.scroll th:first-child{background:var(--surface-2)}
+  table.stack,table.stack tbody{display:block}
+  table.stack thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  table.stack tr{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px;padding:8px 10px;border-bottom:1px solid var(--line)}
+  table.stack tr:last-child{border-bottom:none}
+  table.stack td{display:block;padding:0;border:0;min-width:0}
+  table.stack td.wide{order:1;flex-basis:100%}
+  table.stack td[data-label]:not(:first-child):not(.wide)::before{content:attr(data-label) " ";font:600 var(--fs-2xs)/1 var(--body);color:var(--ink-3)}
+}
+
+/* sources view: a long source id wraps rather than widening its column; the title takes the room;
+   a capture path stays on one line, cut from the left so the file name shows */
+td.source-id a{display:inline-block;max-width:22ch;white-space:normal;overflow-wrap:anywhere}
+td.source-title,td.source-capture{width:auto}
+.capture{display:block;max-width:28ch;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;direction:rtl;text-align:left;font-size:var(--fs-2xs);color:var(--ink-3)}
+.capture > span{unicode-bidi:isolate}
+@media (max-width:640px){.capture{max-width:100%}}
+
+/* CaptureStamp: the time, then the tool on its own line; ≈ marks a backfilled time and explains itself on hover.
+   A capture URL is cut at the end, its full form in the tooltip */
+.capture-stamp{font-size:var(--fs-2xs)}
+.capture-stamp .approx{text-decoration:none;cursor:help;margin-right:.25em;color:var(--ink-3)}
+.capture-stamp .tool{display:block}
+td.capture-tool,td.capture-time{white-space:nowrap}
+td.capture-tool .mono{font-size:var(--fs-2xs)}
+.capture-url{display:inline-block;max-width:32ch;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;vertical-align:bottom;font-size:var(--fs-2xs)}
+@media (max-width:640px){.capture-url{max-width:100%}}
+
+/* ObsoleteSection: the collapsed section that ends a list page; ObsoleteNotice: the line heading an obsolete item */
+details.obsolete{margin-top:var(--sp-3);border-top:1px solid var(--line);padding-top:var(--sp-3)}
+details.obsolete > summary{cursor:pointer;width:fit-content}
+details.obsolete .obsolete-body{display:flex;flex-direction:column;gap:var(--sp-3);margin-top:var(--sp-3)}
+.obsolete-item{display:flex;flex-direction:column;gap:var(--sp-2)}
+.obsolete-notice{display:flex;align-items:flex-start;gap:var(--sp-1) var(--sp-2);padding:2px 0;color:var(--ink-2);font-size:var(--fs-s)}
+.obsolete-notice > .pill{flex:none;margin-top:1px}
+.obsolete-why{flex:1;min-width:0}
+.obsolete-reason .clamp{display:inline}
+.obsolete-reason .clamp:has(.clamp-text[style]){display:block}
+.obsolete-notice .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media (max-width:640px){.obsolete-notice{flex-wrap:wrap} .obsolete-why{flex-basis:100%;order:1} .obsolete-notice > .chips.src{order:2}}

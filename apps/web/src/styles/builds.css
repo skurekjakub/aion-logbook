@@ -1,0 +1,400 @@
+/* A class's pages: the build cards, the build switch, skill chips, the skill priority, the stigma
+   slot track, macro chains, mechanics, takeaways and the advice card. Verdict first, one line of
+   text, sources last. Loaded after ui.css. Colours come from tokens.css only. */
+
+/* SkillChip: an initials badge tinted by the skill's kind, the name, an optional level. */
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 2px 8px 2px 2px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--ink);
+  font: 600 var(--fs-s) / 1.2 var(--body);
+  vertical-align: middle;
+  --kind: var(--ink-3);
+}
+.skill-chip.k-active {
+  --kind: var(--k-active);
+}
+.skill-chip.k-passive {
+  --kind: var(--k-passive);
+}
+.skill-chip.k-stigma {
+  --kind: var(--k-stigma);
+}
+.skill-badge {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--kind);
+  color: var(--surface);
+  font: 700 9px / 1 var(--body);
+  letter-spacing: 0;
+}
+.skill-badge::after {
+  content: attr(data-initials);
+}
+.skill-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.skill-lv {
+  font-size: var(--fs-2xs);
+  color: var(--ink-3);
+}
+/* A name read from the client that matched no loaded skill: outlined, flagged after the name. */
+.skill-chip.unresolved {
+  background: transparent;
+  border: 1px dashed var(--ink-3);
+  padding: 1px 7px 1px 1px;
+}
+.skill-flag {
+  font: 500 var(--fs-2xs) / 1.2 var(--body);
+  color: var(--ink-3);
+}
+
+/* The build switch: a segmented row of builds; the one shown is filled. */
+.build-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.build-tab {
+  padding: 4px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink-2);
+  font: 500 var(--fs-s) / 1.3 var(--body);
+  text-decoration: none;
+}
+.build-tab .purpose {
+  font-weight: 700;
+}
+.build-tab:hover {
+  border-color: var(--accent);
+  color: var(--ink);
+}
+.build-tab[aria-current="page"] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* The picked build's line: purpose, title, confidence, sources. */
+.build-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-3);
+}
+.build-line .chips.src {
+  margin-left: auto;
+}
+.chip.purpose {
+  background: var(--candy-soft);
+  color: var(--candy-ink);
+  font-weight: 700;
+}
+
+/* Build cards on a class's landing page. */
+.build-card-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.build-why {
+  color: var(--ink-2);
+  font-size: var(--fs-s);
+}
+.build-pages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.build-pages a {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--ink);
+  font: 600 var(--fs-xs) / 1.3 var(--body);
+  text-decoration: none;
+}
+.build-pages a:hover {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* Skill priority: one ruled list; the rank leads, the target badge and the level verdict follow. */
+ol.priority {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.priority-row {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 2px var(--sp-3);
+  padding: var(--sp-3) var(--sp-4) var(--sp-3) var(--sp-3);
+}
+.priority-row + .priority-row {
+  border-top: 1px solid var(--line);
+}
+.priority-row .rank {
+  grid-row: span 2;
+  font: 700 var(--fs-xl) / 1.05 var(--display);
+  color: var(--candy);
+  text-align: center;
+}
+.priority-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+  min-width: 0;
+}
+.target {
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+.level-up {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-xs);
+  color: var(--warn);
+}
+.priority-why {
+  font-size: var(--fs-s);
+}
+
+/* StigmaSlots: one row per slot; the unlock level leads, a locked slot is dimmed with a padlock. */
+ol.stigma-slots {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.stigma-slot {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  align-items: start;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4) var(--sp-3) var(--sp-3);
+}
+.stigma-slot + .stigma-slot {
+  border-top: 1px solid var(--line);
+}
+.slot-level {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: var(--radius-s);
+  background: var(--accent-soft);
+  color: var(--ink);
+  font-weight: 700;
+}
+.stigma-slot.locked .slot-level {
+  background: var(--surface-2);
+  color: var(--ink-3);
+}
+.stigma-slot.locked .slot-body {
+  opacity: 0.6;
+}
+.lock {
+  width: 12px;
+  height: 12px;
+}
+.slot-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 0;
+}
+.slot-skill {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.slot-why {
+  font-size: var(--fs-s);
+}
+
+/* MacroChain: the key and delay up top, the steps as a numbered column in the editor's order. */
+.macro-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2) var(--sp-4);
+}
+.macro-key,
+.macro-delay {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+kbd {
+  display: inline-grid;
+  place-items: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 6px;
+  border: 1px solid var(--line);
+  border-bottom-width: 3px;
+  border-radius: var(--radius-s);
+  background: var(--surface-2);
+  color: var(--ink);
+  font: 700 var(--fs-s) / 1 var(--mono);
+}
+ol.macro-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+ol.macro-steps li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.step-no {
+  flex: none;
+  width: 20px;
+  color: var(--ink-3);
+  font-size: var(--fs-xs);
+  text-align: right;
+}
+.step-note {
+  font-size: var(--fs-xs);
+}
+.macro-why {
+  font-size: var(--fs-s);
+}
+
+/* Mechanics and takeaways on a class's landing page. */
+.mechanics,
+.takeaways {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+.mech-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.mech-body {
+  font-size: var(--fs-s);
+  color: var(--ink-2);
+}
+.callout.caveat {
+  border-left-color: var(--warn);
+}
+ol.take.findings li {
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--sp-1) var(--sp-3);
+}
+.finding {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.finding .lead {
+  font-weight: 600;
+  line-height: 1.4;
+}
+.finding .muted {
+  font-size: var(--fs-s);
+}
+ol.take.findings .chips.src {
+  justify-content: flex-end;
+  max-width: 15em;
+  padding-top: 2px;
+}
+@media (max-width: 640px) {
+  ol.take.findings li {
+    grid-template-columns: 28px minmax(0, 1fr);
+  }
+  ol.take.findings .chips.src {
+    grid-column: 2;
+    justify-content: flex-start;
+    max-width: none;
+  }
+}
+
+/* The advice card: each change an arrowed to-do line, the summary and sources under a dashed rule. */
+.card.account {
+  gap: var(--sp-3);
+  border-left: 3px solid var(--accent);
+}
+.advice {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+ul.todo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+ul.todo li {
+  position: relative;
+  padding-left: 22px;
+}
+ul.todo li::before {
+  content: "→";
+  position: absolute;
+  left: 2px;
+  top: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+.advice-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-1) var(--sp-3);
+  padding-top: var(--sp-2);
+  border-top: 1px dashed var(--line);
+  font-size: var(--fs-s);
+}
+.advice-foot > .muted {
+  flex: 1 1 320px;
+  min-width: 0;
+}
