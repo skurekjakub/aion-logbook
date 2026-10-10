@@ -123,4 +123,21 @@ describe("web capture", () => {
     );
     expect(readLedger(context.recordDir)).toEqual([]);
   });
+
+  it("refuses a URL whose file name another URL's capture already holds", async () => {
+    const other = "https://eloboost24.eu/blog/aion-2-gladiator-build?page=2";
+    const seen: SeenRequest[] = [];
+    const { context } = testContext(
+      fakeFetch([["https://eloboost24.eu/", { body: GUIDE_HTML }]], seen),
+      "capture:web",
+    );
+    await webCapture(context, "evidence/01-guides", GUIDE_URL);
+    expect(await webCapture(context, "evidence/01-guides", GUIDE_URL)).toBeNull();
+    const refusal = webCapture(context, "evidence/01-guides", other);
+    await expect(refusal).rejects.toThrow(LedgerError);
+    await expect(refusal).rejects.toThrow(`${GUIDE_PATH} already holds ${GUIDE_URL}`);
+    await expect(refusal).rejects.toThrow(other);
+    expect(seen).toHaveLength(1);
+    expect(readLedger(context.recordDir)).toHaveLength(1);
+  });
 });

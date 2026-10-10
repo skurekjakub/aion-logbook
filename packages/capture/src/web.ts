@@ -15,6 +15,7 @@ import { commitStaged, isCaptured, stageText } from "./context";
 import type { HttpOptions } from "./http";
 import { DESKTOP_UA, HttpClient } from "./http";
 import { parseHtml } from "./html";
+import { LEDGER_FILE, LedgerError, readLedger } from "./ledger";
 import { isoLocal } from "./time";
 
 /** Elements whose content never reaches the text: code, styling, and the site's own chrome. */
@@ -313,8 +314,8 @@ export function webClient(options: Partial<HttpOptions> = {}): HttpClient {
 /**
  * Captures one web page as `<outdir>/<slug>.md`: a front-matter block
  * (`url`, `captured_at`, `title`) and the page as {@link htmlToText} writes
- * it, with its ledger line. A page already captured is kept as it is and
- * not fetched again.
+ * it, with its ledger line. A page already captured from the same URL is
+ * kept as it is and not fetched again.
  *
  * @param context - the run
  * @param outdir - the record-relative folder under `evidence/`
@@ -322,7 +323,9 @@ export function webClient(options: Partial<HttpOptions> = {}): HttpClient {
  * @returns the path written, or `null` when the page was already captured
  * @throws if the page never answers 200
  * @throws {LedgerError} when the target file has a line but is missing or
- *   differs from it, or is on disk without a line; nothing is written then
+ *   differs from it, is on disk without a line, or holds the capture of
+ *   another URL with the same file name (one that differs only in its query
+ *   or fragment); nothing is written then
  */
 export async function webCapture(
   context: CaptureContext,
@@ -331,6 +334,15 @@ export async function webCapture(
 ): Promise<string | null> {
   const path = posix.join(outdir, `${slugOfUrl(url)}.md`);
   if (isCaptured(context, path)) {
+    const held = readLedger(context.recordDir).findLast((entry) => entry.line.path === path)!.line
+      .url;
+    if (held !== url) {
+      throw new LedgerError(
+        LEDGER_FILE,
+        null,
+        `${path} already holds ${held ?? "a derived file"}; ${url} needs another <dir>`,
+      );
+    }
     context.log(`  ${path}: already captured`);
     return null;
   }
